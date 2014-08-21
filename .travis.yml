@@ -39,3 +39,8 @@ deploy:
   endpoint: dh-r.lincolnmullen.com.s3-website-us-east-1.amazonaws.com
   local-dir: _site
   skip_cleanup: true
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
