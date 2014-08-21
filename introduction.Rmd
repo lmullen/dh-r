@@ -8,6 +8,10 @@ output: bookdown::html_chapter
 
 This book sits at the intersection of two genres of books of interest to digital historians.
 
+The other are 
+
+Some books have already bridged these two genres. Most notably, Matthew Jocker's, *[Text Analysis with R for Students of Literature](http://www.matthewjockers.net/text-analysis-with-r-for-students-of-literature/)* (Springer, 2014)
+
 Other books on R.
 
 Other books on DH.

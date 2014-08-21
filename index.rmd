@@ -9,6 +9,6 @@ output: bookdown::html_chapter
 This is the in-progress book site for *Digital History Methods in R*.  
 
 <ul class="toc">
-  {% include package-nav.html %}
+  {% include navigation.html %}
 </ul>
 
