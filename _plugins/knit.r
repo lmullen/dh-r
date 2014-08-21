@@ -1,4 +1,4 @@
-#!/usr/local/bin/Rscript
+#!/usr/bin/Rscript
 library(rmarkdown)
 library(bookdown)
 library(methods)
