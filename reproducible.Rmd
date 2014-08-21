@@ -1,0 +1,15 @@
+---
+title: "Reproducible Research"
+layout: default
+output: bookdown::html_chapter
+---
+
+# Reproducible Research
+
+## General principles
+
+## Knitr
+
+## Makefiles
+
+## Git

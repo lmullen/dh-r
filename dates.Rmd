@@ -1,0 +1,20 @@
+---
+title: "Dates"
+layout: default
+output: bookdown::html_chapter
+---
+
+# Dates
+
+Dates are one of the most important things for historians to work with, and they are also one of the most frustrating
+
+## Lubridate
+
+```{r}
+library(lubridate)
+date <- mdy("August 8, 1863")
+date
+class(date)
+```
+
+## Parsing large quantities of dates

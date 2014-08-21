@@ -1,0 +1,40 @@
+---
+title: "Packages"
+layout: default
+output: bookdown::html_chapter
+---
+
+# R Packages
+
+See Hadley Wickham, *[R Packages](http://r-pkgs.had.co.nz/)* (O'Reilly, forthcoming) for a full treatment.  See also Hilary Parker, "[Writing an R Package from Scratch](http://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/)" for a shorter explanation.
+
+## Personal Packages
+
+A personal package is a set of functions that you use repeatedly from one 
+project to the next. It is wise to create a package for these kinds of 
+functions so that you do not have to keep multiple version of a function up to 
+date. For an example from a scientist see Karl Broman's eponymous 
+[browman](http://cran.r-project.org/web/packages/broman/index.html) package, 
+or my [mullenMisc](https://github.com/lmullen/mullenMisc) package.
+
+## Data packages
+
+Data packages are for making data sets readily available inside of R. There 
+are many built in examples, some of which we have already used. One is the 
+`mtcars` data set:
+
+```{r}
+data(mtcars)
+str(mtcars)
+head(mtcars)
+```
+
+Data sets can be documented. For example, try `?mtcars` to see a description of the source of the mtcars data set and the variables it contains.
+
+There are a few data sets of interest to historians. Forthcoming: New Nation Votes. Gender package with SSA data set.
+
+If you have a dataset, you should make it publicly available. A good way to do that is on GitHub. But it is not too much extra work to make an R package too.
+
+## Libraries
+
+At some point it may make sense to write a general purpose library intended for other people's use. Do *not* write a general purpose library starting out. You'll want to be sure that the package will be useful to you many times before you go through the labor of generalizing it.

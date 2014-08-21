@@ -4,6 +4,8 @@ layout: default
 output: bookdown::html_chapter
 ---
 
+# Statistics
+
 Basic statistical techniques of interest to historians.
 
 Yes, we'll start with `mean()` and `sd()` and `hist()`.

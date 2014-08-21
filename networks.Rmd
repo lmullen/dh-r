@@ -1,8 +1,6 @@
 ---
-title: "Topic Modeling"
+title: "Networks"
 layout: default
 output: bookdown::html_chapter
 ---
-
-# Topic Modeling
 

@@ -4,6 +4,8 @@ title: Introduction
 output: bookdown::html_chapter
 ---
 
+# Introduction
+
 ## Why this book?
 
 This book sits at the intersection of two genres of books of interest to digital historians.

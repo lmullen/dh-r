@@ -1,0 +1,15 @@
+---
+title: "Strings"
+layout: default
+output: bookdown::html_chapter
+---
+
+# Strings
+
+```{r}
+library(stringr)
+```
+
+## Regular Expressions
+
+

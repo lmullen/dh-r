@@ -6,7 +6,7 @@ output: bookdown::html_chapter
 
 # Digital History Methods in R
 
-This is the in-progress book site for *Digital History Methods in R*.  
+This is the in-progress book site for *Digital History Methods in R*. For the course for which the book is being written, please see my syllabus for "[Programming in History/New Media](http://lincolnmullen.com/courses/clio3.2014)."
 
 <ul class="toc">
   {% include navigation.html %}

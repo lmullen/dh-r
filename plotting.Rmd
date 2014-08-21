@@ -4,3 +4,20 @@ layout: default
 output: bookdown::html_chapter
 ---
 
+# Plotting
+
+## The Grammar of Graphics
+
+Ideas such as x-axis is independent variable, y-axis is the dependent variable.
+
+## Base R
+
+## ggplot2
+
+```{r}
+library(magrittr)
+library(ggplot2)
+mtcars %>% ggplot(aes(x = wt, y = mpg)) + geom_point() + geom_smooth() + ggtitle("Weight vs. MPG in MTCARS data set")
+```
+
+

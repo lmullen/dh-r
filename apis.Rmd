@@ -1,0 +1,26 @@
+---
+title: "Web APIs"
+layout: default
+output: bookdown::html_chapter
+---
+
+# Web APIs (Application Programming Interfaces)
+
+## Accessing APIs
+
+```{r}
+library(httr)
+```
+
+## JSON
+
+## XML
+
+See the section on [scraping websites](scraping.html).
+
+## APIs of interest to historians
+
+The Digital Public Libary of America (DPLA) has a very [useful and well documented API](http://dp.la/info/developers/codex/).
+
+## Packages that provide API wrappers
+

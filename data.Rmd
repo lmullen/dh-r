@@ -4,6 +4,8 @@ title: Data Manipulation
 output: bookdown::html_chapter
 ---
 
-# Definition
+# Data Manipulation
+
+## Definition
 
 What is *data*? For our purposes, let us say that data is any source amenable to computation.

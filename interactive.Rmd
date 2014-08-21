@@ -1,0 +1,11 @@
+---
+title: "Interactive Plotting"
+layout: default
+output: bookdown::html_chapter
+---
+
+# Interactive Plotting
+
+```{r}
+library(ggvis)
+```
