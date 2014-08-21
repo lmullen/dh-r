@@ -6,11 +6,11 @@ output: bookdown::html_chapter
 
 ## Why this book?
 
+This book sits at the intersection of two genres of books of interest to digital historians.
+
 Other books on R.
 
 Other books on DH.
-
-## What is the H in DH?
 
 ## Why Computer Programming?
 

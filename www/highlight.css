@@ -108,3 +108,7 @@ table thead > tr > th {
 table tr.odd {
   background-color: #fafafa;
 }
+
+img {
+  max-width: 100%;
+}

@@ -1,6 +1,6 @@
 ---
-layout: Data
-title: Introduction
+layout: default
+title: Data
 output: bookdown::html_chapter
 ---
 
