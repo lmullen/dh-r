@@ -1,0 +1,9 @@
+---
+title: "Statistics"
+layout: default
+output: bookdown::html_chapter
+---
+
+Basic statistical techniques of interest to historians.
+
+Yes, we'll start with `mean()` and `sd()` and `hist()`.

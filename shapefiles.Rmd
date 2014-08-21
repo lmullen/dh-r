@@ -1,0 +1,6 @@
+---
+title: "Working with Shapefiles"
+layout: default
+output: bookdown::html_chapter
+---
+

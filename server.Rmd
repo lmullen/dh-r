@@ -1,0 +1,7 @@
+---
+title: "R on a Server"
+layout: default
+output: bookdown::html_chapter
+---
+
+How to set up R and/or RStudio Server on an Amazon EC2 instance.

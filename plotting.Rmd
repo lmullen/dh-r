@@ -1,0 +1,6 @@
+---
+title: "Plotting"
+layout: default
+output: bookdown::html_chapter
+---
+
