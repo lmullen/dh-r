@@ -18,6 +18,8 @@ Other books on R.
 
 Other books on DH.
 
+This book also aims to be an introduction to the technical literature on various digital humanities subjects. After providing you with the basic concepts and codes to tackle text mining or network anaylsis, the chapters will point you to additional works which will deepen your conceptual and practical knowledge of how to apply these methods in history.
+
 ## Why Computer Programming?
 
 ## Why R?
