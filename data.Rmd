@@ -1,0 +1,9 @@
+---
+title: "Data"
+author: "Lincoln Mullen"
+output: html_document
+---
+
+# Definition
+
+What is *data*? For our purposes, let us say that data is any source amenable to computation.
