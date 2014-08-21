@@ -6,6 +6,8 @@ output: bookdown::html_chapter
 
 # Web APIs (Application Programming Interfaces)
 
+## Downloading Files with CURL
+
 ## Accessing APIs
 
 ```{r}
