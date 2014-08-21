@@ -1,3 +1,7 @@
+body {
+  font-size: 18px;
+}
+
 /* Affix navigation to top-left */
 #nav.affix {
   position: static;
