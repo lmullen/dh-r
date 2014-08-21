@@ -5,3 +5,11 @@ output: bookdown::html_chapter
 ---
 
 # Mapping
+
+## Named Entity Extraction
+
+How to get place (and other kinds of names) out of a document.
+
+## Geocoding
+
+Given a set of names or addresses, how to get latitudes and longitudes for them.
