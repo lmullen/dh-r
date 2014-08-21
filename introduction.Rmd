@@ -1,7 +1,7 @@
 ---
-title: "Introduction"
-author: "Lincoln Mullen"
-output: html_document
+layout: default
+title: Introduction
+output: bookdown::html_chapter
 ---
 
 ## Why this book?

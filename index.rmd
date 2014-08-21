@@ -1,0 +1,14 @@
+---
+layout: default
+title: Welcome
+output: bookdown::html_chapter
+---
+
+# Digital History Methods in R
+
+This is the in-progress book site for *Digital History Methods in R*.  
+
+<ul class="toc">
+  {% include package-nav.html %}
+</ul>
+
