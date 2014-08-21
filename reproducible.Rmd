@@ -12,4 +12,6 @@ output: bookdown::html_chapter
 
 ## Makefiles
 
+## Packrat
+
 ## Git
