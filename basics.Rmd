@@ -1,0 +1,8 @@
+---
+title: "Basics of R"
+layout: default
+output: bookdown::html_chapter
+---
+
+# Basics of R
+
