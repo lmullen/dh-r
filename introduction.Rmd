@@ -6,6 +6,10 @@ output: bookdown::html_chapter
 
 ## Why this book?
 
+Other books on R.
+
+Other books on DH.
+
 ## What is the H in DH?
 
 ## Why Computer Programming?
