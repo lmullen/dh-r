@@ -1,0 +1,64 @@
+---
+title: "Introduction"
+author: "Lincoln Mullen"
+output: html_document
+---
+
+## Why this book?
+
+## What is the H in DH?
+
+## Why Computer Programming?
+
+## Why R?
+
+The most compelling reason to use R is that it probably the only language with a set of libraries that permits you to do any kind of analysis of interest to a historian with just one language. (Python is probably a close second.) Probably all digital humanists who write code are polyglots, taking advantage of the best libraries and languages for any given job. Yet there is a major cognitive burden that comes from switching languages within a project or from project to project. If you are able to focus on one language, you can take your skills to a much higher level, and you can reuse code from one project to another. R can be the one language that can do almost everything you would want to do as a historian.
+
+The range of libraries that R has available is staggering. [CRAN](http://cran.rstudio.com/), the [Comprehensive R Archive Network](http://cran.us.r-project.org/) which distributes R libraries (called packages) currently has nearly six thousand packages. What matters more is that these packages provide a powerful set of tools for the techniques that matter most to historians. There are, for example, a powerful suite of packages for mapping and spatial analysis, other packages for text mining and document similarity, and yet more packages to create network graphs and analysis. In particular the statistician and computer programmer [Hadley Wickham](http://had.co.nz/) has created a suite of packages that provide a useful grammar for solving many kinds of data analysis and manipulation problems.
+
+Another compelling reason to use R is that it is a language designed for data analysis. Most programming languages are general purpose programming languages for which libraries for data analysis, mapping, and visualization have been added on. R, however, was designed from the beginning for statistical computing. A language called S (for *statistics*) was designed by the statistician John Chambers and his colleages at Bell Laboratories in 1975--76. The language was gradually improved until in 1993 an open-source version of the language called R was released. Because R was designed for statistical computing, many handy features are deeply embedded in the language itself. One concept in R is the data frame, which (for now) you can think of as a spreadsheet containing data. This is an enormously useful way of structuring data for analysis. Python recently gained the concept of a data frame, but only in through the add-on package Pandas which emulates much of R's fuctionality. To give another example, R has many built-in functions that are useful for data analysis. Suppose you wanted to add a list of numbers (in most programming languages this is called an array; in R it is called a vector): `1, 2, 3, 4, 5`.
+
+In JavaScript, you would have to create a counter variable and use a for loop to add the numbers together:
+
+```
+var data = [1, 2, 3, 4, 5];
+var sum = 0;
+for(var i = 0; i < data.length; i++) {
+  sum += data[i];
+}
+console.log(sum);
+// 15
+```
+
+If you were a more sophisticated JavaScript programmer, you could write get the same result more elegantly: 
+
+```
+function add(a, b) {
+  return a + b;
+}
+
+var sum = [1, 2, 3, 4, 5].reduce(add, 0)
+console.log(sum)
+// 15
+```
+
+Unless you already know JavaScript or some other programming langauge, you probably can't read those examples. In R, adding a list of numbers looks like this:
+
+```{r}
+sum(c(1, 2, 3, 4, 5))
+```
+
+R offers a tremendous expressive power: we managed to write a kind of sentence ("sum this list of numbers") rather than resort to several lines of code. R is powerful in that it builds in many of these kinds of functions (for example, linear regression) which in other languages would require much more effort to use.
+
+R is able to acheive such expressiveness because it is what is called a high-level language. It is helpful to think of computer languages as residing on a spectrum. Some languages at the bottom end of the spectrum are very much like writing instructions to a machine. These kinds of languages, like C or Java, are enormously powerful and often blazingly fast, but they are also much more difficult to learn and take many lines of code to accomplish anything substantive. Languages at the high end of the spectrum (like R, Ruby, of Python) offer a much higher level of abstraction. This is good for a historian because it permits us to come closer to writing code that expresses our analysis rather than writing code that expresses what the machines needs to know.
+
+R is also useful to a historian because of the set of tools that are available to write R code. R has particularly good environments for writing code interactively, that is, for writing a block of code, executing it, and then iterating it. This is important because R is as much an environment for doing data analysis as it is a programming language. (It *is* a programming language, though, contrary to what its ill-informed detractors sometimes say.) In other words, when doing historical research in R, one is usually building and tweaking an analysis by repeatedly running code, instead of writing it all at once and then running it once. The [R Studio IDE](http://www.rstudio.com/products/RStudio/) (Integrated Development Environment) lets you see the code you are writing, a place to execute it (called the console), the value of your variables, and any plots that you have made, along with debugging tools and easy access to the R documentation, in a single window. R also has excellent tools for mixing prose and code and graphics. It is possible using a [RMarkdown](http://rmarkdown.rstudio.com/) (especially in the RStudio IDE but also elsewhere) to create a document which has text with code and the values and output embedded in it. (This technique is sometimes called [literate programming](http://en.wikipedia.org/wiki/Literate_programming), a term coined by the computer scientist Donald Knuth.) In fact, this book is being writing with RMarkdown, and you can see the how the [source code](https://github.com/lmullen/dh-methods-in-r) mixes code and words.
+
+![A session of historical data analysis in R Studio](screenshots/rstudio.png)
+
+Finally, R is a good choice because there many other historians and digital humanists are using it. When selecting any tool, it is always wise to use the tool or language that your colleagues are using. In part this is so that you can learn from them at the early stages of your work. But in the later stages of your work, it is just as important that your work be legible to them and able to be critiqued by them.
+
+To be sure, there are some things that R can not do as well as other languages. R is not especially good at interactive graphics, though R is getting better and better packages for for interactive, exploratory data graphics, most notably the [ggvis](http://cran.r-project.org/web/packages/ggvis/index.html) package. Nor is R especially easy to use if you want to create bespoke visualizations instead of using the common kinds of visualizations. It is entirely possible to put R graphics on the web, but it is not (or not yet, anyway) quite so easy to make graphics in R that are of the web and not just on the web. If those are the kinds of graphics that you want to make, then you should look into the [D3.js library](http://d3js.org/) for JavaScript written by Mike Bostock. Bostock has provided fantastic documentation at the D3 website and Scott Murray's *[Interactive Data Visualization for the Web](http://chimera.labs.oreilly.com/books/1230000000345)* (O'Reilly, 2013) is an excellent introduction. Elijah Meeks, a Digital Humanities Specialist at Stanford University, has written an advanced book called *[D3.js in Action](http://manning.com/meeks/)* (Manning, forthcoming) which is especially good for historians and humanists. 
+
+Most of the time, when a historian needs to *explore* data instead of *present* it, R is a perfectly adequate tool. And if you do go on to learn D3.js, you will appreciate the ability to create mockup graphics and manipulate data in R.
+
