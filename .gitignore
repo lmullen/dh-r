@@ -1,0 +1,6 @@
+.Rproj.user/
+_site
+temp.Rmd
+*.html
+.Rproj.user
+figures/
