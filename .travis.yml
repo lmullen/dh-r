@@ -1,46 +1,36 @@
 language: c
-
 before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
-
+- curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
+- chmod 755 ./travis-tool.sh
+- "./travis-tool.sh bootstrap"
 install:
-  # Install binary pandoc from Rstudio
-  - export PATH="$HOME/pandoc:$PATH"
-  - mkdir $HOME/pandoc
-  - curl -O https://s3.amazonaws.com/rstudio-buildtools/pandoc-1.12.3.zip
-  - unzip -j pandoc-1.12.3.zip pandoc-1.12.3/linux/debian/x86_64/pandoc
-      -d $HOME/pandoc
-  - chmod +x $HOME/pandoc/pandoc
-  - pandoc --version
-
-  # Install jekyll
-  - travis_retry gem install jekyll mime-types
-
-  # Install R packages
-  - ./travis-tool.sh r_binary_install rjsonio knitr png testthat
-  - ./travis-tool.sh r_install        lubridate pryr nycflights13 microbenchmark stringi stringr ggplot2 dplyr ggvis httr
-  - ./travis-tool.sh github_package   rstudio/rmarkdown hadley/bookdown hadley/devtools
-  - mkdir ~/.R
-  - cp Makevars ~/.R
-
+- export PATH="$HOME/pandoc:$PATH"
+- mkdir $HOME/pandoc
+- curl -O https://s3.amazonaws.com/rstudio-buildtools/pandoc-1.12.3.zip
+- unzip -j pandoc-1.12.3.zip pandoc-1.12.3/linux/debian/x86_64/pandoc -d $HOME/pandoc
+- chmod +x $HOME/pandoc/pandoc
+- pandoc --version
+- travis_retry gem install jekyll mime-types
+- "./travis-tool.sh r_binary_install rjsonio knitr png testthat"
+- "./travis-tool.sh r_install        lubridate pryr nycflights13 microbenchmark stringi
+  stringr ggplot2 dplyr ggvis httr"
+- "./travis-tool.sh github_package   rstudio/rmarkdown hadley/bookdown hadley/devtools"
+- mkdir ~/.R
+- cp Makevars ~/.R
 script: jekyll build
-
 after_success:
-  - cp -r figures/ _site/figures
-
+- cp -r figures/ _site/figures
 deploy:
   provider: s3
-  access_key_id: AKIAJW3OTLUVRBXA7UPA
-  secret_access_key:
-    secure: "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"
   bucket: dh-r.lincolnmullen.com
   endpoint: dh-r.lincolnmullen.com.s3-website-us-east-1.amazonaws.com
   local-dir: _site
   skip_cleanup: true
-
 notifications:
   email:
     on_success: always
     on_failure: always
+env:
+  global:
+  - secure: Uupxb4TPTfRw9soeqqWnxIAh8CPmaFC13oT28hR58gaNRSxpRCK13UBwKir692OrbFrXy+Yw1kcyJJUu0sDzd5PpjXechHR2FSyNPuidJ6Au/ttYP9zwObHkqgzUC3H/KuKuZZ4cGy3Lut0bjktt/yo8dQMfNmlo7moxcwUZ8sE=
+  - secure: e3DWb08gQFh94rWJFvcZrWuqbGfB3aqrZYodMZcF6VLcputq1cDYKh95d+QYze/fe9eg73atXr/JKhD7xL8vnPk1GpkUE28c1sf0cnQNYaZvnXLfvMD7r4JSMRk6kMSYNMcqOBhX+vWpcDuIzdmoh4WKhJKEeaG/zb8W+92c3jw=
