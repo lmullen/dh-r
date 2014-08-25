@@ -22,10 +22,14 @@ after_success:
 - cp -r figures/ _site/figures
 deploy:
   provider: s3
+  access_key_id: AKIAJW3OTLUVRBXA7UPA
+  secret_access_key:
+    secure: cbxpmIe4a7aLanOjRsXn5IkOpFq9dEe/CFTXGynaBIVFFtFMAjQkK5vUrluGHan/T2m3YjC59aVyJiFyj/N4fGuIZmotqGFQ/FjlVharCorth+1BtpoGxjwDlKrcSHzqJOcKaU6pnnNGEQZnRMH1JhHr4qyJmRt200DZ3Jm/Z2I=
   bucket: dh-r.lincolnmullen.com
-  endpoint: dh-r.lincolnmullen.com.s3-website-us-east-1.amazonaws.com
   local-dir: _site
-  skip_cleanup: true
+  acl: !ruby/string:HighLine::String public_read
+  on:
+    repo: lmullen/dh-methods-in-r
 notifications:
   email:
     on_success: always
