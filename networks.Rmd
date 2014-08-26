@@ -4,3 +4,15 @@ layout: default
 output: bookdown::html_chapter
 ---
 
+# Networks
+
+## Next steps
+
+Further reading:
+
+- Scott B. Weingart, "[Demystifying Networks, Parts I & II](http://journalofdigitalhumanities.org/1-1/demystifying-networks-by-scott-weingart/)," *Journal of Digital Humanities* 1, no. 1 (2011).
+
+- David Easley and Jon Kleinberg, *[Networks, Crowds, and Markets: Reasoning About a Highly Connected World](http://www.cs.cornell.edu/home/kleinber/networks-book/)* (Cambridge University Press, 2010). Available for free online as a [pre-print](http://www.cs.cornell.edu/home/kleinber/networks-book/networks-book.pdf).
+
+- Mark Newman, *Networks: An Introduction* (Oxford University Press, 2010).
+
