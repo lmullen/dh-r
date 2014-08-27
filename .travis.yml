@@ -22,9 +22,9 @@ after_success:
 - cp -r figures/ _site/figures
 deploy:
   provider: s3
-  access_key_id: AKIAJW3OTLUVRBXA7UPA
+  access_key_id: AKIAI3ZE4DKSC6ID3RMA
   secret_access_key:
-    secure: TC+p3JWyiwC5peqAYO9l4lFVc1EKDTywnc/+mkGibvd6To9wMXecf5FOwiWjdlaJuCvuqYAMROaw8vsWuu7VGImQ6bCVVIWm7N48EDnfm7UeWFCrorKhKRMdRr2K8i7ch8WWynb4Js+OZ54L8zujv2HAtZN/s/iYMD8WP9b876o=
+    secure: Wk625mSLIvtidg9bv4/1rW2Yu6PYJg2I+1VZ11uAPYt4z/B7Vtr0bby8m8SITZtyd6S1UDSBnwoKIuoBET/Ox3NZSl+OeOa0eDXRhL4djkjv2HjwWSMDYV3rzYyIjlOAC58oY9RiAi50W8r1eyfmxPC1NDXAOYSp+7bTOCR8Na4=
   bucket: dh-r.lincolnmullen.com
   endpoint: dh-r.lincolnmullen.com.s3-website-us-east-1.amazonaws.com
   local-dir: _site
