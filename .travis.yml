@@ -1,45 +1,34 @@
 language: c
-
 before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
-
+- curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
+- chmod 755 ./travis-tool.sh
+- "./travis-tool.sh bootstrap"
 install:
-  # Install binary pandoc from Rstudio
-  - export PATH="$HOME/pandoc:$PATH"
-  - mkdir $HOME/pandoc
-  - curl -O https://s3.amazonaws.com/rstudio-buildtools/pandoc-1.12.3.zip
-  - unzip -j pandoc-1.12.3.zip pandoc-1.12.3/linux/debian/x86_64/pandoc
-      -d $HOME/pandoc
-  - chmod +x $HOME/pandoc/pandoc
-  - pandoc --version
-
-  # Install jekyll
-  - travis_retry gem install jekyll mime-types
-
-  # Install R packages
-  - ./travis-tool.sh r_binary_install rjsonio knitr png testthat
-  - ./travis-tool.sh r_install        lubridate pryr nycflights13 microbenchmark stringi stringr ggplot2 dplyr ggvis httr
-  - ./travis-tool.sh github_package   rstudio/rmarkdown hadley/bookdown hadley/devtools
-  - mkdir ~/.R
-  - cp Makevars ~/.R
-
+- export PATH="$HOME/pandoc:$PATH"
+- mkdir $HOME/pandoc
+- curl -O https://s3.amazonaws.com/rstudio-buildtools/pandoc-1.12.3.zip
+- unzip -j pandoc-1.12.3.zip pandoc-1.12.3/linux/debian/x86_64/pandoc -d $HOME/pandoc
+- chmod +x $HOME/pandoc/pandoc
+- pandoc --version
+- travis_retry gem install jekyll mime-types
+- "./travis-tool.sh r_binary_install rjsonio knitr png testthat"
+- "./travis-tool.sh r_install        lubridate pryr nycflights13 microbenchmark stringi
+  stringr ggplot2 dplyr ggvis httr"
+- "./travis-tool.sh github_package   rstudio/rmarkdown hadley/bookdown hadley/devtools"
+- mkdir ~/.R
+- cp Makevars ~/.R
 script: jekyll build
-
 after_success:
-  - cp -r figures/ _site/figures
-
+- cp -r figures/ _site/figures
 deploy:
   provider: s3
   access_key_id: AKIAJW3OTLUVRBXA7UPA
   secret_access_key:
-    secure: "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"
+    secure: TC+p3JWyiwC5peqAYO9l4lFVc1EKDTywnc/+mkGibvd6To9wMXecf5FOwiWjdlaJuCvuqYAMROaw8vsWuu7VGImQ6bCVVIWm7N48EDnfm7UeWFCrorKhKRMdRr2K8i7ch8WWynb4Js+OZ54L8zujv2HAtZN/s/iYMD8WP9b876o=
   bucket: dh-r.lincolnmullen.com
   endpoint: dh-r.lincolnmullen.com.s3-website-us-east-1.amazonaws.com
   local-dir: _site
   skip_cleanup: true
-
 notifications:
   email:
     on_success: always
