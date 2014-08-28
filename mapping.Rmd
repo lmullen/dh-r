@@ -13,3 +13,11 @@ How to get place (and other kinds of names) out of a document.
 ## Geocoding
 
 Given a set of names or addresses, how to get latitudes and longitudes for them.
+
+## Next Steps
+
+Further Reading
+
+- Bivand, Roger S., Edzer Pebesma, and Virgilio Gómez-Rubio. *[Applied Spatial Data Analysis with R](http://link.springer.com/book/10.1007/978-1-4614-7618-4)*. Springer, 2013.
+- Bodenhamer, David J., John Corrigan, and Trevor M. Harris. *The Spatial Humanities: GIS and the Future of Humanities Scholarship*. Bloomington: Indiana University Press, 2010.
+- Gregory, Ian N. and Alistair Geddes. *Toward Spatial Humanities: Historical GIS and Spatial History*. Bloomington: Indiana University Press, 2014.
