@@ -14,6 +14,25 @@ output: bookdown::html_chapter
 library(httr)
 ```
 
+## Httpbin
+
+As you are learning to work with APIs, and in particular if you are writing a package or function that wraps an API, you may find the service [httpbin](http://httpbin.org/) to be useful. That service provides many sample endpoints so that you can experiment with APIs. These endpoints will in most cases return the data that you posted to them, so you can see exactly what the service sees, not just what you think it should see.^[I found this service through the vignette for the httr package.]
+
+For example, using the `ip` endpoint for httpbin (which you can [visit in your
+browser](http://httpbin.org/ip) to see the JSON that is returned), we can write a simple function that discovers your IP address.
+
+```{r}
+what_is_my_ip <- function() {
+  require(httr)
+  r <- GET("http://httpbin.org/ip")
+  warn_for_status(r) # Print a warning if request was unsuccessful
+  content(r)$origin
+}
+
+what_is_my_ip()
+```
+
+
 ## JSON
 
 ## XML
