@@ -12,7 +12,7 @@ install:
 - pandoc --version
 - travis_retry gem install jekyll mime-types
 - "./travis-tool.sh r_binary_install rjsonio knitr png testthat"
-- "./travis-tool.sh r_install        lubridate pryr nycflights13 microbenchmark stringi babynames stringr ggplot2 dplyr ggvis httr"
+- "./travis-tool.sh r_install        lubridate pryr nycflights13 microbenchmark stringi babynames stringr ggplot2 dplyr ggvis httr tidyr"
 - "./travis-tool.sh github_package   rstudio/rmarkdown hadley/bookdown hadley/devtools lmullen/gender-data-pkg"
 - mkdir ~/.R
 - cp Makevars ~/.R
