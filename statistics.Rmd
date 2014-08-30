@@ -9,3 +9,17 @@ output: bookdown::html_chapter
 Basic statistical techniques of interest to historians.
 
 Yes, we'll start with `mean()` and `sd()` and `hist()`.
+
+## Regression
+
+One important statistical technique of use to historians is regression analysis. Regression analysis tries to quantify the relationship between two variables. For example, one might ask whether there is a relationship between height and weight (there is: taller people tend to be heavier). Not only does regression analysis attempt to tell us whether there is a relationship between variables: it also tries to tell us how accurate and how reliable that estimate is. For a historian, a particular interesting relationship to quantify is change over time: that is, does, a change in time correlate with a with a change in some other variable. For instance, as time goes on does the population of the United State increase? (Yes.) But we need not limit our inquiry just to change over time. We could check if there is a relationship betweena any two variables. For instance, suppose we have a set of data that includes the number of attendees at a Catholic mission and the number of people who converted to Catholicism. As the meeting gets bigger in terms of attendees, does the number of converts increase? (It doesn't seem to: if anything, missions with fewer Catholics in attendance made more converts, since there were more non-Catholics to convert.)
+
+In regression analysis we distinguish between independent variables and dependent variables. Independent variables are the variables that we think might be the causes; dependent variables are the variables that we think might be the effect. It is also important to point out that regression analysis can really only show correlation, not cause. For example, change over time does not really change population, and it makes even less sense to say that change in population causes a change in time. Historians must think carefully about which variables are independent and which are dependent: such questions must usually be settled by recourse to other kinds of evidence. 
+
+There are many kinds of regression analysis. If you've heard of any kind of regression analysis you've probably heard of linear regression. That kind of regression (shown below) assumes that the relationship between variables takes the form of a straight line. Other kinds of regression analysis, which assume some kind of exponential change or cyclical change, might be more appropriate to any given historical question. There are many more details about regression. This section will show you what it looks like to fit a linear regression visually to a small data set, then it will show you how to apply that model to a very large data set.
+
+## Modeling
+
+## Next Steps
+
+I recommend that you get a good book on statistics if you intend to do any serious work with it. Any book will do, but one that is particularly useful because it introduces statistics with R is Andy Field, Jeremy Miles, and Zoe Field, *[Discovering Statistics Using R](http://www.amazon.com/gp/product/1446200469/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1446200469&linkCode=as2&tag=thebacgla-20&linkId=JBNXHCJYOFWJQZSB)* (SAGE, 2012).
