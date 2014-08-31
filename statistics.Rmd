@@ -15,6 +15,10 @@ Basic statistical techniques of interest to historians.
 
 Yes, we'll start with `mean()` and `sd()` and `hist()`.
 
+TODO: Measures of the center, such as mean and median.
+
+TODO: Measures of variation from the center.
+
 ## Regression
 
 One important statistical technique of use to historians is regression analysis. Regression analysis tries to quantify the relationship between two variables. For example, one might ask whether there is a relationship between height and weight (there is: taller people tend to be heavier). Not only does regression analysis attempt to tell us whether there is a relationship between variables: it also tries to tell us how accurate and how reliable that estimate is. For a historian, a particular interesting relationship to quantify is change over time: that is, does, a change in time correlate with a with a change in some other variable. For instance, as time goes on does the population of the United State increase? (Yes.) But we need not limit our inquiry just to change over time. We could check if there is a relationship betweena any two variables. For instance, suppose we have a set of data that includes the number of attendees at a Catholic mission and the number of people who converted to Catholicism. As the meeting gets bigger in terms of attendees, does the number of converts increase? (It doesn't seem to: if anything, missions with fewer Catholics in attendance made more converts, since there were more non-Catholics to convert.)
