@@ -212,6 +212,8 @@ TODO: Don't cut out `n` for each year so that we can look it up.
 
 TODO: filtering data frame to get names which switched in particular directions.
 
+TODO: Loess fitting
+
 ## Next Steps
 
 I recommend that you get a good book on statistics if you intend to do any serious work with it. Any book will do, but one that is particularly useful because it introduces statistics with R is Andy Field, Jeremy Miles, and Zoe Field, *[Discovering Statistics Using R](http://www.amazon.com/gp/product/1446200469/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1446200469&linkCode=as2&tag=thebacgla-20&linkId=JBNXHCJYOFWJQZSB)* (SAGE, 2012).
