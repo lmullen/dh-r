@@ -4,6 +4,11 @@ layout: default
 output: bookdown::html_chapter
 ---
 
+```{r,echo=FALSE}
+source("general-options.r")
+```
+
+
 # Statistics
 
 Basic statistical techniques of interest to historians.
@@ -18,7 +23,97 @@ In regression analysis we distinguish between independent variables and dependen
 
 There are many kinds of regression analysis. If you've heard of any kind of regression analysis you've probably heard of linear regression. That kind of regression (shown below) assumes that the relationship between variables takes the form of a straight line. Other kinds of regression analysis, which assume some kind of exponential change or cyclical change, might be more appropriate to any given historical question. There are many more details about regression. This section will show you what it looks like to fit a linear regression visually to a small data set, then it will show you how to apply that model to a very large data set.
 
+One question of interest to historians is how naming practices change. We will use a data set collected by the Social Security Administration in the United States, which includes names and birth years for all names used more than five times in a given year. This data can be found in Hadley Wickham's [babynames](https://github.com/hadley/babynames) package, which you can install with the command `install.packages(babynames)`. When we load the data set along with dplyr to [manipulate the data](data.html), we can get a sense of what the data looks like.
+
+```{r}
+library(dplyr)
+library(babynames)
+
+babynames %>% head()
+```
+
+For each combination of name, year, and sex, we have the value `n`, which is the number of people who received that name, and the values `prop` which is the proportion of people who received that name that year. We can begin with a simple plot of the name `Madison`, which shows us how the name changed over time:
+
+```{r}
+library(ggplot2)
+babynames %>%
+  filter(name == "Madison") %>%
+  ggplot(aes(x = year, y = n, color = sex)) + geom_line() + ggtitle("Madison as a male and female name")
+```
+
+Already we notice something interesting. Before about 1985, Madison seems to have been an fairly unpopular name used exclusively for boys. From 1985 to 2001 Madison became a much more popular name used almost exclusively for girls. Were we to calculate the proportion of male and female uses of the name in a given year, we would find that the proportion of male uses was about `1` until almost the 1980s, and the proportion of female uses of the names was very close to `1` after that date. As historians, we would like to know: what other names changed? Did they tent to change from male to female or female to male? Did any names change in both directions? Did the proportion change because a name became more popular?
+
+As in any data manipulation task, we need to think about what form of the data would be most useful to us. We might decide that we are most interested in the proportion of female uses to total uses of a name in any given year. We might just as well have chosen the proportion of male uses, since `1 = proportion_female + proportion_male`. We will use dplyr to summarize the data for that purpose. Since I happen to know that, because of the reasons people had to apply for Social Security during the New Deal, the gender ratios for the data set are unreliable before about 1940, we will only consider those years even though the data goes back to 1880. (We could correct this skew, but that is another problem.)
+
+```{r, tidy=FALSE}
+library(tidyr)
+
+ratios <- babynames %>%
+  filter(year >= 1940) %>%           # exclude years we don't want
+  select(-prop) %>%                  # we don't need the prop column
+  group_by(name, year) %>%           # find combinations of name and year
+  mutate(total_n = sum(n)) %>%       # sum both male and female uses
+  group_by(name, sex, year) %>%      # include sex in grouping
+  mutate(ratio = n / total_n) %>%    # calculate proportions of male/female uses
+  select(name, sex, year, ratio) %>% # only keep the columns we need
+  spread(sex, ratio)                 # spread the data into M and F columns
+```
+
+Spreading the data with the `spread()` function from the tidyr shows a problem in our data. In years where there were no male or female uses of a given name, we have `NA` values. We can safely assume that in those years the proportion was actually `0`, so will replace all such values.
+
+```{r}
+ratios[is.na(ratios)] <- 0
+```
+
+If we look at our results for the period around 1985, we can see the change shift in the proportion of female (`F`) and proportion of male (`M`) uses of the name Madison, and we can also plot that change for the entire dataset.
+
+```{r}
+ratios %>% filter(name == "Madison", year >= 1980, year <= 1990)
+
+ratios %>% filter(name == "Madison") %>%
+  ggplot(aes(x = year, y = F)) + geom_point() +
+  ggtitle("Proportion of female uses of the name Madison")
+```
+
+We can now use ggplot2, which will in turn use base R's built-in `lm()` function, to plot a linear regression line for this change.
+
+```{r}
+ratios %>% filter(name == "Madison") %>%
+  ggplot(aes(x = year, y = F)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  xlim(1940, 2012) + ylim(0, 1) +
+  ggtitle("Linear regression for Madison")
+```
+
+The blue line in that plot is the regression line. You can think of a linear regression line as the single straight line which best connects a series of dots. (I'll explain the mathematical definition later.) In the case of the name Madison, the line can only come close to capturing the change. But the slope of the line does tell us as time goes on the proportion of female uses of the name Madison rose. Figuring out where on the x-axis the regression line passes the `0.5` on the y-axis is a decent indicator of when the name switched from being mostly male to mostly female. Figuring out where on the x-axis the regression line passes `0` and `1` on the y-axis is a less good indicator of when a name is almost totally male or female.
+
+We can see how regression analysis helps us when we apply it more than one name. First we need to learn a way to find out if any given value is in a list of values that we define. If we define a character vector of names that we want to test, we can use R's `%in%` operator to find if any given string is in that vector. (The kind of operator whose name is enclosed between parentheses is called a binary operator, because it takes a value on both its left-hand and right-hand side. You are already familiar with binary operators like `+` and `%>%`.)
+
+```{r, warning=FALSE}
+test_names <- c("Madison", "John", "Mary", "Leslie", "Jan")
+"Madison" %in% test_names
+"Henry" %in% test_names
+```
+
+Now we can create another plot using the same technique of creating a regression line for the five names we defined above. 
+
+```{r, warning=FALSE}
+ratios %>% filter(name %in% test_names) %>%
+  ggplot(aes(x = year, y = F, color = name)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  xlim(1940, 2012) + ylim(0, 1) +
+  ggtitle("Linear regression for five names")
+```
+
+This is a busy plot, but we can learn interesting things about these five names. The name Mary never changes from being entirely female, and the name John never changes from being entirely male. The lines for both of those names are thus flat; the line for John is at `0` on the chart and the line for Mary is flat at `1` on the chart. The name Jan has an opposite trajectory from Madison and Leslie; its slope is negative. (We also notice that the linear regression loses the detail that from 1940 to 1960 Jan became more popular as a female name, before becoming mostly a male name since 2000.) Both Madison and Leslie have positive slopes, indicating that they became female names, Leslie has a shallower slope, indicating that it became a female name earlier and less quickly than Madison.
+
+What we have done is create a mathematical model of changes in naming practices. The linear regression line tells us roughly whether a name changed genders, and if so in which direction, when, and how quickly it changed. Unfortunately we are a sticking point. Our previous plot was busy enough with five names. We could only squeeze a few more names on the chart before it is too confusing. But there are `r babynames$name %>% unique() %>% length() %>% format(big.mark = ',')` unique names in the Social Security names data set. We could never meaningfully look through that many plots to locate the names of interest. What we need is a way of moving past visualization to modeling.
+
 ## Modeling
+
+So far we have not mentioned certainty. In calculating a regression line, we can also calculate how well that line fits the data. Not only can we figure out what our model tells us about our data, we can also get an indication of how well the model works for our data.
 
 ## Next Steps
 
