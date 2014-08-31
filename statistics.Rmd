@@ -113,7 +113,100 @@ What we have done is create a mathematical model of changes in naming practices.
 
 ## Modeling
 
+The visualization cannot be extended to those tens of thousands of names, but it doesn't need to be. The visualization is based on a mathematical model. Specfically, it is was calculated using the `lm()` linear-model fitting function. Although we cannot make ninety thousand plus visualizations, we can fit the linear model ninety thousand times. To borrow a [point made by Hadley Wickham](http://vimeo.com/94184685), a visualization "surprises, but doesn't scale", while a model "scales, but doesn't (fundamentally) surprise." In other words, once we have figured out a model using visualizations, we can then apply the model, and so on in an iterative cycle.
+
+First let's use the `lm()` function to fit a model just for the name Madison, so that we can understand how it works. Then we will explain the mathematics behind the modeling. Then we can apply the model to our list of names.
+
+The `lm()` function takes two main arguments. The second argument is the data frame with the set of observations to be modeled. Let's filter our `ratios` data frame to just the name Madison.
+
+```{r}
+madison <- ratios %>% filter(name == "Madison")
+```
+
+The first argument is the formula which expresses what we think is the relationship between the variables in the data. R has a built in class of objects called formulas which use the `~` operator. In our case, our formula will be `F ~ year`. Both `F` and `year` are variables in our data frame. The dependent variable (the variable that we think is the effect) goes on the left, and the independent variable (the variable that we think is the "cause") goes on the right. If we had multiple independent or dependent variables, we would join them with `+`, for example, `F ~ year + population`. But you shouldn't think of the `+` operator as indicating arithmetical addition; in this case it merely shows that both variables are independent.
+
+Putting those two arguments together, we can make a fit a linear model to our Madison data.
+
+```{r}
+madison_model <- lm(F ~ year, madison)
+madison_model
+```
+
+The basic information printed by `madison_model` tells us the equation for the regression line. Recall from the last algebra class that you took that the equation for a straight line is $y = mx + b$, where $y$ and $x$ are the dependendent and independent variables respectively, and $m$ is the slope and $b$ is the y-intercept (the value of $y$ when $x = 0$. In other words, our model for Madison yield a regression line with the equation $F = 0.0189(year) - 37.0558$.
+
+There is much more information available in our model. We can use the `str()` function to find out everything that is available and the base R `plot()` function will show some useful plots, but the `summary()` function will give us a good overview. 
+
+```{r}
+summary(madison_model)
+```
+
+TODO: description of mathematics of linear models.
+
 So far we have not mentioned certainty. In calculating a regression line, we can also calculate how well that line fits the data. Not only can we figure out what our model tells us about our data, we can also get an indication of how well the model works for our data.
+
+Now that we understand the model and its possibilities, we need to apply this model to all the names in the data set. Actually, for the sake of this book, we're going to apply it just to 1000 names (plus the five we used above) chosen at random, because on my relatively fast laptop applying the model to all ninety-two thousand names takes about ten minutes. But instead of creating the sample data frame as below, you could apply the same code to the original `ratios` data frame. (See also `?sample_n` and `?sample_frac` in the dplyr package for alternative ways of sampling a data set.)
+
+```{r}
+set.seed(3453)
+unique_names <- ratios$name %>% unique
+sample_names <- sample(unique_names, 1000)
+sample_names <- c(sample_names, test_names)
+
+names_to_fit <- ratios %>% filter(name %in% sample_names)
+```
+
+Now we use the `do()` function from dplyr to apply the `lm()` function to our smaller data frame.
+
+```{r}
+names_models <- names_to_fit %>% 
+  group_by(name) %>%
+  do(model = lm(F ~ year, data = .))
+names_models
+```
+
+
+Now we have a model fitted to each name. We can test that the model for Madison is the same as what we calculated early.
+
+```{r}
+filter(names_models, name == "Madison")$model
+```
+
+There is another summary statistic we can calculate, Pearson's r.
+
+```{r}
+names_pearson <- names_to_fit %>%
+  group_by(name) %>%
+  do(pearson = with(., cor(year, F)))
+names_pearson
+```
+
+Now we can filter this to find names with a change.
+
+```{r}
+interesting_names_pearson <- names_pearson %>% filter(!is.na(pearson))
+
+to_male <- interesting_names_pearson %>% 
+  filter(pearson < 0) %>%
+  arrange(as.numeric(pearson))
+
+to_female <- interesting_names_pearson %>% 
+  filter(pearson > 0) %>%
+  arrange(desc(as.numeric(pearson))) 
+
+print("Names that became female")
+head(to_female, 10)
+
+print("Names that became female")
+head(to_male, 10)
+```
+
+The name Keanu is a good example of how we need to refine our model. Keanu was not used hardly at all until the 1990s (Keanu Reeves?). Presumably before that time it appeared less than five times per year. When it appears in the data, it is definitely male but there were at least few instances where it was female at the height of the popularity for the name. And then it became even more definitively male for more recent births. Our model should take into account that in years we are studying Keanu was never a female name. 
+
+TODO: Write a function to plot any given name.
+
+TODO: Don't cut out `n` for each year so that we can look it up.
+
+TODO: filtering data frame to get names which switched in particular directions.
 
 ## Next Steps
 
