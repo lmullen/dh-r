@@ -4,14 +4,13 @@ layout: default
 output: bookdown::html_chapter
 ---
 
-
 # Reproducible Research
 
 Reproducible research is a concept borrowed from the sciences, which are currently working on ways to make research reproducible. This borrowing might seem to imply that reproducible research implies a kind of scientific method, but it does not. We must distinguish between the terms *replicable*, *reproducible*, and *verifiable*.^[Some people reverse the terms *reproducible* and *replicable* as I have defined them here.] Replication is central to the scientific method. It is the idea that an experiment should be able to be repeated in different laboratories. This ability to repeat experiments and get the same results constitute verification in the sciences.
 
 Historians hold to different standards when it comes to replicability and verification. Historians do expect a limited degree of replicability from other scholars. If you look up a source cited for a quotation by a scholar, you expect that the words of the quotation should match verbatim, as well as that the sense of the quotation should not have been distorted from its context. This constitutes a kind of verification, and historians do in practice look up one another's footnotes. But no one expects that a work of history should be replicable. That is (except in cases of plagiarism) no one looks up all the footnotes and re-reads all of the sources for a work of history. More importantly, historians do not expect that even if they read exactly the same sources in exactly the same order as some other historian, that they would come to the same conclusion as she did. There is an irreducible component of interpretation in every historical study. This is not to suggest that works of history are unverifiable. Historians do hold one another to standards of evidence and argumentation, just not to a standard of replication. History---even computational history---remains a humanistic method.
 
-Reproducibility is more a practical than a theoretical concern, and it is a technique which the computational humanities would do well to borrow from the sciences. Reproducible research means that a scholar can take the inputs (let's call these "data," defining *data* as any source that is amenable to computation) and at any time rerun her code to produce the same outputs. For example, a scholar might have a CSV file of data about the economic production of farms. Using R, she writes code which turns that data into a chart of changing farm production, as well as a table of summary statistics. Both of these are embedded in an article that she is writing. The data are the inputs. The code represents the analysis. The chart and the table are the outputs of the analysis: one can also think of the article itself as the output.^[You should recognize here an important tenet of the Linux philosophy: programs should be filters. In other words, the code does not actually change the data but merely passes it through a filter to produce the outputs. This is also an important idea in [functional programming](http://www.smashingmagazine.com/2014/07/02/dont-be-scared-of-functional-programming/). As you become a better programmer, you'll notice that fundamental ideas receive expression in many different domains.]
+Reproducibility is more a practical than a theoretical concern, and it is a technique which the computational humanities would do well to borrow from the sciences. Reproducible research means that a scholar can take the inputs (let's call these "data," defining *data* as any source that is amenable to computation) and at any time rerun her code to produce the same outputs. For example, a scholar might have a CSV file of data about the economic production of farms. Using R, she writes code which turns that data into a chart of changing farm production, as well as a table of summary statistics. Both of these are embedded in an article that she is writing. The data are the inputs. The code represents the analysis. The chart and the table are the outputs of the analysis: one can also think of the article itself as the output.^[You should recognize here an important tenet of the Unix philosophy: programs should be filters. In other words, the code does not actually change the data but merely passes it through a filter to produce the outputs. This is also an important idea in [functional programming](http://www.smashingmagazine.com/2014/07/02/dont-be-scared-of-functional-programming/). As you become a better programmer, you'll notice that fundamental ideas receive expression in many different domains.]
 
 Now suppose that after doing that analysis, our historian has to make two changes. She notices that there have been some errors in the data entry, so she has to update the original input file. And a colleague suggests that the chart and table, which in the first version zoomed in on 1800 to 1860, should be extended to 1900. If our historian had created her outputs in, say, Excel or some point-and-click GUI online, she would have to redo her entire analysis. But if she has planned ahead and made her research reproducible, she should be able to change only the necessary lines of code and rerun the analysis. And if at any point she needs to see the changes that she has made to her code or data, she can step back in time.
 
@@ -21,20 +20,33 @@ The most important audience for reproducible research is *you*. You *will* have 
 
 ## Characteristics of reproducible research
 
-Beyond this general principle that computational research should be reproducible, it is necessary to define the general characteristics of what reproducible research is like.
+Beyond this general principle that computational research should be reproducible, it is necessary to define the general characteristics of what reproducible research is like. The simplest thing to say is what reproducible research is not. Reproducible research is not a workflow which involves using a mouse at any point. If you have to use a mouse to create an output or select an input or do anything, then what you are doing cannot be scripted. That means that it is impossible to precisely define for a computer what you need to do, and that it is likely very difficult to define for a human (that is, for yourself) what to do each time. More generally, reproducible research does not require any human input or intervention to re-run. By scripting out your choices instead of re-making them each time, you have in effect precisely stated all of your choices. By picking R as your analytical tool of choice, you have already made the most important leap in avoiding irreproducible research. 
 
+Reproducible research on the other hand has five main characteristics. It is
 
-1. Documented
-2. Version controlled
-3. Automated
-4. Literate 
-5. Dependencies stated
+1. documented,
+2. version controlled,
+3. automated with a build script,
+4. written as a literate program, 
+5. with all dependencies managed.
 
-## Knitr
+Computational research is documented when you have explained in human-readable prose everything that a technologically competent scholar needs to reproduce your research.^[Another useful idea from the Unix philosophy is that you should write code for people who know what they are doing, not beginners.] This can take several forms. Usually a project will have a README which explains how to use it. This README should include explanations of how to install any necessary software and whom to contact about bugs in the code. Somewhere you should also spell out the scholarly rationale for your project, the sources of your data, and citations to relevant literature. Documentation also takes the form of comments in the code which explain the rationale behind different design decisions, as well as explaining what functions do. When you first start out your tendency will be to write comments to explain everything. But as you become a better reader of code, you'll understand what parts of code are self-documenting (that is, any reasonably competent coder in that language can be expected to understand them) and which need explicit documentation. There is not much more to say about documenting scholarly code, except to follow the best practices of R programmers and programmers in other langauges.
+
+For research to be version controlled means that the code (and whenever possible, the data) which goes into a project is stored in a kind of software that keeps track of changes to it. This makes it possible to revert the project to any particular point and to investigate changes along the way. It also makes it possible to share your code much more easily. Learning about version control software (VCS) is beyond the scope of this book. Suffice it to say that [Git](http://git-scm.com/) is currently the most popular version control software, not least because of the site [GitHub](https://github.com/) which permits sharing of code.^[If you want an example of what this kind of version-controlled code sharing looks like, you can investigate my scholarly projects at [my GitHub profile](https://github.com/lmullen). Among the repositories you will find software libraries, journal articles and blog posts, and my dissertation.] A good place to start learning Git is Scott Chacon's *[Pro Git](http://git-scm.com/book)*, which is available for free online.
+
+The remaining three characteristics of reproducible research will be covered in this chapter, but they can be briefly summarized here.
+
+A build script is a computer file which explains in a way that is both human and computer readable how to run the code which creates a projects output. A build script will specify, for example, that the output file `chart.svg` is created from the input file `data.csv` by running the script `analysis.R`. And a build script will also provide a mechanism for running and re-running all of the analyses in a project. There are many languages and conventions for build scripts but the most venerable and easiest to use (for our purposes) is [GNU Make](http://www.gnu.org/software/make/). Though Make is not technically a part of R, it is a particularly good choice because it is nearly universally available and stable, and because RStudio has built-in support for it.
+
+Literate programming is a concept borrowed from the computer scientist [Donald Knuth](http://www-cs-faculty.stanford.edu/~uno/lp.html). In its technical sense, literate programming is the practice of writing computer programs according to the logic of human prose. A literate program is one which is written like prose, but with computer code interspersed. We are going to use the term in a non-technical sense to mean the practice of embedding code in prose. For example, when writing an article or book, it is possible to embed the code that produces your visualizations and tables directly in the document itself. By embedding the code itself instead of the outputs, it is possible to re-run your analysis re-creating the charts each time. R has a particular good package for this kind of writing by [Yihui Xie](http://yihui.name/) called [knitr](http://yihui.name/knitr/).
+
+Finally dependencies are the software that your software depends on to do its work. These include the R packages you are using, R itself, and possible external libraries written in other languages. If you are unable to specify what software you have depended on, it is possible that your code will break in the future and that it will be impossible to figure out how to get it to run again. [Packrat](http://rstudio.github.io/packrat/) is an R package which can keep track of which packages and which versions you are using, then automatically install them as necessary when you change computers or when someone else wants to run your code.
+
+## Literate Programming with Knitr
 
 TODO kable for reproducible tables.
 
-## Makefiles
+## Build Scripts with GNU Make
 
 ## Dependency Management with Packrat
 
@@ -52,6 +64,9 @@ Without managing dependencies you can never guarantee that you'll have exactly t
 
 ## Next steps
 
-- Christopher Gandrud, *[Reproducible Research with R and RStudio](http://www.crcpress.com/product/isbn/9781466572843)* (Chapman and Hall, 2013).
+Further reading:
+
+- Christopher Gandrud, *[Reproducible Research with R and RStudio](http://www.amazon.com/gp/product/1466572841/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1466572841&linkCode=as2&tag=thebacgla-20&linkId=EKZL2QLBAWHMNY5J)* (Chapman and Hall, 2013).
 - Though intended for scientists, see Karl Broman's short course on [Tools for Reproducible Research](http://kbroman.org/Tools4RR/).
 - [CRAN Task View: Reproducible Research](http://cran.r-project.org/web/views/ReproducibleResearch.html) lists other packages relevant to reproducible research and literate programming.
+- Yihui Xie, *[Dynamic Documents with R and knitr](http://www.amazon.com/gp/product/1482203537/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1482203537&linkCode=as2&tag=thebacgla-20&linkId=DAKPCBZJ74FI5YNV)* (Chapman and Hall, 2013).
