@@ -4,14 +4,54 @@ layout: default
 output: bookdown::html_chapter
 ---
 
+
 # Reproducible Research
 
-## General principles
+Reproducible research is a concept borrowed from the sciences, which are currently working on ways to make research reproducible. This borrowing might seem to imply that reproducible research implies a kind of scientific method, but it does not. We must distinguish between the terms *replicable*, *reproducible*, and *verifiable*.^[Some people reverse the terms *reproducible* and *replicable* as I have defined them here.] Replication is central to the scientific method. It is the idea that an experiment should be able to be repeated in different laboratories. This ability to repeat experiments and get the same results constitute verification in the sciences.
+
+Historians hold to different standards when it comes to replicability and verification. Historians do expect a limited degree of replicability from other scholars. If you look up a source cited for a quotation by a scholar, you expect that the words of the quotation should match verbatim, as well as that the sense of the quotation should not have been distorted from its context. This constitutes a kind of verification, and historians do in practice look up one another's footnotes. But no one expects that a work of history should be replicable. That is (except in cases of plagiarism) no one looks up all the footnotes and re-reads all of the sources for a work of history. More importantly, historians do not expect that even if they read exactly the same sources in exactly the same order as some other historian, that they would come to the same conclusion as she did. There is an irreducible component of interpretation in every historical study. This is not to suggest that works of history are unverifiable. Historians do hold one another to standards of evidence and argumentation, just not to a standard of replication. History---even computational history---remains a humanistic method.
+
+Reproducibility is more a practical than a theoretical concern, and it is a technique which the computational humanities would do well to borrow from the sciences. Reproducible research means that a scholar can take the inputs (let's call these "data," defining *data* as any source that is amenable to computation) and at any time rerun her code to produce the same outputs. For example, a scholar might have a CSV file of data about the economic production of farms. Using R, she writes code which turns that data into a chart of changing farm production, as well as a table of summary statistics. Both of these are embedded in an article that she is writing. The data are the inputs. The code represents the analysis. The chart and the table are the outputs of the analysis: one can also think of the article itself as the output.^[You should recognize here an important tenet of the Linux philosophy: programs should be filters. In other words, the code does not actually change the data but merely passes it through a filter to produce the outputs. This is also an important idea in [functional programming](http://www.smashingmagazine.com/2014/07/02/dont-be-scared-of-functional-programming/). As you become a better programmer, you'll notice that fundamental ideas receive expression in many different domains.]
+
+Now suppose that after doing that analysis, our historian has to make two changes. She notices that there have been some errors in the data entry, so she has to update the original input file. And a colleague suggests that the chart and table, which in the first version zoomed in on 1800 to 1860, should be extended to 1900. If our historian had created her outputs in, say, Excel or some point-and-click GUI online, she would have to redo her entire analysis. But if she has planned ahead and made her research reproducible, she should be able to change only the necessary lines of code and rerun the analysis. And if at any point she needs to see the changes that she has made to her code or data, she can step back in time.
+
+Scholarship---because it is scholarship---ought to be reproducible in this way if at all possible. The historical profession generally is even less likely that the scientific community to value reproducibility in this way. Nevertheless the community of digital history practitioners ought to develop standards that work should be reproducible, even as they are in the process of setting standards for work being open. 
+
+The most important audience for reproducible research is *you*. You *will* have to return to your project in a week, a month, or a year, and you will have to make changes to calculations, visualization, and data. If you have made your research reproducible such changes should be as simple as changing the necessary lines and rerunning the code. If you haven't made your work reproducible, good luck.^[In the last hectic weeks of finishing my dissertation I spent the better part of an afternoon fixing a typo in a chart for a journal article that had been accepted months earlier and was just going to press.]
+
+## Characteristics of reproducible research
+
+Beyond this general principle that computational research should be reproducible, it is necessary to define the general characteristics of what reproducible research is like.
+
+
+1. Documented
+2. Version controlled
+3. Automated
+4. Literate 
+5. Dependencies stated
 
 ## Knitr
 
+TODO kable for reproducible tables.
+
 ## Makefiles
 
-## Packrat
+## Dependency Management with Packrat
 
-## Git
+A common problem in any project that involves software is managing dependencies. A dependency is software that other software needs to do its job. Suppose, for instance, that you are writing an article and are using R to do the analysis. You might use the R package [dplyr](http://cran.r-project.org/web/packages/dplyr/index.html) to manipulate your data and the [rgdal](http://cran.r-project.org/web/packages/rgdal/index.html) package to do some spatial analysis. The dplyr package will in turn depend on the [magrittr](http://cran.r-project.org/web/packages/magrittr/index.html) package (among others) to provide some operators. The rgdal package will in turn depend on the [sp](http://cran.r-project.org/web/packages/sp/index.html) package which is used by almost all spatial analysis packages. The rgdal package will also depend on an external library called [GDAL/OGR](http://www.gdal.org/). All of the R packages will of course depend on the R programming language itself. If this sounds like a lot, this is actually a very minimal example. Any serious analysis can end up depending on dozens of packages.
+
+A very handy function is `sessionInfo()` which shows you the current R version and all the packages that you currently have loaded. It is a prudent practice to put a all to this function at the end of knitr documents that you have written so that you can document what packages and what versions are required to do your work. For example, this chapter currently has the following packages loaded.
+
+```{r}
+sessionInfo()
+```
+
+The problem with dependencies is that they break. If you tried to re-run an analysis and didn't have the sp package installed, it would fail. This problem is sometimes easy to fix, because you should get an error message telling you which package to install. (Not always, though.) Through a lot of trial and error you can get everything installed. More subtly, the version of a dependency can matter a great deal. A different version of a package or a different version of R might work slightly differently, and commands that worked earlier might no longer run. A good rule of thumb is never to upgrade any software when you are close to a deadline.
+
+Without managing dependencies you can never guarantee that you'll have exactly the same software as you used the first time. You may have to switch computers. Or, six months or eighteen months from now when you revisit your work, you will likely have a different version of R and the packages you use most. But there is also a positive side to managing dependencies. If you can state precisely what software you need, then it becomes easier to migrate from one computer to another. For example, you might write your code and test it on your personal laptop, which will be relatively low powered even if it is top of the line. You may wish to run your main analysis on a server (as [explained later](server.html)). Properly managing your dependencies means that you can migrate your code to a server---even a server on a different operating system---and run it there.
+
+## Next steps
+
+- Christopher Gandrud, *[Reproducible Research with R and RStudio](http://www.crcpress.com/product/isbn/9781466572843)* (Chapman and Hall, 2013).
+- Though intended for scientists, see Karl Broman's short course on [Tools for Reproducible Research](http://kbroman.org/Tools4RR/).
+- [CRAN Task View: Reproducible Research](http://cran.r-project.org/web/views/ReproducibleResearch.html) lists other packages relevant to reproducible research and literate programming.
