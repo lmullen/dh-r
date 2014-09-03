@@ -161,13 +161,12 @@ names_to_fit <- ratios %>% filter(name %in% sample_names)
 
 Now we use the `do()` function from dplyr to apply the `lm()` function to our smaller data frame.
 
-```{r}
+```{r, warning=FALSE}
 names_models <- names_to_fit %>% 
   group_by(name) %>%
   do(model = lm(F ~ year, data = .))
 names_models
 ```
-
 
 Now we have a model fitted to each name. We can test that the model for Madison is the same as what we calculated early.
 
@@ -177,7 +176,7 @@ filter(names_models, name == "Madison")$model
 
 There is another summary statistic we can calculate, Pearson's r.
 
-```{r}
+```{r, warning=FALSE}
 names_pearson <- names_to_fit %>%
   group_by(name) %>%
   do(pearson = with(., cor(year, F)))
