@@ -94,17 +94,75 @@ pop_plot <- population %>%
   ggtitle("U.S. Population by State, 1790--2010") +
   xlab(NULL) + ylab(NULL)
 
-dir.create("out")
-ggsave("out/population-by-state.png", pop_plot, width = 8, height = 6)
+ggsave("population.png", pop_plot, width = 8, height = 6)
 ```
 
-Now we can run this script from the terminal without opening R. If you type the following at the terminal, it will run the analysis and create the plot `out/population-by-state.png`.
+Now we can run this script from the terminal without opening R. If you type the following at the terminal, it will run the analysis and create the plot `population.png`.
 
 ```
 Rscript --vanilla analysis.R
 ```
 
 `Rscript` is a program installed alongside R itself which will run any R file as a script. The flag `--vanilla` tells R not to load any configuration files or saved session data so that we are guaranteed we get a clean run. Writing our script this way lets us run our code automatically from the terminal.
+
+This where GNU Make comes in. Make lets us specify exactly those steps which let us run create our file. Create a file in your directory called `Makefile` (no extension) and add this as its contents:
+
+```
+population.png : analysis.R
+  Rscript --vanilla analysis.R
+```
+
+Now you can delete the `out` directory if one exists. Then in your terminal enter the command `make`. Make will automatically create the file `population.png`.
+
+This works because Make is a format for expressing the relationship between files. In our example, we told make that the file `population.png` (before the colon) is created by the script `analysis.R`. Then in the line below the description of the relationship (which must begin with a tab character), we explained how to create the file `population.png` by calling `Rscript --vanilla` on `analysis.R`. In addition, Make will only run build the file `population.png` if it is necessary. If `analysis.R` has been changed since `population.png` was created, Make will notice know that the plot needs to be rebuilt. But if the plot file is newer than the script file, Make will know that is up to date and do nothing.
+
+This might seem like overkill for one file. But most projects involve many more files that need to be run. A slightly more complicated project might entail the following process as described in this Makefile:
+
+```
+all : population.png births.png
+
+births.png : births.R
+  Rscript --vanilla births.R
+
+population.png : population.R
+  Rscript --vanilla population.R
+```
+
+Now we have two R files, `births.R` and `population.R`, which should create two plot files, `births.png` and `population.png`. We have specified how to build those files using `Rscript`. And we've added another target (Make lingo for something to be built) called `all`. That target is not actually a file to be built. Instead it tells Make that when we run the command `make all` at the terminal, it should build the files `population.png` and `births.png` which are specified as its dependencies because they come after the colon. When Make is told to make the `all` target, it goes looking for instructions on how to build those two plots. It finds the two instructions later on in the file and builds those two files as specified.
+
+Already this is a substantial gain. We have specified exactly how to build our outputs and we have automated the process. As a bonus, each time we run Make it will re-build only the minimum, which is important when our scripts take a long time to run.
+
+But if we have to list out all the R files and outputs in our project, this will get tedious, and any change to our R file names will require changes to our Makefile. The real power of Make is that it lets us specify generic rules. Consider the following Makefile.
+
+```
+OUTPUTS := $(patsubst %.R,%.png,$(wildcard *.R))
+
+all : $(OUTPUTS)
+
+%.png : %.R
+  Rscript --vanilla $<
+```
+
+This Makefile will do exactly the same thing as our previous Makefile. Except whereas our previous Makefile would have requires us to add new lines for each new R file we created. This new file will work for as many R files as we have in our directory. Just as important, it is portable from one project to the next. Here is how it works.
+
+The first line is a bit arcane. (Make can be arcane.) It defines a variable `OUTPUTS`. This will contain an array of all the files we want to make, that is, all the `png` files. It creates this array by finding all the R files in a directory (`*.R`) and changes the extension from `.R` to `.png`. Next the `all` target is told to build all of the files listed in the `OUTPUTS` variable. Finally, the last two lines define a rule which explains the relationship between `.png` and `.R` files. The `%` character stands for the first part of a filename, e.g., `births.png` is dependent on `births.R`, `population.png` is dependent on `births.R`, and so on. This rule defines a relationship between every `.png` file and `.R` filename in the directory. Finally the call to `Rscript` uses a special variable `$<`, which stands for the first prerequisite of the rule. In this case, that variable stands for whatever the name of the `.R` file is.
+
+There are two remaining enhancements we can add to our Makefile. One problem is that it is a bit artificial for each R script to have one and only one output
+which is a plot or something else. It is much more common to have a few analysis scripts which produce multiple outputs. We also don't yet know how to use a Makefile with R Markdown files and Knitr. Assuming that you take the advice above to do all your analysis in R Markdown files, we can solve both of these problems with the following Makefile.^[NOTE: I haven't quite gotten this working yet, but the problem is a homebrew library not the R code.]
+
+```
+OUTPUTS := $(patsubst %.Rmd,%.html,$(wildcard *.Rmd))
+
+all : $(OUTPUTS)
+
+%.html: %.Rmd
+  Rscript --vanilla -e "library(rmarkdown); render('$<', html_document())"
+```
+
+This Makefile will make an `.html` file for each `.Rmd` file. The rule which calls `Rscript` uses the `-e` flag to pass mini R script, which loads the RMarkdown library and renders it into HTML. You could just as easily substitute a call to `pdf_document()` to create PDFs instead. When you run `make all` in the terminal, all of the R markdown files in the directory will be built as HTML files. (This is essentially the same process which builds this book.)
+
+RStudio allows integrates Makefiles into its projects. When you create an RStudio project, you can go to the "Build" menu and select, "Configure build tools."
+
 
 ## Dependency Management with Packrat
 
@@ -132,3 +190,5 @@ Further reading:
 - Though intended for scientists, see Karl Broman's short course on [Tools for Reproducible Research](http://kbroman.org/Tools4RR/).
 - [CRAN Task View: Reproducible Research](http://cran.r-project.org/web/views/ReproducibleResearch.html) lists other packages relevant to reproducible research and literate programming.
 - Yihui Xie, *[Dynamic Documents with R and knitr](http://www.amazon.com/gp/product/1482203537/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1482203537&linkCode=as2&tag=thebacgla-20&linkId=DAKPCBZJ74FI5YNV)* (Chapman and Hall, 2013).
+- Manual for [GNU Make](http://www.gnu.org/software/make/)
+- Mike Bostock, "[Why Use Make](http://bost.ocks.org/mike/make/)"
