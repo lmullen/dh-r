@@ -29,7 +29,7 @@ There are many kinds of regression analysis. If you've heard of any kind of regr
 
 One question of interest to historians is how naming practices change. We will use a data set collected by the Social Security Administration in the United States, which includes names and birth years for all names used more than five times in a given year. This data can be found in Hadley Wickham's [babynames](https://github.com/hadley/babynames) package, which you can install with the command `install.packages(babynames)`. When we load the data set along with dplyr to [manipulate the data](data.html), we can get a sense of what the data looks like.
 
-```{r}
+```{r load_babynames}
 library(dplyr)
 library(babynames)
 
@@ -38,7 +38,7 @@ babynames %>% head()
 
 For each combination of name, year, and sex, we have the value `n`, which is the number of people who received that name, and the values `prop` which is the proportion of people who received that name that year. We can begin with a simple plot of the name `Madison`, which shows us how the name changed over time:
 
-```{r}
+```{r plot_babynames_1}
 library(ggplot2)
 babynames %>%
   filter(name == "Madison") %>%
@@ -49,7 +49,7 @@ Already we notice something interesting. Before about 1985, Madison seems to hav
 
 As in any data manipulation task, we need to think about what form of the data would be most useful to us. We might decide that we are most interested in the proportion of female uses to total uses of a name in any given year. We might just as well have chosen the proportion of male uses, since `1 = proportion_female + proportion_male`. We will use dplyr to summarize the data for that purpose. Since I happen to know that, because of the reasons people had to apply for Social Security during the New Deal, the gender ratios for the data set are unreliable before about 1940, we will only consider those years even though the data goes back to 1880. (We could correct this skew, but that is another problem.)
 
-```{r, tidy=FALSE}
+```{r ratios_of_babynames, tidy=FALSE}
 library(tidyr)
 
 ratios <- babynames %>%
@@ -65,13 +65,13 @@ ratios <- babynames %>%
 
 Spreading the data with the `spread()` function from the tidyr shows a problem in our data. In years where there were no male or female uses of a given name, we have `NA` values. We can safely assume that in those years the proportion was actually `0`, so will replace all such values.
 
-```{r}
+```{r fix_nas_in_ratios}
 ratios[is.na(ratios)] <- 0
 ```
 
 If we look at our results for the period around 1985, we can see the change shift in the proportion of female (`F`) and proportion of male (`M`) uses of the name Madison, and we can also plot that change for the entire dataset.
 
-```{r}
+```{r plot_ratios_madison}
 ratios %>% filter(name == "Madison", year >= 1980, year <= 1990)
 
 ratios %>% filter(name == "Madison") %>%
@@ -81,7 +81,7 @@ ratios %>% filter(name == "Madison") %>%
 
 We can now use ggplot2, which will in turn use base R's built-in `lm()` function, to plot a linear regression line for this change.
 
-```{r}
+```{r plot_madison_linear_regression}
 ratios %>% filter(name == "Madison") %>%
   ggplot(aes(x = year, y = F)) + 
   geom_point() +
@@ -94,7 +94,7 @@ The blue line in that plot is the regression line. You can think of a linear reg
 
 We can see how regression analysis helps us when we apply it more than one name. First we need to learn a way to find out if any given value is in a list of values that we define. If we define a character vector of names that we want to test, we can use R's `%in%` operator to find if any given string is in that vector. (The kind of operator whose name is enclosed between parentheses is called a binary operator, because it takes a value on both its left-hand and right-hand side. You are already familiar with binary operators like `+` and `%>%`.)
 
-```{r, warning=FALSE}
+```{r test_names_filter, warning=FALSE}
 test_names <- c("Madison", "John", "Mary", "Leslie", "Jan")
 "Madison" %in% test_names
 "Henry" %in% test_names
@@ -102,7 +102,7 @@ test_names <- c("Madison", "John", "Mary", "Leslie", "Jan")
 
 Now we can create another plot using the same technique of creating a regression line for the five names we defined above. 
 
-```{r, warning=FALSE}
+```{r plot_linear_regression_five_names, warning=FALSE}
 ratios %>% filter(name %in% test_names) %>%
   ggplot(aes(x = year, y = F, color = name)) +
   geom_point() +
@@ -123,7 +123,7 @@ First let's use the `lm()` function to fit a model just for the name Madison, so
 
 The `lm()` function takes two main arguments. The second argument is the data frame with the set of observations to be modeled. Let's filter our `ratios` data frame to just the name Madison.
 
-```{r}
+```{r filter_to_madison}
 madison <- ratios %>% filter(name == "Madison")
 ```
 
@@ -131,7 +131,7 @@ The first argument is the formula which expresses what we think is the relations
 
 Putting those two arguments together, we can make a fit a linear model to our Madison data.
 
-```{r}
+```{r get_madison_model}
 madison_model <- lm(F ~ year, madison)
 madison_model
 ```
@@ -140,7 +140,7 @@ The basic information printed by `madison_model` tells us the equation for the r
 
 There is much more information available in our model. We can use the `str()` function to find out everything that is available and the base R `plot()` function will show some useful plots, but the `summary()` function will give us a good overview. 
 
-```{r}
+```{r summary_of_madison_model}
 summary(madison_model)
 ```
 
@@ -150,7 +150,7 @@ So far we have not mentioned certainty. In calculating a regression line, we can
 
 Now that we understand the model and its possibilities, we need to apply this model to all the names in the data set. Actually, for the sake of this book, we're going to apply it just to 1000 names (plus the five we used above) chosen at random, because on my relatively fast laptop applying the model to all ninety-two thousand names takes about ten minutes. But instead of creating the sample data frame as below, you could apply the same code to the original `ratios` data frame. (See also `?sample_n` and `?sample_frac` in the dplyr package for alternative ways of sampling a data set.)
 
-```{r}
+```{r sample_babynames}
 set.seed(3453)
 unique_names <- ratios$name %>% unique
 sample_names <- sample(unique_names, 1000)
@@ -161,7 +161,7 @@ names_to_fit <- ratios %>% filter(name %in% sample_names)
 
 Now we use the `do()` function from dplyr to apply the `lm()` function to our smaller data frame.
 
-```{r, warning=FALSE}
+```{r model_all_the_names, warning=FALSE}
 names_models <- names_to_fit %>% 
   group_by(name) %>%
   do(model = lm(F ~ year, data = .))
@@ -170,13 +170,13 @@ names_models
 
 Now we have a model fitted to each name. We can test that the model for Madison is the same as what we calculated early.
 
-```{r}
+```{r get_madison_model_from_all_names}
 filter(names_models, name == "Madison")$model
 ```
 
 There is another summary statistic we can calculate, Pearson's r.
 
-```{r, warning=FALSE}
+```{r pearson_coef_for_names, warning=FALSE}
 names_pearson <- names_to_fit %>%
   group_by(name) %>%
   do(pearson = with(., cor(year, F)))
@@ -185,7 +185,7 @@ names_pearson
 
 Now we can filter this to find names with a change.
 
-```{r}
+```{r interesting_pearsons_coef}
 interesting_names_pearson <- names_pearson %>% filter(!is.na(pearson))
 
 to_male <- interesting_names_pearson %>% 

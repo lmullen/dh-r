@@ -6,6 +6,6 @@ output: bookdown::html_chapter
 
 # Interactive Plotting
 
-```{r}
+```{r load_plotting_libraries}
 library(ggvis)
 ```

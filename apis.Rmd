@@ -10,7 +10,7 @@ output: bookdown::html_chapter
 
 ## Accessing APIs
 
-```{r}
+```{r load_libraries}
 library(httr)
 ```
 
@@ -21,7 +21,7 @@ As you are learning to work with APIs, and in particular if you are writing a pa
 For example, using the `ip` endpoint for httpbin (which you can [visit in your
 browser](http://httpbin.org/ip) to see the JSON that is returned), we can write a simple function that discovers your IP address.
 
-```{r}
+```{r what_is_my_ip}
 what_is_my_ip <- function() {
   require(httr)
   r <- GET("http://httpbin.org/ip")

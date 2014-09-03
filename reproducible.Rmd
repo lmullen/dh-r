@@ -4,7 +4,7 @@ layout: default
 output: bookdown::html_chapter
 ---
 
-```{r,echo=FALSE}
+```{r load_options,echo=FALSE}
 source("general-options.r")
 ```
 
@@ -58,14 +58,14 @@ The common pattern in any project is to have input files (data) which are run th
 
 Let's begin with a data set. In the data for this book is a file from the [NHGIS](http://nhgis.org/) containing decennial census counts of popuation for each state and territory in the United States from 1790 to 2010. We can read in this file to see what the data looks like:
 
-```{r}
+```{r load_population_data}
 population <- read.csv("data/nhgis.population/nhgis0011_ts_state.csv")
 head(population)
 ```
 
 The relevant fields are `YEAR`, `STATE`, and `A00AA` which is the NHGIS code for total population. Using that information, we can write a simple R file (call it `analysis.R`) which creates a visualization of changes in state popuation:
 
-```{r}
+```{r plot_population_by_state}
 library(ggplot2)
 library(dplyr)
 
@@ -82,7 +82,7 @@ We could run this code interactively. Every time we made a change, we could open
 
 Fortunately there is a better way. We can make this script reproducible by re-writing it slightly. Instead of printing the plot, we can use the `ggsave()` function to save the plot to a directory. And we can add one line to the very top of the file which will let us re-run our script. When we make these changes, we get the following:
 
-```{r, eval=FALSE}
+```{r dummy_plot_of_population, eval=FALSE}
 library(ggplot2)
 library(dplyr)
 
@@ -183,7 +183,7 @@ A common problem in any project that involves software is managing dependencies.
 
 A very handy function is `sessionInfo()` which shows you the current R version and all the packages that you currently have loaded. It is a prudent practice to put a all to this function at the end of knitr documents that you have written so that you can document what packages and what versions are required to do your work. For example, this chapter currently has the following packages loaded.
 
-```{r}
+```{r session_info}
 sessionInfo()
 ```
 

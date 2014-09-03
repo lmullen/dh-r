@@ -23,7 +23,7 @@ Data packages are for making data sets readily available inside of R. There
 are many built in examples, some of which we have already used. One is the 
 `mtcars` data set:
 
-```{r}
+```{r mtcars_demo}
 data(mtcars)
 str(mtcars)
 head(mtcars)

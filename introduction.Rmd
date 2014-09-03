@@ -39,7 +39,7 @@ With programming, however, you have to express all of the concepts that you are 
 
 Computer languages really are languages, in the sense that they share a grammar. And computer langauges (at least, high-level languages like R) exist to communicate to humans more than to communicate with machines. To understand what I mean about grammar, take the example below, which contains code for reading a spreadsheet (called a CSV file) and saving it to a variable.
 
-```{r, eval=FALSE}
+```{r dummy_read_data, eval=FALSE}
 data <- read.csv("my-file.csv")
 ```
 
@@ -81,7 +81,7 @@ console.log(sum)
 
 Unless you already know JavaScript or some other programming langauge, you probably can't read those examples. In R, adding a list of numbers looks like this:
 
-```{r}
+```{r sum_in_r}
 sum(c(1, 2, 3, 4, 5))
 ```
 

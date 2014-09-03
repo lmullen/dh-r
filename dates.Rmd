@@ -10,7 +10,7 @@ A standard historian's joke goes something like this: "On or about October 31, 1
 
 The problem of precision and dates is even more vexing when it comes to computation. Computers demand precision in dates. The computer has no built-in concept of dates such as centuries. To explain the nineteenth century to a computer, you will have to give tell it to computer the difference between December 31, 1900 and January 1, 1801.^[Or 1800 and 1899: whichever definition of the start of a century you prefer.] Even more difficult is that computers require precision down to the second or below. On Unix operating systems, dates are computed as the number of seconds elapsed since the beginning of the Unix epoch: 00:00:00 in Coordinated Universal Time (i.e., Greenich Mean Time) on Thursday, January 1, 1970, excluding leap seconds. If I run the Unix date command, I see that 1.4 billion seconds and counting have elapsed since then, and R reports a value down to the hundredth thousand of a second.
 
-```{r}
+```{r get_sys_time}
 now <- Sys.time()
 as.character(as.numeric(now))
 ```
@@ -19,7 +19,7 @@ The problem for the computational historian, then, is to work with artificially 
 
 ## Lubridate
 
-```{r}
+```{r demo_lubridate}
 library(lubridate)
 date <- mdy("August 8, 1863")
 date

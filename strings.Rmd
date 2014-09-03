@@ -6,7 +6,7 @@ output: bookdown::html_chapter
 
 # Strings
 
-```{r}
+```{r load_string_libraries}
 library(stringr)
 ```
 
