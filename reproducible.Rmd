@@ -161,8 +161,21 @@ all : $(OUTPUTS)
 
 This Makefile will make an `.html` file for each `.Rmd` file. The rule which calls `Rscript` uses the `-e` flag to pass mini R script, which loads the RMarkdown library and renders it into HTML. You could just as easily substitute a call to `pdf_document()` to create PDFs instead. When you run `make all` in the terminal, all of the R markdown files in the directory will be built as HTML files. (This is essentially the same process which builds this book.)
 
-RStudio allows integrates Makefiles into its projects. When you create an RStudio project, you can go to the "Build" menu and select, "Configure build tools."
+Makefiles have a convention that the provide a `clean` task and sometimes a `clobber` task. The `clean` task is for removing any intermediate files. For example, a script might create a temporary data file. The `clobber` task deletes all outputs. For example, if your intermediate files go into the directory `generated/` and your output files go into the directory `out/`, you could add the following two tasks to your Makefile:
 
+```
+clean :
+  rm -f generated/*
+  
+clobber :
+  rm -f out/*
+```
+
+If you have made your work properly reproducible, at any point you ought to be able to run `make clean` and `make clobber` to delete generated files, then run `make all` to generate the again. If your project cannot do that, it is a sure sign that it is not reproducible, and you need to rewrite your code so that it is reproducible.
+
+RStudio allows integrates Makefiles into its projects. When you create an RStudio project, you can go to the "Build" menu and select, "Configure build tools." Then when you run the build command in RStudio, it is like calling `make` at the command line. 
+
+![Setting a Makefile as the build option for an RStudio project](screenshots/rstudio-makefile.png)
 
 ## Dependency Management with Packrat
 
