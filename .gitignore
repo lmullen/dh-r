@@ -4,3 +4,4 @@ temp.Rmd
 *.html
 .Rproj.user
 figures/
+out/

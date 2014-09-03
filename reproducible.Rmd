@@ -4,6 +4,10 @@ layout: default
 output: bookdown::html_chapter
 ---
 
+```{r,echo=FALSE}
+source("general-options.r")
+```
+
 # Reproducible Research
 
 Reproducible research is a concept borrowed from the sciences, which are currently working on ways to make research reproducible. This borrowing might seem to imply that reproducible research implies a kind of scientific method, but it does not. We must distinguish between the terms *replicable*, *reproducible*, and *verifiable*.^[Some people reverse the terms *reproducible* and *replicable* as I have defined them here.] Replication is central to the scientific method. It is the idea that an experiment should be able to be repeated in different laboratories. This ability to repeat experiments and get the same results constitute verification in the sciences.
@@ -40,13 +44,67 @@ A build script is a computer file which explains in a way that is both human and
 
 Literate programming is a concept borrowed from the computer scientist [Donald Knuth](http://www-cs-faculty.stanford.edu/~uno/lp.html). In its technical sense, literate programming is the practice of writing computer programs according to the logic of human prose. A literate program is one which is written like prose, but with computer code interspersed. We are going to use the term in a non-technical sense to mean the practice of embedding code in prose. For example, when writing an article or book, it is possible to embed the code that produces your visualizations and tables directly in the document itself. By embedding the code itself instead of the outputs, it is possible to re-run your analysis re-creating the charts each time. R has a particular good package for this kind of writing by [Yihui Xie](http://yihui.name/) called [knitr](http://yihui.name/knitr/).
 
-Finally dependencies are the software that your software depends on to do its work. These include the R packages you are using, R itself, and possible external libraries written in other languages. If you are unable to specify what software you have depended on, it is possible that your code will break in the future and that it will be impossible to figure out how to get it to run again. [Packrat](http://rstudio.github.io/packrat/) is an R package which can keep track of which packages and which versions you are using, then automatically install them as necessary when you change computers or when someone else wants to run your code.
+Dependencies are the software that your software depends on to do its work. These include the R packages you are using, R itself, and possible external libraries written in other languages. If you are unable to specify what software you have depended on, it is possible that your code will break in the future and that it will be impossible to figure out how to get it to run again. [Packrat](http://rstudio.github.io/packrat/) is an R package which can keep track of which packages and which versions you are using, then automatically install them as necessary when you change computers or when someone else wants to run your code.
+
+Finally, there are some conventions for creating analysis projects in R which we will cover. These are not hard and fast rules, but following these best practices from project to project will save you time and thought. They will also make your projects more legible to other people who use them.
 
 ## Literate Programming with Knitr
 
 TODO kable for reproducible tables.
 
-## Build Scripts with GNU Make
+## Build Scripts with Rscript and GNU Make
+
+The common pattern in any project is to have input files (data) which are run through programs written as filters (code) in order to produce outputs (charts and text). If your project is not organize this way, it ought to be. This simple organizational structure keeps your data and code separate, and it forces you to document exactly what steps need to be performed to create your outputs. This documentation can take the form of a Makefile, which will bring with it the benefit of automating the creation of your outputs. The simplest way to explain Make is to build up an example from scratch.
+
+Let's begin with a data set. In the data for this book is a file from the [NHGIS](http://nhgis.org/) containing decennial census counts of popuation for each state and territory in the United States from 1790 to 2010. We can read in this file to see what the data looks like:
+
+```{r}
+population <- read.csv("data/nhgis.population/nhgis0011_ts_state.csv")
+head(population)
+```
+
+The relevant fields are `YEAR`, `STATE`, and `A00AA` which is the NHGIS code for total population. Using that information, we can write a simple R file (call it `analysis.R`) which creates a visualization of changes in state popuation:
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+population <- read.csv("data/nhgis.population/nhgis0011_ts_state.csv")
+
+population %>% 
+  ggplot(aes(x = YEAR, y = A00AA, group = STATE)) +
+  geom_line(alpha = 0.25) +
+  ggtitle("U.S. Population by State, 1790--2010") +
+  xlab(NULL) + ylab(NULL)
+```
+
+We could run this code interactively. Every time we made a change, we could open RStudio, open `analysis.R`, click the "run" or "source" button, and have the plot generated. Then we could view the plot, click the save button, give it a file name, set the dimensions, and save it. While this would work, it would be time consuming and error prone once our analysis had gotten more complicated than the level of a single plot. 
+
+Fortunately there is a better way. We can make this script reproducible by re-writing it slightly. Instead of printing the plot, we can use the `ggsave()` function to save the plot to a directory. And we can add one line to the very top of the file which will let us re-run our script. When we make these changes, we get the following:
+
+```{r, eval=FALSE}
+library(ggplot2)
+library(dplyr)
+
+population <- read.csv("data/nhgis.population/nhgis0011_ts_state.csv")
+
+pop_plot <- population %>% 
+  ggplot(aes(x = YEAR, y = A00AA, group = STATE)) +
+  geom_line(alpha = 0.5) +
+  ggtitle("U.S. Population by State, 1790--2010") +
+  xlab(NULL) + ylab(NULL)
+
+dir.create("out")
+ggsave("out/population-by-state.png", pop_plot, width = 8, height = 6)
+```
+
+Now we can run this script from the terminal without opening R. If you type the following at the terminal, it will run the analysis and create the plot `out/population-by-state.png`.
+
+```
+Rscript --vanilla analysis.R
+```
+
+`Rscript` is a program installed alongside R itself which will run any R file as a script. The flag `--vanilla` tells R not to load any configuration files or saved session data so that we are guaranteed we get a clean run. Writing our script this way lets us run our code automatically from the terminal.
 
 ## Dependency Management with Packrat
 
@@ -61,6 +119,10 @@ sessionInfo()
 The problem with dependencies is that they break. If you tried to re-run an analysis and didn't have the sp package installed, it would fail. This problem is sometimes easy to fix, because you should get an error message telling you which package to install. (Not always, though.) Through a lot of trial and error you can get everything installed. More subtly, the version of a dependency can matter a great deal. A different version of a package or a different version of R might work slightly differently, and commands that worked earlier might no longer run. A good rule of thumb is never to upgrade any software when you are close to a deadline.
 
 Without managing dependencies you can never guarantee that you'll have exactly the same software as you used the first time. You may have to switch computers. Or, six months or eighteen months from now when you revisit your work, you will likely have a different version of R and the packages you use most. But there is also a positive side to managing dependencies. If you can state precisely what software you need, then it becomes easier to migrate from one computer to another. For example, you might write your code and test it on your personal laptop, which will be relatively low powered even if it is top of the line. You may wish to run your main analysis on a server (as [explained later](server.html)). Properly managing your dependencies means that you can migrate your code to a server---even a server on a different operating system---and run it there.
+
+TODO: Explain Packrat
+
+## Best Practices for Organizing Analysis Projects
 
 ## Next steps
 
