@@ -40,8 +40,14 @@ The principle behind all this is that we are making a map between the variables 
 
 ## The Grammar of Graphics
 
+Grammar of graphics can refer to two related ideas. In the the generic sense, we can use the term to refer to the conventions for what visual representations mean. For basic plots like scatterplots these are well established for most people, though visual literacy is presumably higher in disciples that deal with data like the sciences than it is in history. There are also more complex visualizations, like network charts which take much more explaining.
 
-## Base R
+It is important to become familiar with these conventions. One common guide is Edward Tufte, who has a number of useful is also sometimes idiosyncratic recommendations in his books. An even better way to become familiar with the grammar is to expose yourself to as many kinds of visualizations of different subject matter as possible. There is unfortunately a discourse around visualizations that makes fun of bad visualizations. Many visualizations are indeed bad, and you should steer clear of them. But don't let this conversation discourage you from attempting many bad visualizations in the pursuit of making a few good ones.
+
+TODO: Fox News bar chart that doesn't start at 0.
+
+The other meaning of Grammar of Graphics is as a formal term described by Leland Wilkinson in a book by that name, and made available in R for plots through Hadley Wickham's ggplot2 package.
+
 
 ## ggplot2
 
@@ -51,6 +57,11 @@ library(ggplot2)
 mtcars %>% ggplot(aes(x = wt, y = mpg)) + geom_point() + geom_smooth() + ggtitle("Weight vs. MPG in MTCARS data set")
 ```
 
+## Base R
+
+## Saving plots
+
+PNG vs SVG vs PDF vs etc.
 
 ## Further Reading
 
