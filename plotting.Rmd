@@ -44,7 +44,9 @@ Grammar of graphics can refer to two related ideas. In the the generic sense, we
 
 It is important to become familiar with these conventions. One common guide is Edward Tufte, who has a number of useful is also sometimes idiosyncratic recommendations in his books. An even better way to become familiar with the grammar is to expose yourself to as many kinds of visualizations of different subject matter as possible. There is unfortunately a discourse around visualizations that makes fun of bad visualizations. Many visualizations are indeed bad, and you should steer clear of them. But don't let this conversation discourage you from attempting many bad visualizations in the pursuit of making a few good ones.
 
-TODO: Fox News bar chart that doesn't start at 0.
+![Fox News](screenshots/fox-news.jpg)
+
+*This bar chart from Fox News makes the error of not starting the two bars at 0. The comparison between them is thus entirely meaningless.*
 
 The other meaning of Grammar of Graphics is as a formal term described by Leland Wilkinson in a book by that name, and made available in R for plots through Hadley Wickham's ggplot2 package.
 
