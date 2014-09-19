@@ -9,3 +9,8 @@ output: bookdown::html_chapter
 ```{r load_plotting_libraries}
 library(ggvis)
 ```
+
+
+## R to JavaScript libraries
+
+There are many ways of making visualizations in JavaScript. The best and more powerful JavaScript library for this is D3.js, but there are many specialized libraries such as Leaflet.js for mapping. The key value of the JavaScript libraries is that they can include a kind of interactivity. There are a number of R libraries which will translate your graphics to JavaScript. This can be a quick way to get a visualization on the web, but it also often requires work in JavaScript. These libraries may appeal to you, but I usually find that it is sufficient to work in R unless I am going to make some kind of custom visualization in JavaScript.
