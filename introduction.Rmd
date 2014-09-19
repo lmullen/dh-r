@@ -6,6 +6,13 @@ output: bookdown::html_chapter
 
 # Introduction
 
+As I am writing this book my three-year-old daughter consistently confuses the words *how* and *why*. "How are you going to class?" she asks me, inquiring not my mode of transportation but my reason for leaving play time. "How are you doing" I ask her, and her reply is "Because I am happy." She understands the concepts of *how* and *why* but simply has the words for them reversed, and when I speak to her I sometimes get them backwards too.
+
+This is a book about *how*, not about *why*. With the exception of the apologetic offered in ths introduction, it is entirely about the how of doing digital history in a particular programming language, rather than the why of doing digital history. Academics tend to favor theoretical musings over practical how tos. But I am convinced that digital history has more in common with carpentry than it does with philosopy.^[I am not alone in this: See David David on [data carpentry](http://mimno.infosci.cornell.edu/b/articles/carpentry/), and many posts by Stephen Ramsay, especially "[On Building](http://stephenramsay.us/text/2011/01/11/on-building/)." TODO] In other words, I think that digital history is a craft knowledge about how to build things. This is not to say that there is no theory behind the practice of doing digital history: there is a great deal. But that knowledge is latent in actual how to. *How* explains *why*.
+
+MORE TO SAY
+
+
 ## Why this book?
 
 This book sits at the intersection of two genres of books of interest to digital historians.
