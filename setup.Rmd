@@ -16,11 +16,37 @@ A **package** is a collection of R files bundled together to accomplish a partic
 
 A **library** is a collection of packages stored on your computer. R has a built-in library which stores the packages which come bundled with base R. You will also create a personal package library which stores the packages that you have installed. You needn't worry about where this library is on your computer: R will prompt you for permission to create it the first time that you install packages. (You can find where it is by running the function `.libPaths()`. When you work on specific analysis projects, it is desirable to keep a separate library of packages uses just for that project in the project directory. This will ensure that you can later re-run your analysis. This can be managed using the [Packrat](http://rstudio.github.io/packrat/) package, which we'll cover later. (See the chapter on [reproducible research](reproducible.html).)
 
-## Starter packages and libraries
+## Installing packages
 
 You won't get very far in doing historical work with R without installing a few packages. This section will guide you in installing a few basic packages which you can't live without. Then it will suggest some packages categorized by the type of analysis that you wish to do.
 
 There are two main places from which you can install packages. [CRAN](http://cran.rstudio.com/), the Comprehensive R Archive Network, is a central repository of R packages.^[There are other CRAN-like repositories, such as [Bioconductor](http://www.bioconductor.org/) which provide discipline specific packages, but these are all for scientists.] To be published on CRAN, packages have to go through a rigorous testing process. You can be fairly confident that a CRAN package is, technically speaking at least, reliable. R users also have a culture oriented around academic research, so you can be more confident with CRAN packages than with the repositories for most languages that the functions provided are academically rigorous, and in some cases at least, peer reviewed. CRAN provides a wide array of packages, for statistics, business, science, social science, geospatial analysis, network analysis, text mining, natural language processing, visualization, and other domains. Most of the packages are not targeted specifically at historians (you can help change this!) but many can be used by historians. You can browse the [list of packages available at CRAN by name](http://cran.rstudio.com/web/packages/available_packages_by_name.html), or can browse the [task views](http://cran.rstudio.com/web/views/) which provide guides to packages relevant to a particular analytical technique.
+
+R includes a function that lets you install packages from CRAN. Running the function below will install the package [devtools](https://github.com/hadley/devtools), which provides many functions useful for writing R code. If this is the first time that you have installed an R package, you may be prompted to create a personal package library; just accept whatever the default location is for your operating system.
+
+```{r eval=FALSE}
+install.packages("devtools")
+```
+
+There are two common operations that you might want to do with `install.packages()`. One is to install more than one package at a time. You can combine the names of the packages that you want to install into a character vector. In this example, we'll install the [httr](http://cran.r-project.org/web/packages/httr/index.html) package, which lets you make requests from R over the internet via HTTP, and the [jsonlite](http://cran.r-project.org/web/packages/jsonlite/index.html) package, which lets you read the JSON data format which is commonly used to exchange data through web applications: `c("httr", "jsonlite")`. You might also want to install all the dependencies that a package needs. By default when using `install.packages()` to install package A, you will also install the packages B and C without which A cannot work. But packages will also have other dependencies which add additional functionality. Specifying `dependencies = TRUE` will install all the packages which A can possibly use: B and C, but perhaps also D and E. Putting those two arguments together, we can install httr and jsonlite with all their dependencies:
+
+```{r eval=FALSE}
+install.packages(c("httr", "jsonlite"), dependencies = TRUE)
+```
+
+The second main place to install packages is from [GitHub](https://github.com/), a website for sharing open-source code. Many R packages are developed on GitHub, so you can install more recent versions of them than are available on CRAN. Other packages are distributed only informally via GitHub rather than formally via CRAN. Such packages can be installed using the `install_github()` function provided by the devtools package we installed earlier.
+
+Let's install the [historydata](https://github.com/lmullen/historydata) package which provides sample datasets of interest to historians. This package will give us something to work with later. You can [find this package](https://github.com/lmullen/historydata) at GitHub. Notice that the README provides instructions on how to install the package. But even if it didn't, we could find out how to install the package from its URL. Notice the URL: `https://github.com/lmullen/historydata`. After GitHub's domain name, there are two parts to the URL. The username of the person or organization who controls this package is first: `lmullen`. Next is the name of the repository (which probably should be the same as the name of the package, but which might not be): `historydata`. We can use that information to install the file with devtools.^[The double colon operator `::` lets us specify which package a function comes from. In this case we are using it as a shortcut so we don't have to load devtools into the global environment.]
+
+```{r eval=FALSE}
+devtools::install_github("lmullen/historydata")
+```
+
+Now using `install.packages()` and `devtools::install_github()` you'll be able to install the vast majority of the packages that are useful to you.
+
+## Suggested packages
+
+## Updating Packages
 
 ## Citing packages
 
