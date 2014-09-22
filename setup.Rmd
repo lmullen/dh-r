@@ -44,6 +44,8 @@ devtools::install_github("lmullen/historydata")
 
 Now using `install.packages()` and `devtools::install_github()` you'll be able to install the vast majority of the packages that are useful to you.
 
+There is one more wrinkle to consider. R is a high-level language which uses libraries provided by low-level languages. For example, the [RCurl](http://cran.r-project.org/web/packages/RCurl/index.html) package (which many R packages need to interact with the internet) requires the [libcurl](http://curl.haxx.se/libcurl/) library which is external to R. The [rgdal](http://cran.rstudio.org/web/packages/rgdal/) package depends on the [GDAL/OGR](http://www.gdal.org/) Geospatial Data Abstraction Library. When looking at the documentation for package, note if it requires any external libraries. Those external libraries will have to be installed on your operating system. On Mac OS X, this is most easily done with [Homebrew](http://brew.sh/); on Ubuntu and other Linux distributions you can use the package manager; on Windows you will have to follow the instructions from the developers of the external library. In the list of suggested R packages below, I have mentioned the any external libraries which are required.
+
 ## Suggested packages
 
 ## Updating Packages
