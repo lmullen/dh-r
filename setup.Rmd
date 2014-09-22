@@ -48,6 +48,42 @@ There is one more wrinkle to consider. R is a high-level language which uses lib
 
 ## Suggested packages
 
+The following are some suggested packages for historical analysis. We'll use most of these throughout this book.
+
+General R functionality:
+
+- [devtools](http://cran.rstudio.org/web/packages/devtools/)
+- [packrat](http://cran.rstudio.org/web/packages/packrat/)
+- [knitr](http://cran.rstudio.org/web/packages/knitr/)
+- [RMarkdown](http://rmarkdown.rstudio.com/)
+
+Data:
+
+- [historydata](https://github.com/lmullen/historydata)
+
+Web:
+
+- [httr](http://cran.rstudio.org/web/packages/httr/)
+- [rmetadata](https://github.com/ropensci/rmetadata)
+
+Visualization:
+
+- [ggplot2](http://cran.rstudio.org/web/packages/ggplot2/)
+- [ggvis](http://ggvis.rstudio.com/)
+
+Data manipulation:
+
+- [dplyr](http://cran.rstudio.org/web/packages/dplyr/)
+- [magrittr](http://cran.rstudio.org/web/packages/magrittr/)
+
+Geospatial and mapping:
+
+- [ggmap](http://cran.rstudio.org/web/packages/ggmap/)
+- [sp](http://cran.rstudio.org/web/packages/sp/)
+- [maptools](http://cran.rstudio.org/web/packages/maptools/)
+- [rgeos](http://cran.rstudio.org/web/packages/rgeos/)
+- [rgdal](http://cran.rstudio.org/web/packages/rgdal/)
+
 ## Updating Packages
 
 ## Citing packages
