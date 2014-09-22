@@ -1,0 +1,17 @@
+---
+title: "Setting up R"
+layout: default
+output: bookdown::html_chapter
+---
+
+# Setting up R
+
+## Installing R
+
+## Installing R Studio
+
+## Packages and Libraries
+
+## Starter packages and libraries
+
+## .Rprofile
