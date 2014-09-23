@@ -53,11 +53,38 @@ The other meaning of Grammar of Graphics is as a formal term described by Leland
 
 ## ggplot2
 
+Basic idea of layers
+
+geoms and stats
+
 ```{r}
 library(magrittr)
 library(ggplot2)
 mtcars %>% ggplot(aes(x = wt, y = mpg)) + geom_point() + geom_smooth() + ggtitle("Weight vs. MPG in MTCARS data set")
 ```
+
+One dimensional plots: way of seeing distribution
+
+Time series
+
+Two dimensional plots
+
+Scatter plot
+
+With smoothing. For a description of the statistics of smoothing, see the chapter on [statistics](statistics.html).
+
+
+Multi dimensional analysis through plotting
+
+Multi dimensional through facetting
+
+facet wrap vs facet ribbon
+
+Annotation
+
+Themes
+
+These techniques from ggplot2 can also be used for mapping, but that will be covered in the [mapping chapter](mapping.html).
 
 ## Base R
 
@@ -67,7 +94,9 @@ PNG vs SVG vs PDF vs etc.
 
 ## Further Reading
 
+- Hadley Wickham, *[ggplot2: Elegant Graphics for Data Analysis](http://www.springer.com/statistics/computational+statistics/book/978-0-387-98140-6)* (Springer, 2009).
+- Leland Wilkinson, *[The Grammar of Graphics](http://www.springer.com/statistics/computational+statistics/book/978-0-387-24544-7)*, 2nd ed. (Springer, 2005).
+- Winston Chang, *[R Graphics Cookbook](http://www.cookbook-r.com/Graphs/)* (O'Reilly, 2012).
 - David J. Staley, *Computers, Visualization, and History: How New Technology Will Transform Our Understanding of the Past* (M.E. Sharpe, 2003).
-- Kieran Healy and James Moody, "Data Visualization in Sociology" *Annual
-Review of Sociology* 40 (2014): 105--128.
+- Kieran Healy and James Moody, "Data Visualization in Sociology" *Annual Review of Sociology* 40 (2014): 105--128.
 - Tufte's books.
