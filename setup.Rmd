@@ -8,6 +8,27 @@ output: bookdown::html_chapter
 
 ## Installing R
 
+### On Ubuntu
+
+R can be installed on Ubuntu using the package manager. The version in the Ubuntu repositories is almost certainly out of date, so the best thing to do is to add the CRAN repository using the RStudio mirror:
+
+```
+add-apt-repository "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/"
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 51716619E084DAB9
+```
+
+You should then be able to update the list of Ubuntu packages and install the necessary R packages:
+
+```
+apt-get install r-base r-base-core r-base-dev
+```
+
+For some tasks in R, like package development, you'll need many more external dependencies. The following will take a long time to download and install, but it will provide almost all of what you need.
+
+```
+apt-get install libcurl4-openssl-dev libxml2-dev qpdf texlive-full build-essential gdal-bin libgdal-dev libproj-dev libxml2-dev git
+```
+
 ## Installing R Studio
 
 ## Packages and Libraries
