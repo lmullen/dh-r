@@ -23,6 +23,12 @@ You should then be able to update the list of Ubuntu packages and install the ne
 apt-get install r-base r-base-core r-base-dev
 ```
 
+You can then test whether R is properly installed by running the following command in your terminal:
+
+```
+R --version
+```
+
 For some tasks in R, like package development, you'll need many more external dependencies. The following will take a long time to download and install, but it will provide almost all of what you need.
 
 ```
