@@ -10,7 +10,7 @@ output: bookdown::html_chapter
 
 ### On Ubuntu
 
-R can be installed on Ubuntu using the package manager. The version in the Ubuntu repositories is almost certainly out of date, so the best thing to do is to add the CRAN repository using the RStudio mirror:
+R can be installed on Ubuntu using the package manager. The version in the Ubuntu repositories is almost certainly out of date, so the best thing to do is to add the CRAN repository using the RStudio mirror. (You will have to run most of these commands as root, prefixing them with the command `sudo`.)
 
 ```
 add-apt-repository "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/"
