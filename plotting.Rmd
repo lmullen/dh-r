@@ -153,12 +153,15 @@ Small multiples
 
 facet wrap vs facet ribbon
 
-```{r}
+```{r population-of-american-jews}
 library(historydata)
 library(tidyr)
 sarna %>%
-  gather(type, value, -year) %>%
-  ggplot(aes(x = year, y = value, group = type)) + geom_line() + facet_grid(type ~ ., scales="free") + xlim(1800, 2000) 
+  ggplot(aes(x = year, y = value)) +
+  geom_line() +
+  facet_grid(estimate ~ ., scales = "free") +
+  xlim(1800, 2000) +
+  labs(x = NULL, title = "Estimated population of American Jews")
 ```
 
 Annotation, titles, captions
