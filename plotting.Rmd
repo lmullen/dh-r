@@ -4,25 +4,102 @@ layout: default
 output: bookdown::html_chapter
 ---
 
-# Plotting
-
-One of the most powerful things that you can do with R is also one of the conceptually most simple: make plots. We'll begin with a distinction between plotting and other kinds of visualization. A map is of course a visualization, as is a network graph. But there are other kind of plots on a cartesian plane (that is, an x-axis and y-axis) which are probably what come to mind when you think of plots. It is these kinds of plots that we will address first: scatter plots, line charts, bar charts, histograms, and the like.
-
-
-Despite their deceptive simplicity, such plots are powerful for two reasons. First, because they can turn numbers or other values into visualizations, they can uncover information which we cannot otherwise readily understand. Take for instance this simple list of ages from a membership list. What is the pattern? 
-
-```{r simple-histogram}
-numbers <- c(1,5,3,2,4,5,3,2,2,4,5,2)
-hist(numbers)
+```{r,echo=FALSE}
+source("general-options.r")
 ```
 
-It is very difficult for us to discern any pattern in the list of numbers. A simple histogram puts the numbers into bins, counts the number of occurences in each bin, and draws a bar chart to report this. This visualization makes this apparent to the mind. Moreover the property of the length of the bars makes it possible to 
+# Plotting
 
-The other primary characteristic of these charts is that they express relationships between variables. Let's take a simple chart.
+One of the most powerful things that you can do with R is also one of the easiest: make plots. Let's begin with a distinction between plotting and other kinds of visualization, though the distinction is somewhat arbitrary. A map is of course a visualization, as is a network graph. But there are other kind of plots which are probably what come to mind first when you think of plots. It is these kinds of plots that we will address first: scatter plots, line charts, bar charts, histograms, and the like. In this chapter we will use several datasets from the [historydata](https://github.com/lmullen/historydata) package to create these kinds of plots.^[Assuming that you have installed devtools, you can install the historydata package with the following command: `devtools::install_github("lmullen/historydata")`.] 
 
-TODO: Plot of American Jewish population
+Despite their apparent simplicity, such plots are powerful for two reasons. First, because they can turn numbers or other values into visualizations, they can uncover information which we cannot otherwise readily understand. Take for example this list of the years for which midshipman entered the United States Navy. I've limited this list to just the years from 1801 to 1809. What is the pattern? 
 
-This chart expresses a relationship between two variables: time and an estimate of the population of American Jews. The horizontal axis is the x-axis and the vertical axis is the y-axis. Part of the convention of graphics which we have become acculturated to expect is that the x-axis represents an independent variable, and y-axis represents an dependent variable. In other words, whatever is plotted on the y-axis is thought of a depending on the x-axis, but not the other way round. The passage of time may change the population of American Jews, but the population of American Jews does not change the passage of time.
+```{r echo=FALSE, eval=FALSE}
+library(dplyr)
+library(lubridate)
+naval_subset <- historydata::naval_promotions %>%
+  filter(rank == "midshipman",
+         year(ymd(date)) >= 1806, 
+         year(ymd(date)) <= 1810) 
+naval_subset$date %>% year %>% dput()
+```
+
+```{r simple-histogram}
+year_midshipman <- c(1809, 1809, 1808, 1809, 1808, 1809, 1809, 
+1809, 1809, 1806, 1809, 1809, 1809, 1809, 1809, 1810, 1809, 1809, 
+1810, 1809, 1809, 1809, 1809, 1809, 1810, 1807, 1806, 1806, 1807, 
+1809, 1809, 1810, 1806, 1808, 1809, 1808, 1807, 1810, 1810, 1809, 
+1809, 1809, 1809, 1809, 1809, 1810, 1809, 1809, 1809, 1810, 1806, 
+1810, 1809, 1809, 1809, 1809, 1809, 1809, 1808, 1809, 1810, 1809, 
+1809, 1809, 1809, 1809, 1806, 1809, 1809, 1807, 1809, 1809, 1809, 
+1806, 1810, 1809, 1808, 1809, 1809, 1809, 1810, 1808, 1809, 1810, 
+1809, 1809, 1810, 1806, 1809, 1809, 1809, 1809, 1809, 1809, 1808, 
+1809, 1809, 1809, 1809, 1809, 1809, 1809, 1808, 1810, 1809, 1810, 
+1809, 1809, 1809, 1806, 1809, 1809, 1809, 1809, 1809, 1809, 1810, 
+1809, 1809, 1806, 1809, 1809, 1809, 1808, 1809, 1809, 1809, 1809, 
+1809, 1810, 1809, 1809, 1806, 1809, 1809, 1809, 1809, 1806, 1808, 
+1809, 1810, 1809, 1809, 1806, 1806, 1810, 1809, 1808, 1809, 1809, 
+1810, 1806, 1809, 1810, 1809, 1808, 1810, 1806, 1809, 1808, 1809, 
+1810, 1809, 1809, 1809, 1810, 1810, 1809, 1809, 1809, 1809, 1806, 
+1808, 1808, 1809, 1809, 1809, 1809, 1809, 1806, 1809, 1809, 1809, 
+1807, 1809, 1809, 1808, 1809, 1809, 1809, 1810, 1809, 1809, 1809, 
+1809, 1809, 1809, 1809, 1809, 1809, 1809, 1806, 1809, 1810, 1809, 
+1809, 1806, 1810, 1809, 1809, 1809, 1806, 1810, 1809, 1809, 1809, 
+1806, 1809, 1808, 1808, 1809, 1809, 1810, 1806, 1806, 1808, 1809, 
+1806, 1809, 1810, 1809, 1808, 1809, 1806, 1809, 1809, 1806, 1809, 
+1809, 1809, 1809, 1809, 1806, 1809, 1809, 1807, 1808, 1809, 1808, 
+1806, 1809, 1806, 1806, 1810, 1809, 1810, 1809, 1809, 1810, 1809, 
+1808, 1806, 1809, 1809, 1809, 1806, 1809, 1809, 1809, 1809, 1809, 
+1807, 1809, 1809, 1806, 1809, 1809, 1809, 1806, 1808, 1806, 1810, 
+1809, 1806, 1808, 1809, 1810, 1809, 1809, 1809, 1807, 1809, 1809, 
+1809, 1808, 1809, 1808, 1809, 1809, 1806, 1809, 1807, 1809, 1809, 
+1807, 1806, 1806, 1809, 1810, 1809, 1808, 1809, 1808, 1809, 1809, 
+1809, 1809, 1810, 1809, 1809, 1809, 1809, 1809, 1809, 1809, 1809, 
+1809, 1810, 1809, 1809, 1809, 1809, 1809, 1809, 1809, 1810, 1806, 
+1809, 1809, 1810, 1806, 1808, 1809, 1809, 1809, 1809, 1808, 1809, 
+1809, 1809, 1809, 1809, 1809, 1809, 1809, 1806, 1809, 1808, 1810, 
+1809, 1806, 1809, 1808, 1809, 1809, 1808, 1806, 1809, 1810, 1808, 
+1809, 1809, 1810, 1808, 1809, 1809, 1810, 1809, 1809)
+```
+
+Even with only `r length(year_midshipman)` people to keep track of for only five years, we can't detect any pattern just by looking at the list of years.^[The full dataset for careers in the early American navy has `r nrow(historydata::naval_promotions)` events: that is far more than we can keep track of without visualization, and it is a relatively small dataset.] But with a single command we can visualize the frequency with which each year appears in our five year sample.
+
+```{r naval-promotions-histogram}
+hist(year_midshipman)
+```
+
+With our plot we can see clearly see a pattern: far more new officers entered the navy in 1809 than in the surrounding years. 
+
+The other way that plotting is powerful is that it can express the relationship between variables visually. In our midshipmen example above, we only plotted one variable: the count of the years in which midshipmen entered the navy. We can as a more complicated question that involves two variables: did officers who entered the navy very early in its history become captains faster than officers who entered later?
+
+```{r time-to-promotion, echo=FALSE, message=FALSE}
+library(dplyr)
+library(tidyr)
+library(lubridate)
+library(ggplot2)
+historydata::naval_promotions %>%
+  spread(rank, date) %>% 
+  filter(!is.na(captain),
+         !is.na(midshipman)) %>%
+  mutate(days_to_captain = (ymd(captain) - ymd(midshipman)) %>% as.double) %>%
+  ggplot(aes(x = ymd(midshipman), y = days_to_captain / 365)) +
+  geom_point() + 
+  geom_smooth(span = 0.25) + 
+  labs(title = "Time to Promotion in the Early U.S. Navy",
+       x = "Date an officer became a midshipman",
+       y = "Number of years until promotion to captain") + 
+  theme_classic()
+```
+
+This chart show the relationship between the date than a person became the lowest ranked officer in the early navy and the number of years it took him to become captain. The horizontal axis is the x-axis and the vertical axis is the y-axis. Part of the convention of graphics which we have become acculturated to expect is that the x-axis represents an independent variable, and y-axis represents an dependent variable. In other words, whatever is plotted on the y-axis is thought of a depending on the x-axis, but not the other way round. The date one entered the navy may well have affected how long it took someone to become a captain, but it is nonsensical to say that the length of time it took someone to become a captain affected when he entered the navy.
+
+This plot is able to express an even more powerful historical argument because it demonstrates a relationship between those two variables. You can see from the visualization that a newly minted officer in the first years of the navy could expect to become an officer relatively quickly, in about fifteen years or so. But for officers entering the navy in the 1810s, almost everyone had to wait thirty or forty years to become a captain. We might surmise that that a couple of reasons were at play: perhaps many more officers joined the navy for the War of 1812, and then after that war until the Civil War the navy hardly expanded at all, so that by 1812 there were many more officers jockeying for few captaincies.^[This example is drawn from [Abby Mullen's](http://abbymullen.org) work on the early U.S. Navy. Her dataset about officer promotions is available in the [historydata](https://github.com/lmullen/historydata) package. See a description of the dataset and a citation in `help("naval_promotions", package = historydata)`.]
+
+These two examples point to the real power of plotting for historians: they give us a way of iteratively asking and answering questions about the past. We began with a dataset of promotions in the navy, and asked the simple question about what years had the most new officers. That question led us to a more complicated question about how long it took those new officers to be promoted. That visualization in turn might lead us to new questions. We might ask, for example, how many captaincies were available in any given year, or we might ask how what proportion of incoming officers ever became captain. Each of those questions could be answered with another visualization. But our plots should also lead us to questions which cannot be answered with data. Now that we know how long it took officers to be promoted, we might go back to the archives to ask whether officers who became captains in fifteen years ever had trouble because of their rapid climb; alternatively, we might look for letters in which later officers complained about the long wait for a command of their own. The visualization provides us with answers, but also with new questions that we can bring to the data and to the qualitative sources.
+
+When using plots to express relationships between variables, you are using an enormously powerful tool. You must be careful to use it to ask the right questions, and to be suspicious of exactly what the causal or correlative mechanism might be between two different variables. Historians have a special affinity for plots which show the relationship between time and some other variable, which are called time series. But it is possible to express the relationship between any two or more variables visually, even if there is no good causal or correlative link between the two. It is also easy to overwhelm the viewer or reader, instead of pointing her to a few good visualizations that illustrate your key point. One must also keep in mind that even if a visualiation is worth a thousand words, ten thousand words are still necessary to explain what the visualization means and to draw an interpretation out of it.
+
+## The Grammar of Graphics
 
 We can classify charts by the number of variables that they represent and by how they go about doing the representation:
 
@@ -32,13 +109,8 @@ We can classify charts by the number of variables that they represent and by how
 - Three or more variables: It is also possible to facet a plot, meaning to show many small charts right next to each other to show how one variable affects another.
 - Three or more variables: It is also possible to plot multiple variables on the same plot using the x and y position.^[Using different scales on the axes is never recommended, however.]
 
-Whenever using plots to express relationships between variables, one is using an enormously powerful tool. One must be careful to use it to ask the right questions, and to be suspicious of exactly what the causal or correlative mechanism might be between two different variables. Historians have a special affinity for plots which show the relationship between time and some other variable. These are called time series. But it is possible to express the relationship between any two or more variables visuallly. It is easy to overwhelm the viewer. One must also keep in mind that even if a visualiation is worth a thousand words, the thousand words are still necessary to explain what the visualization means and to draw an interpretation out of it.
-
-TODO: Example
-
 The principle behind all this is that we are making a map between the variables in our data sets and the modes of representing them: from time to the position on the x-axis, from the value to the position on the y-axis, from the type to the color, and from the other value to the size. This map constitutes a kind of a grammar of graphics.
 
-## The Grammar of Graphics
 
 Grammar of graphics can refer to two related ideas. In the the generic sense, we can use the term to refer to the conventions for what visual representations mean. For basic plots like scatterplots these are well established for most people, though visual literacy is presumably higher in disciples that deal with data like the sciences than it is in history. There are also more complex visualizations, like network charts which take much more explaining.
 
@@ -58,7 +130,6 @@ Basic idea of layers
 geoms and stats
 
 ```{r}
-library(magrittr)
 library(ggplot2)
 mtcars %>% ggplot(aes(x = wt, y = mpg)) + geom_point() + geom_smooth() + ggtitle("Weight vs. MPG in MTCARS data set")
 ```
@@ -78,9 +149,19 @@ Multi dimensional analysis through plotting
 
 Multi dimensional through facetting
 
+Small multiples
+
 facet wrap vs facet ribbon
 
-Annotation
+```{r}
+library(historydata)
+library(tidyr)
+sarna %>%
+  gather(type, value, -year) %>%
+  ggplot(aes(x = year, y = value, group = type)) + geom_line() + facet_grid(type ~ ., scales="free") + xlim(1800, 2000) 
+```
+
+Annotation, titles, captions
 
 Themes
 
