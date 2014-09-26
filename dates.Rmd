@@ -28,9 +28,45 @@ This chapter will work with a sample dataset of missions by the Paulist Fathers,
 
 ## Lubridate
 
-^[A much fuller introduction to [lubridate](http://cran.rstudio.org/web/packages/lubridate/) can be found in Garret Grolemund and Hadley Wickham, "Dates and Times Made Easy with lubridate," *Journal of Statistical Software* 40, no. 3 (2011): <http://www.jstatsoft.org/v40/i03/> and the package's documentation and vignette.]
+As is the case with much of R, a lot of the pain in manipulating dates can be removed by using the right package. [Lubridate](http://cran.rstudio.org/web/packages/lubridate/) is a package which provides many useful functions for parsing dates, getting information out of them, and performing calculations on them.^[A much fuller introduction to [lubridate](http://cran.rstudio.org/web/packages/lubridate/) can be found in Garret Grolemund and Hadley Wickham, "Dates and Times Made Easy with lubridate," *Journal of Statistical Software* 40, no. 3 (2011): <http://www.jstatsoft.org/v40/i03/> and the package's documentation and vignette.]
 
 ### Parsing dates
+
+The most useful feature of lubridate are the functions it provides to parse dates from character strings. If you have control over how data is stored and represented, then you should use the widely agreed upon standard [ISO-8601](http://en.wikipedia.org/wiki/ISO_8601) ISO-8601. That standard has many recommendations, but its basic recommendation is that dates be stored as strings, arranged from year to month to day to time. You can omit any value for which you do not have data.^[The standard also allows you to represent dates as numbers without the hyphens, for example, `19690721`.] For example, July 21, 1969 would be represented as `"1969-07-21"`, while, just the month of July 1969 would be represented as `"1969-07"`. This format of dates can be easily parsed, and as a bonus, they can be easily sorted as well even by a program which only knows how to sort numbers and not dates. Chance are good, however, that you do not have control over the formats in which dates are represented in your data, so an easy way of parsing them is important.
+
+Lubridate provides a set of functions in the form `ymd()` which can parse strings into dates. To take our example above, we can use that function to parse our string representing a date into a date object.
+
+```{r}
+library(lubridate)
+ymd("1969-07-21")
+```
+
+But lubridate includes a number of other functions that rearrange the order of year, month, and day. For example, `mdy()` will parse dates arranged by month, day, and year. And lubridate is very good at taking representations of dates such as `"January`" or `"Jan."` and turning them into date objects. All of the following are dates that lubridate knows how to parse.
+
+```{r}
+ymd("1969 July 21")
+mdy("July 21, 1969")
+mdy("7/21/1969")
+dmy("21 July 1969")
+```
+
+If lubridate does not know how to parse a date, it does the right thing. It will emit a warning message so you will know that a string did not parse into a date, but it will also assign the value `NA`. For example, a dataset I worked with represented unknown dates with the string `"unknown"`.
+
+```{r}
+ymd("unknown")
+```
+
+If you have a date that represents only a year and a month, lubridate will not be able to parse it because R needs a year, and month, and a day to create a date object. A common practice in such cases is to assign an arbitrary day, usually the first day of the month. As long as you don't mix dates that are specific only down to the month with dates that contain real days, this should not cause a problem.
+
+```{r}
+month <- "1969-07"
+ymd(month)
+
+# Use paste() to add an arbitrary day to the date
+ymd(paste(month, "-01"))
+```
+
+If you have dates that are only years, it is not usually necessary to convert them to date objects. You can treat them simply as integers.
 
 ### Extracting information
 
