@@ -106,7 +106,7 @@ We can classify charts by the number of variables that they represent and by how
 - One variable: a histogram such as the example above.
 - Two variables: scatterplots, line charts, bar charts, and the like usually express two variables.
 - Three or more variables: But it is possible to map a different kind of drawing besides the x and y position, such as the color and size of a line or circle in order to represent more than one variable.
-- Three or more variables: It is also possible to facet a plot, meaning to show many small charts right next to each other to show how one variable affects another.
+- Three or more variables: It is also possible to facet a plot, meaning to show many charts each of which represents a different variable right next to each other to show how one variable affects another.
 - Three or more variables: It is also possible to plot multiple variables on the same plot using the x and y position.^[Using different scales on the axes is never recommended, however.]
 
 The principle behind all this is that we are making a map between the variables in our data sets and the modes of representing them: from time to the position on the x-axis, from the value to the position on the y-axis, from the type to the color, and from the other value to the size. This map constitutes a kind of a grammar of graphics.
