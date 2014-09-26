@@ -9,6 +9,7 @@ output: bookdown::html_chapter
 A standard historian's joke goes something like this: "On or about October 31, 1517, modernity began." Martin Luther did indeed nail his ninety-five theses to the door of the Wittenberg church on that date. Identifying the beginning of modernity or capitalism, or conceptions of the self, or any other historical abstraction worth studying cannot be so readily pinned down to a specific date, whether on or about. The problem is one of precision. Historical events and movements have fuzzy beginnings and endings and often even straightforward facts often have uncertain dates. Think of chronological terms like "the long nineteenth century," "the last third of the eighteenth century," "the American Revolution," or "antiquity" and "modernity," and you'll recognize how good historians are expressing the necessary chronological uncertainty in prose.
 
 The problem of precision and dates is even more vexing when it comes to computation. Computers demand precision in dates. The computer has no built-in concept of dates such as centuries. To explain the nineteenth century to a computer, you will have to give tell it to computer the difference between December 31, 1900 and January 1, 1801.^[Or 1800 and 1899: whichever definition of the start of a century you prefer.] Even more difficult is that computers require precision down to the second or below. On Unix operating systems, dates are computed as the number of seconds elapsed since the beginning of the Unix epoch: 00:00:00 in Coordinated Universal Time (i.e., Greenich Mean Time) on Thursday, January 1, 1970, excluding leap seconds.^[If we wanted to represent a date before January 1, 1970, then R would store that date as a negative number.]
+
 If I run the Unix date command, I see that 1.4 billion seconds and counting have elapsed since then, and R reports a value down to the hundredth thousand of a second.
 
 ```{r get_sys_time}
@@ -16,7 +17,7 @@ now <- Sys.time()
 as.character(as.numeric(now))
 ```
 
-The problem for the computational historian, then, is to work with artificially precise dates in a way that makes sense for the discipline of history. This will require a deep knowledge on your part about the date systems of the period you are working in. A historian of early modern Europe, for example, will have to be aware of the distinction between old style and new style dates, while a historian of China will have to be able to translate Chinese dates into a format amenable to R.
+The problem for the computational historian, then, is to work with artificially precise dates in a way that makes sense for the discipline of history. This will require a deep knowledge on your part about the date systems of the period you are working in. A historian of early modern Europe, for example, will have to be aware of the distinction between old style and new style dates, while a historian of China will have to be able to translate Chinese dates into a format amenable to R. In general, R will only work with dates in the [Gregorian calendar](http://en.wikipedia.org/wiki/Gregorian_calendar).
 
 This chapter will work with a sample dataset of missions by the Paulist Fathers, a Roman Catholic missionary order in the United States. After a brief introduction to R's native date formats, the chapter will explain the [lubridate](http://cran.rstudio.org/web/packages/lubridate/) package. In particular it will cover parsing dates, extracting information from them, and using them in calculations.^[I will assume that you know how to [manipulate data](data.html) as explained in that chapter.]
 
@@ -70,11 +71,32 @@ If you have dates that are only years, it is not usually necessary to convert th
 
 ### Extracting information
 
+Once you have dates stored as date objects, you can use lubridate's functions to extract the components of the date. For example, given a list of dates, you might be interested only in the year in which they occured, or perhaps you want to see if there is a cyclical pattern by extracting the month. Lubridate can also extract the day of the week. (This will only work for Gregorian dates.)
+
+Take our example date of July 21, 1969 from above. If we save this in a variable, we can extract all kinds of information from it in a variety of numeric and character formats.
+
+```{r}
+moon_walk <- mdy("July 21, 1969")
+year(moon_walk)
+month(moon_walk)
+month(moon_walk, label = TRUE)
+month(moon_walk, label = TRUE, abbr = FALSE)
+day(moon_walk)
+yday(moon_walk) # day of the year
+weekdays(moon_walk)
+weekdays(moon_walk, abbr = TRUE)
+week(moon_walk) # week of the year
+```
+
 ### Calculations with dates
 
 ### Intervals
 
 ## Working with dates
+
+## Times
+
+Both R and lubridate offer functions for dealing with times too. Besides date objects, it is possible to create date and time objects. I have seldom found reason to analyze times as a historian. In general, you should only represent times if you absolutely need them. The simpler form of just date objects is generally sufficient. Read the documentation for lubridate if you need to represent times. The pattern is essentially the same as for dates.
 
 ## Further Reading
 
