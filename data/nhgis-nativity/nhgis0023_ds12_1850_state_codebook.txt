@@ -1,0 +1,164 @@
+--------------------------------------------------------------------------------
+Codebook for NHGIS data file 'nhgis0023_ds12_1850_state'
+--------------------------------------------------------------------------------
+ 
+Contents
+    - Data Summary
+    - Data Dictionary
+    - Citation and Use
+ 
+Additional documentation on NHGIS data sources is available at: 
+    https://www.nhgis.org/documentation/tabular-data 
+ 
+--------------------------------------------------------------------------------
+Data Summary
+--------------------------------------------------------------------------------
+ 
+Year:             1850
+Geographic level: State
+Dataset:          1850 Census: Population, Agriculture & Other Data [US & States]
+   NHGIS code:    1850_sPAX
+   NHGIS ID:      ds12
+ 
+Tables:
+ 
+1. Nativity
+   Universe:    Persons
+   Source code: NT11
+   NHGIS code:  AFA
+ 
+2. Place of Birth
+   Universe:    Persons
+   Source code: NT12
+   NHGIS code:  AFB
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+Context Fields 
+    GISJOIN:     GIS Join Match Code
+    YEAR:        Data File Year
+    STATE:       State Name
+    STATEA:      State Code
+    AREANAME:    Area name
+ 
+Table 1:     Nativity
+Universe:    Persons
+Source code: NT11
+NHGIS code:  AFA
+    AFA001:      Native-born
+    AFA002:      Foreign-born
+ 
+Table 2:     Place of Birth
+Universe:    Persons
+Source code: NT12
+NHGIS code:  AFB
+    AFB001:      Native-born: Alabama
+    AFB002:      Native-born: Arkansas
+    AFB003:      Native-born: California
+    AFB004:      Native-born: District of Columbia
+    AFB005:      Native-born: Connecticut
+    AFB006:      Native-born: Delaware
+    AFB007:      Native-born: Florida
+    AFB008:      Native-born: Georgia
+    AFB009:      Native-born: Illinois
+    AFB010:      Native-born: Indiana
+    AFB011:      Native-born: Iowa
+    AFB012:      Native-born: Kentucky
+    AFB013:      Native-born: Louisiana
+    AFB014:      Native-born: Maine
+    AFB015:      Native-born: Maryland
+    AFB016:      Native-born: Massachusetts
+    AFB017:      Native-born: Michigan
+    AFB018:      Native-born: Mississippi
+    AFB019:      Native-born: Missouri
+    AFB020:      Native-born: New Hampshire
+    AFB021:      Native-born: New Jersey
+    AFB022:      Native-born: New York
+    AFB023:      Native-born: North Carolina
+    AFB024:      Native-born: Ohio
+    AFB025:      Native-born: Pennsylvania
+    AFB026:      Native-born: Rhode Island
+    AFB027:      Native-born: South Carolina
+    AFB028:      Native-born: Tennessee
+    AFB029:      Native-born: Texas
+    AFB030:      Native-born: Vermont
+    AFB031:      Native-born: Virginia
+    AFB032:      Native-born: Wisconsin
+    AFB033:      Native-born: Territories
+    AFB034:      Foreign-born: England
+    AFB035:      Foreign-born: Scotland
+    AFB036:      Foreign-born: Wales
+    AFB037:      Foreign-born: Ireland
+    AFB038:      Foreign-born: Prussia
+    AFB039:      Foreign-born: Germany
+    AFB040:      Foreign-born: Austria
+    AFB041:      Foreign-born: Holland
+    AFB042:      Foreign-born: Norway
+    AFB043:      Foreign-born: Denmark
+    AFB044:      Foreign-born: Sweden
+    AFB045:      Foreign-born: Belgium
+    AFB046:      Foreign-born: Switzerland
+    AFB047:      Foreign-born: Russia
+    AFB048:      Foreign-born: France
+    AFB049:      Foreign-born: Spain
+    AFB050:      Foreign-born: Portugal
+    AFB051:      Foreign-born: Italy
+    AFB052:      Foreign-born: Sardinia
+    AFB053:      Foreign-born: Greece
+    AFB054:      Foreign-born: Turkey
+    AFB055:      Foreign-born: China
+    AFB056:      Foreign-born: Asia
+    AFB057:      Foreign-born: Sandwich Islands
+    AFB058:      Foreign-born: Africa
+    AFB059:      Foreign-born: British America
+    AFB060:      Foreign-born: Mexico
+    AFB061:      Foreign-born: Central America
+    AFB062:      Foreign-born: South America
+    AFB063:      Foreign-born: West Indies
+    AFB064:      Foreign-born: Other Countries
+    AFB065:      Birthplace unknown
+ 
+--------------------------------------------------------------------------------
+Citation and Use of NHGIS Data
+--------------------------------------------------------------------------------
+ 
+All persons are granted a limited license to use this documentation and the
+accompanying data, subject to the following conditions:
+
+* Publications and research reports employing NHGIS data (either tabular or GIS)
+  must cite it appropriately. The citation should include the following:
+
+    Minnesota Population Center. National Historical Geographic Information
+    System: Version 2.0. Minneapolis, MN: University of Minnesota 2011.
+
+* Publications and research reports employing school attendance areas data
+  (either tabular or GIS) must cite it appropriately. The citation should
+  include the following:
+
+    The College of William and Mary and the Minnesota Population Center.
+    School Attendance Boundary Information System (SABINS): Version 1.0.
+    Minneapolis, MN: University of Minnesota 2011.
+
+* If possible, citations should also include the URL for the NHGIS site:
+
+    https://www.nhgis.org/
+
+* If possible, citations involving school attendance areas should also include
+  the URL for the SABINS site:
+
+    http://www.sabinsdata.org/
+
+In addition, we request that users send us a copy of any publications, research
+reports, or educational material making use of the data or documentation.
+Printed matter should be sent to:
+
+    NHGIS
+    Minnesota Population Center
+    University of Minnesota
+    50 Willey Hall
+    225 19th Ave S
+    Minneapolis, MN 55455
+
+Send electronic material to: nhgis@umn.edu

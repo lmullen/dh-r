@@ -1,0 +1,190 @@
+--------------------------------------------------------------------------------
+Codebook for NHGIS data file 'nhgis0024_ds17_1870_state'
+--------------------------------------------------------------------------------
+ 
+Contents
+    - Data Summary
+    - Data Dictionary
+    - Citation and Use
+ 
+Additional documentation on NHGIS data sources is available at: 
+    https://www.nhgis.org/documentation/tabular-data 
+ 
+--------------------------------------------------------------------------------
+Data Summary
+--------------------------------------------------------------------------------
+ 
+Year:             1870
+Geographic level: State
+Dataset:          1870 Census: Population, Agriculture & Other Data [US, States & Counties]
+   NHGIS code:    1870_cPAX
+   NHGIS ID:      ds17
+ 
+Tables:
+ 
+1. Nativity
+   Universe:    Persons
+   Source code: NT5
+   NHGIS code:  ALB
+ 
+2. Nativity
+   Universe:    Persons
+   Source code: NT7
+   NHGIS code:  ALE
+ 
+3. Place of Birth
+   Universe:    Persons
+   Source code: NT8
+   NHGIS code:  ALF
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+Context Fields 
+    GISJOIN:     GIS Join Match Code
+    YEAR:        Data File Year
+    STATE:       State Name
+    STATEA:      State Code
+    COUNTY:      County Name
+    COUNTYA:     County Code
+    AREANAME:    Area name
+ 
+Table 1:     Nativity
+Universe:    Persons
+Source code: NT5
+NHGIS code:  ALB
+    ALB001:      Native-born
+    ALB002:      Foreign-born
+ 
+Table 2:     Nativity
+Universe:    Persons
+Source code: NT7
+NHGIS code:  ALE
+    ALE001:      Native-born
+    ALE002:      Foreign-born
+ 
+Table 3:     Place of Birth
+Universe:    Persons
+Source code: NT8
+NHGIS code:  ALF
+    ALF001:      Native-born: State or territory of current residence
+    ALF002:      Native-born: Alabama
+    ALF003:      Native-born: Arkansas
+    ALF004:      Native-born: California
+    ALF005:      Native-born: Connecticut
+    ALF006:      Native-born: Delaware
+    ALF007:      Native-born: Florida
+    ALF008:      Native-born: Georgia
+    ALF009:      Native-born: Illinois
+    ALF010:      Native-born: Indiana
+    ALF011:      Native-born: Iowa
+    ALF012:      Native-born: Kansas
+    ALF013:      Native-born: Kentucky
+    ALF014:      Native-born: Louisiana
+    ALF015:      Native-born: Maine
+    ALF016:      Native-born: Maryland
+    ALF017:      Native-born: Massachusetts
+    ALF018:      Native-born: Michigan
+    ALF019:      Native-born: Minnesota
+    ALF020:      Native-born: Mississippi
+    ALF021:      Native-born: Missouri
+    ALF022:      Native-born: Nebraska
+    ALF023:      Native-born: Nevada
+    ALF024:      Native-born: New Hampshire
+    ALF025:      Native-born: New Jersey
+    ALF026:      Native-born: New York
+    ALF027:      Native-born: North Carolina
+    ALF028:      Native-born: Ohio
+    ALF029:      Native-born: Oregon
+    ALF030:      Native-born: Pennsylvania
+    ALF031:      Native-born: Rhode Island
+    ALF032:      Native-born: South Carolina
+    ALF033:      Native-born: Tennessee
+    ALF034:      Native-born: Texas
+    ALF035:      Native-born: Vermont
+    ALF036:      Native-born: Virginia and West Virginia
+    ALF037:      Native-born: Wisconsin
+    ALF038:      Native-born: Territory of Alaska
+    ALF039:      Native-born: Territory of Arizona
+    ALF040:      Native-born: Territory of Colorado
+    ALF041:      Native-born: Territory of Dakota
+    ALF042:      Native-born: District of Columbia
+    ALF043:      Native-born: Territory of Idaho
+    ALF044:      Native-born: Indian Territory
+    ALF045:      Native-born: Territory of Montana
+    ALF046:      Native-born: Territory of New Mexico
+    ALF047:      Native-born: Territory of Utah
+    ALF048:      Native-born: Territory of Washington
+    ALF049:      Native-born: Territory of Wyoming
+    ALF050:      Native-born: Birthplace not stated (native-born)
+    ALF051:      Foreign-born: Africa
+    ALF052:      Foreign-born: Atlantic Islands
+    ALF053:      Foreign-born: Australia
+    ALF054:      Foreign-born: Austria
+    ALF055:      Foreign-born: Belgium
+    ALF056:      Foreign-born: Bohemia
+    ALF057:      Foreign-born: British America
+    ALF058:      Foreign-born: China
+    ALF059:      Foreign-born: Cuba
+    ALF060:      Foreign-born: Denmark
+    ALF061:      Foreign-born: England and Wales
+    ALF062:      Foreign-born: France
+    ALF063:      Foreign-born: Germany
+    ALF064:      Foreign-born: Great Britain
+    ALF065:      Foreign-born: Holland
+    ALF066:      Foreign-born: Hungary
+    ALF067:      Foreign-born: Ireland
+    ALF068:      Foreign-born: Italy
+    ALF069:      Foreign-born: Mexico
+    ALF070:      Foreign-born: Poland
+    ALF071:      Foreign-born: Portugal
+    ALF072:      Foreign-born: Russia
+    ALF073:      Foreign-born: Scotland
+    ALF074:      Foreign-born: Spain
+    ALF075:      Foreign-born: Sweden and Norway
+    ALF076:      Foreign-born: Switzerland
+    ALF077:      Foreign-born: West Indies
+ 
+--------------------------------------------------------------------------------
+Citation and Use of NHGIS Data
+--------------------------------------------------------------------------------
+ 
+All persons are granted a limited license to use this documentation and the
+accompanying data, subject to the following conditions:
+
+* Publications and research reports employing NHGIS data (either tabular or GIS)
+  must cite it appropriately. The citation should include the following:
+
+    Minnesota Population Center. National Historical Geographic Information
+    System: Version 2.0. Minneapolis, MN: University of Minnesota 2011.
+
+* Publications and research reports employing school attendance areas data
+  (either tabular or GIS) must cite it appropriately. The citation should
+  include the following:
+
+    The College of William and Mary and the Minnesota Population Center.
+    School Attendance Boundary Information System (SABINS): Version 1.0.
+    Minneapolis, MN: University of Minnesota 2011.
+
+* If possible, citations should also include the URL for the NHGIS site:
+
+    https://www.nhgis.org/
+
+* If possible, citations involving school attendance areas should also include
+  the URL for the SABINS site:
+
+    http://www.sabinsdata.org/
+
+In addition, we request that users send us a copy of any publications, research
+reports, or educational material making use of the data or documentation.
+Printed matter should be sent to:
+
+    NHGIS
+    Minnesota Population Center
+    University of Minnesota
+    50 Willey Hall
+    225 19th Ave S
+    Minneapolis, MN 55455
+
+Send electronic material to: nhgis@umn.edu
