@@ -6,6 +6,126 @@ output: bookdown::html_chapter
 
 # Data Manipulation
 
-## Definition
+One of the most crucial tasks in digital history is manipulating data. It is no exaggeration to say that in many projects, manipulating and cleaning the data is 80 percent or more of the work, while visualizing or analyzing it is only 20 percent of the work. It might seem like visualizing or analyzing is the real historical work, and it is certainly the part of the work that leads to historical interpretations. But data manipulation is the crucial task for the digital historian, because it is in manipulating the data that we explores its possibilities and its perils: that is, the possibilities that exist for finding interesting historical interpretations, but also the places where we could make errors by trusting the data too much.
 
-What is *data*? For our purposes, let us say that data is any source amenable to computation.
+There are several things that you can learn by learning data manipulation. Most obviously, you will learn how to get data from whatever form you receive it to a form which is useable for any kind of task, as well as how to take large datasets and summarize them meaningfully. Less obviously, the methods for manipulating data are closely related to some of the basic principles of databases. For example, filtering data is like querying it; merging data is like joining it; tidying data is like normalizing a database. If you can learn the principles behind data manipulation, you will be well prepared for understanding databases.
+
+## Definitions
+
+We need to begin with a few definitions. What is *data*? For our purposes, let us say that data is any source amenable to computation. Most obviously this could be numeric information, such as in the reports of the U.S. Census Bureau. But it could also be a corpus of text files to be text mined, or bibliographic information retrived from an API. 
+
+Data comes in different *data structures*. Each of these types of data is likely to have its own format. The Census Bureau information is like to come as a table of numbers; the API information is likely to come as a list (an R data structure like an object in JavaScript, a dictionary in Python, or a hash in Ruby), and the text corpus is likely to be a set of plain text files. This chapter will briefly discuss how to work with lists, though we will leave most of those examples for the chapter on [APIs](apis.html). Working with text files will be discussed in the chapter on [text analysis](topic-modeling.html). This chapter will mostly discuss how to work with data that comes in tables: the form you are most likely to work with.
+
+Tables in R are represented by a data structure called a *data frame*. A data frame is very much like a spreadsheet as represented in R. It contains columns, which have names which are usually the names of variables. It also has rows which contain the observations. A data frame is the type of data structure that you get whenever you load a .csv file into R.
+
+Take for example the data frame of US state populations from the historydata package.
+
+```{r}
+library(dplyr)
+library(historydata)
+data(us_state_populations)
+us_state_populations
+```
+
+This data frame has columns of varying types. The `state` column is a character vector containing state names; the `population` column is a numeric vector.
+
+This can be seen when examining the structure of the data frame.
+
+```{r}
+str(us_state_populations)
+```
+
+We can see that there are 983 "observations" (rows) and 4 "variables" (columns) in the object which has the class `data.frame`. The `$` gives us a hint that we can access the parts of the data frame with that operator. We can, for example, find the median population of all the states in U.S. history:
+
+```{r}
+median(us_state_populations$population, na.rm = TRUE)
+```
+
+We can think of data frames as coming in two forms. One is a *wide* data frame, in which there are many columns of variables. Take for instance this data set from the [NHGIS](http://nhgis.org) which contains information about the birthplace of citizens of each state in the United States in 1850.
+
+```{r}
+birthplace_1850 <- read.csv("data/nhgis-nativity/nhgis0023_ds12_1850_state.csv",
+                            stringsAsFactors = FALSE)
+str(birthplace_1850)
+```
+
+This dataset contains only `r nrow(birthplace_1850)` rows, one for each state or territory in the United States. But it contains `r ncol(birthplace_1850)` columns. Some of these contain the `YEAR` and `STATE` information. But most of these columns have cryptic names such as `AFA001` and `AFB057`. Looking at an excerpt from the codebook that NHGIS provides with the dataset, we can see what these columns mean.
+
+```
+Table 2:     Place of Birth
+Universe:    Persons
+Source code: NT12
+NHGIS code:  AFB
+    AFB001:      Native-born: Alabama
+    AFB002:      Native-born: Arkansas
+    AFB003:      Native-born: California
+...
+    AFB034:      Foreign-born: England
+    AFB035:      Foreign-born: Scotland
+    AFB036:      Foreign-born: Wales
+    AFB037:      Foreign-born: Ireland
+
+```
+
+The names of the columns in the dataset is itself a variable. The column name represents where someone was born. Actually, it represents two pieces of information: where someone was born, and whether that birth place was inside the United States or outside of it. This type of wide dataset is very difficult to work with for most purposes. For example, it would require a complex set of commands to find the proportion of native- and foreign-born people in each state. We have a similar table for other years, but it is impossible to easily join the two data frames together. It is also difficult to replace the codes with the names that they represent.
+
+A much better solution is to use a *long* (or *narrow*) data format. Fortunately  R has a command to reshape the data frame from wide to long. Consider the same data frame in long format. Don't worry for now about the commands that do the transformation (but notice that we can do this transformation with a single function). Instead just look at the final product.
+
+```{r}
+library(tidyr)
+birthplace_1850_long <- birthplace_1850 %>%
+  gather(birthplace, count, -GISJOIN, -YEAR, -STATE, -STATEA, -AREANAME)
+
+head(birthplace_1850_long)
+str(birthplace_1850_long)
+```
+
+Notice that now we have `r nrow(birthplace_1850_long)` rows but only `r ncol(birthplace_1850_long)` columns. All of the columns whose names were codes are now gathered into the `birthplace` and `count` columns. The `birthplace` column contains the codes (which, as you remember, actually encode information about the birthplace) and the `count` column contains the number of people who had that particular birthplace for each combination of state and year. 
+
+This long dataset is far more useful. We could much more easily replace the hard-to-read codes with the birthplaces that they represent. We could also do the same transformation on datasets for other years, and then append them to one another, creating a new timeseries. 
+
+This way of structuring data has been called *tidy data* by Hadley Wickham.^[Hadley Wickham, "Tidy Data," Journal of Statistical Software 50, no. 10 (2014): <http://www.jstatsoft.org/v59/i10>.] We can use his definition of tidy data from the article in which he explains the concept:
+
+> In tidy data:  
+> 1. Each variable forms a column.  
+> 2. Each observation forms a row.  
+> 3. Each type of observational unit forms a table.^[Wickham, "Tidy Data," 4.]  
+
+We will explore this definition by applying it to our dataset later in this chapter. In this case we have applied principles 1 and 2. For us an observation take the form, "*n* people from birthplace *x* lived in state *y* in year *z*." Our wide version of the birthplace data was messy because the columns contained information (the birthplace), not just the names of the variables. By reshaping the data, we have moved all of the information in the table into a place where it can be easily manipulated. The tidy data format is not superior to the wide data format for every purpose: for presentation purposes it is often much better to have data in a wide format, and sometimes it is easier to perform certain calculations in that format. The R package [tidyr](http://cran.rstudio.org/web/packages/tidyr/)  (again, written by Wickham) also provides a function to go from narrow to wide data. But for most data manipulation the goal is to achieve a tidy data format, from which it is far easier to do other data manipulations to gather information.
+
+There is one other definition that we need to offer. So far we have been talking about *tidying* data, by which we mean changing its structure into a more useful form. Another task altogether is *cleaning* data. Data often contains inconsistencies or outright errors. For example, in our data frame of birthplaces, it is entirely possible that the names of states could be inconsistent: `"MA"`, `"Massachusetts"`, and `"Mass."` and even `"MA "` and `"Massachusetts "` (note the extra spaces) might convey the same meaning to you, but they are decidedly not the same thing to your computer. It is common for dates to contain errors: I recently cleaned some data where an event started in `1880` and ended in `1800`. Any human entered data will be rife with such errors; any data that is OCR'ed is likely to be worse. The methods of data manipulation, including data tidying, are generalizable to most datasets. The problems of data cleaning are particular to each dataset. Only by working closely with a dataset will you be able to identify the problems and find an appropriate way to solve them. This chapter will suggest some basic strategies for data cleaning, but on the whole it will focus on data tidying and manipulation.
+
+This chapter will begin by identifying the common verbs of a grammar of data manipulation provided by two packages, [dplyr](http://cran.rstudio.org/web/packages/dplyr/) and [tidyr](http://cran.rstudio.org/web/packages/tidyr/), using a small sample dataset. Then it will take your through the process of combining those verbs to turn the NHGIS dataset on birthplaces into a usable dataset.
+
+## The grammar of data manipulation
+
+### The pipe (%>%) function
+
+### select() (dplyr)
+
+### filter() (dplyr)
+
+### arrange() (dplyr)
+
+### mutate() (dplyr)
+
+### summarize() and group_by() (dplyr)
+
+### gather() (tidyr)
+
+### spread() (tidyr)
+
+### The join family of functions (dplyr and base R)
+
+Finally dplyr also provides a useful `do()` function for applying models and the like to data frames. We will use this function in the chapter on [statistics](statistics.html).
+
+## Example: Tidying and analyzing birthplace data
+
+## Manipulating lists and lists of lists
+
+## Data Cleaning
+
+## Further reading
+
+- Watch Hadley Wickham, "[Tidy Data and Tidy Tools](http://vimeo.com/33727555)," NYC Open Statistical Computing Meetup, Dec. 2011.
+- Hadley Wickham, "Tidy Data," Journal of Statistical Software 50, no. 10 (2014): <http://www.jstatsoft.org/v59/i10>.
