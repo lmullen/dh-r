@@ -88,9 +88,65 @@ weekdays(moon_walk, abbr = TRUE)
 week(moon_walk) # week of the year
 ```
 
+In the section on Paulist missions below, we will demonstrate how extracting this kind of information can lead to useful analysis.
+
 ### Calculations with dates
 
+When we use date objects instead of character strings to represent dates, it becomes possible to perform calculations on the dates. We might ask, for example, how long a period there was between John F. Kennedy's "We choose to go to the moon" speech and the Apollo 11 moon walk. After we create the two date objects, we can simply subtract the date of the Kennedy speech from the date of the moon walk:
+
+```{r}
+kennedy_speech <- mdy("September 12, 1962")
+
+moon_walk - kennedy_speech
+```
+
+The `-` operator here is actually a function provided by lubridate. We can access that function directly using the `difftime()` function. Doing so will allow us to specify the units:
+
+```{r}
+difftime(moon_walk, kennedy_speech, units = "weeks")
+```
+
+There are other kinds of arithmetic that can be performed with dates. For example, one could add a week, a month, or a year to the date of the Kennedy speech.
+
+```{r}
+kennedy_speech
+kennedy_speech + weeks(1)
+kennedy_speech + months(1)
+kennedy_speech + years(1)
+```
+
 ### Intervals
+
+Lubridate also provides the ability to define intervals of time using the `interval()` function. For example, we could define a set of intervals for each of the presidential administrations:
+
+```{r}
+kennedy_admin <- interval(mdy("January 20, 1961"),  mdy("November 22, 1963"))
+johnson_admin <- interval(mdy("November 22, 1963"), mdy("January 20, 1969"))
+nixon_admin   <- interval(mdy("January 20, 1969"),  mdy("August 9, 1974"))
+administrations <- c(kennedy_admin, johnson_admin, nixon_admin)
+```
+
+There are a number of helpful operators that can be performed on intervals. The most obvious is to check whether a date occured within an interval. We can figure out whether Kennedy's speech occured during his administration.
+
+```{r}
+kennedy_speech %within% kennedy_admin
+```
+
+This becomes more powerful when we check the date of the first moon walk against the vector of presidential administrations.
+
+```{r}
+moon_walk %within% administrations
+```
+
+The moon walk was only within the third administration, which was Nixon's. Lubridate will also allow you to perform set operations such as finding the intersection between two intervals and their union with the base R functions `intersect()` and `union()` respectively. A particularly useful function is `int_overlaps()` which returns a `TRUE` value if two intervals overlap at all. For example, we can test whether which administrations kept U.S. troops in Vietnam.
+
+```{r}
+troops_in_vietnam <- interval(mdy("9/1/1950"), mdy("4/30/1975"))
+
+int_overlaps(troops_in_vietnam, administrations)
+```
+
+There were American troops in Vietnam during all of the Kennedy, Johnson, and Nixon administrations.
 
 ## Working with dates
 
