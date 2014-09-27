@@ -4,6 +4,10 @@ layout: default
 output: bookdown::html_chapter
 ---
 
+```{r,echo=FALSE}
+source("general-options.r")
+```
+
 # Dates
 
 A standard historian's joke goes something like this: "On or about October 31, 1517, modernity began." Martin Luther did indeed nail his ninety-five theses to the door of the Wittenberg church on that date. Identifying the beginning of modernity or capitalism, or conceptions of the self, or any other historical abstraction worth studying cannot be so readily pinned down to a specific date, whether on or about. The problem is one of precision. Historical events and movements have fuzzy beginnings and endings and often even straightforward facts often have uncertain dates. Think of chronological terms like "the long nineteenth century," "the last third of the eighteenth century," "the American Revolution," or "antiquity" and "modernity," and you'll recognize how good historians are expressing the necessary chronological uncertainty in prose.
@@ -149,6 +153,123 @@ int_overlaps(troops_in_vietnam, administrations)
 There were American troops in Vietnam during all of the Kennedy, Johnson, and Nixon administrations.
 
 ## Working with dates
+
+Beginning in 1851, Redemptorist priests who became the Paulist Fathers held missions throughout the United States. They recorded their missions in manuscript volumes, keeping track of the start and end dates of the missions, where they were held, and how many Catholics came to confession and how many Protestants converted. A transcription of these records is available in the historydata package. Because of the chronological information contained in the records, they make a good source to explore how to work with dates.
+
+We will begin by loading the data, along with the packages we will use to manipulate and visualize the data.
+
+```{r}
+library(lubridate)
+library(dplyr, warn.conflicts = FALSE)
+library(tidyr, warn.conflicts = FALSE)
+library(ggplot2)
+library(historydata)
+data(paulist_missions)
+paulist_missions
+```
+
+Now we can use lubridate to parse the date fields, `start_date` and `end_date`, into date objects.
+
+```{r}
+paulist_missions <- paulist_missions %>%
+  mutate(start = mdy(start_date),
+         end   = mdy(end_date))
+```
+
+We can then extract some information from the date objects. Let's find out the year, the month, and the day of the week. We can also create a field for the duration of the mission.
+
+```{r}
+paulist_missions <- paulist_missions %>%
+  mutate(year_start  = year(start),
+         year_end    = year(end),
+         month_start = month(start, label = TRUE),
+         month_end   = month(end, label = TRUE),
+         day_start   = weekdays(start),
+         day_end     = weekdays(end),
+         duration    = as.numeric(difftime(end, start, units = "days")))
+head(paulist_missions)
+```
+
+In their narrative sources, the Paulists record that the typical mission began on a Sunday evening and lasted for two weeks until the next Sunday. That was their ideal mission, but how did the actual missions proceed? And did the typical mission vary over time?
+
+We can calculate a simple mean and median of the duration of the missions.
+
+```{r}
+mean(paulist_missions$duration)
+median(paulist_missions$duration)
+```
+
+Surprisingly, the average mission (9.56 days) or median mission (8 days) was quite a bit shorter than what the Paulist described as typical or ideal. We can use dplyr and ggplot to find out a breakdown of the kinds of missions.
+
+```{r durations-of-paulist-missions}
+missions_duration <- paulist_missions %>%
+  group_by(duration) %>%
+  summarize(n = n())
+missions_duration
+
+ggplot(missions_duration,
+       aes(x = duration, y = n)) +
+  geom_bar(stat = "identity") +
+  xlim(0, 30)
+  ggtitle("Durations of Paulist missions")
+```
+
+The missions show a definite multi-modal pattern: missions were usually either one week long or two weeks long, though they could range anywhere from one day to twenty-one.^[One missions is recorded as taking 60 days, but looking at the manuscript shows that it was a series of small three- or four-day-long retreats for which no specific dates were recorded.]
+
+We can complicate the analysis by calculating the average duration of the missions per year, to see whether the Paulists lengthened or shortened their missions. First we will plot the duration of the mission against the start date:
+
+```{r duration-of-missions-by-date}
+ggplot(paulist_missions, aes(start, duration)) +
+  geom_point() +
+  geom_smooth() +
+  ggtitle("Duration of Paulist missions by date")
+```
+
+This shows no significant variation in the pattern, though we note that after 1880 missions could be considerably longer. We can also calculate the mean length of the mission for each year.
+
+```{r average-mission-length-by-year}
+missions_length_by_year <- paulist_missions %>%
+  group_by(year_start) %>%
+  summarize(duration = mean(duration))
+missions_length_by_year
+
+ggplot(missions_length_by_year, 
+       aes(x = year_start, y = duration)) +
+  geom_line() + geom_point() +
+  ylim(0, 14) +
+  ggtitle("Average mission length by year")
+```
+
+By this chart we can see that there are significant fluctuations, but that they do not appear to have any meaning behind them. Notice that the x-axis is plotted using the date object, which means that the points in the scatterplot are organized not just by year but also by month and day.
+
+Since it appears that the Paulists preferred missions that were one or two weeks long, we can ask which days of the week were most popular to start and end the missions. Here will will simply combine the data manipulation and plotting.
+
+```{r}
+paulist_missions %>%
+  select(day_start, day_end) %>%
+  gather(type, day) %>%
+  mutate(day = factor(day,
+                      levels = c("Sunday", "Monday", "Tuesday", "Wednesday",
+                                 "Thursday", "Friday", "Saturday"))) %>%
+  ggplot(aes(x = day)) + 
+  geom_bar() + 
+  facet_grid(type ~ .) + 
+  ggtitle("Start and end days of Paulist missions")
+```
+
+It appears that as a rule Paulist missions started on a Sunday with only very rare exceptions. In general they ended on a Sunday as well, but it was also common for them to end on some other day of the week.
+
+Finally, the Paulists tell us that they did not go on missions during the summer. We can use plot the cyclical pattern of missions each year.
+
+```{r}
+ggplot(paulist_missions, aes(x = month_start)) + 
+  geom_bar() + 
+  ggtitle("Months in which Paulists started missions")
+```
+
+The Paulists never started missions in July (notice it is absent from the chart) and only rarely started missions in June or August. Fall, winter, and spring were the Paulist campaigning seasons.
+
+Using lubridate, we can create table and visualizations that take into account the diachronic and cyclical patterns in temporal data.
 
 ## Times
 
