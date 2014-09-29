@@ -210,7 +210,7 @@ missions_duration
 ggplot(missions_duration,
        aes(x = duration, y = n)) +
   geom_bar(stat = "identity") +
-  xlim(0, 30)
+  xlim(0, 30) + 
   ggtitle("Durations of Paulist missions")
 ```
 
