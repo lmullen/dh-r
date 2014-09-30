@@ -424,6 +424,70 @@ birthplace
 
 Our new `birthplace` variable now has `r nrow(birthplace)` rows: the same as the sum of the number of rows in `birthdata1`, `birthdata2`, and `birthdata3`. We now have a single variable containing all our data in a long instead of wide format. This will be much easier to work with.
 
+### Excursus: a better way of loading multiple files
+
+You might have noticed that our method of opening multiple files is clunky. We had to keep track of a lot of variable names using numeric suffixes. Even worse, we had to do a lot of copying and pasting of code. This was barely manageable for three files; it would have been unmanageable for dozens of files. A good rule for programming is DRY: don't repeat yourself. If you find yourself copying and pasting code, there is probably a better way to do it.
+
+This section uses some of R's functional programming techniques and its data structures to perform the same action more easily. This technique could load a hundred files as easily as it could load two. You can skip this section if you want.
+
+Instead of loading each file individually, we are going to to use R's `lapply()` function to apply the `read.csv()` function to each element in a vector of file names. Those files will be read into a list of data frames. We can then use `lapply()` again to reshape the data frames. Then we can combine them all together.
+
+```{r}
+csv_files <- Sys.glob("data/nhgis-nativity/*state.csv")
+```
+
+Notice that in one lines of code we've loaded all of the filenames, using a Unix-like glob.
+
+```{r}
+csv_files
+```
+
+Now we use `lapply()` to apply the function that reads the CSV files.
+
+```{r}
+birthplace_data <- lapply(csv_files, read.csv, stringsAsFactors = FALSE)
+```
+
+The results is a list of data frames. Those data frames are identical to the data frames we load individually above.
+
+```{r}
+str(birthplace_data, max.level = 1)
+```
+
+Next we use `lapply()` again to reshape the data frames. Notice that the code is essentially the same was what we used above with `gather()` but we only have to write it once, no matter how many data frames are in our list. We've put the code inside an anonymous function (that is, a function that hasn't been assigned to a variable) because `lapply()` applies a function to some kind of vector or list.
+
+```{r}
+birthplace_reshaped <- lapply(birthplace_data, function(df) {
+  df %>%
+    gather(code, value, -GISJOIN, -YEAR, -STATE, -STATEA, -AREANAME) %>%
+    tbl_df()
+  })
+```
+
+We can double check that the code did what we expected.
+
+```{r}
+birthplace_reshaped
+```
+
+This is still a list of data frames, and now we need to bind them together. We can use the `rbind_all()` function provided by dplyr to combine them:
+
+```{r warning=FALSE}
+birthplace <- rbind_all(birthplace_reshaped)
+birthplace
+```
+
+The result is exactly the same as what we did above, but it took many fewer lines of code, and the code is generalizable to any problem where we have to load multiple CSV files and combine them. We could have made the code even shorter by using the pipe operator. We will demonstrate that by loading and parsing the codebooks in a series of steps. Exactly why we are parsing the code books will be explained in the next section.
+
+```{r warning=FALSE}
+library(mullenMisc)
+Sys.glob("data/nhgis-nativity/*state_codebook.txt") %>%
+  lapply(parse_nhgis_codebook) %>%
+  rbind_all() -> codebooks
+
+codebooks
+```
+
 ## Manipulating lists and lists of lists
 
 ## Data Cleaning
