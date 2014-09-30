@@ -319,7 +319,21 @@ Notice that our data frame is now much longer but also narrower. We would have t
 
 ### spread() (tidyr)
 
+*Gather* is the exact opposite of *spread*. Where the `gather()` function took column names and turned them into the values of rows, `spread()` takes the values of rows and turns them into columns. We can see this with our newly transformed long dataset made with `gather()`, which we can retransform using `spread()`. We have to pass spread the names of the key and value columns. Each unique value in the key column will become a new column with that name; each associated value will the value column will be filed under that column.
+
+```{r}
+sample_df_long <- sample_df_wide %>%
+  gather(year, members, -name, -denomination, -city)
+
+sample_df_long %>%
+  spread(year, members)
+```
+
+Sometimes you will want to spread or gather a column to perform calculations on it, and then you will want to do the reverse to get it back to its original form.
+
 ### The join family of functions (dplyr and base R)
+
+### Do
 
 Finally dplyr also provides a useful `do()` function for applying models and the like to data frames. We will use this function in the chapter on [statistics](statistics.html).
 
