@@ -209,6 +209,22 @@ sample_df %>%
 
 ### arrange() (dplyr)
 
+The verb *arrange* and its corresponding `arrange() function lets us sort a data frame. We might want to sort our sample list of churches by the number of attendees:
+
+```{r}
+sample_df %>%
+  arrange(attendees)
+```
+
+Notice that the churches are sorted in ascending order of attendees. If we want to sort them from greatest to least, we can use the `desc()` function.
+
+```{r}
+sample_df %>%
+  arrange(desc(attendees))
+```
+
+Sorting will work with character vectors as well as with numeric vectors.
+
 ### mutate() (dplyr)
 
 ### summarize() and group_by() (dplyr)
