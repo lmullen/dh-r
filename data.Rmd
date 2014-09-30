@@ -117,9 +117,37 @@ sample_df <- data.frame(
   stringsAsFactors = FALSE)
 ```
 
-Now that we have a data frame with sample data, we can use it to try out the data manipulation verbs.
+Now that we have a data frame with sample data, we can use it to try out the data manipulation verbs. We also will load our two necessary libraries:
+
+```{r}
+library(dplyr)
+library(tidyr)
+```
+
 
 ### The pipe (%>%) function
+
+First we have to learn about the pipe operator, `%>%`. The pipe operator is not one of the data manipulation verbs, but it will make our task of data manipulation far easier.^[The pipe operator is provided by the [magrittr](http://cran.rstudio.org/web/packages/magrittr/) by Stefan Bache. It is not necessary to load magrittr directly if you are loading dplyr, since dply imports the pipe operator. The pipe operator is, like everything in R a function and not technically an operator. But it is a special type of binary function in R which takes its arguments as a left-hand side and a right-hand side.]
+
+The pipe operator is like the pipe operator, `|`, in Unix: it passes the results of one command to the input of the next. You can think of it as the word "then" for R: do this *then* do that. What the pipe operator does is take the output of one function and pass it as the first argument in the next function. Consider the following example.
+
+```{r}
+head(sample_df)
+
+sample_df %>% head()
+```
+
+Notice that the two examples are equivalent. The pipe operator lets us call a function on a dataset by writing it after instead of around the variable name. Even more important, it lets us pass the dataset through a chain of operators. We can do this without saving any intermerdiate state. Consider the following more complicated example to find out how many unique denominations are in our dataset:
+
+```{r}
+length(unique(sample_df$denomination))
+
+sample_df$denomination %>%
+  unique() %>%
+  length()
+```
+
+The top example is nearly unreadable, and that is with only two function calls and a variable name. The bottom example is far more readable: "Take the list of denominations, *then* find the unique names, *then* find the number of unique names." The ability to chain operators lets us string together our data manipulation verbs to perform complex actions.^[For more, see the [magrittr vignette](http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)].
 
 ### select() (dplyr)
 
