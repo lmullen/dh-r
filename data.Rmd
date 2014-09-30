@@ -106,7 +106,7 @@ There are essentially eight verbs for data manipulation. These eight verbs are p
 We'll begin our exploration of the grammar of data manipulation by creating a toy dataset small enough that we can perform all of the calculations manually to understand what is going on. We will use a made up example of church memberships.
 
 ```{r}
-set.seed(317)
+set.seed(337)
 sample_df <- data.frame(
   name = toupper(letters[1:10]),
   denomination = sample(c("Presbyterian", "Episcopalian",
@@ -242,6 +242,51 @@ sample_df %>%
 ```
 
 ### summarize() and group_by() (dplyr)
+
+One of the most powerful data manipulation verbs is *summarize*, `summarize(). It is often the case that our dataset contains many individual observations which we want to collapse into a summary table. In this pattern, we take our data frame and split it apart into several data frames by grouping together unique variables or combinations of variables. We then summarize each data frame using some function, and combine them back together.
+
+This concept is difficult to wrap our minds around without an example. Say, for example, that we wanted to know the total number of each denomination from our data frame. We have four different denominations represented. We could group all the Episcopalians together, all the Baptists together, and so on. Then we could count how many are in each group (using the function `n()`) and combine that information into a new data frame. The three pieces here are the variable (or combination of variables) to group by, the function used to summarize them, and the name of the new column to represent the summed up value. 
+
+```{r}
+sample_df %>%
+  group_by(denomination) %>%
+  summarize(number_of_churches = n())
+```
+
+We could perform the same essential operation by count the number of churches in each city.
+
+```{r}
+sample_df %>%
+  group_by(city) %>%
+  summarize(number_of_churches = n())
+```
+
+Or we could summarize the churches in a more sophisticated way by summing up (using the function `sum()`) the number of attendees and members for each denomination, or by using `mean()` to find the average number of attendees and members.^[Keep in mind that the `sum()` function will return `NA` if the vector passed to it contains any `NA`s. This is because R is (rightly) conservative and won't pretend to assign a value to those missing values. You can avoid this by adding the `na.rm = TRUE` argument to sum. So if have a vector `x` with `NA` values, then `sum(x, na.rm = TRUE)` will remove the missing values and sum the rest. The same argument also applies to `mean()` and `median()` and quite a few other R functions.
+
+```{r}
+sample_df %>%
+  group_by(denomination) %>%
+  summarize(total_members = sum(members),
+            total_attendees = sum(attendees),
+            avg_members = mean(members),
+            avg_attendees = mean(attendees))
+```
+
+We could also find the total number of members for each denomination by city by adding a field to the `group_by()` function. This will yield all the unique combinations of `city` and `denomination`.
+
+```{r}
+sample_df %>%
+  group_by(denomination, city) %>%
+  summarize(total_members = sum(members))
+```
+
+When using summarize it is important to keep the three components in mind.
+
+1. The `group_by()` function takes the name of a variable or variables for which it will find all the unique combinations. The number of unique combinations will be the number of rows in our summarized data frame. Those unique combinations will be the basis of several new data frames which will be passed to step 2.
+
+2. The function to the right of the `=` sign inside `summarize()` provides a function which turns multiple rows in our split-apart data frames into a single row. For example, `sum()` and `mean()` both take a vector of numbers and return a single value, while `n()` counts the number of rows in the split-apart data frame. 
+
+3. The variable name to the left of the `=` sign inside `summarize()` provides the new column name in the summarized data frame.^[These three steps correspond to the "split-apply-combine" steps in Hadley Wickham's article by that name. Hadley Wickham, "The Split-Apply-Combine Strategy for Data Analysis," *Journal of Statistical Software* 40, no. 1 (2011): <http://www.jstatsoft.org/v40/i01/>.]
 
 ### gather() (tidyr)
 
