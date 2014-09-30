@@ -115,6 +115,7 @@ sample_df <- data.frame(
   members = sample(seq(1e2, 1e3, 10), 10, replace = TRUE),
   attendees = sample(seq(1e2, 1e4, 10), 10, replace = TRUE),
   stringsAsFactors = FALSE)
+sample_df
 ```
 
 Now that we have a data frame with sample data, we can use it to try out the data manipulation verbs. We also will load our two necessary libraries:
@@ -289,6 +290,32 @@ When using summarize it is important to keep the three components in mind.
 3. The variable name to the left of the `=` sign inside `summarize()` provides the new column name in the summarized data frame.^[These three steps correspond to the "split-apply-combine" steps in Hadley Wickham's article by that name. Hadley Wickham, "The Split-Apply-Combine Strategy for Data Analysis," *Journal of Statistical Software* 40, no. 1 (2011): <http://www.jstatsoft.org/v40/i01/>.]
 
 ### gather() (tidyr)
+
+Our next two data manipulation verbs are drawn from the [tidyr](http://cran.rstudio.org/web/packages/tidyr/) package instead of from the [dplyr](http://cran.rstudio.org/web/packages/dply/) package. Because they involve manipulating data from wide to long formats and back again, we will create a slightly different example data frame. Suppose that our data frame from earlier now contains two columns for the membership in three different years:
+
+```{r}
+sample_df_wide <- data.frame(
+  name = toupper(letters[1:10]),
+  denomination = sample(c("Presbyterian", "Episcopalian",
+                          "Catholic", "Baptist"), 10, replace = TRUE),
+  city = sample(c("New York", "Boston", "Baltimore"), 10,  replace = TRUE),
+  members_1830 = sample(seq(1e2, 1e3, 10), 10, replace = TRUE),
+  members_1840 = sample(seq(1e2, 1e3, 10), 10, replace = TRUE),
+  members_1850 = sample(seq(1e2, 1e3, 10), 10, replace = TRUE),
+  stringsAsFactors = FALSE)
+sample_df_wide
+```
+
+This information would be easier to plot if it were in long format instead of wide format. The `gather()` function from tidyr lets us perform such an operation. 
+
+What we want to do in this case is take the three columns `members_1830`, `members_1840`, and `members_1850` and turn them into two columns: `year` and `members`. As they stand now, the column names actually represent data, that is, the year in which an observation was taken, and that information belongs in its own column. The `gather()` function will expect us to give the names of the key and value columns. In this case, that will be `year` (whose values will beome the the existing names of the columns) and `members` (whose values will become the current values of the columns we are gathering). The function `gather()` will also let us specify which columns should remain untouched, in this case, `name`, `denomination`, and `city`. The columns to be spread can be specified with the same syntax as in `select()`.
+
+```{r}
+sample_df_wide %>%
+  gather(year, members, -name, -denomination, -city)
+```
+
+Notice that our data frame is now much longer but also narrower. We would have to do some additional cleanup to transform the character vectors of the type `members_1830` to integers of the type `1830`, but we could do that using mutate and functions from the [stringr](http://cran.rstudio.org/web/packages/stringr/) package. (See the chapter on manipulating [strings](strings.html).)
 
 ### spread() (tidyr)
 
