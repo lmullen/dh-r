@@ -227,6 +227,20 @@ Sorting will work with character vectors as well as with numeric vectors.
 
 ### mutate() (dplyr)
 
+*Mutate* and the `mutate()` function is the verb that lets us create new columns from existing columns.^[You can think of this, if you must, as being like a formula in Excel.] For example, in our churches dataset, we might like to know the proportion of attendees that are members. We can use the `=` operator to assign a calculation to a new column named whatever we like.
+
+```{r}
+sample_df %>%
+  mutate(membership_proportion = members / attendees)
+```
+
+You can use use the `mutate()` function for all kinds of operations, not just numeric calculations. For example, we could create a column, `protestant`, which has the value `TRUE` if the denomination field is not `Catholic`, and `FALSE` otherwise.
+
+```{r}
+sample_df %>%
+  mutate(protestant = ifelse(denomination == "Catholic", FALSE, TRUE))
+```
+
 ### summarize() and group_by() (dplyr)
 
 ### gather() (tidyr)
