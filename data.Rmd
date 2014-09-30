@@ -360,7 +360,69 @@ Finally dplyr also provides a useful `do()` function for applying models and the
 
 ## Example: Tidying and analyzing birthplace data
 
-Lets return to our NHGIS dataset about birthplace data to put these data manipulation verbs into practice.
+Lets return to our NHGIS dataset about birthplace data to put these data manipulation verbs into practice. Here we have a very interesting dataset which can tell us about immigration to and migration in the United States. But it is contained in three different files, and the format of each file is almost unusable. In particular, the codes are unreadable. This dataset will give us practice manipulating and the querying data.
+
+### Combining the data files
+
+The first thing to do is to get the paths of our three files and the associated codebooks.
+
+```{r}
+birthplace1 <- "data/nhgis-nativity/nhgis0023_ds12_1850_state.csv"
+birthplace2 <- "data/nhgis-nativity/nhgis0024_ds15_1860_state.csv"
+birthplace3 <- "data/nhgis-nativity/nhgis0024_ds17_1870_state.csv"
+
+codes1 <- "data/nhgis-nativity/nhgis0023_ds12_1850_state_codebook.txt"
+codes2 <- "data/nhgis-nativity/nhgis0024_ds15_1860_state_codebook.txt"
+codes3 <- "data/nhgis-nativity/nhgis0024_ds17_1870_state_codebook.txt"
+```
+
+Now we can load those files. 
+
+```{r}
+birthdata1 <- read.csv(birthplace1, stringsAsFactors = FALSE)
+birthdata2 <- read.csv(birthplace2, stringsAsFactors = FALSE)
+birthdata3 <- read.csv(birthplace3, stringsAsFactors = FALSE)
+```
+
+A quick look at the first few lines of one of the files will remind us what we are working with.
+
+```{r}
+head(birthdata1)
+```
+
+We want to keep the columns `GISJOIN`, `YEAR`, `STATE`, `STATEA`, and `AREANAME` as columns, but we want to turn all the other columns into key-value pairs using `gather()`.^[Some of these columns will be useful later for merging our data with geospatial data, so we'll keep them around, even though they aren't strictly necessary for our purposes now.] For good measure, we will also give these data frames the extra class `tbl_df`.^[The main value that `tbl_df`, which is provided by [dplyr](http://cran.rstudio.org/web/packages/dplyr/), adds is that it makes the default printing of data frames much niced.]
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+birthdata1 %>%
+  gather(code, value, -GISJOIN, -YEAR, -STATE, -STATEA, -AREANAME) %>%
+  tbl_df() -> birthdata1
+
+birthdata2 %>%
+  gather(code, value, -GISJOIN, -YEAR, -STATE, -STATEA, -AREANAME) %>%
+  tbl_df() -> birthdata2
+
+birthdata3 %>%
+  gather(code, value, -GISJOIN, -YEAR, -STATE, -STATEA, -AREANAME) %>%
+  tbl_df() -> birthdata3
+```
+
+Now we can check our work by looking at one of the our data variables.
+
+```{r}
+birthdata1
+```
+
+It would be nice to combine these three variables into one. We could not do this before when they had different numbers of columns with different names. But now that all three data frames have the same columns, we can easily combine them one after another with the function `rbind()`.
+
+```{r}
+birthplace <- rbind(birthdata1, birthdata2, birthdata3)
+birthplace
+```
+
+Our new `birthplace` variable now has `r nrow(birthplace)` rows: the same as the sum of the number of rows in `birthdata1`, `birthdata2`, and `birthdata3`. We now have a single variable containing all our data in a long instead of wide format. This will be much easier to work with.
 
 ## Manipulating lists and lists of lists
 
