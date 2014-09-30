@@ -333,11 +333,34 @@ Sometimes you will want to spread or gather a column to perform calculations on 
 
 ### The join family of functions (dplyr and base R)
 
+The final data manipulation verb is *join*, which has a wide array of functions associated with it. Joining is a powerful action which combines two separate data frames based on a key column (or columns) shared by both of them. For example, let's suppose we have a separate data frame with the population of cities.
+
+```{r}
+cities <- data.frame(
+  city = c("New York", "Baltimore", "Boston"),
+  population = sample(seq(1e6, 1e7, 1e3), 3))
+```
+
+In our original `sample_df` data frame, it would be nice to associate the population of each city with the churches located in those cities. Then we could calculate what percentage of the city attends each church or denomination. Since the city name is the same in the `city` columns in both data frames, we can join the two twogether. Churches in New York will get a new column `population` with the population of New York, and so forth. The join is performed by the function `left_join()` from [dplyr](http://cran.rstudio.org/web/packages/dplyr/).
+
+```{r}
+sample_df %>%
+  left_join(cities, by = "city")
+```
+
+Notice that in the new data frame, all the churches in New York have the same value for `population`, drawn from the `cities` data frame; the same is true for Baltimore and Boston.
+
+There are many different kinds of joins, including `left_join()`, `inner_join()`, `semi_join()`, and `anti_join()`. You can read about the exact definition of each join by looking up `?join` in the dplyr help. Suffice it to say that the different kinds of joins do different things when matching data frames together, usually having to do with what happens when there is not a perfect match.
+
+The `by = "city"` argument in `left_join()` specifies the names of the columns which have the shared key. There can be multiple names of the columns in `left_join()`, but the columns have to be named the same thing. If one data frame had a column named `city` and the other had a column named `city_name`, the join would not work. It is likely that eventually dplyr will remove this limitation. In the meantime, you can rename columns using `select()`. Specifying `select(city = city_name)` will rename a column; or you can add a new column with `mutate(city= city_name)`. You could also use the base R function `merge()` which lets you specify `by.x` and `by.y` arguments in which you give the names of the shared columns in each data frame.
+
 ### Do
 
 Finally dplyr also provides a useful `do()` function for applying models and the like to data frames. We will use this function in the chapter on [statistics](statistics.html).
 
 ## Example: Tidying and analyzing birthplace data
+
+Lets return to our NHGIS dataset about birthplace data to put these data manipulation verbs into practice.
 
 ## Manipulating lists and lists of lists
 
