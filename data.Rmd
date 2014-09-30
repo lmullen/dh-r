@@ -99,6 +99,26 @@ This chapter will begin by identifying the common verbs of a grammar of data man
 
 ## The grammar of data manipulation
 
+When we manipulate data, it helps to think of what we are doing as a set of verbs. Since almost everything in R is a function, those verbs will be expressed as functions. This concept of data manipulation as a grammar, as well as the actual R functions which make it possible, are drawn from Hadley Wickham's work.^[The package dplyr is also written by Romain Francois.]
+
+There are essentially eight verbs for data manipulation. These eight verbs are provided by two R packages, [dplyr](http://cran.rstudio.org/web/packages/dplyr/)   and [tidyr](http://cran.rstudio.org/web/packages/tidyr/). While these manipulations can also me performed in base R, they are far more easily explained, and even faster to compute, using these two packages.
+
+We'll begin our exploration of the grammar of data manipulation by creating a toy dataset small enough that we can perform all of the calculations manually to understand what is going on. We will use a made up example of church memberships.
+
+```{r}
+set.seed(317)
+sample_df <- data.frame(
+  name = toupper(letters[1:10]),
+  denomination = sample(c("Presbyterian", "Episcopalian",
+                          "Catholic", "Baptist"), 10, replace = TRUE),
+  city = sample(c("New York", "Boston", "Baltimore"), 10,  replace = TRUE),
+  members = sample(seq(1e2, 1e3, 10), 10, replace = TRUE),
+  attendees = sample(seq(1e2, 1e4, 10), 10, replace = TRUE),
+  stringsAsFactors = FALSE)
+```
+
+Now that we have a data frame with sample data, we can use it to try out the data manipulation verbs.
+
 ### The pipe (%>%) function
 
 ### select() (dplyr)
