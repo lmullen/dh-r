@@ -246,8 +246,8 @@ Since it appears that the Paulists preferred missions that were one or two weeks
 
 ```{r}
 paulist_missions %>%
-  select(day_start, day_end) %>%
-  gather(type, day) %>%
+  select(day_start, day_end) %>% 
+  gather(type, day, day_start, day_end) %>% 
   mutate(day = factor(day,
                       levels = c("Sunday", "Monday", "Tuesday", "Wednesday",
                                  "Thursday", "Friday", "Saturday"))) %>%
