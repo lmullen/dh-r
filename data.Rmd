@@ -151,7 +151,61 @@ The top example is nearly unreadable, and that is with only two function calls a
 
 ### select() (dplyr)
 
+Our first data manipulation verb is *select*. The `select()` operator lets us pick which columns we want from a data frame. We can do this by specifying the names of the columns that we wish to keep:
+
+```{r}
+sample_df %>%
+  select(name, city, members)
+```
+
+It is also possible to specify the columns we do not want and keep all the others.
+
+```{r}
+sample_df %>%
+  select(-denomination, -attendees)
+```
+
+You can also specify a range of columns using the `:` symbol.
+
+```{r}
+sample_df %>%
+  select(name, city:attendees)
+```
+
 ### filter() (dplyr)
+
+The verb to select only certain rows from a column is *filter*. The `filter()` function take a conditional expression using one or more of the columns in the data frame. A conditional checks for the truth of an expression and returns a boolean value, `TRUE` or `FALSE`. All of the following are examples of conditionals.
+
+```{r}
+100 > 0
+4 <= 0
+"string" == "another string"
+is.na("a value")
+is.na(NA)
+nchar("string") == 6
+```
+
+You can use the `filter()` function to return only the rows that match a particular conditional or set of conditionals. For example, we could return only the Catholic churches in our sample data frame.
+
+```{r}
+sample_df %>%
+  filter(denomination == "Catholic")
+```
+
+Alternatively, we could find only the churches with at least 500 members.
+
+```{r}
+sample_df %>%
+  filter(members >= 500)
+```
+
+Or we could use both conditions. This is the equivalent of joining the two conditions with the `&` operator.
+
+```{r}
+sample_df %>%
+  filter(denomination == "Catholic",
+         members >= 500)
+```
 
 ### arrange() (dplyr)
 
