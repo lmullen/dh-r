@@ -59,7 +59,8 @@ ratios <- babynames %>%
   mutate(total_n = sum(n)) %>%       # sum both male and female uses
   group_by(name, sex, year) %>%      # include sex in grouping
   mutate(ratio = n / total_n) %>%    # calculate proportions of male/female uses
-  select(name, sex, year, ratio) %>% # only keep the columns we need
+  select(name, year, sex, ratio) %>% # only keep the columns we need
+  ungroup() %>%
   spread(sex, ratio)                 # spread the data into M and F columns
 ```
 
