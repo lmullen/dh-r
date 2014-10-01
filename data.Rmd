@@ -514,12 +514,47 @@ str(birthplace)
 Now our data frame has a `meaning` column. This is much better than dealing with those codes. But still the meaning column has two kinds of information in it: whether the place is "native" or "foreign", and what the name of the place is. We can use `mutate()` to create new columns which extract just that information. The `stri_detect_fixed()` function will detect wether the word `"Foreign"` is present. If so, we will give that field `native_or_foreign` the value `"foreign"`; otherwise we will give it the value `"native"`.
 
 ```{r}
-birthplace %>%
+birthplace <- birthplace %>%
   mutate(native_or_foreign = ifelse(stri_detect_fixed(meaning, "Foreign"),
-                                    "foreign", "native")) -> temp
+                                    "foreign", "native")) 
 ```
 
-Now we have a field with a native or foreign value, and we can use the `meaning` column for the actual place of birth.
+Now we have a field with a native or foreign value, and we can use the `meaning` column for the actual place of birth. Now we can start asking interesting questions. In most cases these questions will involve summarizing the data. One interesting question is what the proportion of native- and foreign-born people was in each year.
+
+```{r}
+birthplace %>%
+  group_by(YEAR) %>%
+  mutate(total = sum(value, na.rm = TRUE),
+         proportion = value / total) %>%
+  group_by(YEAR, native_or_foreign) %>%
+  summarize(proportion = sum(proportion, na.rm = TRUE)) ->
+  birthplace_proportions_by_year
+
+birthplace_proportions_by_year
+  
+library(ggplot2)
+birthplace_proportions_by_year %>%
+  ggplot(aes(x = YEAR, y = proportion, fill= native_or_foreign)) + 
+  geom_bar(stat = "identity") +
+  coord_flip()
+```
+
+Alternatively, we could try to find the most common foreign born group in each state by year.
+
+```{r}
+birthplace %>%
+  group_by(YEAR) %>%
+  mutate(total = sum(value, na.rm = TRUE),
+         proportion = value / total) %>%
+  filter(native_or_foreign == "foreign") %>%
+  ungroup() %>%
+  arrange(desc(proportion)) %>%
+  select(YEAR, STATE, meaning, value, proportion)
+```
+
+Unsurprisingly, Irish and German immigrants comprised the biggest proportion of immigrants in any state, though it is somewhat surprising that they were less than one percent of the population of any given state except New York in 1850.
+
+
 
 ## Manipulating lists and lists of lists
 
