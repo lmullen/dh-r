@@ -21,6 +21,7 @@ Tables in R are represented by a data structure called a *data frame*. A data fr
 Take for example the data frame of US state populations from the historydata package.
 
 ```{r}
+library(stringi)
 library(dplyr)
 library(historydata)
 data(us_state_populations)
@@ -487,6 +488,38 @@ Sys.glob("data/nhgis-nativity/*state_codebook.txt") %>%
 
 codebooks
 ```
+
+### Merging codes with their values
+
+Our `birthplace` data frame is now much more usable than it was before. But still those codes are a problem. We have the codebooks that [NHGIS](http://nhgis.org) provided to explain them, but we can hardly go looking at them every time we want to see what a code means. The [mullenMisc](https://github.com/lmullen/mullenMisc) contains a function, `parse_nhgis_codebook()` which can turn a codebook text file into a data frame.^[[mullenMisc](https://github.com/lmullen/mullenMisc) is my personal package which contains miscellaneous functions that I use repeatedly. You might eventually want to create your own personal package for such purposes.] We will do that for each of the files, then bind them together.
+
+```{r}
+library(mullenMisc)
+codebook1 <- parse_nhgis_codebook(codes1)
+codebook2 <- parse_nhgis_codebook(codes2)
+codebook3 <- parse_nhgis_codebook(codes3)
+
+codebooks <-  rbind(codebook1, codebook2, codebook2)
+```
+
+Now we have a list of all the codes and their meanings. Now we can use a join to combine our dataframe of codes with our data frame of birthplaces. In this case the proper join is `left_join()`, since a left join will return all of the rows from our birthplace data (we want all of that, even if we don't have a matching code) and all of the columns from both the birthplace data frame and the codebook data frame. Both our `birthplace` data frame and our `codebooks` data frame have a column called `code`, so we don't need to specify which tables to join by.
+
+```{r}
+birthplace <- birthplace %>%
+  left_join(codebooks)
+
+str(birthplace)
+```
+
+Now our data frame has a `meaning` column. This is much better than dealing with those codes. But still the meaning column has two kinds of information in it: whether the place is "native" or "foreign", and what the name of the place is. We can use `mutate()` to create new columns which extract just that information. The `stri_detect_fixed()` function will detect wether the word `"Foreign"` is present. If so, we will give that field `native_or_foreign` the value `"foreign"`; otherwise we will give it the value `"native"`.
+
+```{r}
+birthplace %>%
+  mutate(native_or_foreign = ifelse(stri_detect_fixed(meaning, "Foreign"),
+                                    "foreign", "native")) -> temp
+```
+
+Now we have a field with a native or foreign value, and we can use the `meaning` column for the actual place of birth.
 
 ## Manipulating lists and lists of lists
 
