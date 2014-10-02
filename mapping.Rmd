@@ -6,14 +6,21 @@ output: bookdown::html_chapter
 
 # Mapping
 
-## Named Entity Extraction
+Mapping is difficult because of the difficulty in representing geospatial data. In particular, the dominant format for spatial data is the [shapefile](http://en.wikipedia.org/wiki/Shapefile), which is a proprietary but mostly open format with some severe limitations. Geospatial data can be very large: in the hundreds of megabytes. Often it is unnecessarily large for the resolution of the map that you want to make, and must be simplified in order to be manageable. Finally, geospatial information is projected, meaning that it can represent a point's position on the earth by a latitude or longitude but also by any other number of [coordinate reference systems](http://en.wikipedia.org/wiki/Spatial_reference_system). These systems have to be translated between one another. In general, it is easiest to prepare geospatial data outside of R and then to load and import it. This chapter focuses primarily on what you can do with R, but the appendix demonstrates how to take a shapefile and then convert and simplify it into a useable format.
 
-How to get place (and other kinds of names) out of a document.
+Another problem with geospatial information is that it is usually intended for contemporary use, which means that the information about boundaries and even about natural features like rivers and coastlines may be anachronistic. You will have to be cautious about finding geospatial information that fits your time and place.
+
+There are some good resources for getting geospatial data. [NHGIS](http://nhgis.org) contains aggregated census information for the United States keyed by special codes to shapefiles that they provide. We will use NHGIS data about manufacturing in this chapter.[Natural Earth](http://www.naturalearthdata.com/) provides all kinds of geographic information, such as rivers, coastlines, and mountains.
+
+Nevertheless, mapping is the digital history technique from which it is easiest to make historical arguments. Not coincidentally, it is also the digital history technique which is easiest to explain to non-digital historians. Historians have been working with maps since at least the beginnings of the historical profession: digital mapping gives you the capability to map data and places yourself.
 
 ## Geocoding
 
 Given a set of names or addresses, how to get latitudes and longitudes for them.
 
+## Named Entity Extraction
+
+How to get place (and other kinds of names) out of a document.
 ## Next Steps
 
 Further Reading
