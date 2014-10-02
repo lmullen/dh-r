@@ -14,6 +14,44 @@ There are some good resources for getting geospatial data. [NHGIS](http://nhgis.
 
 Nevertheless, mapping is the digital history technique from which it is easiest to make historical arguments. Not coincidentally, it is also the digital history technique which is easiest to explain to non-digital historians. Historians have been working with maps since at least the beginnings of the historical profession: digital mapping gives you the capability to map data and places yourself.
 
+## Installation and setup
+
+Most R packages that work with geospatial data are wrappers around libraries written in lower-level languages. In order to use these packages, you will have to install those libraries which are external to R. The two main libraries are [GDAL/OGR](http://www.gdal.org/), which you will likely have to install anyway in order to get the command line tools to prepare your geospatial data, and [GEOS](http://trac.osgeo.org/geos/).^[Make sure you get version 1.11.0 or later of GDAL/OGR, which added support for [topojson](https://github.com/mbostock/topojson).] (In most cases, the R wrapper for GEOS can install the external library itself.)
+
+You can install these packages by following the instructions on their respective websites. If you are on Mac and use [Homebrew](http://brew.sh/), you can install them with the following commands.
+
+```
+brew update
+brew install gdal
+brew install geos
+```
+
+If you are on Ubuntu, you can install them with the following commands. These libraries will be found in almost any Linux package manager.
+
+```
+apt-get update
+apt-get install gdal-bin libgdal-dev libproj-dev
+apt-get install libgeos-dev
+```
+
+Once you have those libraries installed, you can install the necessary R packages, which include the following:
+
+- [sp](http://cran.r-project.org/web/packages/sp/index.html) provides the classes which describe geospatial data, and it will let you use base R functions like `plot()` to make maps. Virtually every geospatial package for R depends on this package.
+- [rgdal](http://cran.r-project.org/web/packages/rgdal/index.html) provides functions to read and write spatial datasets.
+- [rgeos](http://cran.r-project.org/web/packages/rgeos/index.html) provides functions for manipulating spatial information.
+- [maptools](http://cran.r-project.org/web/packages/maptools/index.html) provides functions for manipulating spatial information.
+- [ggmap](http://cran.r-project.org/web/packages/ggmap/ggmap.pdf) lets you map spatial information on top of Google Maps, but its chief usefulness is for its `geocode()` function which uses Google's API.
+- [ggplot2](http://cran.r-project.org/web/packages/ggplot2/index.html) will let us plot spatial information using the same grammer we used for [plotting](plotting.html).
+
+You can install all of these with the following command.
+
+```{r eval=FALSE}
+install.packages(c("sp", "rgdal", "rgeos", "maptools", "ggmap", "ggplot2"),
+                 dependencies = TRUE)
+```
+
+## Loading and plotting a topojson file
+
 ## Geocoding
 
 Given a set of names or addresses, how to get latitudes and longitudes for them.
@@ -21,6 +59,10 @@ Given a set of names or addresses, how to get latitudes and longitudes for them.
 ## Named Entity Extraction
 
 How to get place (and other kinds of names) out of a document.
+
+## Appendix: Preparing Geospatial Data
+
+
 ## Next Steps
 
 Further Reading
