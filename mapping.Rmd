@@ -55,6 +55,14 @@ install.packages(c("sp", "rgdal", "rgeos", "maptools",
                  dependencies = TRUE)
 ```
 
+On Mac, R will try to intall binary versions of rgdal and rgeos which do not need the external dependencies. If this method of installation fails, and R complains that a binary package is not available, then try the following installation commands.
+
+```{r eval=FALSE}
+install.packages("rgdal", type = "source")
+install.packages("rgeos", type = "source")
+```
+
+
 ## Loading and plotting a shapefile
 
 The first step in making a map is to load our geospatial data. I have prepared a shapefile from the NHGIS with the state boundaries of the United States in 1850 by reprojecting it and simplifying it. We can load this shapefile using the `readOGR()` function in the [rgdal](http://cran.rstudio.org/web/packages/rgdal/) package. The `readOGR()` package takes two main arguments: the first is the path to the directory with the shapefile, and the second is the name of the shapefile without its extension. 
