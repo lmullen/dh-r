@@ -10,7 +10,7 @@ source("general-options.r")
 
 # Mapping
 
-Mapping is difficult because of the difficulty in representing geospatial data. In particular, the dominant format for spatial data is the [shapefile](http://en.wikipedia.org/wiki/Shapefile), which is a proprietary but mostly open format with some severe limitations. Geospatial data can be very large: in the hundreds of megabytes. Often it is unnecessarily large for the resolution of the map that you want to make, and must be simplified in order to be manageable. Finally, geospatial information is projected, meaning that it can represent a point's position on the earth by a latitude or longitude but also by any other number of [coordinate reference systems](http://en.wikipedia.org/wiki/Spatial_reference_system). These systems have to be translated between one another. In general, it is easiest to prepare geospatial data outside of R and then to load and import it. This chapter focuses primarily on what you can do with R, but the appendix demonstrates how to take a shapefile and then convert and simplify it into a useable format.
+Mapping is difficult because of the difficulty in representing geospatial data. In particular, the dominant format for spatial data is the [shapefile](http://en.wikipedia.org/wiki/Shapefile), which is a proprietary but mostly open format with some severe limitations. Geospatial data can be very large: in the hundreds of megabytes. Often it is unnecessarily large for the resolution of the map that you want to make, and must be simplified in order to be manageable. Finally, geospatial information is projected, meaning that it can represent a point's position on the earth by a latitude or longitude but also by any other number of [coordinate reference systems](http://en.wikipedia.org/wiki/Spatial_reference_system). These systems have to be translated between one another. In general, it is easiest to prepare geospatial data outside of R and then to load and import it. This chapter focuses primarily on what you can do with R, but the companion chapter on [working with shapefiles](shapefiles.html) demonstrates how to take a shapefile and then convert and simplify it into a useable format.
 
 Another problem with geospatial information is that it is usually intended for contemporary use, which means that the information about boundaries and even about natural features like rivers and coastlines may be anachronistic. You will have to be cautious about finding geospatial information that fits your time and place.
 
@@ -57,9 +57,76 @@ install.packages(c("sp", "rgdal", "rgeos", "maptools",
 
 ## Loading and plotting a shapefile
 
-## Other stuff
+The first step in making a map is to load our geospatial data. I have prepared a shapefile from the NHGIS with the state boundaries of the United States in 1850 by reprojecting it and simplifying it. We can load this shapefile using the `readOGR()` function in the [rgdal](http://cran.rstudio.org/web/packages/rgdal/) package. The `readOGR()` package takes two main arguments: the first is the path to the directory with the shapefile, and the second is the name of the shapefile without its extension. 
 
 ```{r}
+library(rgdal)
+map_sp <- readOGR("data/nhgis-shp/", "state_1850")
+```
+
+We now have an object which we have saved as `map_sp`. We can investigate the class and structure of this object.
+
+```{r}
+class(map_sp)
+```
+
+The object is a `"sp"`, which means it is an object of the type provided by the [sp](http://cran.rstudio.org/web/packages/sp/) package. Almost all spatial objects will have this type. The object is also a `"SpatialPolygonsDataFrame"`. There are three basic types of spatial data: points, lines, and polygons. This file contains polygons.
+
+```{r}
+str(map_sp, max.level = 2)
+```
+
+The structure of the object is even more revealing. The object has several "slots," which are the places where R stores information for objects. TODO: Explain R object systems. We can see that the object contains 37 polygons: one for each of the states and territories on the map. It also contains information such as the `bbox`, which is the maximum extent of the map in terms of latitude and longitude, and the `proj4string`, which contains the coordinate reference system. We can look at either of those slots with `@`.
+
+```{r}
+map_sp@bbox
+map_sp@proj4string
+```
+
+The latitude and longitude of the bounding box is what we would expect for the United States. The `proj4string` tells us that this object is not projected; it happens to use the [EPSG 4326](http://spatialreference.org/ref/epsg/4326/) coordinate reference system which uses latitude and longitude.^[The website <http://spatialreference.org/> is helpful for understanding various coordinate reference systems.] Notice that in both cases the longitude comes first because it is mapped to the x axis, and latitude comes second because it is mapped to the y axis.
+
+The other interesting slot is `data`, which contains a data frame. We can investigate this data frame:
+
+```{r}
+head(map_sp@data)
+```
+
+This shows us that the `r nrow(map_sp@data)` rows of the data frame correspond to each of the states and territories. There is some important information in this data frame. First, we have several columns that will permit us to join this data frame to other data sets. `NHGISST`, `ICPSRST`, `GISJOIN`, and `GISJOIN2` are all special ID fields to be used for this purpose; in a pinch, we could use the `STATENAM` column too. We also are given the `SHAPE_AREA`, which will let us normalize the data by the area of the polygon.
+
+The data in this data frame does not come standard with every shapefile. In this case it has been added by the NHGIS. Other shapefiles will come with data already included: the [Natural Earth](http://www.naturalearthdata.com/) shapefiles have many columns which are useful for plotting. Some shapefiles produced by historical organizations will contain the dates that boundaries are valid for. The Newberry Library's *[Atlas of Historical County Boundaries](http://publications.newberry.org/ahcbp/)* is a particular good example of using shapefiles for this purpose. Many shapefiles will come with no information whatsoever.
+
+The [sp](http://cran.rstudio.org/web/packages/sp/) provides a [method](http://stat.ethz.ch/R-manual/R-devel/library/methods/html/Methods.html) so that it can be plotted using the generic R function `plot()`. This is the fastest and easiest way to make sure that your shapefile has sometime useful.
+
+```{r plot-sample-shapefile}
+plot(map_sp)
+```
+
+The [sp](http://cran.rstudio.org/web/packages/sp/) and [rgdal](http://cran.rstudio.org/web/packages/rgdal/) packages contain many useful functions. Not least is the ability to reproject a shapefile. A projection transforms the three dimensional space of a (nearly) spherical globe into two dimensional space. There are [many map projections](http://www.jasondavies.com/maps/transition/) which are useful for different purposes. We can see what we mean by using a [shapefile of the earth's land](http://www.naturalearthdata.com/downloads/50m-physical-vectors/) from [Natural Earth](http://www.naturalearthdata.com/) and plotting i.
+
+```{r natural-earth-projection}
+earth <- readOGR("data/ne_50m_land/", "ne_50m_land") 
+plot(earth, col = "gray")
+title("The world according to EPSG 4326")
+```
+
+Using the `spTransform()` function, we can set a new projection. We will use the [Winkel tripel projection](http://en.wikipedia.org/wiki/Winkel_tripel_projection) since it is obviously different from (and superior to) the standard projection. (You can find the [PROJ.4](http://en.wikipedia.org/wiki/PROJ.4) definitions for many coordinate reference systems online.) First we transform the shapefile then plot it.
+
+```{r natural-earth-reprojected}
+winkel <- spTransform(earth, CRS("+proj=wintri"))
+plot(winkel, col = "gray")
+title("The world according to Oswald Winkel")
+```
+
+It is well worth learning the base R graphics in order to interact with plots in these ways. But just as we used [ggplot2](http://cran.rstudio.org/web/packages/ggplot2/) in the [plotting chapter](plotting.html), so we will use it here because it provides a grammar of graphics, and thus a way of thinking through our problems. Before we explore how to make maps in [ggplot2](http://cran.rstudio.org/web/packages/ggplot2/), we will first have to get some data to plot on top of our shapefiles.
+
+## Geocoding
+
+Given a set of names or addresses, how to get latitudes and longitudes for them.
+
+
+## Other stuff
+
+```{r playing-around-with-ggplot2-maps}
 library(rgdal)
 library(ggplot2)
 library(dplyr)
@@ -71,16 +138,9 @@ ggplot() + geom_map(data = map, map = map, aes(map_id = id, x = long, y = lat, g
 ```
 
 
-## Geocoding
-
-Given a set of names or addresses, how to get latitudes and longitudes for them.
-
 ## Named Entity Extraction
 
 How to get place (and other kinds of names) out of a document.
-
-## Appendix: Preparing Geospatial Data
-
 
 ## Next Steps
 
