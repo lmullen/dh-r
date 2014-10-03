@@ -121,8 +121,62 @@ It is well worth learning the base R graphics in order to interact with plots in
 
 ## Geocoding
 
-Given a set of names or addresses, how to get latitudes and longitudes for them.
+There are essentially three kind of spatial information that can be plotted: points, lines, and polygons. We have already seen what polygons look like. Often if it is sufficient to draw a point representing a city or an event. Given a place name, it is possible to look up that latitude and longitude for that place using Google's API.^[One must be cautious of anachronism, of course, since Google's API only has current place names. In general, though, cities do not move.]
 
+The [ggmap](http://cran.rstudio.org/web/packages/ggmap/) package provides a `geocode()` function which calls Google's API and returns a latitude and longitude.
+
+```{r}
+library(ggmap)
+geocode("San Francisco, CA")
+```
+
+The function's default arguments return only latitude and longitude, but it is capable of returning quite a lot of information, such as the precision of the guess as to the location.
+
+```{r}
+geocode("San Francisco, CA", output = "more")
+```
+
+Let's take a small data frame of cities that we might want to plot on a map.
+
+```{r}
+cities <- data.frame(name = c("Saint Louis, MO",
+                    "San Francisco, CA",
+                    "Boston, MA",
+                    "Charleston, SC",
+                    "Houston, TX"),
+           stringsAsFactors = FALSE)
+
+cities
+```
+
+We can then add two columns to our data frame using geocode. `geocode()` function returns a data frame, which makes it awkward to use with dplyr.  
+
+```{r geocode, message=FALSE}
+cities_geocoded <- geocode(cities$name)
+
+cities_geocoded
+```
+
+We will have to bind this new data frame to our cities data frame.
+
+```{r}
+cities <- cbind(cities, cities_geocoded)
+```
+
+
+We we have a data frame that we can plot using [ggplot2](http://cran.rstudio.org/web/packages/ggplot2/), remembering to map the longitude to `x` and the latitude to `y`. We will also use the [ggplot2](http://cran.rstudio.org/web/packages/ggplot2/) function `coord_map()` which will set the coordinate system for our plot to something that makes sense for a map. (The default is the [Mercator projection](http://en.wikipedia.org/wiki/Mercator_projection); we will change this later.) The `geom_text()` function will print the name of the city.
+
+```{r}
+library(ggplot2)
+ggplot(cities, aes(x = lon, y = lat)) +
+  geom_point() +
+  geom_text(aes(label = name, vjust = -1)) +
+  coord_map()
+```
+
+This looks about right, though the labels could be better placed. But this is hardly useful without some kind of boundaries beneath it.
+
+## Plotting polygons in ggplot2
 
 ## Other stuff
 
