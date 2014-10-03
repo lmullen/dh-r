@@ -166,7 +166,7 @@ cities <- cbind(cities, cities_geocoded)
 
 We we have a data frame that we can plot using [ggplot2](http://cran.rstudio.org/web/packages/ggplot2/), remembering to map the longitude to `x` and the latitude to `y`. We will also use the [ggplot2](http://cran.rstudio.org/web/packages/ggplot2/) function `coord_map()` which will set the coordinate system for our plot to something that makes sense for a map. (The default is the [Mercator projection](http://en.wikipedia.org/wiki/Mercator_projection); we will change this later.) The `geom_text()` function will print the name of the city.
 
-```{r}
+```{r first-ggplot2-map}
 library(ggplot2)
 ggplot(cities, aes(x = lon, y = lat)) +
   geom_point() +
@@ -188,7 +188,7 @@ head(map_df)
 
 Now that we have a data frame, we can plot it. Because we are going to use the `cities` data frame, we are going to specify different data frames for ggplot to use. Instead of specifying the `data =` argument in the main `ggplot()` function, we will specify it in the layer arguments.
 
-```{r}
+```{r map-1850}
 map_1850 <- ggplot() + 
   geom_map(data = map_df,
            map = map_df,
@@ -204,7 +204,7 @@ map_1850
 
 Now we have a map of the states in 1850. We can modify our code that plotted the cities above.
 
-```{r}
+```{r map-1850-with-cities}
 map_1850 +
   geom_point(data = cities, aes(x = lon, y = lat),
              color = "red", size = 3) +
@@ -212,8 +212,52 @@ map_1850 +
             vjust = -1)
 ```
 
-## Specifying projections in ggplot
+We can use a more sophisticated dataset to plot points on the map. The [historydata](https://github.com/lmullen/historydata) package contains a geocoded set of Paulist missions. We might normally display just the missions from 1850, but for learning purposes we will display all the missions at once.
 
+```{r}
+library(dplyr)
+library(historydata)
+data(paulist_missions)
+glimpse(paulist_missions)
+```
+
+We can add these as points to our 1850 map. Instead of sizing the points all the same, we will size them by number of confessions at the mission, but we will use hollow circles (`shape = 1`) to try to deal with the problem of overplotting. 
+
+```{r map-of-paulist-missions}
+map_1850 +
+  geom_point(data = paulist_missions,
+             aes(x = long, y = lat, size = confessions),
+             color = "red", shape = 1) +
+  theme(legend.position = "bottom") +
+  scale_size(range = c(2, 8)) + 
+  ggtitle("Paulist missions as points")
+```
+
+When plotting many points, sometimes it makes more sense to plot the density of the points instead of the points themselves. We can do this in [ggplot2](http://cran.rstudio.org/web/packages/ggplot2/) with either the `geom_hex()` or `geom_density2d()`.
+
+```{r paulists-with-hex-bin}
+map_1850 +
+  geom_hex(data = paulist_missions,
+             aes(x = long, y = lat)) +
+  theme(legend.position = "bottom") +
+  ggtitle("Paulist missions with hex bin")
+```
+
+
+```{r paulists-with-density2d}
+map_1850 +
+  geom_density2d(data = paulist_missions,
+             aes(x = long, y = lat)) +
+  theme(legend.position = "bottom") +
+  ggtitle("Paulist missions with density plot")
+```
+
+
+## Choropleths
+
+## Dot maps
+
+## Specifying projections in ggplot
 
 ## Other stuff
 
