@@ -170,13 +170,50 @@ We we have a data frame that we can plot using [ggplot2](http://cran.rstudio.org
 library(ggplot2)
 ggplot(cities, aes(x = lon, y = lat)) +
   geom_point() +
-  geom_text(aes(label = name, vjust = -1)) +
+  geom_text(aes(label = name), vjust = -1) +
   coord_map()
 ```
 
 This looks about right, though the labels could be better placed. But this is hardly useful without some kind of boundaries beneath it.
 
 ## Plotting polygons in ggplot2
+
+To plot our earlier `map_sp` of U.S. state boundaries in 1850, it is necessary to convert the shapefile object to a data frame. The [ggplot2](http://cran.rstudio.org/web/packages/ggplot2/) package contains a function `fortify()`, which will perform the conversion. We will need to pass it a `region =` argument with the name of the field that we might want to perform a merge with. With NHGIS data, the `GISJOIN` field is the best to use.
+
+```{r}
+map_df <- fortify(map_sp, region = "GISJOIN")
+
+head(map_df)
+```
+
+Now that we have a data frame, we can plot it. Because we are going to use the `cities` data frame, we are going to specify different data frames for ggplot to use. Instead of specifying the `data =` argument in the main `ggplot()` function, we will specify it in the layer arguments.
+
+```{r}
+map_1850 <- ggplot() + 
+  geom_map(data = map_df,
+           map = map_df,
+           aes(x = long, y = lat, group = group, map_id = id),
+           fill = "white",
+           color = "black",
+           size = 0.2) +
+  coord_map() +
+  theme_minimal()
+
+map_1850
+```
+
+Now we have a map of the states in 1850. We can modify our code that plotted the cities above.
+
+```{r}
+map_1850 +
+  geom_point(data = cities, aes(x = lon, y = lat),
+             color = "red", size = 3) +
+  geom_text(data = cities, aes(x = lon, y = lat, label = name),
+            vjust = -1)
+```
+
+## Specifying projections in ggplot
+
 
 ## Other stuff
 

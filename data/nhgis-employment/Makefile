@@ -6,7 +6,7 @@ all : $(TOPOJSON)
 
 out/%.shp : temp/%.shp
 	mkdir -p out
-	mapshaper $^ auto-snap -simplify 1.0% -o force $@
+	mapshaper $^ auto-snap -simplify 2.5% -o force $@
 
 temp/%.shp : shp/%.shp
 	mkdir -p temp
