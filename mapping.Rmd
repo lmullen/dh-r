@@ -55,7 +55,7 @@ install.packages(c("sp", "rgdal", "rgeos", "maptools",
                  dependencies = TRUE)
 ```
 
-On Mac, R will try to intall binary versions of rgdal and rgeos which do not need the external dependencies. If this method of installation fails, and R complains that a binary package is not available, then try the following installation commands.
+On Mac, R will try to intall binary versions of rgdal and rgeos which do not need the external dependencies. In general, `install.packages()` tries to get a binary package, meaning a package which contains everything necessary for your operating system. If R can do that for, say, rgdal, then you don't need to install the external library. But this doesn't always work, in which case R lets you build the package from source, and you do need the external libraries. If this method of installation fails, and R complains that a binary package is not available, then try the following installation commands.
 
 ```{r eval=FALSE}
 install.packages("rgdal", type = "source")
