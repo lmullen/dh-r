@@ -243,15 +243,6 @@ map_1850 +
 
 When plotting many points, sometimes it makes more sense to plot the density of the points instead of the points themselves. We can do this in [ggplot2](http://cran.rstudio.org/web/packages/ggplot2/) with either the `geom_hex()` or `geom_density2d()`.
 
-```{r paulists-with-hex-bin}
-map_1850 +
-  geom_hex(data = paulist_missions,
-             aes(x = long, y = lat)) +
-  theme(legend.position = "bottom") +
-  ggtitle("Paulist missions with hex bin")
-```
-
-
 ```{r paulists-with-density2d}
 map_1850 +
   geom_density2d(data = paulist_missions,
@@ -260,8 +251,117 @@ map_1850 +
   ggtitle("Paulist missions with density plot")
 ```
 
-
 ## Choropleths
+
+A choropleth map shades the region with a color keyed to some meaning. For example, we might color the region based on population, with regions with little population being represented by the color white, and regions with the most population being represented by the color green. We already know how to shade a region in [ggplot2](http://cran.rstudio.org/web/packages/ggplot2/): we simply map the `fill =` argument to some variable in our dataset. 
+
+Before we can do this, however, we have to join our spatial data to the data we wish to map. (Joining is covered in more detail in the chapter on [data manipulation](data.html).) 
+
+We'll begin by loading in a shapefile of the US counties in 1850 and turning it into a data frame which we can use with ggplot2.
+
+```{r}
+counties_1850_sp <- readOGR("data/nhgis-shp/", "US_county_1850")
+counties_1850_df <- fortify(counties_1850_sp, region = "GISJOIN")
+glimpse(counties_1850_df)
+```
+
+Notice that this data frame, `counties_1850_df`, has an ID column which we can use for merging our data. Let's load in NHGIS data about the value of farms in 1850.
+
+```{r}
+farms_1850 <- read.csv("data/nhgis-farms/nhgis0031_ds10_1850_county.csv",
+                       stringsAsFactors = FALSE)
+glimpse(farms_1850)
+```
+
+Notice that this data has the same kind of field, only called `GISJOIN`. We can perform a join between the two data frames using the `id` and `GISJOIN` columns from the respective variables.
+
+```{r}
+farms_merged <- counties_1850_df %>%
+  left_join(farms_1850, by = c("id" = "GISJOIN"))
+glimpse(farms_merged)
+```
+
+Now we have all the information from the farms data merged to the counties data frame. But notice that our counties data frame never carried across some of the information that was in the `@data` slot of the `sp` object:
+
+```{r}
+glimpse(counties_1850_sp@data)
+```
+
+There is information in that dataframe that we could use, mostly the area of the shape. So we will merge that dataframe to our new `farms_merged` data frame.
+
+```{r}
+farms_merged <- farms_merged %>%
+  left_join(counties_1850_sp@data, by = c("id" = "GISJOIN"))
+glimpse(farms_merged)
+```
+
+Now we have all the information in one place. We can make a map of the counties in 1850, but this time we will set `fill = AEE001` to make the choropleth.
+
+```{r first-choropleth-of-farms}
+ggplot(data = farms_merged,
+       aes(x = long, y = lat, group = group, fill = AEE001, map_id = id)) +
+  geom_map(map = farms_merged) + 
+  ggtitle("Value of farms in dollars in 1850") + 
+  coord_map(projection = "polyconic") +
+  theme_minimal() +
+  theme(legend.position = "bottom") 
+```
+
+This map works, but it is not a particularly good map. First, the map is misleading because the counties have different sizes. It stands to reason that bigger counties have more land and thus have a greater total value in land. We should divide the value of the land in the county `AEE001` by the total number of acres in the county `SHAPE_AREA` to normalize the map by the size of the county. (Note that this is *not* the same thing as the value of farm land in dollars per acre, because much of the acreage in any given county is not farmland.)
+
+```{r first-choropleth-of-farms-adjusted-for-area}
+ggplot(data = farms_merged,
+       aes(x = long, y = lat, group = group, map_id = id,
+           fill = AEE001 / SHAPE_AREA)) +
+  geom_map(map = farms_merged) + 
+  ggtitle("Value of farms in dollars per acre in 1850") + 
+  coord_map(projection = "polyconic") +
+  theme_minimal() +
+  theme(legend.position = "bottom") 
+```
+
+We could improve this map further by focusing just on the eastern United States. We can change that with the `xlim()` function.
+
+```{r eastern-farms-adjusted-for-area}
+ggplot(data = farms_merged,
+       aes(x = long, y = lat, group = group, map_id = id,
+           fill = AEE001 / SHAPE_AREA)) +
+  geom_map(map = farms_merged) + 
+  ggtitle("Value of farms in 1850") + 
+  coord_map(projection = "polyconic") +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  xlim(-97, -72)
+```
+
+This is an improvement, anyway, but it still has two related problems. First, the color scheme is difficult to read. We need to pick a better color palette. Second, the map plots the color on a continuous scale. That is, there is an infinite possible number of values between 0 and the maximum. We will do much better if we break up the values into bins. We can do this using the related R functions `cut()` and `quantile()`. (Ideally we would have done this on our unmerged data.) The `quantile()` function will show us the breaks in our data, separating them into four even groups.
+
+```{r}
+quantile(farms_merged$AEE001 / farms_merged$SHAPE_AREA, na.rm = TRUE)
+```
+
+The function `cut()` divides a vector according to those breaks. We can create a new column in our data frame which is value of the farms divided by the area and broken into four even groups.
+
+```{r}
+farms_merged <- farms_merged %>%
+  mutate(farm_value_by_acre = cut(AEE001 / SHAPE_AREA, 9))
+```
+
+Now we can replot the map using those breaks.
+
+```{r eastern-farms-as-a-factor-by-area}
+ggplot(data = farms_merged,
+       aes(x = long, y = lat, group = group, map_id = id,
+           fill = farm_value_by_acre)) +
+  geom_map(map = farms_merged) + 
+  ggtitle("Value of farms in 1850") + 
+  coord_map(projection = "polyconic") +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  xlim(-97, -72)
+```
+
+TODO R Color Brewer.
 
 ## Dot maps
 
