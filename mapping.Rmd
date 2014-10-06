@@ -399,20 +399,6 @@ Note that we cannot simply take this map as read, but must bring our historical 
 
 ## Specifying projections in ggplot
 
-## Other stuff
-
-```{r playing-around-with-ggplot2-maps}
-library(rgdal)
-library(ggplot2)
-library(dplyr)
-counties_1850 <- readOGR("data/nhgis-employment/out", "US_county_1850")
-map <- fortify(counties_1850, region = "GISJOIN")
-employment <- read.csv("data/nhgis-employment/nhgis0030_csv/nhgis0030_ds10_1850_county.csv", stringsAsFactors = FALSE)
-map <- map %>% left_join(employment, by = c("id" = "GISJOIN")) 
-ggplot() + geom_map(data = map, map = map, aes(map_id = id, x = long, y = lat, group = group, fill = cut(AER001, breaks = quantile(map$AER001, na.rm =TRUE))), color = "white", size = 0.05) + coord_map(projection = "polyconic") + theme_minimal() + theme(legend.position="bottom")
-```
-
-
 ## Named Entity Extraction
 
 How to get place (and other kinds of names) out of a document.
