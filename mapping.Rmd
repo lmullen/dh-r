@@ -46,6 +46,8 @@ Once you have those libraries installed, you can install the necessary R package
 - [maptools](http://cran.r-project.org/web/packages/maptools/index.html) provides functions for manipulating spatial information.
 - [ggmap](http://cran.r-project.org/web/packages/ggmap/ggmap.pdf) lets you map spatial information on top of Google Maps, but its chief usefulness is for its `geocode()` function which uses Google's API.
 - [ggplot2](http://cran.r-project.org/web/packages/ggplot2/index.html) will let us plot spatial information using the same grammer we used for [plotting](plotting.html).
+- [classInt](http://cran.rstudio.org/web/packages/classInt/) lets us assign groupings to variables to be plotted.
+- [RColorBrewer](http://cran.rstudio.org/web/packages/RColorBrewer/) offers color palettes which are good for map making.
 
 You can install all of these with the following command.
 
@@ -265,10 +267,10 @@ counties_1850_df <- fortify(counties_1850_sp, region = "GISJOIN")
 glimpse(counties_1850_df)
 ```
 
-Notice that this data frame, `counties_1850_df`, has an ID column which we can use for merging our data. Let's load in NHGIS data about the value of farms in 1850.
+Notice that this data frame, `counties_1850_df`, has an ID column which we can use for merging our data. Let's load in NHGIS data about the "Average Value of Farmland and Buildings" in dollars by county in 1850.
 
 ```{r}
-farms_1850 <- read.csv("data/nhgis-farms/nhgis0031_ds10_1850_county.csv",
+farms_1850 <- read.csv("data/nhgis-farmland-value/nhgis0032_ds11_1850_county.csv",
                        stringsAsFactors = FALSE)
 glimpse(farms_1850)
 ```
@@ -281,87 +283,117 @@ farms_merged <- counties_1850_df %>%
 glimpse(farms_merged)
 ```
 
-Now we have all the information from the farms data merged to the counties data frame. But notice that our counties data frame never carried across some of the information that was in the `@data` slot of the `sp` object:
-
-```{r}
-glimpse(counties_1850_sp@data)
-```
-
-There is information in that dataframe that we could use, mostly the area of the shape. So we will merge that dataframe to our new `farms_merged` data frame.
-
-```{r}
-farms_merged <- farms_merged %>%
-  left_join(counties_1850_sp@data, by = c("id" = "GISJOIN"))
-glimpse(farms_merged)
-```
-
-Now we have all the information in one place. We can make a map of the counties in 1850, but this time we will set `fill = AEE001` to make the choropleth.
+Now we have all the information in one place. We can make a map of the counties in 1850, but this time we will set `fill = AE7001` to make the choropleth.
 
 ```{r first-choropleth-of-farms}
 ggplot(data = farms_merged,
-       aes(x = long, y = lat, group = group, fill = AEE001, map_id = id)) +
+       aes(x = long, y = lat, group = group, fill = AE7001, map_id = id)) +
   geom_map(map = farms_merged) + 
-  ggtitle("Value of farms in dollars in 1850") + 
-  coord_map(projection = "polyconic") +
+  ggtitle("Average value of farms and buildings in dollars/acre in 1850") + 
+  coord_map() +
   theme_minimal() +
   theme(legend.position = "bottom") 
 ```
 
-This map works, but it is not a particularly good map. First, the map is misleading because the counties have different sizes. It stands to reason that bigger counties have more land and thus have a greater total value in land. We should divide the value of the land in the county `AEE001` by the total number of acres in the county `SHAPE_AREA` to normalize the map by the size of the county. (Note that this is *not* the same thing as the value of farm land in dollars per acre, because much of the acreage in any given county is not farmland.)
+This is not a very good map. It still has two related problems. First, the color scheme is difficult to read. We need to pick a better color palette. Second, the map plots the color on a continuous scale. That is, there is an infinite possible number of values between 0 and the maximum. But the values tend to clump on the low end of the scale, and there are a few very high values. We can use the `summary()` function and then a histogram to see the distribution of the `AE7001` variable in our original dataset.
 
-```{r first-choropleth-of-farms-adjusted-for-area}
+```{r}
+summary(farms_1850$AE7001)
+```
+
+```{r distribution-of-average-values-of-farmland}
+ggplot(data = farms_1850, aes(x = AE7001)) + geom_histogram(binwidth = 10) +
+  ggtitle("Distribution of average values of farmland in 1850")
+```
+
+We can see from both the summary statistics and the histogram that the vast majority of counites have farmland and buildings valued on average at $12 per acre or less. But on county has farmland averaging $`r max(farms_1850$AE7001)` per acre. (We might suspect that this value is an error, but looking at the data shows that outlier is New York City, which makes sense.)  That one value reduces the contrast in our data, so to speak, so that we cannot see distinctions among the rest of the counties.
+
+We will do much better if we break up the values into bins. That is, we could say that a county with property values of $1 or $2 per acre will receive the same color, and so on. The best way to do this is with the [classInt](http://cran.rstudio.org/web/packages/classInt/) package. (Install it with `install.packages("classInt")`.) This package provides several ways of assigning groupings to a variable. For example we can try the `pretty` method in the package. We have to tell the `classIntervals()` function the variable for which we want to compute the breaks, the number of groupings that we want (keep this to 9 or fewer), and the method of computing the breaks.
+
+```{r}
+library(classInt)
+classIntervals(farms_1850$AE7001, 9, "pretty")
+```
+
+These breaks are indeed pretty to read, but not very helpful. There are 1515 counties between $0 and $200 average value; but only 1 between $200 and $400, and then 0 in all the rest of the intervals until we get to New York City. We clearly need a better algorithm. The [Jenks natural breaks algorithm](http://en.wikipedia.org/wiki/Jenks_natural_breaks_optimization) tries to make the members of each group as alike as possible, while making each group as a whole as distinc from other groups as possible.
+
+```{r}
+intervals <- classIntervals(farms_1850$AE7001, 9, "jenks")
+intervals$brks
+```
+
+Those intervals are far more useful. (Notice that the `intervals` object is a list, and we can access the `brks` themselves with the `$`.) We see some real resolution or contrast in the data. We should create a new column in our original farms data frame with those values and remerge the data back to the county shapefile. The `cut()` function will use our intervals to "cut" up our existing data points into different groups.
+
+```{r}
+head(cut(farms_1850$AE7001, breaks = intervals$brks))
+```
+
+
+```{r}
+farms_1850 <- farms_1850 %>%
+  mutate(value_classified = cut(AE7001, intervals$brks))
+
+farms_merged <- counties_1850_df %>%
+  left_join(farms_1850, by = c("id" = "GISJOIN"))
+
+glimpse(farms_merged)
+```
+
+Now we can redo our plot by this new variable.
+
+```{r map-with-intervals}
 ggplot(data = farms_merged,
        aes(x = long, y = lat, group = group, map_id = id,
-           fill = AEE001 / SHAPE_AREA)) +
+           fill = value_classified)) +
   geom_map(map = farms_merged) + 
-  ggtitle("Value of farms in dollars per acre in 1850") + 
-  coord_map(projection = "polyconic") +
+  ggtitle("Average alue of farms and buildings in dollars/acre in 1850") + 
+  coord_map() +
   theme_minimal() +
   theme(legend.position = "bottom") 
 ```
 
-We could improve this map further by focusing just on the eastern United States. We can change that with the `xlim()` function.
+This map is far better: instead of an undifferentiated mass of color, we can see see distinctions between the value of property across the country. It is important to note that these distinctions are not simply random, as if we had chosen bad groupings for our variables, but seem at first glance to create contiguous regions and to have variation which could begin to be an argument.
 
-```{r eastern-farms-adjusted-for-area}
+The biggest problem is that the colors do not help us understand the data. The palette offers colors which are far apart from one another (that is, equally distant from one another on a color wheel). This is what one might call, using Cynthia Brewer's terminology, a qualitative scale. If we were mapping political parties, say, in the 1852 election it would be desireable to distinguish between the Democrats, the Whigs, and the Free Soil party. But our scale is what Brewer calls a sequential scale. That is, the values increase sequentially. This map would be better represented by a shade of colors that grew darker the more expensive land was, so that we could see a progression in the colors. Brewer also offers a diverging scale, which has a neutral color (like white) in the middle and two opposite colors at the beginning and end of the scale. The [Color Brewer 2.0](http://colorbrewer2.org/) website by Cynthia Brewer and Mark Harrower provides a very helpful set of color palettes and maps to pick the right color palettes for maps.
+
+![The Color Brewer 2.0 website](screenshots/colorbrewer.png)
+
+The same palettes can be accessed in R and used with [ggplot2](http://cran.rstudio.org/web/packages/ggplot2/) using the [RColorBrewer](http://cran.rstudio.org/web/packages/RColorBrewer/) package. (Install this package with `install.packages("RColorBrewer")`.) The package provides a `display.brewer.all()` function which lets us see all the available color palettes.
+
+```{r color-brewer-palettes}
+library(RColorBrewer)
+display.brewer.all()
+```
+
+Now we can change the fill scale of our map to use the RColorBrewer palette of our choice, in this case `YlGnBu`.
+
+```{r map-with-color-brewer-intervals}
 ggplot(data = farms_merged,
        aes(x = long, y = lat, group = group, map_id = id,
-           fill = AEE001 / SHAPE_AREA)) +
-  geom_map(map = farms_merged) + 
-  ggtitle("Value of farms in 1850") + 
-  coord_map(projection = "polyconic") +
+           fill = value_classified)) +
+  geom_map(map = farms_merged, color = "gray", size = 0.2) + 
+  ggtitle("Average value of farms and buildings in dollars/acre in 1850") + 
+  coord_map() +
   theme_minimal() +
   theme(legend.position = "bottom") +
-  xlim(-97, -72)
+  scale_fill_brewer(palette = "YlGnBu")
 ```
 
-This is an improvement, anyway, but it still has two related problems. First, the color scheme is difficult to read. We need to pick a better color palette. Second, the map plots the color on a continuous scale. That is, there is an infinite possible number of values between 0 and the maximum. We will do much better if we break up the values into bins. We can do this using the related R functions `cut()` and `quantile()`. (Ideally we would have done this on our unmerged data.) The `quantile()` function will show us the breaks in our data, separating them into four even groups.
+Finally, we can improve this map by setting more sensible limits on the longitude limits, since we don't have data for the western United States.
 
-```{r}
-quantile(farms_merged$AEE001 / farms_merged$SHAPE_AREA, na.rm = TRUE)
-```
-
-The function `cut()` divides a vector according to those breaks. We can create a new column in our data frame which is value of the farms divided by the area and broken into four even groups.
-
-```{r}
-farms_merged <- farms_merged %>%
-  mutate(farm_value_by_acre = cut(AEE001 / SHAPE_AREA, 9))
-```
-
-Now we can replot the map using those breaks.
-
-```{r eastern-farms-as-a-factor-by-area}
+```{r map-with-color-brewer-intervals-cropped}
 ggplot(data = farms_merged,
        aes(x = long, y = lat, group = group, map_id = id,
-           fill = farm_value_by_acre)) +
-  geom_map(map = farms_merged) + 
-  ggtitle("Value of farms in 1850") + 
-  coord_map(projection = "polyconic") +
+           fill = value_classified)) +
+  geom_map(map = farms_merged, color = "gray", size = 0.2) + 
+  ggtitle("Average value of farms and buildings in dollars/acre in 1850") + 
+  coord_map() +
   theme_minimal() +
-  theme(legend.position = "bottom") +
-  xlim(-97, -72)
+  scale_fill_brewer(palette = "YlGnBu") +
+  xlim(-98, -65)
 ```
 
-TODO R Color Brewer.
+Note that we cannot simply take this map as read, but must bring our historical knowledge to bear on it. This map seems to show that the northern states are wealthier than the southern in terms of real property. Or, we should say, the property was more expensive on average; we cannot say what the total wealth in each county was from this data alone. But what the map does not show is people held as real property, that is, slavery. Our map would have a considerably different meaning if we could add in the value of slaves held on southern farms.^[Ed Baptist, The Half Has Never Been Told, TODO.]
 
 ## Dot maps
 

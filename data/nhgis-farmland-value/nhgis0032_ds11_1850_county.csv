@@ -1,0 +1,1518 @@
+GISJOIN,YEAR,STATE,STATEA,COUNTY,COUNTYA,AREANAME,AE7001
+"G0100010","1850","Alabama","010","Autauga","0010","Autauga",5
+"G0100030","1850","Alabama","010","Baldwin","0030","Baldwin",3
+"G0100050","1850","Alabama","010","Barbour","0050","Barbour",5
+"G0100070","1850","Alabama","010","Bibb","0070","Bibb",3
+"G0100090","1850","Alabama","010","Blount","0090","Blount",3
+"G0100130","1850","Alabama","010","Butler","0130","Butler",3
+"G0100170","1850","Alabama","010","Chambers","0170","Chambers",6
+"G0100190","1850","Alabama","010","Cherokee","0190","Cherokee",7
+"G0100230","1850","Alabama","010","Choctaw","0230","Choctaw",9
+"G0100250","1850","Alabama","010","Clarke","0250","Clarke",3
+"G0100310","1850","Alabama","010","Coffee","0310","Coffee",4
+"G0100350","1850","Alabama","010","Conecuh","0350","Conecuh",3
+"G0100370","1850","Alabama","010","Coosa","0370","Coosa",4
+"G0100390","1850","Alabama","010","Covington","0390","Covington",3
+"G0100450","1850","Alabama","010","Dale","0450","Dale",3
+"G0100470","1850","Alabama","010","Dallas","0470","Dallas",7
+"G0100490","1850","Alabama","010","DeKalb","0490","Dekalb",6
+"G0100570","1850","Alabama","010","Fayette","0570","Fayette",3
+"G0100590","1850","Alabama","010","Franklin","0590","Franklin",5
+"G0100630","1850","Alabama","010","Greene","0630","Greene",7
+"G0100670","1850","Alabama","010","Henry","0670","Henry",4
+"G0100710","1850","Alabama","010","Jackson","0710","Jackson",4
+"G0100730","1850","Alabama","010","Jefferson","0730","Jefferson",4
+"G0100770","1850","Alabama","010","Lauderdale","0770","Lauderdale",7
+"G0100790","1850","Alabama","010","Lawrence","0790","Lawrence",6
+"G0100830","1850","Alabama","010","Limestone","0830","Limestone",9
+"G0100850","1850","Alabama","010","Lowndes","0850","Lowndes",4
+"G0100870","1850","Alabama","010","Macon","0870","Macon",5
+"G0100890","1850","Alabama","010","Madison","0890","Madison",10
+"G0100910","1850","Alabama","010","Marengo","0910","Marengo",9
+"G0100930","1850","Alabama","010","Marion","0930","Marion",2
+"G0100950","1850","Alabama","010","Marshall","0950","Marshall",7
+"G0100970","1850","Alabama","010","Mobile","0970","Mobile",11
+"G0100990","1850","Alabama","010","Monroe","0990","Monroe",3
+"G0101010","1850","Alabama","010","Montgomery","1010","Montgomery",6
+"G0101030","1850","Alabama","010","Morgan","1030","Morgan",5
+"G0101050","1850","Alabama","010","Perry","1050","Perry",7
+"G0101070","1850","Alabama","010","Pickens","1070","Pickens",5
+"G0101090","1850","Alabama","010","Pike","1090","Pike",4
+"G0101110","1850","Alabama","010","Randolph","1110","Randolph",4
+"G0101130","1850","Alabama","010","Russell","1130","Russell",5
+"G0101150","1850","Alabama","010","St Clair","1150","St Clair",4
+"G0101170","1850","Alabama","010","Shelby","1170","Shelby",4
+"G0101190","1850","Alabama","010","Sumter","1190","Sumter",5
+"G0101210","1850","Alabama","010","Talladega","1210","Talladega",6
+"G0101230","1850","Alabama","010","Tallapoosa","1230","Tallapoosa",4
+"G0101250","1850","Alabama","010","Tuscaloosa","1250","Tuscaloosa",3
+"G0101270","1850","Alabama","010","Walker","1270","Walker",4
+"G0101290","1850","Alabama","010","Washington","1290","Washington",3
+"G0101310","1850","Alabama","010","Wilcox","1310","Wilcox",5
+"G0500010","1850","Arkansas","050","Arkansas","0010","Arkansas",11
+"G0500030","1850","Arkansas","050","Ashley","0030","Ashley",7
+"G0500070","1850","Arkansas","050","Benton","0070","Benton",6
+"G0500110","1850","Arkansas","050","Bradley","0110","Bradley",6
+"G0500150","1850","Arkansas","050","Carroll","0150","Carroll",7
+"G0500170","1850","Arkansas","050","Chicot","0170","Chicot",10
+"G0500190","1850","Arkansas","050","Clark","0190","Clark",6
+"G0500290","1850","Arkansas","050","Conway","0290","Conway",3
+"G0500330","1850","Arkansas","050","Crawford","0330","Crawford",7
+"G0500350","1850","Arkansas","050","Crittenden","0350","Crittenden",6
+"G0500390","1850","Arkansas","050","Dallas","0390","Dallas",6
+"G0500410","1850","Arkansas","050","Desha","0410","Desha",9
+"G0500430","1850","Arkansas","050","Drew","0430","Drew",4
+"G0500470","1850","Arkansas","050","Franklin","0470","Franklin",5
+"G0500490","1850","Arkansas","050","Fulton","0490","Fulton",6
+"G0500550","1850","Arkansas","050","Greene","0550","Greene",6
+"G0500570","1850","Arkansas","050","Hempstead","0570","Hempstead",7
+"G0500590","1850","Arkansas","050","Hot Spring","0590","Hot Spring",7
+"G0500630","1850","Arkansas","050","Independence","0630","Independence",6
+"G0500650","1850","Arkansas","050","Izard","0650","Izard",7
+"G0500670","1850","Arkansas","050","Jackson","0670","Jackson",7
+"G0500690","1850","Arkansas","050","Jefferson","0690","Jefferson",9
+"G0500710","1850","Arkansas","050","Johnson","0710","Johnson",6
+"G0500730","1850","Arkansas","050","Lafayette","0730","Lafayette",5
+"G0500750","1850","Arkansas","050","Lawrence","0750","Lawrence",5
+"G0500870","1850","Arkansas","050","Madison","0870","Madison",6
+"G0500890","1850","Arkansas","050","Marion","0890","Marion",5
+"G0500930","1850","Arkansas","050","Mississippi","0930","Mississippi",6
+"G0500950","1850","Arkansas","050","Monroe","0950","Monroe",2
+"G0500970","1850","Arkansas","050","Montgomery","0970","Montgomery",10
+"G0501010","1850","Arkansas","050","Newton","1010","Newton",5
+"G0501030","1850","Arkansas","050","Ouachita","1030","Ouachita",2
+"G0501050","1850","Arkansas","050","Perry","1050","Perry",5
+"G0501070","1850","Arkansas","050","Phillips","1070","Phillips",9
+"G0501090","1850","Arkansas","050","Pike","1090","Pike",6
+"G0501110","1850","Arkansas","050","Poinsett","1110","Poinsett",2
+"G0501130","1850","Arkansas","050","Polk","1130","Polk",9
+"G0501150","1850","Arkansas","050","Pope","1150","Pope",6
+"G0501170","1850","Arkansas","050","Prairie","1170","Prairie",3
+"G0501190","1850","Arkansas","050","Pulaski","1190","Pulaski",7
+"G0501210","1850","Arkansas","050","Randolph","1210","Randolph",5
+"G0501230","1850","Arkansas","050","St Francis","1230","St Francis",4
+"G0501250","1850","Arkansas","050","Saline","1250","Saline",5
+"G0501270","1850","Arkansas","050","Scott","1270","Scott",6
+"G0501290","1850","Arkansas","050","Searcy","1290","Searcy",9
+"G0501330","1850","Arkansas","050","Sevier","1330","Sevier",4
+"G0501390","1850","Arkansas","050","Union","1390","Union",4
+"G0501410","1850","Arkansas","050","Van Buren","1410","Van Buren",6
+"G0501430","1850","Arkansas","050","Washington","1430","Washington",5
+"G0501450","1850","Arkansas","050","White","1450","White",5
+"G0501490","1850","Arkansas","050","Yell","1490","Yell",7
+"G0600090","1850","California","060","Calaveras","0090","Calaveras",1
+"G0601010","1850","California","060","Sutter","1010","Sutter",8
+"G0601130","1850","California","060","Yolo","1130","Yolo",1
+"G0900010","1850","Connecticut","090","Fairfield","0010","Fairfield",49
+"G0900030","1850","Connecticut","090","Hartford","0030","Hartford",37
+"G0900050","1850","Connecticut","090","Litchfield","0050","Litchfield",27
+"G0900070","1850","Connecticut","090","Middlesex","0070","Middlesex",28
+"G0900090","1850","Connecticut","090","New Haven","0090","New Haven",36
+"G0900110","1850","Connecticut","090","New London","0110","New London",26
+"G0900130","1850","Connecticut","090","Tolland","0130","Tolland",17
+"G0900150","1850","Connecticut","090","Windham","0150","Windham",23
+"G1000010","1850","Delaware","100","Kent","0010","Kent",14
+"G1000030","1850","Delaware","100","New Castle","0030","New Castle",52
+"G1000050","1850","Delaware","100","Sussex","0050","Sussex",8
+"G1200010","1850","Florida","120","Alachua","0010","Alachua",3
+"G1200130","1850","Florida","120","Calhoun","0130","Calhoun",12
+"G1200230","1850","Florida","120","Columbia","0230","Columbia",5
+"G1200250","1850","Florida","120","Dade","0250","Dade",22
+"G1200310","1850","Florida","120","Duval","0310","Duval",3
+"G1200330","1850","Florida","120","Escambia","0330","Escambia",4
+"G1200390","1850","Florida","120","Gadsden","0390","Gadsden",6
+"G1200470","1850","Florida","120","Hamilton","0470","Hamilton",5
+"G1200570","1850","Florida","120","Hillsborough","0570","Hillsborough",9
+"G1200590","1850","Florida","120","Holmes","0590","Holmes",4
+"G1200630","1850","Florida","120","Jackson","0630","Jackson",5
+"G1200650","1850","Florida","120","Jefferson","0650","Jefferson",3
+"G1200730","1850","Florida","120","Leon","0730","Leon",10
+"G1200750","1850","Florida","120","Levy","0750","Levy",5
+"G1200790","1850","Florida","120","Madison","0790","Madison",7
+"G1200830","1850","Florida","120","Marion","0830","Marion",6
+"G1200870","1850","Florida","120","Monroe","0870","Monroe",23
+"G1200890","1850","Florida","120","Nassau","0890","Nassau",2
+"G1200950","1850","Florida","120","Orange","0950","Orange",12
+"G1201070","1850","Florida","120","Putnam","1070","Putnam",9
+"G1201090","1850","Florida","120","St Johns","1090","St Johns",8
+"G1201130","1850","Florida","120","Santa Rosa","1130","Santa Rosa",1
+"G1201290","1850","Florida","120","Wakulla","1290","Wakulla",5
+"G1201310","1850","Florida","120","Walton","1310","Walton",4
+"G1201330","1850","Florida","120","Washington","1330","Washington",5
+"G1300070","1850","Georgia","130","Baker","0070","Baker",6
+"G1300090","1850","Georgia","130","Baldwin","0090","Baldwin",3
+"G1300210","1850","Georgia","130","Bibb","0210","Bibb",7
+"G1300290","1850","Georgia","130","Bryan","0290","Bryan",2
+"G1300310","1850","Georgia","130","Bulloch","0310","Bulloch",1
+"G1300330","1850","Georgia","130","Burke","0330","Burke",4
+"G1300350","1850","Georgia","130","Butts","0350","Butts",6
+"G1300390","1850","Georgia","130","Camden","0390","Camden",4
+"G1300395","1850","Georgia","130","Campbell","0395","Campbell",6
+"G1300450","1850","Georgia","130","Carroll","0450","Carroll",3
+"G1300510","1850","Georgia","130","Chatham","0510","Chatham",14
+"G1300550","1850","Georgia","130","Chattooga","0550","Chattooga",7
+"G1300570","1850","Georgia","130","Cherokee","0570","Cherokee",5
+"G1300590","1850","Georgia","130","Clarke","0590","Clarke",5
+"G1300650","1850","Georgia","130","Clinch","0650","Clinch",1
+"G1300670","1850","Georgia","130","Cobb","0670","Cobb",4
+"G1300730","1850","Georgia","130","Columbia","0730","Columbia",5
+"G1300770","1850","Georgia","130","Coweta","0770","Coweta",7
+"G1300790","1850","Georgia","130","Crawford","0790","Crawford",5
+"G1300830","1850","Georgia","130","Dade","0830","Dade",5
+"G1300870","1850","Georgia","130","Decatur","0870","Decatur",3
+"G1300890","1850","Georgia","130","DeKalb","0890","De Kalb",5
+"G1300930","1850","Georgia","130","Dooly","0930","Dooly",1
+"G1300990","1850","Georgia","130","Early","0990","Early",4
+"G1301030","1850","Georgia","130","Effingham","1030","Effingham",1
+"G1301050","1850","Georgia","130","Elbert","1050","Elbert",5
+"G1301070","1850","Georgia","130","Emanuel","1070","Emanuel",1
+"G1301130","1850","Georgia","130","Fayette","1130","Fayette",5
+"G1301150","1850","Georgia","130","Floyd","1150","Floyd",8
+"G1301170","1850","Georgia","130","Forsyth","1170","Forsyth",5
+"G1301190","1850","Georgia","130","Franklin","1190","Franklin",3
+"G1301230","1850","Georgia","130","Gilmer","1230","Gilmer",3
+"G1301270","1850","Georgia","130","Glynn","1270","Glynn",7
+"G1301290","1850","Georgia","130","Gordon","1290","Gordon",5
+"G1301330","1850","Georgia","130","Greene","1330","Greene",7
+"G1301350","1850","Georgia","130","Gwinnett","1350","Gwinnett",3
+"G1301370","1850","Georgia","130","Habersham","1370","Habersham",1
+"G1301390","1850","Georgia","130","Hall","1390","Hall",2
+"G1301410","1850","Georgia","130","Hancock","1410","Hancock",5
+"G1301450","1850","Georgia","130","Harris","1450","Harris",6
+"G1301490","1850","Georgia","130","Heard","1490","Heard",5
+"G1301510","1850","Georgia","130","Henry","1510","Henry",5
+"G1301530","1850","Georgia","130","Houston","1530","Houston",8
+"G1301570","1850","Georgia","130","Jackson","1570","Jackson",4
+"G1301590","1850","Georgia","130","Jasper","1590","Jasper",6
+"G1301630","1850","Georgia","130","Jefferson","1630","Jefferson",5
+"G1301690","1850","Georgia","130","Jones","1690","Jones",5
+"G1301750","1850","Georgia","130","Laurens","1750","Laurens",1
+"G1301770","1850","Georgia","130","Lee","1770","Lee",6
+"G1301790","1850","Georgia","130","Liberty","1790","Liberty",2
+"G1301810","1850","Georgia","130","Lincoln","1810","Lincoln",4
+"G1301850","1850","Georgia","130","Lowndes","1850","Lowndes",2
+"G1301870","1850","Georgia","130","Lumpkin","1870","Lumpkin",5
+"G1301910","1850","Georgia","130","McIntosh","1910","Mcintosh",7
+"G1301930","1850","Georgia","130","Macon","1930","Macon",6
+"G1301950","1850","Georgia","130","Madison","1950","Madison",4
+"G1301970","1850","Georgia","130","Marion","1970","Marion",6
+"G1301990","1850","Georgia","130","Meriwether","1990","Meriwether",7
+"G1302070","1850","Georgia","130","Monroe","2070","Monroe",7
+"G1302090","1850","Georgia","130","Montgomery","2090","Montgomery",1
+"G1302110","1850","Georgia","130","Morgan","2110","Morgan",6
+"G1302130","1850","Georgia","130","Murray","2130","Murray",8
+"G1302150","1850","Georgia","130","Muscogee","2150","Muscogee",8
+"G1302170","1850","Georgia","130","Newton","2170","Newton",6
+"G1302210","1850","Georgia","130","Oglethorpe","2210","Oglethorpe",6
+"G1302230","1850","Georgia","130","Paulding","2230","Paulding",8
+"G1302310","1850","Georgia","130","Pike","2310","Pike",7
+"G1302350","1850","Georgia","130","Pulaski","2350","Pulaski",3
+"G1302370","1850","Georgia","130","Putnam","2370","Putnam",5
+"G1302410","1850","Georgia","130","Rabun","2410","Rabun",1
+"G1302430","1850","Georgia","130","Randolph","2430","Randolph",4
+"G1302450","1850","Georgia","130","Richmond","2450","Richmond",8
+"G1302510","1850","Georgia","130","Screven","2510","Screven",1
+"G1302590","1850","Georgia","130","Stewart","2590","Stewart",6
+"G1302610","1850","Georgia","130","Sumter","2610","Sumter",6
+"G1302630","1850","Georgia","130","Talbot","2630","Talbot",8
+"G1302650","1850","Georgia","130","Taliaferro","2650","Taliaferro",5
+"G1302670","1850","Georgia","130","Tattnall","2670","Tattnall",1
+"G1302710","1850","Georgia","130","Telfair","2710","Telfair",1
+"G1302750","1850","Georgia","130","Thomas","2750","Thomas",2
+"G1302850","1850","Georgia","130","Troup","2850","Troup",8
+"G1302890","1850","Georgia","130","Twiggs","2890","Twiggs",2
+"G1302910","1850","Georgia","130","Union","2910","Union",3
+"G1302930","1850","Georgia","130","Upson","2930","Upson",6
+"G1302950","1850","Georgia","130","Walker","2950","Walker",8
+"G1302970","1850","Georgia","130","Walton","2970","Walton",4
+"G1302990","1850","Georgia","130","Ware","2990","Ware",1
+"G1303010","1850","Georgia","130","Warren","3010","Warren",5
+"G1303030","1850","Georgia","130","Washington","3030","Washington",3
+"G1303050","1850","Georgia","130","Wayne","3050","Wayne",1
+"G1303170","1850","Georgia","130","Wilkes","3170","Wilkes",5
+"G1303190","1850","Georgia","130","Wilkinson","3190","Wilkinson",3
+"G1700010","1850","Illinois","170","Adams","0010","Adams",10
+"G1700030","1850","Illinois","170","Alexander","0030","Alexander",4
+"G1700050","1850","Illinois","170","Bond","0050","Bond",4
+"G1700070","1850","Illinois","170","Boone","0070","Boone",8
+"G1700090","1850","Illinois","170","Brown","0090","Brown",8
+"G1700110","1850","Illinois","170","Bureau","0110","Bureau",9
+"G1700130","1850","Illinois","170","Calhoun","0130","Calhoun",5
+"G1700150","1850","Illinois","170","Carroll","0150","Carroll",7
+"G1700170","1850","Illinois","170","Cass","0170","Cass",12
+"G1700190","1850","Illinois","170","Champaign","0190","Champaign",8
+"G1700210","1850","Illinois","170","Christian","0210","Christian",7
+"G1700230","1850","Illinois","170","Clark","0230","Clark",6
+"G1700250","1850","Illinois","170","Clay","0250","Clay",5
+"G1700270","1850","Illinois","170","Clinton","0270","Clinton",5
+"G1700290","1850","Illinois","170","Coles","0290","Coles",5
+"G1700310","1850","Illinois","170","Cook","0310","Cook",10
+"G1700330","1850","Illinois","170","Crawford","0330","Crawford",5
+"G1700350","1850","Illinois","170","Cumberland","0350","Cumberland",4
+"G1700370","1850","Illinois","170","DeKalb","0370","De Kalb",6
+"G1700390","1850","Illinois","170","De Witt","0390","De Witt",9
+"G1700430","1850","Illinois","170","Du Page","0430","Du Page",12
+"G1700450","1850","Illinois","170","Edgar","0450","Edgar",8
+"G1700470","1850","Illinois","170","Edwards","0470","Edwards",5
+"G1700490","1850","Illinois","170","Effingham","0490","Effingham",4
+"G1700510","1850","Illinois","170","Fayette","0510","Fayette",5
+"G1700550","1850","Illinois","170","Franklin","0550","Franklin",3
+"G1700570","1850","Illinois","170","Fulton","0570","Fulton",10
+"G1700590","1850","Illinois","170","Gallatin","0590","Gallatin",5
+"G1700610","1850","Illinois","170","Greene","0610","Greene",9
+"G1700630","1850","Illinois","170","Grundy","0630","Grundy",7
+"G1700650","1850","Illinois","170","Hamilton","0650","Hamilton",6
+"G1700670","1850","Illinois","170","Hancock","0670","Hancock",8
+"G1700690","1850","Illinois","170","Hardin","0690","Hardin",4
+"G1700710","1850","Illinois","170","Henderson","0710","Henderson",9
+"G1700730","1850","Illinois","170","Henry","0730","Henry",6
+"G1700750","1850","Illinois","170","Iroquois","0750","Iroquois",8
+"G1700770","1850","Illinois","170","Jackson","0770","Jackson",5
+"G1700790","1850","Illinois","170","Jasper","0790","Jasper",4
+"G1700810","1850","Illinois","170","Jefferson","0810","Jefferson",5
+"G1700830","1850","Illinois","170","Jersey","0830","Jersey",13
+"G1700850","1850","Illinois","170","Jo Daviess","0850","Jo Daviess",7
+"G1700870","1850","Illinois","170","Johnson","0870","Johnson",4
+"G1700890","1850","Illinois","170","Kane","0890","Kane",10
+"G1700930","1850","Illinois","170","Kendall","0930","Kendall",9
+"G1700950","1850","Illinois","170","Knox","0950","Knox",10
+"G1700970","1850","Illinois","170","Lake","0970","Lake",9
+"G1700990","1850","Illinois","170","La Salle","0990","La Salle",9
+"G1701010","1850","Illinois","170","Lawrence","1010","Lawrence",7
+"G1701030","1850","Illinois","170","Lee","1030","Lee",8
+"G1701050","1850","Illinois","170","Livingston","1050","Livingston",5
+"G1701070","1850","Illinois","170","Logan","1070","Logan",8
+"G1701090","1850","Illinois","170","McDonough","1090","Mcdonough",8
+"G1701110","1850","Illinois","170","McHenry","1110","Mchenry",7
+"G1701130","1850","Illinois","170","McLean","1130","Mclean",9
+"G1701150","1850","Illinois","170","Macon","1150","Macon",8
+"G1701170","1850","Illinois","170","Macoupin","1170","Macoupin",8
+"G1701190","1850","Illinois","170","Madison","1190","Madison",9
+"G1701210","1850","Illinois","170","Marion","1210","Marion",4
+"G1701230","1850","Illinois","170","Marshall","1230","Marshall",9
+"G1701250","1850","Illinois","170","Mason","1250","Mason",8
+"G1701270","1850","Illinois","170","Massac","1270","Massac",4
+"G1701290","1850","Illinois","170","Menard","1290","Menard",10
+"G1701310","1850","Illinois","170","Mercer","1310","Mercer",12
+"G1701330","1850","Illinois","170","Monroe","1330","Monroe",6
+"G1701350","1850","Illinois","170","Montgomery","1350","Montgomery",5
+"G1701370","1850","Illinois","170","Morgan","1370","Morgan",12
+"G1701390","1850","Illinois","170","Moultrie","1390","Moultrie",6
+"G1701410","1850","Illinois","170","Ogle","1410","Ogle",8
+"G1701430","1850","Illinois","170","Peoria","1430","Peoria",11
+"G1701450","1850","Illinois","170","Perry","1450","Perry",4
+"G1701470","1850","Illinois","170","Piatt","1470","Piatt",6
+"G1701490","1850","Illinois","170","Pike","1490","Pike",7
+"G1701510","1850","Illinois","170","Pope","1510","Pope",4
+"G1701530","1850","Illinois","170","Pulaski","1530","Pulaski",4
+"G1701550","1850","Illinois","170","Putnam","1550","Putnam",12
+"G1701570","1850","Illinois","170","Randolph","1570","Randolph",6
+"G1701590","1850","Illinois","170","Richland","1590","Richland",5
+"G1701610","1850","Illinois","170","Rock Island","1610","Rock Island",7
+"G1701630","1850","Illinois","170","St Clair","1630","St Clair",10
+"G1701650","1850","Illinois","170","Saline","1650","Saline",3
+"G1701670","1850","Illinois","170","Sangamon","1670","Sangamon",10
+"G1701690","1850","Illinois","170","Schuyler","1690","Schuyler",8
+"G1701710","1850","Illinois","170","Scott","1710","Scott",11
+"G1701730","1850","Illinois","170","Shelby","1730","Shelby",6
+"G1701750","1850","Illinois","170","Stark","1750","Stark",9
+"G1701770","1850","Illinois","170","Stephenson","1770","Stephenson",10
+"G1701790","1850","Illinois","170","Tazewell","1790","Tazewell",10
+"G1701810","1850","Illinois","170","Union","1810","Union",4
+"G1701830","1850","Illinois","170","Vermilion","1830","Vermilion",14
+"G1701850","1850","Illinois","170","Wabash","1850","Wabash",6
+"G1701870","1850","Illinois","170","Warren","1870","Warren",9
+"G1701890","1850","Illinois","170","Washington","1890","Washington",4
+"G1701910","1850","Illinois","170","Wayne","1910","Wayne",3
+"G1701930","1850","Illinois","170","White","1930","White",4
+"G1701950","1850","Illinois","170","Whiteside","1950","Whiteside",8
+"G1701970","1850","Illinois","170","Will","1970","Will",11
+"G1701990","1850","Illinois","170","Williamson","1990","Williamson",4
+"G1702010","1850","Illinois","170","Winnebago","2010","Winnebago",10
+"G1702030","1850","Illinois","170","Woodford","2030","Woodford",7
+"G1800010","1850","Indiana","180","Adams","0010","Adams",8
+"G1800030","1850","Indiana","180","Allen","0030","Allen",11
+"G1800050","1850","Indiana","180","Bartholomew","0050","Bartholomew",14
+"G1800070","1850","Indiana","180","Benton","0070","Benton",8
+"G1800090","1850","Indiana","180","Blackford","0090","Blackford",7
+"G1800110","1850","Indiana","180","Boone","0110","Boone",9
+"G1800130","1850","Indiana","180","Brown","0130","Brown",5
+"G1800150","1850","Indiana","180","Carroll","0150","Carroll",13
+"G1800170","1850","Indiana","180","Cass","0170","Cass",11
+"G1800190","1850","Indiana","180","Clark","0190","Clark",14
+"G1800210","1850","Indiana","180","Clay","0210","Clay",6
+"G1800230","1850","Indiana","180","Clinton","0230","Clinton",9
+"G1800250","1850","Indiana","180","Crawford","0250","Crawford",5
+"G1800270","1850","Indiana","180","Daviess","0270","Daviess",5
+"G1800290","1850","Indiana","180","Dearborn","0290","Dearborn",23
+"G1800310","1850","Indiana","180","Decatur","0310","Decatur",14
+"G1800330","1850","Indiana","180","DeKalb","0330","De Kalb",8
+"G1800350","1850","Indiana","180","Delaware","0350","Delaware",10
+"G1800370","1850","Indiana","180","Dubois","0370","Dubois",4
+"G1800390","1850","Indiana","180","Elkhart","0390","Elkhart",11
+"G1800410","1850","Indiana","180","Fayette","0410","Fayette",23
+"G1800430","1850","Indiana","180","Floyd","0430","Floyd",17
+"G1800450","1850","Indiana","180","Fountain","0450","Fountain",10
+"G1800470","1850","Indiana","180","Franklin","0470","Franklin",18
+"G1800490","1850","Indiana","180","Fulton","0490","Fulton",6
+"G1800510","1850","Indiana","180","Gibson","0510","Gibson",8
+"G1800530","1850","Indiana","180","Grant","0530","Grant",11
+"G1800550","1850","Indiana","180","Greene","0550","Greene",6
+"G1800570","1850","Indiana","180","Hamilton","0570","Hamilton",11
+"G1800590","1850","Indiana","180","Hancock","0590","Hancock",10
+"G1800610","1850","Indiana","180","Harrison","0610","Harrison",7
+"G1800630","1850","Indiana","180","Hendricks","0630","Hendricks",12
+"G1800650","1850","Indiana","180","Henry","0650","Henry",15
+"G1800670","1850","Indiana","180","Howard","0670","Howard",9
+"G1800690","1850","Indiana","180","Huntington","0690","Huntington",10
+"G1800710","1850","Indiana","180","Jackson","0710","Jackson",6
+"G1800730","1850","Indiana","180","Jasper","0730","Jasper",6
+"G1800750","1850","Indiana","180","Jay","0750","Jay",8
+"G1800770","1850","Indiana","180","Jefferson","0770","Jefferson",12
+"G1800790","1850","Indiana","180","Jennings","0790","Jennings",7
+"G1800810","1850","Indiana","180","Johnson","0810","Johnson",11
+"G1800830","1850","Indiana","180","Knox","0830","Knox",6
+"G1800850","1850","Indiana","180","Kosciusko","0850","Kosciusko",8
+"G1800870","1850","Indiana","180","Lagrange","0870","Lagrange",9
+"G1800890","1850","Indiana","180","Lake","0890","Lake",7
+"G1800910","1850","Indiana","180","LaPorte","0910","Laporte",13
+"G1800930","1850","Indiana","180","Lawrence","0930","Lawrence",8
+"G1800950","1850","Indiana","180","Madison","0950","Madison",10
+"G1800970","1850","Indiana","180","Marion","0970","Marion",18
+"G1800990","1850","Indiana","180","Marshall","0990","Marshall",7
+"G1801010","1850","Indiana","180","Martin","1010","Martin",5
+"G1801030","1850","Indiana","180","Miami","1030","Miami",14
+"G1801050","1850","Indiana","180","Monroe","1050","Monroe",8
+"G1801070","1850","Indiana","180","Montgomery","1070","Montgomery",13
+"G1801090","1850","Indiana","180","Morgan","1090","Morgan",7
+"G1801130","1850","Indiana","180","Noble","1130","Noble",9
+"G1801150","1850","Indiana","180","Ohio","1150","Ohio",23
+"G1801170","1850","Indiana","180","Orange","1170","Orange",6
+"G1801190","1850","Indiana","180","Owen","1190","Owen",7
+"G1801210","1850","Indiana","180","Parke","1210","Parke",10
+"G1801230","1850","Indiana","180","Perry","1230","Perry",7
+"G1801250","1850","Indiana","180","Pike","1250","Pike",4
+"G1801270","1850","Indiana","180","Porter","1270","Porter",7
+"G1801290","1850","Indiana","180","Posey","1290","Posey",8
+"G1801310","1850","Indiana","180","Pulaski","1310","Pulaski",6
+"G1801330","1850","Indiana","180","Putnam","1330","Putnam",12
+"G1801350","1850","Indiana","180","Randolph","1350","Randolph",11
+"G1801370","1850","Indiana","180","Ripley","1370","Ripley",9
+"G1801390","1850","Indiana","180","Rush","1390","Rush",18
+"G1801410","1850","Indiana","180","St Joseph","1410","St Joseph",10
+"G1801430","1850","Indiana","180","Scott","1430","Scott",7
+"G1801450","1850","Indiana","180","Shelby","1450","Shelby",13
+"G1801470","1850","Indiana","180","Spencer","1470","Spencer",7
+"G1801490","1850","Indiana","180","Starke","1490","Starke",4
+"G1801510","1850","Indiana","180","Steuben","1510","Steuben",8
+"G1801530","1850","Indiana","180","Sullivan","1530","Sullivan",5
+"G1801550","1850","Indiana","180","Switzerland","1550","Switzerland",13
+"G1801570","1850","Indiana","180","Tippecanoe","1570","Tippecanoe",14
+"G1801590","1850","Indiana","180","Tipton","1590","Tipton",6
+"G1801610","1850","Indiana","180","Union","1610","Union",20
+"G1801630","1850","Indiana","180","Vanderburgh","1630","Vanderburgh",11
+"G1801650","1850","Indiana","180","Vermillion","1650","Vermillion",10
+"G1801670","1850","Indiana","180","Vigo","1670","Vigo",11
+"G1801690","1850","Indiana","180","Wabash","1690","Wabash",13
+"G1801710","1850","Indiana","180","Warren","1710","Warren",9
+"G1801730","1850","Indiana","180","Warrick","1730","Warrick",6
+"G1801750","1850","Indiana","180","Washington","1750","Washington",7
+"G1801770","1850","Indiana","180","Wayne","1770","Wayne",23
+"G1801790","1850","Indiana","180","Wells","1790","Wells",9
+"G1801810","1850","Indiana","180","White","1810","White",8
+"G1801830","1850","Indiana","180","Whitley","1830","Whitley",8
+"G1900050","1850","Iowa","190","Allamakee","0050","Allamakee",71
+"G1900070","1850","Iowa","190","Appanoose","0070","Appanoose",3
+"G1900110","1850","Iowa","190","Benton","0110","Benton",4
+"G1900130","1850","Iowa","190","Black Hawk","0130","Black Hawk",2
+"G1900190","1850","Iowa","190","Buchanan","0190","Buchanan",4
+"G1900310","1850","Iowa","190","Cedar","0310","Cedar",6
+"G1900430","1850","Iowa","190","Clayton","0430","Clayton",5
+"G1900450","1850","Iowa","190","Clinton","0450","Clinton",5
+"G1900510","1850","Iowa","190","Davis","0510","Davis",4
+"G1900530","1850","Iowa","190","Decatur","0530","Decatur",6
+"G1900550","1850","Iowa","190","Delaware","0550","Delaware",5
+"G1900570","1850","Iowa","190","Des Moines","0570","Des Moines",9
+"G1900610","1850","Iowa","190","Dubuque","0610","Dubuque",5
+"G1900650","1850","Iowa","190","Fayette","0650","Fayette",6
+"G1900710","1850","Iowa","190","Fremont","0710","Fremont",7
+"G1900870","1850","Iowa","190","Henry","0870","Henry",9
+"G1900950","1850","Iowa","190","Iowa","0950","Iowa",13
+"G1900970","1850","Iowa","190","Jackson","0970","Jackson",5
+"G1900990","1850","Iowa","190","Jasper","0990","Jasper",4
+"G1901010","1850","Iowa","190","Jefferson","1010","Jefferson",7
+"G1901030","1850","Iowa","190","Johnson","1030","Johnson",6
+"G1901050","1850","Iowa","190","Jones","1050","Jones",6
+"G1901070","1850","Iowa","190","Keokuk","1070","Keokuk",6
+"G1901110","1850","Iowa","190","Lee","1110","Lee",7
+"G1901130","1850","Iowa","190","Linn","1130","Linn",6
+"G1901150","1850","Iowa","190","Louisa","1150","Louisa",6
+"G1901170","1850","Iowa","190","Lucas","1170","Lucas",3
+"G1901210","1850","Iowa","190","Madison","1210","Madison",3
+"G1901230","1850","Iowa","190","Mahaska","1230","Mahaska",6
+"G1901250","1850","Iowa","190","Marion","1250","Marion",4
+"G1901270","1850","Iowa","190","Marshall","1270","Marshall",5
+"G1901350","1850","Iowa","190","Monroe","1350","Monroe",5
+"G1901390","1850","Iowa","190","Muscatine","1390","Muscatine",6
+"G1901450","1850","Iowa","190","Page","1450","Page",9
+"G1901530","1850","Iowa","190","Polk","1530","Polk",5
+"G1901550","1850","Iowa","190","Pottawattamie","1550","Pottawattamie",7
+"G1901570","1850","Iowa","190","Poweshiek","1570","Poweshiek",4
+"G1901630","1850","Iowa","190","Scott","1630","Scott",7
+"G1901730","1850","Iowa","190","Taylor","1730","Taylor",7
+"G1901770","1850","Iowa","190","Van Buren","1770","Van Buren",4
+"G1901790","1850","Iowa","190","Wapello","1790","Wapello",6
+"G1901810","1850","Iowa","190","Warren","1810","Warren",3
+"G1901830","1850","Iowa","190","Washington","1830","Washington",6
+"G1901850","1850","Iowa","190","Wayne","1850","Wayne",2
+"G2100010","1850","Kentucky","210","Adair","0010","Adair",3
+"G2100030","1850","Kentucky","210","Allen","0030","Allen",4
+"G2100050","1850","Kentucky","210","Anderson","0050","Anderson",11
+"G2100070","1850","Kentucky","210","Ballard","0070","Ballard",3
+"G2100090","1850","Kentucky","210","Barren","0090","Barren",4
+"G2100110","1850","Kentucky","210","Bath","0110","Bath",17
+"G2100150","1850","Kentucky","210","Boone","0150","Boone",26
+"G2100170","1850","Kentucky","210","Bourbon","0170","Bourbon",46
+"G2100210","1850","Kentucky","210","Boyle","0210","Boyle",24
+"G2100230","1850","Kentucky","210","Bracken","0230","Bracken",12
+"G2100250","1850","Kentucky","210","Breathitt","0250","Breathitt",1
+"G2100270","1850","Kentucky","210","Breckinridge","0270","Breckinridge",4
+"G2100290","1850","Kentucky","210","Bullitt","0290","Bullitt",6
+"G2100310","1850","Kentucky","210","Butler","0310","Butler",2
+"G2100330","1850","Kentucky","210","Caldwell","0330","Caldwell",4
+"G2100350","1850","Kentucky","210","Calloway","0350","Calloway",2
+"G2100370","1850","Kentucky","210","Campbell","0370","Campbell",26
+"G2100410","1850","Kentucky","210","Carroll","0410","Carroll",15
+"G2100430","1850","Kentucky","210","Carter","0430","Carter",2
+"G2100450","1850","Kentucky","210","Casey","0450","Casey",4
+"G2100470","1850","Kentucky","210","Christian","0470","Christian",9
+"G2100490","1850","Kentucky","210","Clark","0490","Clark",26
+"G2100510","1850","Kentucky","210","Clay","0510","Clay",2
+"G2100530","1850","Kentucky","210","Clinton","0530","Clinton",2
+"G2100550","1850","Kentucky","210","Crittenden","0550","Crittenden",3
+"G2100570","1850","Kentucky","210","Cumberland","0570","Cumberland",4
+"G2100590","1850","Kentucky","210","Daviess","0590","Daviess",5
+"G2100610","1850","Kentucky","210","Edmonson","0610","Edmonson",3
+"G2100650","1850","Kentucky","210","Estill","0650","Estill",4
+"G2100670","1850","Kentucky","210","Fayette","0670","Fayette",54
+"G2100690","1850","Kentucky","210","Fleming","0690","Fleming",13
+"G2100710","1850","Kentucky","210","Floyd","0710","Floyd",3
+"G2100730","1850","Kentucky","210","Franklin","0730","Franklin",15
+"G2100750","1850","Kentucky","210","Fulton","0750","Fulton",6
+"G2100770","1850","Kentucky","210","Gallatin","0770","Gallatin",14
+"G2100790","1850","Kentucky","210","Garrard","0790","Garrard",17
+"G2100810","1850","Kentucky","210","Grant","0810","Grant",10
+"G2100830","1850","Kentucky","210","Graves","0830","Graves",3
+"G2100850","1850","Kentucky","210","Grayson","0850","Grayson",2
+"G2100870","1850","Kentucky","210","Green","0870","Green",5
+"G2100890","1850","Kentucky","210","Greenup","0890","Greenup",5
+"G2100910","1850","Kentucky","210","Hancock","0910","Hancock",7
+"G2100930","1850","Kentucky","210","Hardin","0930","Hardin",4
+"G2100950","1850","Kentucky","210","Harlan","0950","Harlan",1
+"G2100970","1850","Kentucky","210","Harrison","0970","Harrison",17
+"G2100990","1850","Kentucky","210","Hart","0990","Hart",3
+"G2101010","1850","Kentucky","210","Henderson","1010","Henderson",9
+"G2101030","1850","Kentucky","210","Henry","1030","Henry",16
+"G2101050","1850","Kentucky","210","Hickman","1050","Hickman",4
+"G2101070","1850","Kentucky","210","Hopkins","1070","Hopkins",4
+"G2101110","1850","Kentucky","210","Jefferson","1110","Jefferson",34
+"G2101130","1850","Kentucky","210","Jessamine","1130","Jessamine",30
+"G2101150","1850","Kentucky","210","Johnson","1150","Johnson",2
+"G2101170","1850","Kentucky","210","Kenton","1170","Kenton",31
+"G2101210","1850","Kentucky","210","Knox","1210","Knox",3
+"G2101230","1850","Kentucky","210","Larue","1230","Larue",5
+"G2101250","1850","Kentucky","210","Laurel","1250","Laurel",1
+"G2101270","1850","Kentucky","210","Lawrence","1270","Lawrence",2
+"G2101330","1850","Kentucky","210","Letcher","1330","Letcher",2
+"G2101350","1850","Kentucky","210","Lewis","1350","Lewis",7
+"G2101370","1850","Kentucky","210","Lincoln","1370","Lincoln",14
+"G2101390","1850","Kentucky","210","Livingston","1390","Livingston",4
+"G2101410","1850","Kentucky","210","Logan","1410","Logan",7
+"G2101450","1850","Kentucky","210","McCracken","1450","Mccracken",5
+"G2101510","1850","Kentucky","210","Madison","1510","Madison",19
+"G2101550","1850","Kentucky","210","Marion","1550","Marion",12
+"G2101570","1850","Kentucky","210","Marshall","1570","Marshall",2
+"G2101610","1850","Kentucky","210","Mason","1610","Mason",32
+"G2101630","1850","Kentucky","210","Meade","1630","Meade",5
+"G2101670","1850","Kentucky","210","Mercer","1670","Mercer",21
+"G2101710","1850","Kentucky","210","Monroe","1710","Monroe",3
+"G2101730","1850","Kentucky","210","Montgomery","1730","Montgomery",14
+"G2101750","1850","Kentucky","210","Morgan","1750","Morgan",2
+"G2101770","1850","Kentucky","210","Muhlenberg","1770","Muhlenberg",3
+"G2101790","1850","Kentucky","210","Nelson","1790","Nelson",14
+"G2101810","1850","Kentucky","210","Nicholas","1810","Nicholas",20
+"G2101830","1850","Kentucky","210","Ohio","1830","Ohio",4
+"G2101850","1850","Kentucky","210","Oldham","1850","Oldham",17
+"G2101870","1850","Kentucky","210","Owen","1870","Owen",11
+"G2101890","1850","Kentucky","210","Owsley","1890","Owsley",1
+"G2101910","1850","Kentucky","210","Pendleton","1910","Pendleton",8
+"G2101930","1850","Kentucky","210","Perry","1930","Perry",1
+"G2101950","1850","Kentucky","210","Pike","1950","Pike",2
+"G2101990","1850","Kentucky","210","Pulaski","1990","Pulaski",3
+"G2102030","1850","Kentucky","210","Rockcastle","2030","Rockcastle",3
+"G2102070","1850","Kentucky","210","Russell","2070","Russell",3
+"G2102090","1850","Kentucky","210","Scott","2090","Scott",32
+"G2102110","1850","Kentucky","210","Shelby","2110","Shelby",27
+"G2102130","1850","Kentucky","210","Simpson","2130","Simpson",6
+"G2102150","1850","Kentucky","210","Spencer","2150","Spencer",16
+"G2102170","1850","Kentucky","210","Taylor","2170","Taylor",5
+"G2102190","1850","Kentucky","210","Todd","2190","Todd",7
+"G2102210","1850","Kentucky","210","Trigg","2210","Trigg",11
+"G2102230","1850","Kentucky","210","Trimble","2230","Trimble",13
+"G2102250","1850","Kentucky","210","Union","2250","Union",6
+"G2102270","1850","Kentucky","210","Warren","2270","Warren",7
+"G2102290","1850","Kentucky","210","Washington","2290","Washington",12
+"G2102310","1850","Kentucky","210","Wayne","2310","Wayne",3
+"G2102350","1850","Kentucky","210","Whitley","2350","Whitley",2
+"G2102390","1850","Kentucky","210","Woodford","2390","Woodford",38
+"G2200050","1850","Louisiana","220","Ascension","0050","Ascension",68
+"G2200070","1850","Louisiana","220","Assumption","0070","Assumption",46
+"G2200090","1850","Louisiana","220","Avoyelles","0090","Avoyelles",8
+"G2200130","1850","Louisiana","220","Bienville","0130","Bienville",4
+"G2200150","1850","Louisiana","220","Bossier","0150","Bossier",5
+"G2200170","1850","Louisiana","220","Caddo","0170","Caddo",5
+"G2200190","1850","Louisiana","220","Calcasieu","0190","Calcasieu",3
+"G2200210","1850","Louisiana","220","Caldwell","0210","Caldwell",7
+"G2200250","1850","Louisiana","220","Catahoula","0250","Catahoula",6
+"G2200270","1850","Louisiana","220","Claiborne","0270","Claiborne",4
+"G2200290","1850","Louisiana","220","Concordia","0290","Concordia",17
+"G2200310","1850","Louisiana","220","De Soto","0310","De Soto",5
+"G2200330","1850","Louisiana","220","East Baton Rouge","0330","East Baton Rouge",14
+"G2200370","1850","Louisiana","220","East Feliciana","0370","East Feliciana",7
+"G2200410","1850","Louisiana","220","Franklin","0410","Franklin",6
+"G2200470","1850","Louisiana","220","Iberville","0470","Iberville",34
+"G2200490","1850","Louisiana","220","Jackson","0490","Jackson",5
+"G2200510","1850","Louisiana","220","Jefferson","0510","Jefferson",27
+"G2200550","1850","Louisiana","220","Lafayette","0550","Lafayette",4
+"G2200570","1850","Louisiana","220","Lafourche","0570","Lafourche",26
+"G2200630","1850","Louisiana","220","Livingston","0630","Livingston",3
+"G2200650","1850","Louisiana","220","Madison","0650","Madison",15
+"G2200670","1850","Louisiana","220","Morehouse","0670","Morehouse",8
+"G2200690","1850","Louisiana","220","Natchitoches","0690","Natchitoches",6
+"G2200710","1850","Louisiana","220","Orleans","0710","Orleans",55
+"G2200730","1850","Louisiana","220","Ouachita","0730","Ouachita",10
+"G2200750","1850","Louisiana","220","Plaquemines","0750","Plaquemines",34
+"G2200770","1850","Louisiana","220","Pointe Coupee","0770","Pointe Coupee",13
+"G2200790","1850","Louisiana","220","Rapides","0790","Rapides",14
+"G2200850","1850","Louisiana","220","Sabine","0850","Sabine",3
+"G2200870","1850","Louisiana","220","St Bernard","0870","St Bernard",40
+"G2200890","1850","Louisiana","220","St Charles","0890","St Charles",21
+"G2200910","1850","Louisiana","220","St Helena","0910","St Helena",2
+"G2200930","1850","Louisiana","220","St James","0930","St James",28
+"G2200950","1850","Louisiana","220","St John The Baptist","0950","St John The Baptist",31
+"G2200970","1850","Louisiana","220","St Landry","0970","St Landry",7
+"G2200990","1850","Louisiana","220","St Martin","0990","St Martin",8
+"G2201010","1850","Louisiana","220","St Mary","1010","St Mary",10
+"G2201030","1850","Louisiana","220","St Tammany","1030","St Tammany",2
+"G2201070","1850","Louisiana","220","Tensas","1070","Tensas",11
+"G2201090","1850","Louisiana","220","Terrebonne","1090","Terrebonne",17
+"G2201110","1850","Louisiana","220","Union","1110","Union",4
+"G2201130","1850","Louisiana","220","Vermillion","1130","Vermilion",2
+"G2201170","1850","Louisiana","220","Washington","1170","Washington",1
+"G2201210","1850","Louisiana","220","West Baton Rouge","1210","West Baton Rouge",29
+"G2201250","1850","Louisiana","220","West Feliciana","1250","West Feliciana",17
+"G2300010","1850","Maine","230","Androscoggin [*created 1854]","0010","Androscoggin",4
+"G2300050","1850","Maine","230","Cumberland","0050","Cumberland",18
+"G2300070","1850","Maine","230","Franklin","0070","Franklin",8
+"G2300090","1850","Maine","230","Hancock","0090","Hancock",9
+"G2300110","1850","Maine","230","Kennebec","0110","Kennebec",8
+"G2300150","1850","Maine","230","Lincoln","0150","Lincoln",15
+"G2300170","1850","Maine","230","Oxford","0170","Oxford",9
+"G2300190","1850","Maine","230","Penobscot","0190","Penobscot",10
+"G2300210","1850","Maine","230","Piscataquis","0210","Piscataquis",7
+"G2300250","1850","Maine","230","Somerset","0250","Somerset",9
+"G2300270","1850","Maine","230","Waldo","0270","Waldo",12
+"G2300290","1850","Maine","230","Washington","0290","Washington",9
+"G2300310","1850","Maine","230","York","0310","York",19
+"G2400010","1850","Maryland","240","Allegany","0010","Allegany",9
+"G2400030","1850","Maryland","240","Anne Arundel","0030","Anne Arundel",19
+"G2400050","1850","Maryland","240","Baltimore","0050","Baltimore",35
+"G2400090","1850","Maryland","240","Calvert","0090","Calvert",14
+"G2400110","1850","Maryland","240","Caroline","0110","Caroline",6
+"G2400130","1850","Maryland","240","Carroll","0130","Carroll",24
+"G2400150","1850","Maryland","240","Cecil","0150","Cecil",29
+"G2400170","1850","Maryland","240","Charles","0170","Charles",7
+"G2400190","1850","Maryland","240","Dorchester","0190","Dorchester",12
+"G2400210","1850","Maryland","240","Frederick","0210","Frederick",31
+"G2400250","1850","Maryland","240","Harford","0250","Harford",20
+"G2400290","1850","Maryland","240","Kent","0290","Kent",18
+"G2400310","1850","Maryland","240","Montgomery","0310","Montgomery",11
+"G2400330","1850","Maryland","240","Prince Georges","0330","Prince Georges",20
+"G2400350","1850","Maryland","240","Queen Anne's","0350","Queen Anne's",14
+"G2400370","1850","Maryland","240","St Mary's","0370","St Mary's",11
+"G2400390","1850","Maryland","240","Somerset","0390","Somerset",11
+"G2400410","1850","Maryland","240","Talbot","0410","Talbot",22
+"G2400430","1850","Maryland","240","Washington","0430","Washington",38
+"G2400470","1850","Maryland","240","Worcester","0470","Worcester",9
+"G2500010","1850","Massachusetts","250","Barnstable","0010","Barnstable",18
+"G2500030","1850","Massachusetts","250","Berkshire","0030","Berkshire",21
+"G2500050","1850","Massachusetts","250","Bristol","0050","Bristol",34
+"G2500070","1850","Massachusetts","250","Dukes","0070","Dukes",20
+"G2500090","1850","Massachusetts","250","Essex","0090","Essex",46
+"G2500110","1850","Massachusetts","250","Franklin","0110","Franklin",21
+"G2500130","1850","Massachusetts","250","Hampden","0130","Hampden",24
+"G2500150","1850","Massachusetts","250","Hampshire","0150","Hampshire",24
+"G2500170","1850","Massachusetts","250","Middlesex","0170","Middlesex",27
+"G2500190","1850","Massachusetts","250","Nantucket","0190","Nantucket",18
+"G2500210","1850","Massachusetts","250","Norfolk","0210","Norfolk",77
+"G2500230","1850","Massachusetts","250","Plymouth","0230","Plymouth",27
+"G2500250","1850","Massachusetts","250","Suffolk","0250","Suffolk",176
+"G2500270","1850","Massachusetts","250","Worcester","0270","Worcester",29
+"G2600050","1850","Michigan","260","Allegan","0050","Allegan",11
+"G2600150","1850","Michigan","260","Barry","0150","Barry",7
+"G2600210","1850","Michigan","260","Berrien","0210","Berrien",11
+"G2600230","1850","Michigan","260","Branch","0230","Branch",11
+"G2600250","1850","Michigan","260","Calhoun","0250","Calhoun",12
+"G2600270","1850","Michigan","260","Cass","0270","Cass",11
+"G2600370","1850","Michigan","260","Clinton","0370","Clinton",8
+"G2600450","1850","Michigan","260","Eaton","0450","Eaton",9
+"G2600490","1850","Michigan","260","Genesee","0490","Genesee",10
+"G2600590","1850","Michigan","260","Hillsdale","0590","Hillsdale",12
+"G2600650","1850","Michigan","260","Ingham","0650","Ingham",8
+"G2600670","1850","Michigan","260","Ionia","0670","Ionia",9
+"G2600750","1850","Michigan","260","Jackson","0750","Jackson",11
+"G2600770","1850","Michigan","260","Kalamazoo","0770","Kalamazoo",13
+"G2600810","1850","Michigan","260","Kent","0810","Kent",9
+"G2600870","1850","Michigan","260","Lapeer","0870","Lapeer",10
+"G2600910","1850","Michigan","260","Lenawee","0910","Lenawee",15
+"G2600930","1850","Michigan","260","Livingston","0930","Livingston",10
+"G2600990","1850","Michigan","260","Macomb","0990","Macomb",14
+"G2601110","1850","Michigan","260","Midland","1110","Midland",9
+"G2601150","1850","Michigan","260","Monroe","1150","Monroe",12
+"G2601170","1850","Michigan","260","Montcalm","1170","Montcalm",7
+"G2601230","1850","Michigan","260","Newaygo","1230","Newaygo",6
+"G2601250","1850","Michigan","260","Oakland","1250","Oakland",15
+"G2601390","1850","Michigan","260","Ottawa","1390","Ottawa",8
+"G2601450","1850","Michigan","260","Saginaw","1450","Saginaw",10
+"G2601470","1850","Michigan","260","St Clair","1470","St Clair",9
+"G2601490","1850","Michigan","260","St Joseph","1490","St Joseph",11
+"G2601510","1850","Michigan","260","Sanilac","1510","Sanilac",8
+"G2601550","1850","Michigan","260","Shiawassee","1550","Shiawassee",9
+"G2601590","1850","Michigan","260","Van Buren","1590","Van Buren",9
+"G2601610","1850","Michigan","260","Washtenaw","1610","Washtenaw",15
+"G2601630","1850","Michigan","260","Wayne","1630","Wayne",16
+"G2800010","1850","Mississippi","280","Adams","0010","Adams",13
+"G2800050","1850","Mississippi","280","Amite","0050","Amite",2
+"G2800070","1850","Mississippi","280","Attala","0070","Attala",4
+"G2800110","1850","Mississippi","280","Bolivar","0110","Bolivar",15
+"G2800150","1850","Mississippi","280","Carroll","0150","Carroll",5
+"G2800170","1850","Mississippi","280","Chickasaw","0170","Chickasaw",4
+"G2800190","1850","Mississippi","280","Choctaw","0190","Choctaw",2
+"G2800210","1850","Mississippi","280","Claiborne","0210","Claiborne",8
+"G2800230","1850","Mississippi","280","Clarke","0230","Clarke",4
+"G2800270","1850","Mississippi","280","Coahoma","0270","Coahoma",9
+"G2800290","1850","Mississippi","280","Copiah","0290","Copiah",4
+"G2800310","1850","Mississippi","280","Covington","0310","Covington",3
+"G2800330","1850","Mississippi","280","De Soto","0330","De Soto",7
+"G2800370","1850","Mississippi","280","Franklin","0370","Franklin",4
+"G2800410","1850","Mississippi","280","Greene","0410","Greene",1
+"G2800450","1850","Mississippi","280","Hancock","0450","Hancock",2
+"G2800470","1850","Mississippi","280","Harrison","0470","Harrison",10
+"G2800490","1850","Mississippi","280","Hinds","0490","Hinds",5
+"G2800510","1850","Mississippi","280","Holmes","0510","Holmes",5
+"G2800550","1850","Mississippi","280","Issaquena","0550","Issaquena",11
+"G2800570","1850","Mississippi","280","Itawamba","0570","Itawamba",3
+"G2800590","1850","Mississippi","280","Jackson","0590","Jackson",4
+"G2800610","1850","Mississippi","280","Jasper","0610","Jasper",3
+"G2800630","1850","Mississippi","280","Jefferson","0630","Jefferson",7
+"G2800670","1850","Mississippi","280","Jones","0670","Jones",3
+"G2800690","1850","Mississippi","280","Kemper","0690","Kemper",3
+"G2800710","1850","Mississippi","280","Lafayette","0710","Lafayette",4
+"G2800750","1850","Mississippi","280","Lauderdale","0750","Lauderdale",3
+"G2800770","1850","Mississippi","280","Lawrence","0770","Lawrence",3
+"G2800790","1850","Mississippi","280","Leake","0790","Leake",2
+"G2800870","1850","Mississippi","280","Lowndes","0870","Lowndes",7
+"G2800890","1850","Mississippi","280","Madison","0890","Madison",5
+"G2800910","1850","Mississippi","280","Marion","0910","Marion",3
+"G2800930","1850","Mississippi","280","Marshall","0930","Marshall",7
+"G2800950","1850","Mississippi","280","Monroe","0950","Monroe",7
+"G2800990","1850","Mississippi","280","Neshoba","0990","Neshoba",2
+"G2801010","1850","Mississippi","280","Newton","1010","Newton",2
+"G2801030","1850","Mississippi","280","Noxubee","1030","Noxubee",6
+"G2801050","1850","Mississippi","280","Oktibbeha","1050","Oktibbeha",5
+"G2801070","1850","Mississippi","280","Panola","1070","Panola",6
+"G2801110","1850","Mississippi","280","Perry","1110","Perry",2
+"G2801130","1850","Mississippi","280","Pike","1130","Pike",3
+"G2801150","1850","Mississippi","280","Pontotoc","1150","Pontotoc",5
+"G2801210","1850","Mississippi","280","Rankin","1210","Rankin",4
+"G2801230","1850","Mississippi","280","Scott","1230","Scott",3
+"G2801270","1850","Mississippi","280","Simpson","1270","Simpson",3
+"G2801290","1850","Mississippi","280","Smith","1290","Smith",2
+"G2801330","1850","Mississippi","280","Sunflower","1330","Sunflower",7
+"G2801350","1850","Mississippi","280","Tallahatchie","1350","Tallahatchie",6
+"G2801390","1850","Mississippi","280","Tippah","1390","Tippah",4
+"G2801410","1850","Mississippi","280","Tishomingo","1410","Tishomingo",3
+"G2801430","1850","Mississippi","280","Tunica","1430","Tunica",9
+"G2801490","1850","Mississippi","280","Warren","1490","Warren",9
+"G2801510","1850","Mississippi","280","Washington","1510","Washington",21
+"G2801530","1850","Mississippi","280","Wayne","1530","Wayne",3
+"G2801570","1850","Mississippi","280","Wilkinson","1570","Wilkinson",7
+"G2801590","1850","Mississippi","280","Winston","1590","Winston",3
+"G2801610","1850","Mississippi","280","Yalobusha","1610","Yalobusha",4
+"G2801630","1850","Mississippi","280","Yazoo","1630","Yazoo",7
+"G2900010","1850","Missouri","290","Adair","0010","Adair",3
+"G2900030","1850","Missouri","290","Andrew","0030","Andrew",9
+"G2900050","1850","Missouri","290","Atchison","0050","Atchison",3
+"G2900070","1850","Missouri","290","Audrain","0070","Audrain",4
+"G2900090","1850","Missouri","290","Barry","0090","Barry",6
+"G2900130","1850","Missouri","290","Bates","0130","Bates",4
+"G2900150","1850","Missouri","290","Benton","0150","Benton",3
+"G2900190","1850","Missouri","290","Boone","0190","Boone",6
+"G2900210","1850","Missouri","290","Buchanan","0210","Buchanan",13
+"G2900230","1850","Missouri","290","Butler","0230","Butler",2
+"G2900250","1850","Missouri","290","Caldwell","0250","Caldwell",5
+"G2900270","1850","Missouri","290","Callaway","0270","Callaway",5
+"G2900290","1850","Missouri","290","Camden","0290","Camden",4
+"G2900310","1850","Missouri","290","Cape Girardeau","0310","Cape Girardeau",5
+"G2900330","1850","Missouri","290","Carroll","0330","Carroll",5
+"G2900370","1850","Missouri","290","Cass","0370","Cass",4
+"G2900390","1850","Missouri","290","Cedar","0390","Cedar",5
+"G2900410","1850","Missouri","290","Chariton","0410","Chariton",5
+"G2900450","1850","Missouri","290","Clark","0450","Clark",7
+"G2900470","1850","Missouri","290","Clay","0470","Clay",9
+"G2900490","1850","Missouri","290","Clinton","0490","Clinton",7
+"G2900510","1850","Missouri","290","Cole","0510","Cole",5
+"G2900530","1850","Missouri","290","Cooper","0530","Cooper",6
+"G2900550","1850","Missouri","290","Crawford","0550","Crawford",4
+"G2900570","1850","Missouri","290","Dade","0570","Dade",4
+"G2900590","1850","Missouri","290","Dallas","0590","Dallas",5
+"G2900610","1850","Missouri","290","Daviess","0610","Daviess",4
+"G2900630","1850","Missouri","290","DeKalb","0630","De Kalb",4
+"G2900690","1850","Missouri","290","Dunklin","0690","Dunklin",5
+"G2900710","1850","Missouri","290","Franklin","0710","Franklin",5
+"G2900730","1850","Missouri","290","Gasconade","0730","Gasconade",4
+"G2900750","1850","Missouri","290","Gentry","0750","Gentry",4
+"G2900770","1850","Missouri","290","Greene","0770","Greene",4
+"G2900790","1850","Missouri","290","Grundy","0790","Grundy",3
+"G2900810","1850","Missouri","290","Harrison","0810","Harrison",4
+"G2900830","1850","Missouri","290","Henry","0830","Henry",3
+"G2900850","1850","Missouri","290","Hickory","0850","Hickory",4
+"G2900870","1850","Missouri","290","Holt","0870","Holt",3
+"G2900890","1850","Missouri","290","Howard","0890","Howard",8
+"G2900950","1850","Missouri","290","Jackson","0950","Jackson",10
+"G2900970","1850","Missouri","290","Jasper","0970","Jasper",4
+"G2900990","1850","Missouri","290","Jefferson","0990","Jefferson",5
+"G2901010","1850","Missouri","290","Johnson","1010","Johnson",5
+"G2901030","1850","Missouri","290","Knox","1030","Knox",5
+"G2901050","1850","Missouri","290","Laclede","1050","Laclede",6
+"G2901070","1850","Missouri","290","Lafayette","1070","Lafayette",10
+"G2901090","1850","Missouri","290","Lawrence","1090","Lawrence",4
+"G2901110","1850","Missouri","290","Lewis","1110","Lewis",7
+"G2901130","1850","Missouri","290","Lincoln","1130","Lincoln",5
+"G2901150","1850","Missouri","290","Linn","1150","Linn",3
+"G2901170","1850","Missouri","290","Livingston","1170","Livingston",4
+"G2901190","1850","Missouri","290","McDonald","1190","Mcdonald",4
+"G2901210","1850","Missouri","290","Macon","1210","Macon",3
+"G2901230","1850","Missouri","290","Madison","1230","Madison",7
+"G2901270","1850","Missouri","290","Marion","1270","Marion",9
+"G2901290","1850","Missouri","290","Mercer","1290","Mercer",4
+"G2901310","1850","Missouri","290","Miller","1310","Miller",4
+"G2901330","1850","Missouri","290","Mississippi","1330","Mississippi",5
+"G2901350","1850","Missouri","290","Moniteau","1350","Moniteau",4
+"G2901370","1850","Missouri","290","Monroe","1370","Monroe",5
+"G2901390","1850","Missouri","290","Montgomery","1390","Montgomery",2
+"G2901410","1850","Missouri","290","Morgan","1410","Morgan",4
+"G2901430","1850","Missouri","290","New Madrid","1430","New Madrid",6
+"G2901450","1850","Missouri","290","Newton","1450","Newton",5
+"G2901470","1850","Missouri","290","Nodaway","1470","Nodaway",5
+"G2901490","1850","Missouri","290","Oregon","1490","Oregon",7
+"G2901510","1850","Missouri","290","Osage","1510","Osage",5
+"G2901530","1850","Missouri","290","Ozark","1530","Ozark",9
+"G2901570","1850","Missouri","290","Perry","1570","Perry",4
+"G2901590","1850","Missouri","290","Pettis","1590","Pettis",5
+"G2901630","1850","Missouri","290","Pike","1630","Pike",7
+"G2901650","1850","Missouri","290","Platte","1650","Platte",17
+"G2901670","1850","Missouri","290","Polk","1670","Polk",4
+"G2901690","1850","Missouri","290","Pulaski","1690","Pulaski",6
+"G2901710","1850","Missouri","290","Putnam","1710","Putnam",2
+"G2901730","1850","Missouri","290","Ralls","1730","Ralls",6
+"G2901750","1850","Missouri","290","Randolph","1750","Randolph",5
+"G2901770","1850","Missouri","290","Ray","1770","Ray",6
+"G2901790","1850","Missouri","290","Reynolds","1790","Reynolds",9
+"G2901810","1850","Missouri","290","Ripley","1810","Ripley",7
+"G2901830","1850","Missouri","290","St Charles","1830","St Charles",9
+"G2901850","1850","Missouri","290","St Clair","1850","St Clair",3
+"G2901860","1850","Missouri","290","Ste Genevieve","1860","Ste Genevieve",4
+"G2901870","1850","Missouri","290","St Francois","1870","St Francois",5
+"G2901890","1850","Missouri","290","St Louis","1890","St Louis",31
+"G2901950","1850","Missouri","290","Saline","1950","Saline",6
+"G2901970","1850","Missouri","290","Schuyler","1970","Schuyler",4
+"G2901990","1850","Missouri","290","Scotland","1990","Scotland",5
+"G2902010","1850","Missouri","290","Scott","2010","Scott",4
+"G2902030","1850","Missouri","290","Shannon","2030","Shannon",9
+"G2902050","1850","Missouri","290","Shelby","2050","Shelby",5
+"G2902070","1850","Missouri","290","Stoddard","2070","Stoddard",5
+"G2902110","1850","Missouri","290","Sullivan","2110","Sullivan",11
+"G2902130","1850","Missouri","290","Taney","2130","Taney",6
+"G2902150","1850","Missouri","290","Texas","2150","Texas",6
+"G2902190","1850","Missouri","290","Warren","2190","Warren",5
+"G2902210","1850","Missouri","290","Washington","2210","Washington",6
+"G2902230","1850","Missouri","290","Wayne","2230","Wayne",4
+"G2902290","1850","Missouri","290","Wright","2290","Wright",6
+"G3300010","1850","New Hampshire","330","Belknap","0010","Belknap",18
+"G3300030","1850","New Hampshire","330","Carroll","0030","Carroll",12
+"G3300050","1850","New Hampshire","330","Cheshire","0050","Cheshire",16
+"G3300070","1850","New Hampshire","330","Coos","0070","Coos",8
+"G3300090","1850","New Hampshire","330","Grafton","0090","Grafton",8
+"G3300110","1850","New Hampshire","330","Hillsborough","0110","Hillsborough",19
+"G3300130","1850","New Hampshire","330","Merrimack","0130","Merrimack",18
+"G3300150","1850","New Hampshire","330","Rockingham","0150","Rockingham",27
+"G3300170","1850","New Hampshire","330","Strafford","0170","Strafford",23
+"G3300190","1850","New Hampshire","330","Sullivan","0190","Sullivan",14
+"G3400010","1850","New Jersey","340","Atlantic","0010","Atlantic",14
+"G3400030","1850","New Jersey","340","Bergen","0030","Bergen",57
+"G3400050","1850","New Jersey","340","Burlington","0050","Burlington",68
+"G3400070","1850","New Jersey","340","Camden","0070","Camden",35
+"G3400090","1850","New Jersey","340","Cape May","0090","Cape May",16
+"G3400110","1850","New Jersey","340","Cumberland","0110","Cumberland",23
+"G3400130","1850","New Jersey","340","Essex","0130","Essex",70
+"G3400150","1850","New Jersey","340","Gloucester","0150","Gloucester",37
+"G3400170","1850","New Jersey","340","Hudson","0170","Hudson",120
+"G3400190","1850","New Jersey","340","Hunterdon","0190","Hunterdon",47
+"G3400210","1850","New Jersey","340","Mercer","0210","Mercer",54
+"G3400230","1850","New Jersey","340","Middlesex","0230","Middlesex",42
+"G3400250","1850","New Jersey","340","Monmouth","0250","Monmouth",50
+"G3400270","1850","New Jersey","340","Morris","0270","Morris",34
+"G3400290","1850","New Jersey","340","Ocean","0290","Ocean",20
+"G3400310","1850","New Jersey","340","Passaic","0310","Passaic",33
+"G3400330","1850","New Jersey","340","Salem","0330","Salem",46
+"G3400350","1850","New Jersey","340","Somerset","0350","Somerset",48
+"G3400370","1850","New Jersey","340","Sussex","0370","Sussex",34
+"G3400410","1850","New Jersey","340","Warren","0410","Warren",41
+"G3600010","1850","New York","360","Albany","0010","Albany",38
+"G3600030","1850","New York","360","Allegany","0030","Allegany",15
+"G3600070","1850","New York","360","Broome","0070","Broome",19
+"G3600090","1850","New York","360","Cattaraugus","0090","Cattaraugus",13
+"G3600110","1850","New York","360","Cayuga","0110","Cayuga",38
+"G3600130","1850","New York","360","Chautauqua","0130","Chautauqua",18
+"G3600150","1850","New York","360","Chemung","0150","Chemung",27
+"G3600170","1850","New York","360","Chenango","0170","Chenango",19
+"G3600190","1850","New York","360","Clinton","0190","Clinton",18
+"G3600210","1850","New York","360","Columbia","0210","Columbia",44
+"G3600230","1850","New York","360","Cortland","0230","Cortland",21
+"G3600250","1850","New York","360","Delaware","0250","Delaware",13
+"G3600270","1850","New York","360","Dutchess","0270","Dutchess",53
+"G3600290","1850","New York","360","Erie","0290","Erie",27
+"G3600310","1850","New York","360","Essex","0310","Essex",11
+"G3600330","1850","New York","360","Franklin","0330","Franklin",14
+"G3600350","1850","New York","360","Fulton","0350","Fulton",21
+"G3600370","1850","New York","360","Genesee","0370","Genesee",38
+"G3600390","1850","New York","360","Greene","0390","Greene",25
+"G3600410","1850","New York","360","Hamilton","0410","Hamilton",6
+"G3600430","1850","New York","360","Herkimer","0430","Herkimer",31
+"G3600450","1850","New York","360","Jefferson","0450","Jefferson",23
+"G3600470","1850","New York","360","Kings","0470","Kings",198
+"G3600490","1850","New York","360","Lewis","0490","Lewis",23
+"G3600510","1850","New York","360","Livingston","0510","Livingston",44
+"G3600530","1850","New York","360","Madison","0530","Madison",24
+"G3600550","1850","New York","360","Monroe","0550","Monroe",51
+"G3600570","1850","New York","360","Montgomery","0570","Montgomery",36
+"G3600610","1850","New York","360","New York","0610","New York",1847
+"G3600630","1850","New York","360","Niagara","0630","Niagara",24
+"G3600650","1850","New York","360","Oneida","0650","Oneida",24
+"G3600670","1850","New York","360","Onondaga","0670","Onondaga",40
+"G3600690","1850","New York","360","Ontario","0690","Ontario",41
+"G3600710","1850","New York","360","Orange","0710","Orange",42
+"G3600730","1850","New York","360","Orleans","0730","Orleans",41
+"G3600750","1850","New York","360","Oswego","0750","Oswego",22
+"G3600770","1850","New York","360","Otsego","0770","Otsego",23
+"G3600790","1850","New York","360","Putnam","0790","Putnam",40
+"G3600810","1850","New York","360","Queens","0810","Queens",73
+"G3600830","1850","New York","360","Rensselaer","0830","Rensselaer",39
+"G3600850","1850","New York","360","Richmond","0850","Richmond",107
+"G3600870","1850","New York","360","Rockland","0870","Rockland",42
+"G3600890","1850","New York","360","St Lawrence","0890","St Lawrence",14
+"G3600910","1850","New York","360","Saratoga","0910","Saratoga",32
+"G3600930","1850","New York","360","Schenectady","0930","Schenectady",36
+"G3600950","1850","New York","360","Schoharie","0950","Schoharie",24
+"G3600990","1850","New York","360","Seneca","0990","Seneca",51
+"G3601010","1850","New York","360","Steuben","1010","Steuben",20
+"G3601030","1850","New York","360","Suffolk","1030","Suffolk",20
+"G3601050","1850","New York","360","Sullivan","1050","Sullivan",15
+"G3601070","1850","New York","360","Tioga","1070","Tioga",22
+"G3601090","1850","New York","360","Tompkins","1090","Tompkins",32
+"G3601110","1850","New York","360","Ulster","1110","Ulster",28
+"G3601130","1850","New York","360","Warren","1130","Warren",9
+"G3601150","1850","New York","360","Washington","1150","Washington",30
+"G3601170","1850","New York","360","Wayne","1170","Wayne",36
+"G3601190","1850","New York","360","Westchester","1190","Westchester",78
+"G3601210","1850","New York","360","Wyoming","1210","Wyoming",23
+"G3601230","1850","New York","360","Yates","1230","Yates",41
+"G3700010","1850","North Carolina","370","Alamance","0010","Alamance",4
+"G3700030","1850","North Carolina","370","Alexander","0030","Alexander",2
+"G3700070","1850","North Carolina","370","Anson","0070","Anson",4
+"G3700090","1850","North Carolina","370","Ashe","0090","Ashe",1
+"G3700130","1850","North Carolina","370","Beaufort","0130","Beaufort",3
+"G3700150","1850","North Carolina","370","Bertie","0150","Bertie",4
+"G3700170","1850","North Carolina","370","Bladen","0170","Bladen",2
+"G3700190","1850","North Carolina","370","Brunswick","0190","Brunswick",2
+"G3700210","1850","North Carolina","370","Buncombe","0210","Buncombe",2
+"G3700230","1850","North Carolina","370","Burke","0230","Burke",4
+"G3700250","1850","North Carolina","370","Cabarrus","0250","Cabarrus",4
+"G3700270","1850","North Carolina","370","Caldwell","0270","Caldwell",3
+"G3700290","1850","North Carolina","370","Camden","0290","Camden",13
+"G3700310","1850","North Carolina","370","Carteret","0310","Carteret",3
+"G3700330","1850","North Carolina","370","Caswell","0330","Caswell",6
+"G3700350","1850","North Carolina","370","Catawba","0350","Catawba",4
+"G3700370","1850","North Carolina","370","Chatham","0370","Chatham",3
+"G3700390","1850","North Carolina","370","Cherokee","0390","Cherokee",4
+"G3700410","1850","North Carolina","370","Chowan","0410","Chowan",9
+"G3700450","1850","North Carolina","370","Cleveland","0450","Cleveland",2
+"G3700470","1850","North Carolina","370","Columbus","0470","Columbus",1
+"G3700490","1850","North Carolina","370","Craven","0490","Craven",2
+"G3700510","1850","North Carolina","370","Cumberland","0510","Cumberland",2
+"G3700530","1850","North Carolina","370","Currituck","0530","Currituck",7
+"G3700570","1850","North Carolina","370","Davidson","0570","Davidson",4
+"G3700590","1850","North Carolina","370","Davie","0590","Davie",4
+"G3700610","1850","North Carolina","370","Duplin","0610","Duplin",3
+"G3700650","1850","North Carolina","370","Edgecombe","0650","Edgecombe",5
+"G3700670","1850","North Carolina","370","Forsyth","0670","Forsyth",3
+"G3700690","1850","North Carolina","370","Franklin","0690","Franklin",3
+"G3700710","1850","North Carolina","370","Gaston","0710","Gaston",3
+"G3700730","1850","North Carolina","370","Gates","0730","Gates",5
+"G3700770","1850","North Carolina","370","Granville","0770","Granville",3
+"G3700790","1850","North Carolina","370","Greene","0790","Greene",6
+"G3700810","1850","North Carolina","370","Guilford","0810","Guilford",4
+"G3700830","1850","North Carolina","370","Halifax","0830","Halifax",4
+"G3700870","1850","North Carolina","370","Haywood","0870","Haywood",1
+"G3700890","1850","North Carolina","370","Henderson","0890","Henderson",2
+"G3700910","1850","North Carolina","370","Hertford","0910","Hertford",4
+"G3700950","1850","North Carolina","370","Hyde","0950","Hyde",3
+"G3700970","1850","North Carolina","370","Iredell","0970","Iredell",4
+"G3701010","1850","North Carolina","370","Johnston","1010","Johnston",2
+"G3701030","1850","North Carolina","370","Jones","1030","Jones",3
+"G3701070","1850","North Carolina","370","Lenoir","1070","Lenoir",5
+"G3701090","1850","North Carolina","370","Lincoln","1090","Lincoln",4
+"G3701110","1850","North Carolina","370","McDowell","1110","Mcdowell",4
+"G3701130","1850","North Carolina","370","Macon","1130","Macon",3
+"G3701170","1850","North Carolina","370","Martin","1170","Martin",4
+"G3701190","1850","North Carolina","370","Mecklenburg","1190","Mecklenburg",4
+"G3701230","1850","North Carolina","370","Montgomery","1230","Montgomery",2
+"G3701250","1850","North Carolina","370","Moore","1250","Moore",2
+"G3701270","1850","North Carolina","370","Nash","1270","Nash",2
+"G3701290","1850","North Carolina","370","New Hanover","1290","New Hanover",2
+"G3701310","1850","North Carolina","370","Northampton","1310","Northampton",4
+"G3701330","1850","North Carolina","370","Onslow","1330","Onslow",2
+"G3701350","1850","North Carolina","370","Orange","1350","Orange",3
+"G3701390","1850","North Carolina","370","Pasquotank","1390","Pasquotank",12
+"G3701430","1850","North Carolina","370","Perquimans","1430","Perquimans",8
+"G3701450","1850","North Carolina","370","Person","1450","Person",4
+"G3701470","1850","North Carolina","370","Pitt","1470","Pitt",4
+"G3701510","1850","North Carolina","370","Randolph","1510","Randolph",3
+"G3701530","1850","North Carolina","370","Richmond","1530","Richmond",2
+"G3701550","1850","North Carolina","370","Robeson","1550","Robeson",2
+"G3701570","1850","North Carolina","370","Rockingham","1570","Rockingham",4
+"G3701590","1850","North Carolina","370","Rowan","1590","Rowan",4
+"G3701610","1850","North Carolina","370","Rutherford","1610","Rutherford",3
+"G3701630","1850","North Carolina","370","Sampson","1630","Sampson",4
+"G3701670","1850","North Carolina","370","Stanly","1670","Stanly",2
+"G3701690","1850","North Carolina","370","Stokes","1690","Stokes",3
+"G3701710","1850","North Carolina","370","Surry","1710","Surry",2
+"G3701770","1850","North Carolina","370","Tyrrell","1770","Tyrrell",6
+"G3701790","1850","North Carolina","370","Union","1790","Union",2
+"G3701830","1850","North Carolina","370","Wake","1830","Wake",3
+"G3701850","1850","North Carolina","370","Warren","1850","Warren",5
+"G3701870","1850","North Carolina","370","Washington","1870","Washington",4
+"G3701890","1850","North Carolina","370","Watauga","1890","Watauga",2
+"G3701910","1850","North Carolina","370","Wayne","1910","Wayne",5
+"G3701930","1850","North Carolina","370","Wilkes","1930","Wilkes",2
+"G3701990","1850","North Carolina","370","Yancey","1990","Yancey",2
+"G3900010","1850","Ohio","390","Adams","0010","Adams",13
+"G3900030","1850","Ohio","390","Allen","0030","Allen",12
+"G3900050","1850","Ohio","390","Ashland","0050","Ashland",21
+"G3900070","1850","Ohio","390","Ashtabula","0070","Ashtabula",11
+"G3900090","1850","Ohio","390","Athens","0090","Athens",11
+"G3900110","1850","Ohio","390","Auglaize","0110","Auglaize",9
+"G3900130","1850","Ohio","390","Belmont","0130","Belmont",23
+"G3900150","1850","Ohio","390","Brown","0150","Brown",22
+"G3900170","1850","Ohio","390","Butler","0170","Butler",38
+"G3900190","1850","Ohio","390","Carroll","0190","Carroll",17
+"G3900210","1850","Ohio","390","Champaign","0210","Champaign",20
+"G3900230","1850","Ohio","390","Clark","0230","Clark",27
+"G3900250","1850","Ohio","390","Clermont","0250","Clermont",25
+"G3900270","1850","Ohio","390","Clinton","0270","Clinton",22
+"G3900290","1850","Ohio","390","Columbiana","0290","Columbiana",22
+"G3900310","1850","Ohio","390","Coshocton","0310","Coshocton",15
+"G3900330","1850","Ohio","390","Crawford","0330","Crawford",16
+"G3900350","1850","Ohio","390","Cuyahoga","0350","Cuyahoga",24
+"G3900370","1850","Ohio","390","Darke","0370","Darke",10
+"G3900390","1850","Ohio","390","Defiance","0390","Defiance",11
+"G3900410","1850","Ohio","390","Delaware","0410","Delaware",16
+"G3900430","1850","Ohio","390","Erie","0430","Erie",24
+"G3900450","1850","Ohio","390","Fairfield","0450","Fairfield",22
+"G3900470","1850","Ohio","390","Fayette","0470","Fayette",17
+"G3900490","1850","Ohio","390","Franklin","0490","Franklin",24
+"G3900510","1850","Ohio","390","Fulton","0510","Fulton",11
+"G3900530","1850","Ohio","390","Gallia","0530","Gallia",9
+"G3900550","1850","Ohio","390","Geauga","0550","Geauga",16
+"G3900570","1850","Ohio","390","Greene","0570","Greene",25
+"G3900590","1850","Ohio","390","Guernsey","0590","Guernsey",14
+"G3900610","1850","Ohio","390","Hamilton","0610","Hamilton",83
+"G3900630","1850","Ohio","390","Hancock","0630","Hancock",12
+"G3900650","1850","Ohio","390","Hardin","0650","Hardin",11
+"G3900670","1850","Ohio","390","Harrison","0670","Harrison",21
+"G3900690","1850","Ohio","390","Henry","0690","Henry",8
+"G3900710","1850","Ohio","390","Highland","0710","Highland",19
+"G3900730","1850","Ohio","390","Hocking","0730","Hocking",9
+"G3900750","1850","Ohio","390","Holmes","0750","Holmes",17
+"G3900770","1850","Ohio","390","Huron","0770","Huron",21
+"G3900790","1850","Ohio","390","Jackson","0790","Jackson",9
+"G3900810","1850","Ohio","390","Jefferson","0810","Jefferson",31
+"G3900830","1850","Ohio","390","Knox","0830","Knox",19
+"G3900850","1850","Ohio","390","Lake","0850","Lake",23
+"G3900870","1850","Ohio","390","Lawrence","0870","Lawrence",10
+"G3900890","1850","Ohio","390","Licking","0890","Licking",12
+"G3900910","1850","Ohio","390","Logan","0910","Logan",16
+"G3900930","1850","Ohio","390","Lorain","0930","Lorain",19
+"G3900950","1850","Ohio","390","Lucas","0950","Lucas",14
+"G3900970","1850","Ohio","390","Madison","0970","Madison",14
+"G3900990","1850","Ohio","390","Mahoning","0990","Mahoning",24
+"G3901010","1850","Ohio","390","Marion","1010","Marion",12
+"G3901030","1850","Ohio","390","Medina","1030","Medina",21
+"G3901050","1850","Ohio","390","Meigs","1050","Meigs",11
+"G3901070","1850","Ohio","390","Mercer","1070","Mercer",9
+"G3901090","1850","Ohio","390","Miami","1090","Miami",25
+"G3901110","1850","Ohio","390","Monroe","1110","Monroe",10
+"G3901130","1850","Ohio","390","Montgomery","1130","Montgomery",30
+"G3901150","1850","Ohio","390","Morgan","1150","Morgan",16
+"G3901170","1850","Ohio","390","Morrow","1170","Morrow",16
+"G3901190","1850","Ohio","390","Muskingum","1190","Muskingum",22
+"G3901210","1850","Ohio","390","Noble [*created 1851]","1210","Noble",13
+"G3901230","1850","Ohio","390","Ottawa","1230","Ottawa",11
+"G3901250","1850","Ohio","390","Paulding","1250","Paulding",12
+"G3901270","1850","Ohio","390","Perry","1270","Perry",17
+"G3901290","1850","Ohio","390","Pickaway","1290","Pickaway",22
+"G3901310","1850","Ohio","390","Pike","1310","Pike",12
+"G3901330","1850","Ohio","390","Portage","1330","Portage",22
+"G3901350","1850","Ohio","390","Preble","1350","Preble",24
+"G3901370","1850","Ohio","390","Putnam","1370","Putnam",10
+"G3901390","1850","Ohio","390","Richland","1390","Richland",22
+"G3901410","1850","Ohio","390","Ross","1410","Ross",23
+"G3901430","1850","Ohio","390","Sandusky","1430","Sandusky",15
+"G3901450","1850","Ohio","390","Scioto","1450","Scioto",17
+"G3901470","1850","Ohio","390","Seneca","1470","Seneca",20
+"G3901490","1850","Ohio","390","Shelby","1490","Shelby",14
+"G3901510","1850","Ohio","390","Stark","1510","Stark",26
+"G3901530","1850","Ohio","390","Summit","1530","Summit",24
+"G3901550","1850","Ohio","390","Trumbull","1550","Trumbull",20
+"G3901570","1850","Ohio","390","Tuscarawas","1570","Tuscarawas",16
+"G3901590","1850","Ohio","390","Union","1590","Union",12
+"G3901610","1850","Ohio","390","Van Wert","1610","Van Wert",8
+"G3901630","1850","Ohio","390","Vinton","1630","Vinton",9
+"G3901650","1850","Ohio","390","Warren","1650","Warren",36
+"G3901670","1850","Ohio","390","Washington","1670","Washington",11
+"G3901690","1850","Ohio","390","Wayne","1690","Wayne",28
+"G3901710","1850","Ohio","390","Williams","1710","Williams",10
+"G3901730","1850","Ohio","390","Wood","1730","Wood",10
+"G3901750","1850","Ohio","390","Wyandot","1750","Wyandot",13
+"G4200010","1850","Pennsylvania","420","Adams","0010","Adams",25
+"G4200030","1850","Pennsylvania","420","Allegheny","0030","Allegheny",47
+"G4200050","1850","Pennsylvania","420","Armstrong","0050","Armstrong",11
+"G4200070","1850","Pennsylvania","420","Beaver","0070","Beaver",24
+"G4200090","1850","Pennsylvania","420","Bedford","0090","Bedford",11
+"G4200110","1850","Pennsylvania","420","Berks","0110","Berks",52
+"G4200130","1850","Pennsylvania","420","Blair","0130","Blair",29
+"G4200150","1850","Pennsylvania","420","Bradford","0150","Bradford",16
+"G4200170","1850","Pennsylvania","420","Bucks","0170","Bucks",56
+"G4200190","1850","Pennsylvania","420","Butler","0190","Butler",14
+"G4200210","1850","Pennsylvania","420","Cambria","0210","Cambria",9
+"G4200250","1850","Pennsylvania","420","Carbon","0250","Carbon",13
+"G4200270","1850","Pennsylvania","420","Centre","0270","Centre",22
+"G4200290","1850","Pennsylvania","420","Chester","0290","Chester",60
+"G4200310","1850","Pennsylvania","420","Clarion","0310","Clarion",13
+"G4200330","1850","Pennsylvania","420","Clearfield","0330","Clearfield",10
+"G4200350","1850","Pennsylvania","420","Clinton","0350","Clinton",24
+"G4200370","1850","Pennsylvania","420","Columbia","0370","Columbia",21
+"G4200390","1850","Pennsylvania","420","Crawford","0390","Crawford",13
+"G4200410","1850","Pennsylvania","420","Cumberland","0410","Cumberland",37
+"G4200430","1850","Pennsylvania","420","Dauphin","0430","Dauphin",33
+"G4200450","1850","Pennsylvania","420","Delaware","0450","Delaware",84
+"G4200470","1850","Pennsylvania","420","Elk","0470","Elk",6
+"G4200490","1850","Pennsylvania","420","Erie","0490","Erie",18
+"G4200510","1850","Pennsylvania","420","Fayette","0510","Fayette",22
+"G4200550","1850","Pennsylvania","420","Franklin","0550","Franklin",34
+"G4200570","1850","Pennsylvania","420","Fulton","0570","Fulton",10
+"G4200590","1850","Pennsylvania","420","Greene","0590","Greene",15
+"G4200610","1850","Pennsylvania","420","Huntingdon","0610","Huntingdon",17
+"G4200630","1850","Pennsylvania","420","Indiana","0630","Indiana",9
+"G4200650","1850","Pennsylvania","420","Jefferson","0650","Jefferson",7
+"G4200670","1850","Pennsylvania","420","Juniata","0670","Juniata",3
+"G4200710","1850","Pennsylvania","420","Lancaster","0710","Lancaster",68
+"G4200730","1850","Pennsylvania","420","Lawrence","0730","Lawrence",5
+"G4200750","1850","Pennsylvania","420","Lebanon","0750","Lebanon",43
+"G4200770","1850","Pennsylvania","420","Lehigh","0770","Lehigh",55
+"G4200790","1850","Pennsylvania","420","Luzerne","0790","Luzerne",22
+"G4200810","1850","Pennsylvania","420","Lycoming","0810","Lycoming",20
+"G4200830","1850","Pennsylvania","420","McKean","0830","Mckean",9
+"G4200850","1850","Pennsylvania","420","Mercer","0850","Mercer",14
+"G4200870","1850","Pennsylvania","420","Mifflin","0870","Mifflin",33
+"G4200890","1850","Pennsylvania","420","Monroe","0890","Monroe",15
+"G4200910","1850","Pennsylvania","420","Montgomery","0910","Montgomery",71
+"G4200930","1850","Pennsylvania","420","Montour","0930","Montour",25
+"G4200950","1850","Pennsylvania","420","Northampton","0950","Northampton",68
+"G4200970","1850","Pennsylvania","420","Northumberland","0970","Northumberland",29
+"G4200990","1850","Pennsylvania","420","Perry","0990","Perry",8
+"G4201010","1850","Pennsylvania","420","Philadelphia","1010","Philadelphia",208
+"G4201030","1850","Pennsylvania","420","Pike","1030","Pike",14
+"G4201050","1850","Pennsylvania","420","Potter","1050","Potter",9
+"G4201070","1850","Pennsylvania","420","Schuylkill","1070","Schuylkill",13
+"G4201110","1850","Pennsylvania","420","Somerset","1110","Somerset",10
+"G4201130","1850","Pennsylvania","420","Sullivan","1130","Sullivan",5
+"G4201150","1850","Pennsylvania","420","Susquehanna","1150","Susquehanna",14
+"G4201170","1850","Pennsylvania","420","Tioga","1170","Tioga",13
+"G4201190","1850","Pennsylvania","420","Union","1190","Union",28
+"G4201210","1850","Pennsylvania","420","Venango","1210","Venango",8
+"G4201230","1850","Pennsylvania","420","Warren","1230","Warren",11
+"G4201250","1850","Pennsylvania","420","Washington","1250","Washington",29
+"G4201270","1850","Pennsylvania","420","Wayne","1270","Wayne",15
+"G4201290","1850","Pennsylvania","420","Westmoreland","1290","Westmoreland",25
+"G4201310","1850","Pennsylvania","420","Wyoming","1310","Wyoming",16
+"G4201330","1850","Pennsylvania","420","York","1330","York",33
+"G4400010","1850","Rhode Island","440","Bristol","0010","Bristol",57
+"G4400030","1850","Rhode Island","440","Kent","0030","Kent",23
+"G4400050","1850","Rhode Island","440","Newport","0050","Newport",55
+"G4400070","1850","Rhode Island","440","Providence","0070","Providence",35
+"G4400090","1850","Rhode Island","440","Washington","0090","Washington",18
+"G4500010","1850","South Carolina","450","Abbeville","0010","Abbeville",7
+"G4500070","1850","South Carolina","450","Anderson","0070","Anderson",5
+"G4500110","1850","South Carolina","450","Barnwell","0110","Barnwell",2
+"G4500130","1850","South Carolina","450","Beaufort","0130","Beaufort",6
+"G4500190","1850","South Carolina","450","Charleston","0190","Charleston",5
+"G4500230","1850","South Carolina","450","Chester","0230","Chester",9
+"G4500250","1850","South Carolina","450","Chesterfield","0250","Chesterfield",3
+"G4500290","1850","South Carolina","450","Colleton","0290","Colleton",3
+"G4500310","1850","South Carolina","450","Darlington","0310","Darlington",4
+"G4500370","1850","South Carolina","450","Edgefield","0370","Edgefield",6
+"G4500390","1850","South Carolina","450","Fairfield","0390","Fairfield",9
+"G4500430","1850","South Carolina","450","Georgetown","0430","Georgetown",15
+"G4500450","1850","South Carolina","450","Greenville","0450","Greenville",5
+"G4500510","1850","South Carolina","450","Horry","0510","Horry",1
+"G4500550","1850","South Carolina","450","Kershaw","0550","Kershaw",4
+"G4500570","1850","South Carolina","450","Lancaster","0570","Lancaster",5
+"G4500590","1850","South Carolina","450","Laurens","0590","Laurens",8
+"G4500630","1850","South Carolina","450","Lexington","0630","Lexington",2
+"G4500670","1850","South Carolina","450","Marion","0670","Marion",3
+"G4500690","1850","South Carolina","450","Marlboro","0690","Marlboro",6
+"G4500710","1850","South Carolina","450","Newberry","0710","Newberry",10
+"G4500750","1850","South Carolina","450","Orangeburg","0750","Orangeburg",3
+"G4500770","1850","South Carolina","450","Pickens","0770","Pickens",3
+"G4500790","1850","South Carolina","450","Richland","0790","Richland",6
+"G4500830","1850","South Carolina","450","Spartanburg","0830","Spartanburg",5
+"G4500850","1850","South Carolina","450","Sumter","0850","Sumter",4
+"G4500870","1850","South Carolina","450","Union","0870","Union",8
+"G4500890","1850","South Carolina","450","Williamsburg","0890","Williamsburg",2
+"G4500910","1850","South Carolina","450","York","0910","York",7
+"G4700010","1850","Tennessee","470","Anderson","0010","Anderson",3
+"G4700030","1850","Tennessee","470","Bedford","0030","Bedford",10
+"G4700050","1850","Tennessee","470","Benton","0050","Benton",1
+"G4700070","1850","Tennessee","470","Bledsoe","0070","Bledsoe",4
+"G4700090","1850","Tennessee","470","Blount","0090","Blount",1
+"G4700110","1850","Tennessee","470","Bradley","0110","Bradley",6
+"G4700130","1850","Tennessee","470","Campbell","0130","Campbell",2
+"G4700150","1850","Tennessee","470","Cannon","0150","Cannon",4
+"G4700170","1850","Tennessee","470","Carroll","0170","Carroll",3
+"G4700190","1850","Tennessee","470","Carter","0190","Carter",4
+"G4700250","1850","Tennessee","470","Claiborne","0250","Claiborne",3
+"G4700290","1850","Tennessee","470","Cocke","0290","Cocke",4
+"G4700310","1850","Tennessee","470","Coffee","0310","Coffee",4
+"G4700370","1850","Tennessee","470","Davidson","0370","Davidson",19
+"G4700390","1850","Tennessee","470","Decatur","0390","Decatur",2
+"G4700410","1850","Tennessee","470","DeKalb","0410","De Kalb",3
+"G4700430","1850","Tennessee","470","Dickson","0430","Dickson",2
+"G4700450","1850","Tennessee","470","Dyer","0450","Dyer",4
+"G4700470","1850","Tennessee","470","Fayette","0470","Fayette",9
+"G4700490","1850","Tennessee","470","Fentress","0490","Fentress",2
+"G4700510","1850","Tennessee","470","Franklin","0510","Franklin",6
+"G4700530","1850","Tennessee","470","Gibson","0530","Gibson",7
+"G4700550","1850","Tennessee","470","Giles","0550","Giles",11
+"G4700570","1850","Tennessee","470","Grainger","0570","Grainger",4
+"G4700590","1850","Tennessee","470","Greene","0590","Greene",5
+"G4700610","1850","Tennessee","470","Grundy","0610","Grundy",1
+"G4700650","1850","Tennessee","470","Hamilton","0650","Hamilton",5
+"G4700670","1850","Tennessee","470","Hancock","0670","Hancock",3
+"G4700690","1850","Tennessee","470","Hardeman","0690","Hardeman",4
+"G4700710","1850","Tennessee","470","Hardin","0710","Hardin",3
+"G4700730","1850","Tennessee","470","Hawkins","0730","Hawkins",4
+"G4700750","1850","Tennessee","470","Haywood","0750","Haywood",6
+"G4700770","1850","Tennessee","470","Henderson","0770","Henderson",3
+"G4700790","1850","Tennessee","470","Henry","0790","Henry",4
+"G4700810","1850","Tennessee","470","Hickman","0810","Hickman",3
+"G4700850","1850","Tennessee","470","Humphreys","0850","Humphreys",2
+"G4700870","1850","Tennessee","470","Jackson","0870","Jackson",3
+"G4700890","1850","Tennessee","470","Jefferson","0890","Jefferson",6
+"G4700910","1850","Tennessee","470","Johnson","0910","Johnson",3
+"G4700930","1850","Tennessee","470","Knox","0930","Knox",6
+"G4700970","1850","Tennessee","470","Lauderdale","0970","Lauderdale",5
+"G4700990","1850","Tennessee","470","Lawrence","0990","Lawrence",3
+"G4701010","1850","Tennessee","470","Lewis","1010","Lewis",5
+"G4701030","1850","Tennessee","470","Lincoln","1030","Lincoln",10
+"G4701070","1850","Tennessee","470","McMinn","1070","Mcminn",4
+"G4701090","1850","Tennessee","470","McNairy","1090","Mcnairy",2
+"G4701110","1850","Tennessee","470","Macon","1110","Macon",3
+"G4701130","1850","Tennessee","470","Madison","1130","Madison",7
+"G4701150","1850","Tennessee","470","Marion","1150","Marion",3
+"G4701170","1850","Tennessee","470","Marshall","1170","Marshall",10
+"G4701190","1850","Tennessee","470","Maury","1190","Maury",14
+"G4701210","1850","Tennessee","470","Meigs","1210","Meigs",1
+"G4701230","1850","Tennessee","470","Monroe","1230","Monroe",4
+"G4701250","1850","Tennessee","470","Montgomery","1250","Montgomery",4
+"G4701290","1850","Tennessee","470","Morgan","1290","Morgan",1
+"G4701310","1850","Tennessee","470","Obion","1310","Obion",5
+"G4701330","1850","Tennessee","470","Overton","1330","Overton",2
+"G4701350","1850","Tennessee","470","Perry","1350","Perry",2
+"G4701390","1850","Tennessee","470","Polk","1390","Polk",3
+"G4701430","1850","Tennessee","470","Rhea","1430","Rhea",5
+"G4701450","1850","Tennessee","470","Roane","1450","Roane",4
+"G4701470","1850","Tennessee","470","Robertson","1470","Robertson",5
+"G4701490","1850","Tennessee","470","Rutherford","1490","Rutherford",14
+"G4701510","1850","Tennessee","470","Scott","1510","Scott",1
+"G4701550","1850","Tennessee","470","Sevier","1550","Sevier",2
+"G4701570","1850","Tennessee","470","Shelby","1570","Shelby",11
+"G4701590","1850","Tennessee","470","Smith","1590","Smith",5
+"G4701610","1850","Tennessee","470","Stewart","1610","Stewart",1
+"G4701630","1850","Tennessee","470","Sullivan","1630","Sullivan",6
+"G4701650","1850","Tennessee","470","Sumner","1650","Sumner",10
+"G4701670","1850","Tennessee","470","Tipton","1670","Tipton",6
+"G4701750","1850","Tennessee","470","Van Buren","1750","Van Buren",1
+"G4701770","1850","Tennessee","470","Warren","1770","Warren",4
+"G4701790","1850","Tennessee","470","Washington","1790","Washington",8
+"G4701810","1850","Tennessee","470","Wayne","1810","Wayne",2
+"G4701830","1850","Tennessee","470","Weakley","1830","Weakley",3
+"G4701850","1850","Tennessee","470","White","1850","White",3
+"G4701870","1850","Tennessee","470","Williamson","1870","Williamson",16
+"G4701890","1850","Tennessee","470","Wilson","1890","Wilson",8
+"G4800010","1850","Texas","480","Anderson","0010","Anderson",2
+"G4800050","1850","Texas","480","Angelina","0050","Angelina",4
+"G4800150","1850","Texas","480","Austin","0150","Austin",3
+"G4800210","1850","Texas","480","Bastrop","0210","Bastrop",3
+"G4800290","1850","Texas","480","Bexar","0290","Bexar",2
+"G4800370","1850","Texas","480","Bowie","0370","Bowie",1
+"G4800390","1850","Texas","480","Brazoria","0390","Brazoria",1
+"G4800550","1850","Texas","480","Caldwell","0550","Caldwell",3
+"G4800570","1850","Texas","480","Calhoun","0570","Calhoun",2
+"G4800655","1850","Texas","480","Cass (old)","0655","Cass",2
+"G4800730","1850","Texas","480","Cherokee","0730","Cherokee",3
+"G4800850","1850","Texas","480","Collin","0850","Collin",1
+"G4800890","1850","Texas","480","Colorado","0890","Colorado",1
+"G4800910","1850","Texas","480","Comal","0910","Comal",7
+"G4801130","1850","Texas","480","Dallas","1130","Dallas",2
+"G4801230","1850","Texas","480","De Witt","1230","De Witt",2
+"G4801390","1850","Texas","480","Ellis","1390","Ellis",1
+"G4801470","1850","Texas","480","Fannin","1470","Fannin",2
+"G4801490","1850","Texas","480","Fayette","1490","Fayette",3
+"G4801570","1850","Texas","480","Fort Bend","1570","Fort Bend",3
+"G4801670","1850","Texas","480","Galveston","1670","Galveston",2
+"G4801710","1850","Texas","480","Gillespie","1710","Gillespie",2
+"G4801750","1850","Texas","480","Goliad","1750","Goliad",2
+"G4801770","1850","Texas","480","Gonzales","1770","Gonzales",1
+"G4801810","1850","Texas","480","Grayson","1810","Grayson",1
+"G4801850","1850","Texas","480","Grimes","1850","Grimes",2
+"G4801870","1850","Texas","480","Guadalupe","1870","Guadalupe",2
+"G4802010","1850","Texas","480","Harris","2010","Harris",2
+"G4802030","1850","Texas","480","Harrison","2030","Harrison",4
+"G4802090","1850","Texas","480","Hays","2090","Hays",3
+"G4802130","1850","Texas","480","Henderson","2130","Henderson",15
+"G4802230","1850","Texas","480","Hopkins","2230","Hopkins",1
+"G4802250","1850","Texas","480","Houston","2250","Houston",2
+"G4802310","1850","Texas","480","Hunt","2310","Hunt",1
+"G4802390","1850","Texas","480","Jackson","2390","Jackson",1
+"G4802410","1850","Texas","480","Jasper","2410","Jasper",1
+"G4802570","1850","Texas","480","Kaufman","2570","Kaufman",22
+"G4802770","1850","Texas","480","Lamar","2770","Lamar",2
+"G4802890","1850","Texas","480","Leon","2890","Leon",2
+"G4802910","1850","Texas","480","Liberty","2910","Liberty",2
+"G4802930","1850","Texas","480","Limestone","2930","Limestone",1
+"G4803210","1850","Texas","480","Matagorda","3210","Matagorda",6
+"G4803250","1850","Texas","480","Medina","3250","Medina",2
+"G4803310","1850","Texas","480","Milam","3310","Milam",2
+"G4803390","1850","Texas","480","Montgomery","3390","Montgomery",3
+"G4803470","1850","Texas","480","Nacogdoches","3470","Nacogdoches",2
+"G4803490","1850","Texas","480","Navarro","3490","Navarro",2
+"G4803510","1850","Texas","480","Newton","3510","Newton",1
+"G4803550","1850","Texas","480","Nueces","3550","Nueces",1
+"G4803650","1850","Texas","480","Panola","3650","Panola",2
+"G4803730","1850","Texas","480","Polk","3730","Polk",1
+"G4803870","1850","Texas","480","Red River","3870","Red River",1
+"G4803910","1850","Texas","480","Refugio","3910","Refugio",1
+"G4803950","1850","Texas","480","Robertson","3950","Robertson",1
+"G4804010","1850","Texas","480","Rusk","4010","Rusk",3
+"G4804030","1850","Texas","480","Sabine","4030","Sabine",1
+"G4804050","1850","Texas","480","San Augustine","4050","San Augustine",2
+"G4804090","1850","Texas","480","San Patricio","4090","San Patricio",1
+"G4804190","1850","Texas","480","Shelby","4190","Shelby",2
+"G4804230","1850","Texas","480","Smith","4230","Smith",3
+"G4804390","1850","Texas","480","Tarrant","4390","Tarrant",4
+"G4804490","1850","Texas","480","Titus","4490","Titus",2
+"G4804530","1850","Texas","480","Travis","4530","Travis",4
+"G4804570","1850","Texas","480","Tyler","4570","Tyler",1
+"G4804590","1850","Texas","480","Upshur","4590","Upshur",2
+"G4804670","1850","Texas","480","Van Zandt","4670","Van Zandt",1
+"G4804690","1850","Texas","480","Victoria","4690","Victoria",2
+"G4804710","1850","Texas","480","Walker","4710","Walker",1
+"G4804770","1850","Texas","480","Washington","4770","Washington",2
+"G4804810","1850","Texas","480","Wharton","4810","Wharton",3
+"G4804910","1850","Texas","480","Williamson","4910","Williamson",2
+"G5000010","1850","Vermont","500","Addison","0010","Addison",22
+"G5000030","1850","Vermont","500","Bennington","0030","Bennington",15
+"G5000050","1850","Vermont","500","Caledonia","0050","Caledonia",8
+"G5000070","1850","Vermont","500","Chittenden","0070","Chittenden",20
+"G5000090","1850","Vermont","500","Essex","0090","Essex",8
+"G5000110","1850","Vermont","500","Franklin","0110","Franklin",14
+"G5000130","1850","Vermont","500","Grand Isle","0130","Grand Isle",25
+"G5000150","1850","Vermont","500","Lamoille","0150","Lamoille",12
+"G5000170","1850","Vermont","500","Orange","0170","Orange",14
+"G5000190","1850","Vermont","500","Orleans","0190","Orleans",10
+"G5000210","1850","Vermont","500","Rutland","0210","Rutland",18
+"G5000230","1850","Vermont","500","Washington","0230","Washington",14
+"G5000250","1850","Vermont","500","Windham","0250","Windham",15
+"G5000270","1850","Vermont","500","Windsor","0270","Windsor",15
+"G5100010","1850","Virginia","510","Accomack","0010","Accomack",17
+"G5100030","1850","Virginia","510","Albemarle","0030","Albemarle",14
+"G5100050","1850","Virginia","510","Alleghany","0050","Alleghany",6
+"G5100070","1850","Virginia","510","Amelia","0070","Amelia",7
+"G5100090","1850","Virginia","510","Amherst","0090","Amherst",8
+"G5100110","1850","Virginia","510","Appomattox","0110","Appomattox",4
+"G5100150","1850","Virginia","510","Augusta","0150","Augusta",21
+"G5100155","1850","Virginia","510","Barbour","0155","Barbour",9
+"G5100170","1850","Virginia","510","Bath","0170","Bath",5
+"G5100190","1850","Virginia","510","Bedford","0190","Bedford",7
+"G5100195","1850","Virginia","510","Berkeley","0195","Berkeley",26
+"G5100215","1850","Virginia","510","Boone","0215","Boone",2
+"G5100230","1850","Virginia","510","Botetourt","0230","Botetourt",9
+"G5100233","1850","Virginia","510","Braxton","0233","Braxton",1
+"G5100237","1850","Virginia","510","Brooke","0237","Brooke",24
+"G5100250","1850","Virginia","510","Brunswick","0250","Brunswick",4
+"G5100290","1850","Virginia","510","Buckingham","0290","Buckingham",6
+"G5100293","1850","Virginia","510","Cabell","0293","Cabell",7
+"G5100310","1850","Virginia","510","Campbell","0310","Campbell",8
+"G5100330","1850","Virginia","510","Caroline","0330","Caroline",9
+"G5100350","1850","Virginia","510","Carroll","0350","Carroll",3
+"G5100360","1850","Virginia","510","Charles City","0360","Charles City",10
+"G5100370","1850","Virginia","510","Charlotte","0370","Charlotte",8
+"G5100410","1850","Virginia","510","Chesterfield","0410","Chesterfield",8
+"G5100430","1850","Virginia","510","Clarke","0430","Clarke",37
+"G5100470","1850","Virginia","510","Culpeper","0470","Culpeper",14
+"G5100490","1850","Virginia","510","Cumberland","0490","Cumberland",9
+"G5100530","1850","Virginia","510","Dinwiddie","0530","Dinwiddie",5
+"G5100533","1850","Virginia","510","Doddridge","0533","Doddridge",2
+"G5100550","1850","Virginia","510","Elizabeth City","0550","Elizabeth City",21
+"G5100570","1850","Virginia","510","Essex","0570","Essex",12
+"G5100590","1850","Virginia","510","Fairfax","0590","Fairfax",13
+"G5100610","1850","Virginia","510","Fauquier","0610","Fauquier",16
+"G5100615","1850","Virginia","510","Fayette","0615","Fayette",4
+"G5100630","1850","Virginia","510","Floyd","0630","Floyd",4
+"G5100650","1850","Virginia","510","Fluvanna","0650","Fluvanna",10
+"G5100670","1850","Virginia","510","Franklin","0670","Franklin",5
+"G5100690","1850","Virginia","510","Frederick","0690","Frederick",16
+"G5100710","1850","Virginia","510","Giles","0710","Giles",4
+"G5100715","1850","Virginia","510","Gilmer","0715","Gilmer",3
+"G5100730","1850","Virginia","510","Gloucester","0730","Gloucester",12
+"G5100750","1850","Virginia","510","Goochland","0750","Goochland",13
+"G5100770","1850","Virginia","510","Grayson","0770","Grayson",3
+"G5100775","1850","Virginia","510","Greenbrier","0775","Greenbrier",7
+"G5100790","1850","Virginia","510","Greene","0790","Greene",9
+"G5100810","1850","Virginia","510","Greensville","0810","Greensville",3
+"G5100830","1850","Virginia","510","Halifax","0830","Halifax",7
+"G5100833","1850","Virginia","510","Hampshire","0833","Hampshire",7
+"G5100837","1850","Virginia","510","Hancock","0837","Hancock",23
+"G5100850","1850","Virginia","510","Hanover","0850","Hanover",7
+"G5100853","1850","Virginia","510","Hardy","0853","Hardy",8
+"G5100857","1850","Virginia","510","Harrison","0857","Harrison",9
+"G5100870","1850","Virginia","510","Henrico","0870","Henrico",24
+"G5100890","1850","Virginia","510","Henry","0890","Henry",5
+"G5100910","1850","Virginia","510","Highland","0910","Highland",6
+"G5100930","1850","Virginia","510","Isle Of Wight","0930","Isle Of Wight",6
+"G5100935","1850","Virginia","510","Jackson","0935","Jackson",3
+"G5100950","1850","Virginia","510","James City","0950","James City",8
+"G5100953","1850","Virginia","510","Jefferson","0953","Jefferson",48
+"G5100957","1850","Virginia","510","Kanawha","0957","Kanawha",3
+"G5100970","1850","Virginia","510","King And Queen","0970","King And Queen",7
+"G5100990","1850","Virginia","510","King George","0990","King George",11
+"G5101010","1850","Virginia","510","King William","1010","King William",10
+"G5101030","1850","Virginia","510","Lancaster","1030","Lancaster",11
+"G5101050","1850","Virginia","510","Lee","1050","Lee",4
+"G5101053","1850","Virginia","510","Lewis","1053","Lewis",6
+"G5101057","1850","Virginia","510","Logan","1057","Logan",2
+"G5101070","1850","Virginia","510","Loudoun","1070","Loudoun",28
+"G5101090","1850","Virginia","510","Louisa","1090","Louisa",9
+"G5101110","1850","Virginia","510","Lunenburg","1110","Lunenburg",4
+"G5101130","1850","Virginia","510","Madison","1130","Madison",9
+"G5101133","1850","Virginia","510","Marion","1133","Marion",11
+"G5101135","1850","Virginia","510","Marshall","1135","Marshall",11
+"G5101137","1850","Virginia","510","Mason","1137","Mason",8
+"G5101150","1850","Virginia","510","Matthews","1150","Matthews",14
+"G5101170","1850","Virginia","510","Mecklenburg","1170","Mecklenburg",6
+"G5101175","1850","Virginia","510","Mercer","1175","Mercer",2
+"G5101190","1850","Virginia","510","Middlesex","1190","Middlesex",12
+"G5101193","1850","Virginia","510","Monongalia","1193","Monongalia",12
+"G5101197","1850","Virginia","510","Monroe","1197","Monroe",8
+"G5101210","1850","Virginia","510","Montgomery","1210","Montgomery",9
+"G5101215","1850","Virginia","510","Morgan","1215","Morgan",5
+"G5101230","1850","Virginia","510","Nansemond","1230","Nansemond",9
+"G5101250","1850","Virginia","510","Nelson","1250","Nelson",8
+"G5101270","1850","Virginia","510","New Kent","1270","New Kent",7
+"G5101275","1850","Virginia","510","Nicholas","1275","Nicholas",2
+"G5101290","1850","Virginia","510","Norfolk","1290","Norfolk",11
+"G5101310","1850","Virginia","510","Northampton","1310","Northampton",2
+"G5101330","1850","Virginia","510","Northumberland","1330","Northumberland",10
+"G5101350","1850","Virginia","510","Nottoway","1350","Nottoway",6
+"G5101355","1850","Virginia","510","Ohio","1355","Ohio",33
+"G5101370","1850","Virginia","510","Orange","1370","Orange",11
+"G5101390","1850","Virginia","510","Page","1390","Page",11
+"G5101410","1850","Virginia","510","Patrick","1410","Patrick",3
+"G5101430","1850","Virginia","510","Pittsylvania","1430","Pittsylvania",5
+"G5101450","1850","Virginia","510","Powhatan","1450","Powhatan",9
+"G5101470","1850","Virginia","510","Prince Edward","1470","Prince Edward",8
+"G5101490","1850","Virginia","510","Prince George","1490","Prince George",5
+"G5101510","1850","Virginia","510","Princess Anne","1510","Princess Anne",10
+"G5101530","1850","Virginia","510","Prince William","1530","Prince William",8
+"G5101550","1850","Virginia","510","Pulaski","1550","Pulaski",9
+"G5101570","1850","Virginia","510","Rappahannock","1570","Rappahannock",12
+"G5101590","1850","Virginia","510","Richmond","1590","Richmond",6
+"G5101610","1850","Virginia","510","Roanoke","1610","Roanoke",14
+"G5101630","1850","Virginia","510","Rockbridge","1630","Rockbridge",12
+"G5101650","1850","Virginia","510","Rockingham","1650","Rockingham",18
+"G5101670","1850","Virginia","510","Russell","1670","Russell",5
+"G5101690","1850","Virginia","510","Scott","1690","Scott",5
+"G5101710","1850","Virginia","510","Shenandoah","1710","Shenandoah",19
+"G5101730","1850","Virginia","510","Smyth","1730","Smyth",11
+"G5101750","1850","Virginia","510","Southampton","1750","Southampton",3
+"G5101770","1850","Virginia","510","Spotsylvania","1770","Spotsylvania",7
+"G5101790","1850","Virginia","510","Stafford","1790","Stafford",8
+"G5101810","1850","Virginia","510","Surry","1810","Surry",5
+"G5101830","1850","Virginia","510","Sussex","1830","Sussex",3
+"G5101850","1850","Virginia","510","Tazewell","1850","Tazewell",6
+"G5101870","1850","Virginia","510","Warren","1870","Warren",14
+"G5101890","1850","Virginia","510","Warwick","1890","Warwick",8
+"G5101910","1850","Virginia","510","Washington","1910","Washington",8
+"G5101930","1850","Virginia","510","Westmoreland","1930","Westmoreland",8
+"G5101970","1850","Virginia","510","Wythe","1970","Wythe",7
+"G5101990","1850","Virginia","510","York","1990","York",15
+"G5500010","1850","Wisconsin","550","Adams","0010","Adams",6
+"G5500090","1850","Wisconsin","550","Brown","0090","Brown",6
+"G5500150","1850","Wisconsin","550","Calumet","0150","Calumet",6
+"G5500170","1850","Wisconsin","550","Chippewa","0170","Chippewa",4
+"G5500210","1850","Wisconsin","550","Columbia","0210","Columbia",7
+"G5500250","1850","Wisconsin","550","Dane","0250","Dane",7
+"G5500270","1850","Wisconsin","550","Dodge","0270","Dodge",8
+"G5500390","1850","Wisconsin","550","Fond du Lac","0390","Fond Du Lac",8
+"G5500430","1850","Wisconsin","550","Grant","0430","Grant",7
+"G5500450","1850","Wisconsin","550","Green","0450","Green",8
+"G5500490","1850","Wisconsin","550","Iowa","0490","Iowa",5
+"G5500550","1850","Wisconsin","550","Jefferson","0550","Jefferson",9
+"G5500590","1850","Wisconsin","550","Kenosha","0590","Kenosha",15
+"G5500650","1850","Wisconsin","550","Lafayette","0650","Lafayette",8
+"G5500710","1850","Wisconsin","550","Manitowoc","0710","Manitowoc",1
+"G5500730","1850","Wisconsin","550","Marathon","0730","Marathon",22
+"G5500770","1850","Wisconsin","550","Marquette","0770","Marquette",8
+"G5500790","1850","Wisconsin","550","Milwaukee","0790","Milwaukee",19
+"G5500970","1850","Wisconsin","550","Portage","0970","Portage",10
+"G5501010","1850","Wisconsin","550","Racine","1010","Racine",12
+"G5501030","1850","Wisconsin","550","Richland","1030","Richland",4
+"G5501050","1850","Wisconsin","550","Rock","1050","Rock",11
+"G5501090","1850","Wisconsin","550","St Croix","1090","St Croix",5
+"G5501170","1850","Wisconsin","550","Sheboygan","1170","Sheboygan",8
+"G5501270","1850","Wisconsin","550","Walworth","1270","Walworth",11
+"G5501310","1850","Wisconsin","550","Washington","1310","Washington",9
+"G5501330","1850","Wisconsin","550","Waukesha","1330","Waukesha",13
+"G5501390","1850","Wisconsin","550","Winnebago","1390","Winnebago",8
