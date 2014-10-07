@@ -200,3 +200,38 @@ plot(sp_simplified)
 Especially when fortifying shapefiles to use them with ggplot2, as explained in the [chapter on mapping](mapping.html), a simplified shapefile make complain about missing holes or rings. This is usually a sign that you have simplified the shapefile too much and lost some essential information. You should resimplify the original shapefile keeping more of the information. This usually requires some trial and error.
 
 It is possible to use the R wrappers around GDAL/OGR to simplify shapefiles, but I do not recommend that you use them. Mapshaper is a far superior implementation.
+
+## A Makefile for reprojecting a simplifying shapefiles
+
+The following Makefile will take a directory full of shapefiles, convert them to EPSG:4326 and simplify them to a user-specified percentage. This Makefile can be run in parallel to convert many shapefiles at the same time. (For an explanation of Make, see the chapter on [reproducible research](reproducible.html).) The Makefile assumes that within the project directory, the original shapefiles are stored in the `shp/` directory, and that the final shapefiles will be created in the `shp_out/` directory.
+
+```
+# A Makefile to re-project and simplify shapefiles.
+
+SIMPLIFY_PERCENTAGE := 2.5
+REPROJECTION_CODE   := EPSG:4326
+
+SIMPLIFIED  := $(patsubst shp/%.shp, shp_out/%.shp, $(wildcard shp/*.shp))
+REPROJECTED := $(patsubst shp/%.shp, temp/%.shp, $(wildcard shp/*.shp))
+
+all : $(SIMPLIFIED)
+.SECONDARY : $(REPROJECTED)
+
+shp_out/%.shp : temp/%.shp
+  @echo "Simplifying $*"
+	mkdir -p shp_out
+	mapshaper $^ auto-snap -simplify $(SIMPLIFY_PERCENTAGE)% -o force $@
+
+temp/%.shp : shp/%.shp
+	@echo "Reprojecting $*"
+	mkdir -p temp
+	ogr2ogr -t_srs $(REPROJECTION_CODE) $@ $^
+
+clean :
+	rm -f temp/*
+
+clobber : clean
+	rm -f shp_out/*
+```
+
+You can modify the options at the top of the file as necessary. Running the command `make all` will re-project and simplify all the shapefiles. You can run this task in parallel with the command `make all -j 8`, where the number is the number of parallel processes that you want. The command `make clobber` will remove all output files.
