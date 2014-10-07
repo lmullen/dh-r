@@ -53,7 +53,7 @@ You can install all of these with the following command.
 
 ```{r eval=FALSE}
 install.packages(c("sp", "rgdal", "rgeos", "maptools",
-                   "ggmap", "ggplot2"),
+                   "ggmap", "ggplot2", "RColorBrewer", "classInt"),
                  dependencies = TRUE)
 ```
 
