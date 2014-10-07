@@ -4,6 +4,10 @@ layout: default
 output: bookdown::html_chapter
 ---
 
+```{r,echo=FALSE}
+source("general-options.r")
+```
+
 # Working with Shapefiles
 
 There are several formats in which geographic data (especially data for boundaries) might come, but the most common format in the [shapefile](http://en.wikipedia.org/wiki/Shapefile). The format of shapefiles is controlled by Esri, a corporation that makes ArcGIS. The format, however, is widely used. Shapefiles can contain coordinates in latitude and longitude, but they can also contain projected coordinates in some other coordinate reference system which translates the coordinates on a three-dimensional globe to coordinates on a two-dimensional representation. For example, the coordinates of New Haven, Connecticut, in latitude and longitude are `41.3100° N, 72.9236° W`. In the popular coordinate reference system used by Google Maps and most other web mapping services, called Google Mercator, those coordinates would be represented as `-8117860.8230976425 5058258.564581587` (notice that longitude comes first, then latitude, and that the unit of measurement is not degrees but meters). While R can handle converting between coordinate reference systems using the [rgdal](http://cran.rstudio.org/web/packages/rgdal/) package, it is often easier to handle the conversion outside of R. Furthermore, shapefiles can often be enormous---in the hundreds of megabytes---because they contain much more detail about borders or coastlines than will appear in a an actual map. Simplifying these shapefiles is often a task better done outside of R, though many of the tasks can be done inside R as well. This chapter will explain how to reproject and simplify shapefiles gathered from the NHGIS website for use with [ggplot2](http://cran.rstudio.org/web/packages/ggplot2/). This pattern should be generalizable for most shapefiles.
@@ -168,4 +172,31 @@ proj4string(sp_epsg4326)
 
 If we wished, we could then save the reprojected shapefile to disk using `writeOGR()` function.
 
+## Simplifying shapefiles
 
+The real problem with using these shapefiles in R is their size. The 1850 counties shapefile is about 55 MB. While that is not extremely large in terms of disk space, it is very large in terms of the complexity of the shapes that it represents. The shapefile is a vector format, meaning it is a mathematical description of the curves involved rather than a pixel by pixel grid as in a photograph. That means that the file is very space efficient. Consider the needlessly complex, fractal-like level of detail in the coastline of the Chesapeake Bay as contained in this shapefile. (The square in the lower left is the District of Columbia.) 
+
+![The Chesapeake in an unsimplified shapefile](screenshots/chesapeake.png)
+
+At almost any size map that we make, that level of detail will be invisible to the user. But it comes at a heavy cost in terms of processing. A plot of the shapefile using the base R function `plot()` will take several minutes on even a fast computer; it will probably never plot at all in ggplot2. It is possible to use various algorithms such as the Douglas-Peucker or Visvalingam algorithm (admirably [explained](http://bost.ocks.org/mike/simplify/) by Mike Bostock) to simplify those lines and remove unnecessary polygons, such as small islands.
+
+The [MapShaper](http://www.mapshaper.org/) website will let you upload a shapefile (or GeoJSON or TopoJSON file) and perform such simplification interactively. Keeping only 2% of the information in the file, we can create a much simpler geometry without losing any information that will be visible the user. This will make working the shapefile in R much faster.
+
+![Mapshaper](screenshots/mapshaper.png)
+
+For simplifying shapefiles one at a time, the mapshaper website is often sufficient. But whenever you have more than one shapefile to simplify or wish to make your work reproducible, it is better to use the mapshaper command line tool. (See the chapter on [reproducible research](reproducible.html).) We will use that command on our shapefile that we reprojected to EPSG:4326. The command takes an input file, a percentage by which to simplify the file, and an output file. It is often good to use the `auto-snap` option, which aligns the points to a grid to make sure that polygons continue to overlap with one another. The `-force` flag tells mapshaper to overwrite the output file if it already exists.^[See the other options at the [mapshaper wiki](https://github.com/mbloch/mapshaper/wiki).]
+
+```
+mapshaper US_county_1850_epsg4326.shp auto-snap -simplify 2.5% -o force US_county_1850_simplified.shp
+```
+
+The resulting file is much smaller, about 1.8 megabytes instead of 52 megabytes. We can now plot it quite easily after loading in the new shapefile.
+
+```{r plot-simplified-shapefile}
+sp_simplified <- readOGR("data/county-shapefile", "US_county_1850_simplified")
+plot(sp_simplified)
+```
+
+Especially when fortifying shapefiles to use them with ggplot2, as explained in the [chapter on mapping](mapping.html), a simplified shapefile make complain about missing holes or rings. This is usually a sign that you have simplified the shapefile too much and lost some essential information. You should resimplify the original shapefile keeping more of the information. This usually requires some trial and error.
+
+It is possible to use the R wrappers around GDAL/OGR to simplify shapefiles, but I do not recommend that you use them. Mapshaper is a far superior implementation.
