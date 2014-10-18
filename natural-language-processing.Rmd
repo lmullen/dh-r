@@ -4,7 +4,19 @@ layout: default
 output: bookdown::html_chapter
 ---
 
+```{r,echo=FALSE}
+source("general-options.r")
+```
+
 # Natural Language Processing
+
+Natural language processing (NLP) is a set of techniques for using computers to detect in human language the kinds of things that humans detect automatically. For example, when you read a text, you parse a text out into paragraphs and sentences. You do not explicitly label the parts of speech, but you certainly understand them. You notice names of people and places as they come up. And you can tell whether a sentence or paragraph is happy or angry or sad. 
+
+This kind of analysis is difficult in any programming language, not least because human language can be so rich and subtle that computer languages cannot capture anywhere near the total amount of information "encoded" in it. But when it comes to natural language processing, R programmers have reason to envy Python programmers. The [Natural Langauge Toolkit](http://www.nltk.org/) (NLTK) for Python is a robust library and set of corpuses, and the accompanying book *[Natural Language Processing with Python](http://www.nltk.org/book/)* is an excellent guide to the practice of NLP.^[Steven Bird, Ewan Klein, and Edward Loper, *Natural Language Processing with Python* (Cambridge, MA: O'Reilly, 2009), <http://www.nltk.org/book/>.] As explained in the [introduction](introduction.html), R and Python are close competitors in many kinds of data analysis and digital history, but if you were going to do only NLP then the NLTK would be a clear winner.
+
+Nevertheless, R does have good libraries for natural language processing. Because R is able to interface with other languages like C, C++, and Java, it is possible to use libraries written in those lower-level and hence faster languages, while writing your code in R and taking advantage of its functional programming style and its many other libraries for data analysis.^[Because the NLTK is written in Python it can be quite slow. R is not exactly a speed-demon either, but because most of the NLP libraries that it uses are written in Java, they are least have the potential to match or better NLTK's performance.] Indeed most of the techniques that are of most use for historians, such as word and sentence tokenization, n-gram creation, and named entity recogniztion are easily peformed in R.^[Natural language processing includes an large number of tasks: the [Wikipedia article on NLP](http://en.wikipedia.org/wiki/Natural_language_processing) lists more than thirty kinds of NLP, though these classifications are arbitrary. Many of these are not often essential to digital historians---for example, text to speech, part-of-speech tagging, and natural language question answering---or perhaps we should say, that they are insufficiently developed to be useful to historians yet. This chapter focuses on a few concete tasks with ready applications to history.]
+
+After explaining how to install the necessary libraries, this chapter will use a sample paragraph to demonstrate a few key techniques. First, we will tokenize the paragraph into words, sentences, and n-grams. (The n-grams will be used in the chapter on [document similarity](document-similarity.html).) Next we will extract the names of people and places from the document. Finally we will use those techniques on the journals or autobiographies of three itinerant preachers from the nineteenth-century United States to see which people they mention in common and which places they visited.
 
 ```{r}
 library(rJava)
