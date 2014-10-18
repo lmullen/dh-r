@@ -1,0 +1,13 @@
+---
+title: "Natural Language Processing"
+layout: default
+output: bookdown::html_chapter
+---
+
+# Natural Language Processing
+
+```{r}
+library(rJava)
+library(NLP)
+library(openNLP)
+```
