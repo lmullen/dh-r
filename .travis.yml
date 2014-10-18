@@ -1,11 +1,12 @@
 language: c
 before_install:
 - sudo apt-get update
-- sudo apt-get install gdal-bin libgdal-dev libproj-dev libgdal1-dev libgdal1h
 - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
 - chmod 755 ./travis-tool.sh
 - "./travis-tool.sh bootstrap"
 install:
+- sudo apt-get install gdal-bin libgdal-dev libproj-dev libgdal1-dev libgdal1h
+- sudo apt-get install r-cran-rjava
 - export PATH="$HOME/pandoc:$PATH"
 - mkdir $HOME/pandoc
 - curl -O https://s3.amazonaws.com/rstudio-buildtools/pandoc-1.12.3.zip
@@ -14,7 +15,7 @@ install:
 - pandoc --version
 - travis_retry gem install jekyll mime-types
 - "./travis-tool.sh r_binary_install rjsonio knitr png testthat"
-- "./travis-tool.sh r_install        lubridate pryr nycflights13 microbenchmark stringi babynames stringr ggplot2 ggvis httr tidyr rgdal sp rgeos maptools ggmap classInt RColorBrewer rJava NLP openNLP dplyr"
+- "./travis-tool.sh r_install        lubridate pryr nycflights13 microbenchmark stringi babynames stringr ggplot2 ggvis httr tidyr rgdal sp rgeos maptools ggmap classInt RColorBrewer NLP openNLP dplyr"
 - "./travis-tool.sh github_package   rstudio/rmarkdown hadley/bookdown hadley/devtools lmullen/gender-data-pkg ropensci/historydata lmullen/mullenMisc"
 - mkdir ~/.R
 - cp Makevars ~/.R
