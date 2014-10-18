@@ -15,7 +15,7 @@ install:
 - travis_retry gem install jekyll mime-types
 - "./travis-tool.sh r_binary_install rjsonio knitr png testthat"
 - "./travis-tool.sh r_install        lubridate pryr nycflights13 microbenchmark stringi babynames stringr ggplot2 ggvis httr tidyr rgdal sp rgeos maptools ggmap classInt RColorBrewer rJava NLP openNLP dplyr"
-- "./travis-tool.sh github_package   rstudio/rmarkdown hadley/bookdown hadley/devtools lmullen/gender-data-pkg lmullen/historydata lmullen/mullenMisc"
+- "./travis-tool.sh github_package   rstudio/rmarkdown hadley/bookdown hadley/devtools lmullen/gender-data-pkg ropensci/historydata lmullen/mullenMisc"
 - mkdir ~/.R
 - cp Makevars ~/.R
 script: jekyll build
