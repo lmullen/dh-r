@@ -16,10 +16,174 @@ This kind of analysis is difficult in any programming language, not least becaus
 
 Nevertheless, R does have good libraries for natural language processing. Because R is able to interface with other languages like C, C++, and Java, it is possible to use libraries written in those lower-level and hence faster languages, while writing your code in R and taking advantage of its functional programming style and its many other libraries for data analysis.^[Because the NLTK is written in Python it can be quite slow. R is not exactly a speed-demon either, but because most of the NLP libraries that it uses are written in Java, they are least have the potential to match or better NLTK's performance.] Indeed most of the techniques that are of most use for historians, such as word and sentence tokenization, n-gram creation, and named entity recogniztion are easily peformed in R.^[Natural language processing includes an large number of tasks: the [Wikipedia article on NLP](http://en.wikipedia.org/wiki/Natural_language_processing) lists more than thirty kinds of NLP, though these classifications are arbitrary. Many of these are not often essential to digital historians---for example, text to speech, part-of-speech tagging, and natural language question answering---or perhaps we should say, that they are insufficiently developed to be useful to historians yet. This chapter focuses on a few concete tasks with ready applications to history.]
 
-After explaining how to install the necessary libraries, this chapter will use a sample paragraph to demonstrate a few key techniques. First, we will tokenize the paragraph into words, sentences, and n-grams. (The n-grams will be used in the chapter on [document similarity](document-similarity.html).) Next we will extract the names of people and places from the document. Finally we will use those techniques on the journals or autobiographies of three itinerant preachers from the nineteenth-century United States to see which people they mention in common and which places they visited.
+After explaining how to install the necessary libraries, this chapter will use a sample paragraph to demonstrate a few key techniques. First, we will tokenize the paragraph into words, sentences, and n-grams. (The n-grams will be used in the chapter on [document similarity](document-similarity.html).) Next we will extract the names of people and places from the document. Finally we will use those techniques on the journals or autobiographies of three itinerant preachers from the nineteenth-century United States to see which people they mention in common and which places they visited. For other kinds of text-analysis problems, see the chapters on [document similarity](document-similarity.html) and on [topic modeling](topic-modeling.html).
+
+## Installing the necessary libraries
+
+There are several R packages which make natural langauge processing possible in R. The [NLP](http://cran.rstudio.org/web/packages/NLP/) package provides a set of classes and functions for NLP which are used widely by other packages in R. The [openNLP](http://cran.rstudio.org/web/packages/openNLP/) package provides an interface to the [Apache OpenNLP library](https://opennlp.apache.org/), which is written in Java. [RWeka](http://cran.rstudio.org/web/packages/RWeka/) provides an R interface to the [Weka data mining software](http://www.cs.waikato.ac.nz/ml/weka/), also written in Java. RWeka is especially useful for creating ngrams. You may wish to investigate the [qdap](http://cran.rstudio.org/web/packages/qdap/) package, which contains many functions for qualitative discourse analysis. You can see other possibly useful packages at the [CRAN task view on natural language processing](http://cran.rstudio.com/web/views/NaturalLanguageProcessing.html).^[The [NLP](http://cran.rstudio.org/web/packages/NLP/) package also supports the [Stanford CoreNLP](http://nlp.stanford.edu/software/corenlp.shtml) suite of tools written in Java. We will use openNLP instead in this chapter. But if you wish to install Stanford CoreNLP, you can install it from the DataCube repository: `install.packages("StanfordCoreNLP", repos = "http://datacube.wu.ac.at", type = "source")`.]
+
+Both openNLP and RWeka depend on the [rJava](http://cran.rstudio.org/web/packages/rJava/) package, which provides the low-level connection to Java. To install these natural language processing packages, it is important to get a working installation of Java and rJava on your machine. If at all possible, you should use the system version of Java installed by your operating system. You can find out whether you have Java by running `which java` at your terminal. If Java is present, you can check its version by running `java -version`. Otherwise you will have to install the [Java Developer's Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (JDK) to your computer. If you have to install Java, try running `R CMD javareconf` in your terminal (you may need to prefix that command with `sudo`).
+
+On Ubuntu, it is easiest to install rJava from an Ubuntu package using the following command:
+
+```
+apt-get update
+apt-get install r-cran-rjava
+```
+
+Once you have Java on your machine, you can install [rJava](http://cran.rstudio.org/web/packages/rJava/) from CRAN with `install.packages("rJava")`. If the installation of that package is successful and if it can find your version of Java, then you should be able to load the package without any messages. If you receive an error message when you attempt to load rJava, you may need to set path or [environment variables](http://stackoverflow.com/questions/603785/environment-variables-in-mac-os-x).^[Running `R CMD javareconf --help` may provide some guidance.]
 
 ```{r}
 library(rJava)
+```
+
+Once you can successfuly load rJava, then you can install the other packages from CRAN.
+
+```{r, eval=FALSE}
+install.packages(c("NLP", "openNLP", "RWeka", "qdap"))
+```
+
+Note that these NLP packages and the underlying Java libraries depend on large models of human languages. For some uses in English you should not need to download other data or models. But if you want to use a language other than English, or if you want to use entity extraction as below, you can download the openNLP models from a repository (not CRAN but like it) called [Datacube](http://datacube.wu.ac.at/). You can look in the [NLP](http://cran.rstudio.org/web/packages/NLP/) documentation or use the following command to install models, substituting a language code for `en` as appropriate.
+
+```{r eval=FALSE}
+install.packages("openNLPmodels.en",
+                 repos = "http://datacube.wu.ac.at/",
+                 type = "source")
+```
+
+Assuming you have successfully installed everything you should be able to load the following libraries.
+
+```{r}
 library(NLP)
 library(openNLP)
+library(RWeka)
 ```
+
+## Basic Tokenization
+
+To learn some basics of text processing,^[You may also find it helpful to review the chapter on working with [strings](strings.html), or character vectors as they are properly called in R.] we will work with a paragraph from the biography of Jarena Lee, an African American woman born around 1783 who was an exhorter and itinerant in the African Methodist Episcopal Church.^[The paragraph is taken from Lee's biography in *American National Biography Online*, s.v. "Lee, Jarena," by Barbara McCaskill, <http://www.anb.org/articles/16/16-03109.html>.] Later we will work with the full text of Lee's *Religious Experience and Journal of Mrs. Jarena Lee*.
+
+![Jarena Lee](screenshots/lee-jarena.jpg)
+
+We will learn to read the text file into R, to break it into words and sentences, and to turn it into n-grams. These are all called tokenization, because we are breaking up the text into units of meaning, called tokens.
+
+### Reading a text file
+
+There are a number of ways to read a text file into R. In particular the `scan()` function provides many options for reading a file and breaking it into components. But the simplest way to read a plain text file is with the `readLines()` function, which reads each line as a separate character vector.
+
+```{r}
+bio <- readLines("data/nlp/anb-jarena-lee.txt")
+print(bio)
+```
+
+You can see that there are thirteen lines in the file, each contained in a character vector. We can combine all of these character vectors into a single character vector using the `paste()` function, adding a space between each of them.
+
+```{r}
+bio <- paste(bio, collapse = " ")
+print(bio)
+```
+
+### Sentence and Word Annotations
+
+Now that we have the file loaded, we can begin to turn it into words and sentences. This is a prerequisite for any other kind of natural language processing, because those kinds of NLP actions will need to know where the words and sentences are. First we load the necessary libraries.
+
+```{r}
+library(NLP)
+library(openNLP)
+library(magrittr)
+```
+
+For many kinds of text processing it is sufficient, even preferable to use base R classes. But for NLP we are obligated to use the `String` class. We need to convert our bio variable to a string.
+
+```{r}
+bio <- as.String(bio)
+```
+
+Next we need to create annotators for words and sentences. Annotators are created by functions which load the underlying Java libraries. These functions then mark the places in the string where words and sentences start and end. The annotation functions are themselves created by functions.
+
+```{r}
+word_ann <- Maxent_Word_Token_Annotator()
+sent_ann <- Maxent_Sent_Token_Annotator()
+```
+
+These annotators form a "pipeline" for annotating the text in our `bio` variable. First we have to determine where the sentences are, then we can determine where the words are. We can apply these annotator functions to our data using the `annotate()` function.
+
+```{r}
+bio_annotations <- annotate(bio, list(sent_ann, word_ann))
+```
+
+The result is a annotation object. Looking at first few items contained in the object, we can the kind of information contained in the annotations object.
+
+```{r}
+class(bio_annotations)
+head(bio_annotations)
+```
+
+We see that the annotation object contains a list of sentences (and also words) identified by position. That is, the first sentence in the document begins at character 1 and ends at character 111. The sentences also contain information about the positions of the words that comprise them.
+
+We can combine the biography and the annotations to create what the NLP package calls an `AnnotatedPlainTextDocument`. If we wishd we could also associate metadata with the object using the `meta =` argument.
+
+```{r}
+bio_doc <- AnnotatedPlainTextDocument(bio, bio_annotations)
+```
+
+Now we can extract information from our document using accessor functions like `sents()` to get the sentences and `words()` to get the words. We could get just the plain text with `as.character(bio_doc)`.
+
+```{r}
+sents(bio_doc) %>% head(2)
+words(bio_doc) %>% head(10)
+```
+
+This is already useful, since we could use the resulting lists of sentences words to perform other kinds of calculations. But there are other kinds of annotations which are more immediately relevant to historians.
+
+### Annotating people and places
+
+Among the several kinds of annotators provided by the [openNLP](http://cran.rstudio.org/web/packages/openNLP/) package is an entity annotator. An entity is basically a proper noun, such as a person or place name. Using a technique called named entity recognition (NER), we can extract various kinds of names from a document. In English, OpenNLP can find dates, locations, money, organizations, percentages, people, and times. (Acceptable values are `"date", "location", "money", "organization", "percentage", "person", "misc"`.)  We will use it to find people, places, and organizations since all three are mentioned in our sample paragraph.
+
+These kinds of annotator functions are created using the same kinds of constructor functions that we used for `word_ann()` and `sent_ann()`.
+
+```{r}
+person_ann <- Maxent_Entity_Annotator(kind = "person")
+location_ann <- Maxent_Entity_Annotator(kind = "location")
+organization_ann <- Maxent_Entity_Annotator(kind = "organization")
+```
+
+Recall that we earlier passed a list of annotator functions to the `annotate()` function to indicate which kinds of annotations we wanted to make. We will create a new pipeline list to hold our annotators in the order we want to apply them, then apply it to the `bio` variable. Then, as before, we can create an `AnnotatedPlainTextDocument`.
+
+```{r}
+pipeline <- list(sent_ann,
+                 word_ann,
+                 person_ann,
+                 location_ann,
+                 organization_ann)
+bio_annotations <- annotate(bio, pipeline)
+bio_doc <- AnnotatedPlainTextDocument(bio, bio_annotations)
+```
+
+As before we could extract words and sentences using the getter methods `words()` and `sents()`. Unfortunately there is no comparably easy way to extract names entities from documents. But the function below will do the trick.
+
+```{r}
+# Extract entities from an AnnotatedPlainTextDocument
+entities <- function(doc, kind) {
+  s <- doc$content
+  a <- annotations(doc)[[1]]
+  if(hasArg(kind)) {
+    k <- sapply(a$features, `[[`, "kind")
+    s[a[k == kind]]
+  } else {
+    s[a[a$type == "entity"]]
+  }
+}
+```
+
+Now we can extract all of the named entities using `entities(bio_doc)`, and specific kinds of entities using the `kind = ` argument. Let's get all the people, places, and organizations.
+
+```{r}
+entities(bio_doc, kind = "person")
+entities(bio_doc, kind = "location")
+entities(bio_doc, kind = "organization")
+```
+
+Applying our techniques to this paragraph shows both the power and the limitations of NLP. We managed to extract the every person named in the text: Jarena Lee, Richard Allen, and Joseph Lee. But Jarena Lee's six children were not detected. Both New Jersey and Philadelphia were detected, but "Snow Hill, New Jersey" was not, perhaps because "snow" and "hill" fooled the algorithm into thinking they were common nouns. The Bethel African Methodist Episcopal Church was detected, but not the unnamed African American church in Snow Hill; arguably "Methodists" is also an institution.
+
+Of course we would hardly rely on NLP for short texts such as this. NLP is potentially useful when applied to texts of greater length---especially to more texts than we could read ourself. In the next section, we will extend NLP to a small corpus of larger texts.
