@@ -187,3 +187,107 @@ entities(bio_doc, kind = "organization")
 Applying our techniques to this paragraph shows both the power and the limitations of NLP. We managed to extract the every person named in the text: Jarena Lee, Richard Allen, and Joseph Lee. But Jarena Lee's six children were not detected. Both New Jersey and Philadelphia were detected, but "Snow Hill, New Jersey" was not, perhaps because "snow" and "hill" fooled the algorithm into thinking they were common nouns. The Bethel African Methodist Episcopal Church was detected, but not the unnamed African American church in Snow Hill; arguably "Methodists" is also an institution.
 
 Of course we would hardly rely on NLP for short texts such as this. NLP is potentially useful when applied to texts of greater length---especially to more texts than we could read ourself. In the next section, we will extend NLP to a small corpus of larger texts.
+
+## Named Entity Recognition in a small corpus
+
+Now that we know how to extract people and places from a text, we can do the same thing with a small corpus of texts. The code would be identical, or nearly so, for a much larger corpus. For this exercise, we will use three books by itinerant preachers in the nineteenth-century United States:
+
+- Peter Cartwright, *Autobiography of Peter Cartwright, the Backwoods Preacher*, edited by W. P. Strickland (New York, 1857).
+- Jarena Lee, *Religious Experience and Journal of Mrs. Jarena Lee* (Philadelphia, 1849).
+- Parley Parker, *The Autobiography of Parley Parker Pratt* (New York, 1874).
+
+These three people were rough contemporaries. Peter Cartwright (1785--1872) was a Methodist; Jarena Lee (1783--?) was a member of the African Methodist Episcopal Church; Parley Parker Pratt (1807--1857) was a Mormon apostle. Their books have been downloaded and OCRed from Google Books. Because they are mostly autobiographical, the places and people they mention were by and large actually places they went and people they met. Named entity recognition is thus likely to produce a picture closer actual experience instead of the imagined worlds of these people. These texts are by no means perfectly OCRed, but they do represent texts of the quality at which historians often have to work.
+
+Throughout this exercise we will use R's functional programming facilities, especially `lapply()` to perform the same actions on each text. We could possibly copy each and every command for all three texts, change the names of files and variables as necessary. But this would be a recipe for disaster, or more likely, subtle error. By keeping to the programming principle DRY---don't repeat yourself---we can avoid unnecessary complications. Just as important, our code will be extensible not just to 3 documents, but to 300 or 3,000.
+
+Before we start we have to load the necessary libraries.
+
+```{r}
+library(NLP)
+library(openNLP)
+library(magrittr)
+```
+
+Let's begin by finding the paths to each of the files using R's `Sys.glob()` function, which looks for wildcards in file names.
+
+```{r}
+filenames <- Sys.glob("data/itinerants/*.txt")
+filenames
+```
+
+Now we can use `lapply()` to apply the `readLines()` function to each filename. The result will be a list with one item per file. And while we are at it, we can use `paste0()` to combine each line of the files into a single character vector, and `as.String()` to convert them to the format that the NLP packages expect. Finally, we can assign the names of the files to the items in the list.
+
+```{r}
+texts <- filenames %>%
+  lapply(readLines) %>%
+  lapply(paste0, collapse = " ") %>%
+  lapply(as.String)
+
+names(texts) <- basename(filenames)
+
+str(texts, max.level = 1)
+```
+
+Next we need to take the steps we used above to annotate a document and abstract them into a function. This will let us use the function with `lapply()`. It will also permit us to re-use the code in future projects. This function will return an object of class `AnnotatedPlainTextDocument`.
+
+```{r}
+annotate_entities <- function(doc, annotation_pipeline) {
+  annotations <- annotate(doc, annotation_pipeline)
+  AnnotatedPlainTextDocument(doc, annotations)
+}
+```
+
+Now we can define the pipeline of annotation functions that we are interested in. We will use just person and locations:
+
+```{r}
+itinerants_pipeline <- list(
+  Maxent_Sent_Token_Annotator(),
+  Maxent_Word_Token_Annotator(),
+  Maxent_Entity_Annotator(kind = "person"),
+  Maxent_Entity_Annotator(kind = "location")
+)
+```
+
+Now we can call our `annotate_entities()` function on each item in our list. (This function will take a considerable amount of time
+
+```{r, cache=TRUE}
+texts_annotated <- texts %>%
+  lapply(annotate_entities, itinerants_pipeline)
+```
+
+It is now possible to use our `entities()` function defined above to extract the relevant information. We could keep these all in a single list object, but to keep it from being unwieldy, we will create a list of places and of people mentioned in each text.
+
+```{r}
+places <- texts_annotated %>%
+  lapply(entities, kind = "location")
+
+people <- texts_annotated %>%
+  lapply(entities, kind = "person")
+```
+
+A few statistics will give us a sense of what we have managed to extract. We can count up the number of items, as well as the number of unique items for each text.
+
+```{r}
+# Total place mentions 
+places %>%
+  sapply(length)
+
+# Unique places
+places %>%
+  lapply(unique) %>%
+  sapply(length)
+
+# Total mentions of people
+people %>%
+  sapply(length)
+
+# Unique people mentioned
+people %>%
+  lapply(unique) %>%
+  sapply(length)
+```
+
+We could do a lot with this information. We could improve the lists by editing them with our knowledge as historians. In particular, we could geocode the locations and create a map of the world of each itinerant. (See the chapter on [mapping](mapping.html).) We also have created a simple list of the people and places without regard for where they are in the document. But we have the exact location of each person and place in the document, and could use that information for further analysis.
+
+In this next section we'll look at how to use some of R's set functions to figure out the overlap between these three itinerants.
+
