@@ -248,9 +248,16 @@ itinerants_pipeline <- list(
 )
 ```
 
-Now we can call our `annotate_entities()` function on each item in our list. (This function will take a considerable amount of time
+Now we can call our `annotate_entities()` function on each item in our list. (This function will take a considerable amount of time: a little more than a half hour on my computer.)
 
-```{r, cache=TRUE}
+
+```{r, echo=TRUE}
+# We won't actually run this long-running process. Instead we will just load the
+# cached results.
+load("data/nlp-cache.rda")
+```
+
+```{r, cache=TRUE, eval=FALSE}
 texts_annotated <- texts %>%
   lapply(annotate_entities, itinerants_pipeline)
 ```

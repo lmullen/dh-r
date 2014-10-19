@@ -6,3 +6,5 @@ temp.Rmd
 figures/
 out/
 data/nhgis-employment
+_cache/
+natural-language-processing_cache/
