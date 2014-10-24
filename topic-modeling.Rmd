@@ -6,3 +6,76 @@ output: bookdown::html_chapter
 
 # Topic Modeling
 
+Install mallet, a smaller version of the MALLET library: `install.packages("mallet")`
+
+```{r}
+library(mallet)
+library(tm)
+library(dplyr)
+```
+
+Read in Tracts for the Times:
+
+```{r}
+tracts <- mallet.read.dir("data/tracts-for-the-times/")
+```
+
+Create stopwords:
+
+```{r}
+stops <- stopwords("english")
+stops_file <- file("data/stopwords.txt")
+writeLines(stops, stops_file)
+close(stops_file)
+```
+
+Create mallet instances
+
+```{r}
+inst <- mallet.import(tracts$id, tracts$text, "data/stopwords.txt")
+```
+
+Create a topic modeler and load docs
+
+```{r}
+topic_model <- MalletLDA(30)
+topic_model$loadDocuments(inst)
+```
+
+What do we have?
+
+```{r}
+# topic_model$getVocabulary()[1:100]
+# topic_model$getDocumentNames()
+freq <- mallet.word.freqs(topic_model)
+freq %>%
+  arrange(-term.freq) %>%
+  top_n(20)
+
+freq %>%
+  arrange(-doc.freq) %>%
+  top_n(20)
+```
+
+Now to do the topic generation
+
+```{r}
+topic_model$train(500)
+doc_topics <- mallet.doc.topics(topic_model, smoothed=T, normalized=T)
+topic_words <- mallet.topic.words(topic_model, smoothed=T, normalized=T)
+topic_docs <- t(doc_topics)
+mallet.top.words(topic_model, topic_words[4,], num.top.words = 20)
+topics <- mallet.topic.labels(topic_model, topic_words, num.top.words = 100)
+
+topic_docs <- topic_docs %>%
+  as.data.frame() 
+
+names(topic_docs) <- tracts$id
+clust <- hclust(dist(topic_words))
+plot(clust)
+```
+
+
+
+
+

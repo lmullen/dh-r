@@ -296,5 +296,11 @@ people %>%
 
 We could do a lot with this information. We could improve the lists by editing them with our knowledge as historians. In particular, we could geocode the locations and create a map of the world of each itinerant. (See the chapter on [mapping](mapping.html).) We also have created a simple list of the people and places without regard for where they are in the document. But we have the exact location of each person and place in the document, and could use that information for further analysis.
 
-In this next section we'll look at how to use some of R's set functions to figure out the overlap between these three itinerants.
+```{r}
+library(ggmap)
+all_places <- union(places[["pratt-parley.txt"]], places[["cartwright-peter.txt"]]) %>% union(places[["lee-jarena.txt"]])
+# all_places_geocoded <- geocode(all_places)
+```
 
+
+In this next section we'll look at how to use some of R's set functions to figure out the overlap between these three itinerants.
