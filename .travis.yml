@@ -5,7 +5,7 @@ before_install:
 - chmod 755 ./travis-tool.sh
 - "./travis-tool.sh bootstrap"
 install:
-- sudo apt-get -f install libhdf5-dev libproj-dev libgdal1-dev
+- sudo apt-get install libproj-dev libgdal-dev
 - sudo apt-get install r-cran-rjava
 - export PATH="$HOME/pandoc:$PATH"
 - mkdir $HOME/pandoc
