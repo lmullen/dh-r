@@ -3,7 +3,7 @@ before_install:
 - sudo apt-get update
 - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
 - chmod 755 ./travis-tool.sh
-- ./travis-tool.sh install_aptget libgdal1-dev libproj-dev
+- ./travis-tool.sh install_aptget libgdal-dev libproj-dev
 - "./travis-tool.sh bootstrap"
 install:
 - sudo apt-get install r-cran-rjava
