@@ -45,7 +45,7 @@ install.packages(c("NLP", "openNLP", "RWeka", "qdap"))
 
 Note that these NLP packages and the underlying Java libraries depend on large models of human languages. For some uses in English you should not need to download other data or models. But if you want to use a language other than English, or if you want to use entity extraction as below, you can download the openNLP models from a repository (not CRAN but like it) called [Datacube](http://datacube.wu.ac.at/). You can look in the [NLP](http://cran.rstudio.org/web/packages/NLP/) documentation or use the following command to install models, substituting a language code for `en` as appropriate.
 
-```{r eval=FALSE}
+```{r eval=TRUE}
 install.packages("openNLPmodels.en",
                  repos = "http://datacube.wu.ac.at/",
                  type = "source")
