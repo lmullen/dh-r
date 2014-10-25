@@ -6,6 +6,34 @@ output: bookdown::html_chapter
 
 # Networks
 
+Definitions. A vertex is a point on a network, a node. While an edge is the connection between the point. 
+
+The field of mathematics that we are dealing with is called graph theory. 
+
+There are several packages which will allow you to perform network analysis. These include the [network](http://cran.rstudio.org/web/packages/network/) package, the [sna](http://cran.rstudio.org/web/packages/sna/) (social network analysis) package, and the [igraph](http://cran.rstudio.org/web/packages/igraph/) package. We are going to prefer the igraph package since it is the most feature rich and since it is based on a [C library](http://igraph.org/) by the same name. After installing these packages you can load them:
+
+```{r}
+library(igraph)
+g <- graph.formula(1-2, 1-3, 2-3, 2-4, 3-5, 4-5, 4-6, 4-7, 5-6, 6-7)
+plot(g)
+
+g2 <- graph.formula(1-+2, 1-+3, 2+-3, 2--4, 3-+5, 4+-5, 4-+6, 4+-7, 5-+6, 6+-7)
+plot(g2)
+
+g3 <- graph.formula(Sam-+Mary, Sam-+Tom, Mary++Tom)
+V(g3)$gender <- c("M","F","M")
+V(g3)$color <- "red"
+g3$name <- "My test graph"
+plot(g3)
+```
+
+Bipartite graphs
+
+Lastly, a bipartite graph is a graph G = (V,E) such that the vertex set V may be partitioned into two disjoint sets, say V1 and V2, and each edge in E has one endpoint in V1 and the other in V2. 
+
+
+If you want to save a graph object to disk, you can do so with `write.graph()`. To oepn data from other formas, try `read.graph()`, which probably has a function for the data that you want.
+
 ## Next steps
 
 Further reading:
@@ -16,3 +44,4 @@ Further reading:
 
 - Mark Newman, *Networks: An Introduction* (Oxford University Press, 2010).
 
+- Networks, Graphs, and Trees book on literary studies.
