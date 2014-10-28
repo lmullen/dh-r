@@ -4,13 +4,85 @@ layout: default
 output: bookdown::html_chapter
 ---
 
+```{r,echo=FALSE}
+source("general-options.r")
+```
+
 # Networks
 
-Definitions. A vertex is a point on a network, a node. While an edge is the connection between the point. 
+Network analysis, like spatial analysis or text analysis, is one of the major types of digital history work that you might want to perform. A network is simply a representation of the relationships between objects: people, places, events, etc. The objects we call vertices; the relationships between them we call edges. Take the following (randomly generated) example. The nine vertices are represented by blue dots. The ten relationships are represented by light gray lines.
 
-The field of mathematics that we are dealing with is called graph theory. 
+```{r echo=FALSE}
+set.seed(17741)
+library(igraph)
+library(magrittr)
+random_graph <- erdos.renyi.game(9, 0.32) 
+plot(random_graph)
+title("A Sample Network")
+```
 
-There are several packages which will allow you to perform network analysis. These include the [network](http://cran.rstudio.org/web/packages/network/) package, the [sna](http://cran.rstudio.org/web/packages/sna/) (social network analysis) package, and the [igraph](http://cran.rstudio.org/web/packages/igraph/) package. We are going to prefer the igraph package since it is the most feature rich and since it is based on a [C library](http://igraph.org/) by the same name. After installing these packages you can load them:
+Leaving aside for a moment our knowledge that the graph is randomly generated, what might this kind of a network mean? The vertices (blue dots) could represent people, and the edges (gray lines) could indicate kinship, or shared membership in an organization, or friendships on Facebook, or correspondence. Or the vertices could represent organizations, and their relationships could be funding, or political ties. Or perhaps the vertices are texts, and the edges indicate shared text, or ownership. Virtually anything, that is, could be signified by this plot of the network, just as the lines in a bar chart could represent virtually any quantity. 
+
+Therein lies the problem. If virtually any relationship can be represented in a network, then a network plot might just as easily mean nothing as it means anything. This might seem overly pessimistic, given how readily most people accept bar charts and other quantitative visualization. But it is really a question of literacy and convention that distinguishes network analysis from quantitative visualization. We have had several centuries to get used to "reading" the conventions of bar charts, and it is all too easy even there to violate best practices or inculcate false understandings. With network analysis, which is based on very old mathematics but is nevertheless a relatively new form of visualization, there is much greater possibility of creating meaningless visualizations which relate objects to one another without any genuine or meaningful relationship.
+
+Then too, networks are easy to plug in to [Gephi](http://gephi.github.io/) or some other GUI tool, but they can be very difficult to visualize well. It is fairly easy to notice some groups in the plot above. Vertices 3, 5, 9, and 2, form one group, connected to another group of 7, 8, 1, and 4; vertex 6 stands alone. We might, for example, just as easily and as justifiably have laid the nodes out in a circle.
+
+```{r echo=FALSE}
+plot(random_graph, layout = layout.circle)
+title("The Same Network, Laid Out in a Circle")
+```
+
+A change in the parameters for laying out the network, and it is far more difficult to interpret the plot. This problem becomes all the more acute when we have a network with a non-trival number of vertices. Here are plots of networks with ten, one hundred, and five hundred vertices each. 
+
+```{r echo=FALSE}
+erdos.renyi.game(10, 0.10) %>%
+  plot(layout = layout.fruchterman.reingold)
+  title("Ten vertices")
+erdos.renyi.game(100, 0.10) %>%
+  plot(layout = layout.fruchterman.reingold)
+  title("One hundred vertices")
+erdos.renyi.game(500, 0.10) %>%
+  plot(layout = layout.fruchterman.reingold)
+  title("Five hundred vertices")
+```
+
+At even 500 vertices, which is still not that many, the graph collapses under its own weight. 
+
+Finally there is the worst of all network visualizations, created with both inadequate data and inadequate theorization. A scholar will find a collection of correspondence in an archive or collected works (worse yet, the *selected* works). The scholar will then make a plot of the correspondence "network" showing letters (edges = gray lines) between people (vertices = blue dots).
+
+```{r echo=FALSE}
+graph.formula(1-+2, 1++3, 1+-4, 1-+5, 1+-6, 1++7, 1-+8) %>%
+  plot()
+title("What's wrong with this picture?")
+```
+
+This network is true enough: person 1, whose collected works we have, did send letters to people 2 through 8, and they to him or her. But the network is meaningless because, upon a moment's reflection, one realizes that a collection of correspondence gathered for an individual will *by definition* take this shape: it only collects letters to or from a single person. To make a meaningful network, one would need not just the correspondence of person 1, but of people 2 through 8, and of all the people they correspondend with to boot. It is still all too common to see naive visualizations.
+
+But less these cautions be taken as too pessimistic, we will emphasize the flip side of the coin in the remainder of the chapter. Because network visualizations can show the relationships between any kinds of objects or people or institutions, they are extraordinarily powerful for historical work. For them to be useful, however, you must do two things. First, you must keep your wits as a historian about you, and ask good historical questions that can be investigated with good historical data. This principle is of course true of any kind of historical work, but it has been too often misplaced when using networks for history. Second, you must understand to some extent the mathematics behind networks. Networks are a part of the study of [graph theory](http://en.wikipedia.org/wiki/Graph_theory), a subfield within mathematics. You need not become an expert in graph theory, of course, though the more you work with networks the more it will become useful to you. (See the references for suggested reading about networks in general.) But you will have to pick up the terminology from graph theory and an understanding of what it means. You have already learned two terms: *vertex* and *edge*. You will learn several others in the course of this chapter. This terminology is necessary because frequently the best way to study a network is to extract meaningful subnetworks (which can be more easily visualized) or to compute summary statistics on the network.
+
+This chapter, then, will introduce you to the basics of data which can be used for network analysis. Then it will show you how to plot that network in a variety of layouts. Next it will introduce a special type of graph: the bipartite graph. Finally, it will demonstrate a few basic ways to analyze graphs using the methods of graph theory; these including deriving implied relationships and making predictions.
+
+## R packages for networks
+
+There are several packages which will allow you to perform network analysis. These include the [network](http://cran.rstudio.org/web/packages/network/) package, the [sna](http://cran.rstudio.org/web/packages/sna/) (social network analysis) package, and the [igraph](http://cran.rstudio.org/web/packages/igraph/) package. We are going to prefer the igraph package since it is the most feature rich and since it is based on a [C library](http://igraph.org/) by the same name. However it is worth being aware of the other packages. Since problems for graphs or networks fall into common patterns, it may be that one of the other packages implements a solution which will be easier for you to use without reinventing the wheel.
+
+The [historydata](http://github.com/ropensci/historydata) package contains several data sets suitable for network analysis. The `tudors` data set contains spousal and parent/child relationships for selected members of the Tudor dynasty. Since human relationships are familiar, this dataset is useful for experimenting with and checking our results. Also included is the `judges_people` and `judges_appointments` tables which provide a much larger dataset of networks between people and courts within the federal judiciary.
+
+## Structure of network data
+
+```{r}
+library(igraph)
+library(historydata)
+tudors_g <- graph.data.frame(tudors, directed = FALSE)
+plot(tudors_g, layout = layout.reingold.tilford)
+plot(tudors_g, layout = layout.star)
+
+V(tudors_g)
+E(tudors_g)
+```
+
+
+## Plotting network graphs
 
 ```{r}
 library(igraph)
@@ -29,10 +101,22 @@ plot(g3)
 
 Bipartite graphs
 
-Lastly, a bipartite graph is a graph G = (V,E) such that the vertex set V may be partitioned into two disjoint sets, say V1 and V2, and each edge in E has one endpoint in V1 and the other in V2. 
+"Lastly, a bipartite graph is a graph G = (V,E) such that the vertex set V may be partitioned into two disjoint sets, say V1 and V2, and each edge in E has one endpoint in V1 and the other in V2." (26)
+
+We are usually interested in the connections that run through the movies. `bipartite.projection()`
 
 
 If you want to save a graph object to disk, you can do so with `write.graph()`. To oepn data from other formas, try `read.graph()`, which probably has a function for the data that you want.
+
+```{r}
+# library(stringr)
+# V(temp)[str_detect(V(temp), "\\d+")]$type <- "person"
+
+```
+
+## Single network analysis
+
+## Bipartite network analysis
 
 ## Next steps
 
