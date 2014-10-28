@@ -417,6 +417,7 @@ membership(courts_com)[1:3]
 
 [D3.js](http://d3js.org/) is a very powerful library for data visualization in JavaScript. D3 is often used for network analysis. It is complex to learn and use, however. The [d3Network](http://cran.rstudio.org/web/packages/d3Network/) package for R will let you take R objects and conver them to d3 network plots. The use of this package is beyond the scope of this book, but I will demonstrate one way that you can use the package to create an embedded, interactive visualization.
 
+
 ```{r d3-network, results='asis'}
 library(d3Network)
 courts_network_df <- courts %>%
@@ -424,10 +425,11 @@ courts_network_df <- courts %>%
   as.data.frame
 
 d3SimpleNetwork(courts_network_df, standAlone = FALSE,
-                parentElement = ".container",
+                parentElement = "#d3network",
                 width = 750, height = 900)
 ```
 
+<div id="d3network"></div>
 
 ## Next steps
 
