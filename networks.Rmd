@@ -404,14 +404,44 @@ This new plot is a big improvement, though of course it could be improved fruthe
 
 ## Statistical summaries of network graphs
 
+There are many things that one can do to statistically analyze network graphs. But we will focus on two of them: measures of centrality, and community detection.
+
+### Measures of centrality
+
 ### Community detection
 
-One option for community detection is the `optimal.community()` function. This function looks for the best community over every possible way of grouping the vertices. The length of time to run the algorithm thus grows exponentially with the number of vertices, so the functions documentation recommends that you use caution for graphs with more than fifty vertices. We won't try it for our `courts` graph which is too large, but you can see the function's documentation for details on how to use it.
+One major thing you might want to do with a network graph is to identify its subgraphs. For example, in a network of people, you might wish to identify the communities that those people have formed. There are many algorithms for identifying communities; which algorithm is most suitable for your purpose will depend on your data. You should try several different algorithms to see which gives the most historically sensible results. The basic workflow within [igraph](http://cran.rstudio.org/web/packages/igraph/) is more or less the same regardless of which algorithm you use. These algorithms are all named in the pattern `*.community()`. We will try several of these algorithms.
 
 ```{r}
-courts_com <- fastgreedy.community(courts)
-membership(courts_com)[1:3]
+comm <- fastgreedy.community(courts)
+membership(comm)[1:3]
 ```
+
+One other option for community detection is the `optimal.community()` function. This function looks for the best community over every possible way of grouping the vertices. The length of time to run the algorithm thus grows exponentially with the number of vertices, so the functions documentation recommends that you use caution for graphs with more than fifty vertices. We won't try it for our `courts` graph which is too large, but you can see the function's documentation for details on how to use it.
+
+degree
+betweenness
+closeness
+evcent
+page.rank
+
+modularity
+membership
+fc  <- fastgreedy.community(karate)
+memb <- membership(fc)
+plot(karate, vertex.color = memb)
+plot(fc, karate)
+edge.betweenness.community
+fastgreedy.community
+leading.eigenvector.community
+spinglass.community
+walktrap.community
+label.propogation.community
+clique.community(k=4)
+
+## Plotting Options
+
+There are many options you may wish to change when plotting network graphs. You can find all of these options by reading the relevant manual page: `?igraph.plotting`.
 
 ## Integration with D3.js
 
@@ -424,12 +454,8 @@ courts_network_df <- courts %>%
   get.edgelist() %>%
   as.data.frame
 
-d3SimpleNetwork(courts_network_df, standAlone = FALSE,
-                parentElement = "#d3network",
-                width = 750, height = 900)
+d3SimpleNetwork(courts_network_df, iframe = TRUE, width = 750, height = 900)
 ```
-
-<div id="d3network"></div>
 
 ## Next steps
 
