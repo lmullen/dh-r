@@ -86,7 +86,7 @@ sample_data <- data_frame(node_1 = c("A", "B", "C"),
 sample_data
 ```
 
-This data represents the edges (that is, the connections) but by implication it also represents the nodes, since they are also listed in the data. Using the [igraph](http://cran.rstudio.org/web/packages/igraph/) package, we can turn this data frame into a graph (or network).
+This data represents the edges (that is, the connections) but by implication it also represents the nodes, since they are also listed in the data. Using the [igraph](http://cran.rstudio.org/web/packages/igraph/) package, we can turn this data frame into a graph (or network).^[If you want to save a graph object to disk, you can do so with `write.graph()`. To open data from other formats, try `read.graph()`, which probably has a function for the data that you want.]
 
 ```{r}
 sample_graph <- graph.data.frame(sample_data)
@@ -190,15 +190,114 @@ str(tudors_g, e = TRUE, v = TRUE, g = TRUE)
 
 ## Bipartite graphs
 
-"Lastly, a bipartite graph is a graph G = (V,E) such that the vertex set V may be partitioned into two disjoint sets, say V1 and V2, and each edge in E has one endpoint in V1 and the other in V2." (26)
+There is more we can and should do to explore the Tudors graph, but to do so we must get comfortable with exploring and manipulating the underlying structure of the graph. To do so, we will us as an example a particularly important kind of graph: the bipartite graph.
 
-We are usually interested in the connections that run through the movies. `bipartite.projection()`
+To understand bipartite graphs, let's take a historical example.
 
-If you want to save a graph object to disk, you can do so with `write.graph()`. To oepn data from other formas, try `read.graph()`, which probably has a function for the data that you want.
+```{r sample-membership}
+members <- data_frame(person = c("A", "B", "C", "A", "D", 
+                                 "D", "E", "F", "F", "G", "G"),
+                      organization = c("Odd Fellows", "Odd Fellows",
+                                       "Odd Fellows", "Masons", 
+                                       "Masons", "Pythians", "Pythians",
+                                       "Masons", "Odd Fellows", "Masons",
+                                       "Odd Fellows"))
+members
 
-## Single network analysis
+members_g <- graph.data.frame(members, directed = FALSE)
+```
 
-## Bipartite network analysis
+Here we have a network of membership in fraternal organizations. Unlike in our kinship network above, the people are not directly related to one another. Rather they are related to one another through an intermediary, in this case, membership in an organization. We can see the problem when we plot the graph.
+
+```{r sample-membership-plot}
+plot(members_g)
+```
+
+We want to see the connections between people A, B, and C, but instead they are connected through the Odd Fellows. In general, it is often a bad idea to mix two different kinds of vertices in a network. Our network, however, is of a special type called bipartite. The vertices in a bipartite graph can be divided into two sets (with no vertex appearing in both sets). In our case, we have vertices which represent people and which represent fraternal organizations. In a bipartite graph, each edge connects one vertex from the first set to a vertex in the second set. In this case each edge connects a person to an organization. If our graph also included direct connections between people, or between organizations, it would not be bipartite.   ^["Lastly, a bipartite graph is a graph G = (V,E) such that the vertex set V may be partitioned into two disjoint sets, say V1 and V2, and each edge in E has one endpoint in V1 and the other in V2." (26) There can be k-partite graphs; that is graphs which extend this definition to several different sets.] Yet another way to say this is that in our data frame of edges, no vertex can appear in both the first column and the second column.
+
+We happen to know that our membership rolls fits that description. But the igraph package cannot infer on its own that the name of an organization is in a different category than the name of a person. So we must supply that information to our graph object, using the `types` variable inside the vertex objects. In other words, we need to specify who is a person, and what is an organization. 
+
+We can retrieve the list of vertices:
+
+```{r}
+V(members_g)
+```
+
+If we had a separate list of organizations and people, we could use that to create a vector of values. But the [igraph](http://cran.rstudio.org/web/packages/igraph/) package can compute which verticies belong in which set. To do this we use the `bipartite.mapping()` function to separate the vertices into two groups.
+
+```{r}
+bipartite.mapping(members_g)
+```
+
+Note that this solution is not guaranteed to be unique; there may be other solutions which are not what we expect. But in this case it is correct. We can use that value to specify the `types` variable in our graph object.
+
+```{r}
+V(members_g)$type <- bipartite.mapping(members_g)$type
+```
+
+Now we can use the `is.bipartite()` function to test whether the graph is properly bipartite.
+
+```{r}
+is.bipartite(members_g)
+```
+
+Now that we have included the information, we can plot our graph using a new layout which puts the people on one side and the organizations on the other.
+
+```{r bipartite-plot}
+plot(members_g, layout = layout.bipartite)
+title("A bipartite layout of a fraternal network")
+```
+
+This is conceptually an improvement, since we have distinguished between people and organizations. In this plot, there are two kinds of vertices, representing people and organizations, and the edges represent membership.  Still, what we want are the connections between people directly without the intermediary organizations. We can use the function `bipartite.projection()` to break up the vertices into the two separate groups and show just the connections among the people.
+
+```{r bipartite1}
+bipartite <- bipartite.projection(members_g)
+str(bipartite)
+```
+
+Note that our new `bipartite` object contains two network graphs, `proj1` and `proj2`. We can plot the first one.
+
+```{r just-the-people}
+plot(bipartite$proj1)
+title("Just the people in the fraternal organizations")
+```
+
+That is exactly what we wanted. Now we can see directly which people likely knew one another because of their shared membership. Now there is only one kind of vertex, people, and the edges represent shared membership in an organization. That graph shows the relationships among people, but we can also use the graph of the relationship among the organizations. 
+
+```{r plot-of-organizations}
+plot(bipartite$proj2)
+title("Just the fraternal organizations")
+```
+
+This plot also has only one kind of vertex, organizations, and edges represent at least one person who had membership in both organizations. However, this plot shows the same level of connection, no matter how many people shared membership in the organizations. What we would like to do is draw the connecting lines thicker if organizations have more shared members. When we use `bipartite.projection()` to separate the original graph into two parts, that information was preserved in the `weight` variable for the edges.
+
+```{r}
+E(bipartite$proj2)
+E(bipartite$proj2)$weight
+```
+
+The way to read this information is that there were three people who were both Odd Fellows and Masons, but only one person who was both a Pythian and a Mason. Using the `edge.width=` argument to the `plot()` function, we can show this visually.
+
+```{r weighted-organizations}
+plot(bipartite$proj2, edge.width = E(bipartite$proj2)$weight)
+title("Fraternal organizations weighted by shared membership")
+```
+
+Now we have a plot which shows the closer connection between the Masons and the Odd Fellows using a thicker line. But it would be nicer to show the closer connection by making the points, well, closer. The Fruchterman-Reingold layout uses edge weights to bring "heavier" connections closer together. As a final tweak, we can offset the labels slightly so they don't overlap the vertices, using the `vertex.label.dist=` argument.
+
+```{r weighted-organizations-adjusteed}
+plot(bipartite$proj2, edge.width = E(bipartite$proj2)$weight,
+     layout = layout.fruchterman.reingold(bipartite$proj2, 
+                                          weights = E(bipartite$proj2)$weight),
+     vertex.label.dist = 1)
+title("Fraternal organizations weighted by shared membership")
+```
+
+Now that we are familiar with some of the basics of working with and plotting bipartite graphs, we are ready to work with a real and much larger dataset.
+
+## Federal judges and courts as a network
+
+## Plotting options
 
 ## Next steps
 
