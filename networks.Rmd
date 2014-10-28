@@ -297,7 +297,112 @@ Now that we are familiar with some of the basics of working with and plotting bi
 
 ## Federal judges and courts as a network
 
-## Plotting options
+The federal judges dataset contains biographical information about judges as well as information about which courts they served on. We can load the `judges_appointments` table to see that information.
+
+```{r}
+data(judges_appointments)
+judges_appointments
+```
+
+There are a lot of variables in that dataset. Now that you are familiar with networks, however, you should notice that the first two columns set us up for a bipartite network graph. That is, in the first column we have judges, in the second colum we have courts, and their a relationship between them. There are many questions we could ask this dataset, but we will ask a question which is structurally similar to what we did with the sample fraternal organization data. Let's ask the question, how do judges move from one federal court to another? Put in terms of networks, we can phrase that question this way: how are federal courts related to one another by the judges which have served on each of them? Of course, we are likely to be especially interested in which courts are most likely to provide justices for the Supreme Court of the United States. 
+
+We can start with some summary counts of the number of judges. First, let's find out how many judges have served on two or more courts. These judges will be the edges in our network.
+
+```{r}
+judges_appointments %>%
+  group_by(judge_id) %>%
+  summarize(n = n()) %>%
+  filter(n > 1) %>%
+  arrange(desc(n))
+```
+
+There are `r nrow(judges_people)` judges in the dataset; only 546 of them have served on multiple federal courts. They will be the edges and this is a very modest size. But before we can use this data, we should clean up a peculiarity. The chief judges of certain important courts like SCOTUS are listed separately from the rest of the court, which will make two vertices for SCOTUS where there should be one. We can easily clean these up.
+
+```{r}
+library(stringr)
+# Remove appendages to court names
+judges_appointments$court_name <- judges_appointments$court_name %>%
+  str_replace("Chief Judge, ", "")
+judges_appointments$court_name <- judges_appointments$court_name %>%
+  str_replace(", Chief Judge", "")
+judges_appointments$court_name <- judges_appointments$court_name %>%
+  str_replace(", Chief Justice", "")
+judges_appointments$court_name <- judges_appointments$court_name %>%
+  str_replace("Associate Judge, ", "")
+```
+
+
+There would be no point in plotting our network now: it will be an inchoate mess and contain vertices for both courts and judges. What we want to do first is turn our data frame into a graph, our graph into a bipartite graph, and then split apart the network of courts weighted by the number of judges connecting them. We can do this in a few steps:
+
+```{r}
+courts <- graph.data.frame(judges_appointments, directed = FALSE)
+V(courts)$type <- bipartite.mapping(courts)$type
+courts <- bipartite.projection(courts, which = TRUE)
+courts
+```
+
+We can see that our graph has `r V(courts) %>% length()` vertices: that is the number of different courts that are represented. The graph also has `r E(courts) %>% length()` edges. That is, there are that many connections between courts, but because there are `r nrow(judges_people)` judges who served on multiple courts, those edges are weighted to represent multiple judges.
+
+```{r first courts attempt}
+set.seed(723) # keep the same arrangement each time
+l <-  layout.fruchterman.reingold(courts, weights = E(courts)$weight)
+plot(courts, 
+     vertex.label = NA, 
+     vertex.size = 3,
+     edge.width = E(courts)$weight,
+     layout = l)
+title("Movement of judges between federal courts, first attempt")
+```
+
+This first attempt at a plot of the federal courts is by no means perfect, but it at least provides an interesting start. We notice that there are some courts in the center, that some branches of the federal court system seem closer than others, and that some courts have never shared judges. But we don't know which vertices represent what. We must start to explore the graph more fully. 
+
+We'll begin by adding some color for the kinds of courts. Our `judges_appointments` data frame contains th `court_type` variable. We will first have to look up each vertex name to find the court type and assign it to a variable in the graph. The base R function `match()` fill find a row in our data frame; we can then use that row number to look up the type of court. This is most easily wrapped in a function.
+
+```{r}
+lookup_court <- function(name) {
+  judges_appointments$court_type[
+    match(V(courts)$name, judges_appointments$court_name)
+    ]
+}
+V(courts)$court_type <- lookup_court(V(courts)$name)
+```
+
+Now our vertices know which type of court they are. We could create a look up table of colors and court types, but in this case we will write a function that returns a color based on the court type and use the `Vectorize()` wrapper so that it works with vectors.
+
+```{r}
+lookup_color <- function(type) {
+  require(stringr)
+  if(is.na(type)) return("blue")
+  if(type == "USDC") return("green")
+  if(type == "USCA") return("yellow")
+  if(str_detect(type, "USCC")) return("yellow")
+  if(type == "USSC") return("red")
+  else return("blue")
+} 
+lookup_color <- Vectorize(lookup_color, USE.NAMES = FALSE)
+```
+
+Now we can assign a color based on the court type.
+
+```{r}
+V(courts)$color <- lookup_color(V(courts)$court_type)
+```
+
+```{r replot courts}
+plot(courts, 
+     vertex.label = NA, 
+     vertex.size = 3,
+     edge.width = E(courts)$weight,
+     layout = l)
+title("Movement of judges between federal courts, second attempt")
+legend("bottomleft", legend = c("Distict", "Circuit/Appeal", "SCOTUS", "Other"),
+       col = c("green", "yellow", "red", "blue"), pch = 19,
+       title = "Court type")
+```
+
+This new plot is a big improvement, though of course it could be improved fruther. Now we notice that the other courts (mostly commerce and trade courts) have an affinity for one another, though one "other" court has a close affinity for SCOTUS. We might speculate that the branches on this diagram relate to region, because we notice that many district courts are associated with one or at most two appeals courts. Further looking might bear this out and cause us to label the branches. Some appeals courts are apparently much more likely to send their judges on to other courts, including SCOTUS, while other courts have never promoted a judge to a higher federal court. There are many other things we could do to visualize this network, depending on the questions we want to ask. One obvious thing would be to change the size of the vertices based on the number of judges who have ever been affiliated with the court. But for now we will turn to studying the properties of the graph quantitatively rather than visually.
+
+## Statistical summaries of network graphs
 
 ## Next steps
 
