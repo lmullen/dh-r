@@ -425,7 +425,7 @@ courts_network_df <- courts %>%
 
 d3SimpleNetwork(courts_network_df, standAlone = FALSE,
                 parentElement = ".container",
-                width = 750, heigh = 900)
+                width = 750, height = 900)
 ```
 
 
