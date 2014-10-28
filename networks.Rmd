@@ -12,7 +12,7 @@ source("general-options.r")
 
 Network analysis, like spatial analysis or text analysis, is one of the major types of digital history work that you might want to perform. A network is simply a representation of the relationships between objects: people, places, events, etc. The objects we call vertices; the relationships between them we call edges. Take the following (randomly generated) example. The nine vertices are represented by blue dots. The ten relationships are represented by light gray lines.
 
-```{r echo=FALSE}
+```{r random-graph, echo=FALSE}
 set.seed(17741)
 library(igraph)
 library(magrittr)
@@ -27,14 +27,14 @@ Therein lies the problem. If virtually any relationship can be represented in a 
 
 Then too, networks are easy to plug in to [Gephi](http://gephi.github.io/) or some other GUI tool, but they can be very difficult to visualize well. It is fairly easy to notice some groups in the plot above. Vertices 3, 5, 9, and 2, form one group, connected to another group of 7, 8, 1, and 4; vertex 6 stands alone. We might, for example, just as easily and as justifiably have laid the nodes out in a circle.
 
-```{r echo=FALSE}
+```{r random-graph-circle, echo=FALSE}
 plot(random_graph, layout = layout.circle)
 title("The Same Network, Laid Out in a Circle")
 ```
 
 A change in the parameters for laying out the network, and it is far more difficult to interpret the plot. This problem becomes all the more acute when we have a network with a non-trival number of vertices. Here are plots of networks with ten, one hundred, and five hundred vertices each. 
 
-```{r echo=FALSE}
+```{r viz-problems-with-networks, echo=FALSE}
 erdos.renyi.game(10, 0.10) %>%
   plot(layout = layout.fruchterman.reingold)
   title("Ten vertices")
@@ -50,7 +50,7 @@ At even 500 vertices, which is still not that many, the graph collapses under it
 
 Finally there is the worst of all network visualizations, created with both inadequate data and inadequate theorization. A scholar will find a collection of correspondence in an archive or collected works (worse yet, the *selected* works). The scholar will then make a plot of the correspondence "network" showing letters (edges = gray lines) between people (vertices = blue dots).
 
-```{r echo=FALSE}
+```{r a-bad-network-graph, echo=FALSE}
 graph.formula(1-+2, 1++3, 1+-4, 1-+5, 1+-6, 1++7, 1-+8) %>%
   plot()
 title("What's wrong with this picture?")
@@ -68,51 +68,133 @@ There are several packages which will allow you to perform network analysis. The
 
 The [historydata](http://github.com/ropensci/historydata) package contains several data sets suitable for network analysis. The `tudors` data set contains spousal and parent/child relationships for selected members of the Tudor dynasty. Since human relationships are familiar, this dataset is useful for experimenting with and checking our results. Also included is the `judges_people` and `judges_appointments` tables which provide a much larger dataset of networks between people and courts within the federal judiciary.
 
-## Structure of network data
+Once you have installed these packages, you can load them.
 
-```{r}
+```{r message=FALSE}
 library(igraph)
+library(dplyr)
 library(historydata)
-tudors_g <- graph.data.frame(tudors, directed = FALSE)
-plot(tudors_g, layout = layout.reingold.tilford)
-plot(tudors_g, layout = layout.star)
-
-V(tudors_g)
-E(tudors_g)
 ```
 
+## Format of network data
 
-## Plotting network graphs
+A network (to repeat) is comprised of vertices and edges. At a minimum, the data that represents a network must include a list of edges in the form of a mapping: node A is connected to node B, node B is connected to node C, and so on. This kind of mapping is easily stored in a CSV file or a data frame. We can generate a very simple mapping as a data frame.^[The `data_frame()` function is provided by [dply](http://cran.rstudio.org/web/packages/dply/), and it provides better default options than the base R function `data.frame()`.
 
 ```{r}
-library(igraph)
-g <- graph.formula(1-2, 1-3, 2-3, 2-4, 3-5, 4-5, 4-6, 4-7, 5-6, 6-7)
-plot(g)
-
-g2 <- graph.formula(1-+2, 1-+3, 2+-3, 2--4, 3-+5, 4+-5, 4-+6, 4+-7, 5-+6, 6+-7)
-plot(g2)
-
-g3 <- graph.formula(Sam-+Mary, Sam-+Tom, Mary++Tom)
-V(g3)$gender <- c("M","F","M")
-V(g3)$color <- "red"
-g3$name <- "My test graph"
-plot(g3)
+sample_data <- data_frame(node_1 = c("A", "B", "C"), 
+                          node_2 = c("B", "C", "A"))
+sample_data
 ```
 
-Bipartite graphs
+This data represents the edges (that is, the connections) but by implication it also represents the nodes, since they are also listed in the data. Using the [igraph](http://cran.rstudio.org/web/packages/igraph/) package, we can turn this data frame into a graph (or network).
+
+```{r}
+sample_graph <- graph.data.frame(sample_data)
+sample_graph
+```
+
+The default display for an object of class `igraph` is not particular informative. But using the functions `E()` and `V()` we can extract the edges and vertices from the graph. The edges function simply repeats the data that we already knew:
+
+```{r}
+E(sample_graph)
+```
+
+But the vertices function gives us a list of the vertices derived from that network.
+
+```{r}
+V(sample_graph)
+```
+
+Finally, we can plot this graph using the base R `plot()` function.
+
+```{r sample-graph-from-data-frame}
+plot(sample_graph)
+```
+
+Note that it is possible to represent this same network in alternative forms. One common alternative is an adjacency matrix. In such a matrix, the rows and columns both represent all the vertices of the graph. In the values of the matrix, a non-negative value indicates a connection between the vertices. You will find that functions in other packages, e.g. packages for topic modeling or spatial analysis, will return adjacency matrixes which you can then use in network analysis.^[A "sparse" matrix is a matrix is which few of the cells contain actual data. In this adjacency matrix, for example, there are nine cells (3 x 3) but only three connections. Thus less then half of the matrix contains useful information. The opposite of a sparse matrix is a dense matrix, in which more than half of the cells contain data.]
+
+```{r}
+get.adjacency(sample_graph)
+```
+
+In many cases, however, you will want to include other information besides just the edges between vertices. You may wish to include information about the edges, such as the number of letters sent between people or the type of relationship that people have. You may also wish to include information about the vertices, such as the name of a person or institution. The information about the edges can be contained in the same data frame as the mappings from vertex to vertex; the information about the vertices must be contained in a separate data frame. This is easiest to demonstrate using a sample dataset of a kinship network.
+
+## An example network: The Tudors
+
+In the historydata package is contained a data frame of kinship within the Tudor dynasty in early modern England. This small and manageable dataset will let us experiment with network visualization. To begin, notice that the dataset includes two columns listing the people who are connected, and a third column defining their relationship.
+
+```{r}
+data(tudors)
+tudors
+```
+
+We can turn this dataset into a graph. Notice in our sample A-B-C-D dataset above that arrows are included indicating the *direction* of the connection. Often it is desirable to have a network where it is only possible to travel in specified directions. For example, person A sent a letter to person B, but that does not imply that person B sent a letter to person A. In this case, kinship is necessarily reciprocal, and so we want an undirected graph, which we can specify as an argument.
+
+```{r}
+tudors_g <- graph.data.frame(tudors, directed = FALSE)
+```
+
+Now that we have an `igraph` object, we can create a plot.
+
+```{r tudors-take-one}
+plot(tudors_g)
+title("The Tudors, take one")
+```
+
+We shouldn't expect that our first plot will be much good, though this plot is not awful. We can see some kind of relationship among the various people and our vertices don't overlap too badly. But we can do much better. We should indicate which people were monarchs of England. In particular, we should code the kinds of relationships: a marriage is different than a parent/child relationship. And we could improve the layout of the graph so it reads more or less chronologically.
+
+First we will indicate which people were monarchs of England. This is information about our vertices. If we had a very large data set, and so must be contained in a separate data frame from the information about edges that we loaded from the historydata package. If we had a large dataset, the information might we contained in a separate CSV file. But in this small dataset, we will have to construct it for ourself. The `V()` function will give us a list of all the people represented in our graph. It represents the data as integers, so we have to access the `name` value with the `$` operator. We can associate that vector with a vector of `TRUE` or `FALSE` values for whether or not the person was a monarch. We might just as easily associate a person with a gender, a birth date, a nationality, or whatever information we are interested in studyying.
+
+```{r}
+tudor_people <- data_frame(name = V(tudors_g)$name, 
+                           monarch =  c(TRUE, FALSE, TRUE, FALSE, FALSE,
+                                       FALSE, FALSE, TRUE, TRUE, TRUE, TRUE,
+                                       FALSE, FALSE, FALSE, FALSE, FALSE,
+                                       FALSE, FALSE, FALSE, FALSE, FALSE,
+                                       FALSE, FALSE, FALSE, FALSE))
+tudor_people
+```
+
+Now that we know whether each person was a monarch, it is possible to change the shape and color of the vertex. We will use the function `ifelse()`, which takes three arguments: a comparison or function that returns a boolean, a value to return if `TRUE`, and a value to return if `FALSE`. (The chief advantage of using `ifelse()` over `if()` is that `ifelse()` is vectorized and `if()` is not.) We will change the shape of monarchs to squares, and their color to red. Then we can plot the network again.
+
+```{r tudors-with-monarchs}
+V(tudors_g)$shape <- ifelse(tudor_people$monarch, "square", "circle")
+V(tudors_g)$color <- ifelse(tudor_people$monarch, "red", "lightblue")
+plot(tudors_g)
+title("The Tudors, take two")
+```
+
+This makes it much easier to pick out the key people of interest. But it will also be useful to make colorize the edges. Because we loaded our edge data from a data frame with a `relationship` column. 
+
+```{r, tudors-take-three}
+E(tudors_g)$color <- ifelse(E(tudors_g)$relationship == "child",
+                            "yellow", "green")
+plot(tudors_g)
+title("The Tudors, take three")
+```
+
+This visualization is still hard to read because the data has an implied chronological sequence which this chart does not recognize. Using the `layout =` argument to the `plot()` function it is possible to specify an alternative mode of laying out a network. There are many different kinds of layouts; some of them we will use in this chapter; the rest you can find by reading the [igraph](http://cran.rstudio.org/web/packages/igraph/) package documentation. These layouts are provided by functions. In this case, we know that our network is heirarchical (e.g., children suceed parents) so the `layout.reingold.tilford()` function will approximate this.
+
+```{r tudors-reingold-tilford}
+plot(tudors_g, layout = layout.reingold.tilford)
+title("The Tudors, take three")
+```
+
+This layout is not perfect: it confuses spouses with children. Nevertheless, it does indicate the possibilities for creating different visualizations by experimenting with the layout function.
+
+Note that we have set several different properties on the `tudors_g` object. To find all the properties of the graph itself and its edges and vertices, you can call the `str()` function with the following options. There are also the functions `list.edge.attributes()`, `get.edge.attribute()`, `set.edge.attribute()`, `list.vertex.attributes()`, `get.vertex.attribute()`, `get.vertex.attribute()` that can get or set the same information.
+
+```{r}
+str(tudors_g, e = TRUE, v = TRUE, g = TRUE)
+```
+
+## Bipartite graphs
 
 "Lastly, a bipartite graph is a graph G = (V,E) such that the vertex set V may be partitioned into two disjoint sets, say V1 and V2, and each edge in E has one endpoint in V1 and the other in V2." (26)
 
 We are usually interested in the connections that run through the movies. `bipartite.projection()`
 
-
 If you want to save a graph object to disk, you can do so with `write.graph()`. To oepn data from other formas, try `read.graph()`, which probably has a function for the data that you want.
-
-```{r}
-# library(stringr)
-# V(temp)[str_detect(V(temp), "\\d+")]$type <- "person"
-
-```
 
 ## Single network analysis
 
