@@ -4,6 +4,10 @@ layout: default
 output: bookdown::html_chapter
 ---
 
+```{r,echo=FALSE}
+source("general-options.r")
+```
+
 # Topic Modeling
 
 Install mallet, a smaller version of the MALLET library: `install.packages("mallet")`

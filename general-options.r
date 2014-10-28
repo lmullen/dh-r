@@ -1,2 +1,2 @@
 library(knitr)
-opts_chunk$set(fig.width = 8, fig.height = 4.5)
+opts_chunk$set(fig.width = 8, fig.height = 6)
