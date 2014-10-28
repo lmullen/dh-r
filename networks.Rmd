@@ -404,6 +404,31 @@ This new plot is a big improvement, though of course it could be improved fruthe
 
 ## Statistical summaries of network graphs
 
+### Community detection
+
+One option for community detection is the `optimal.community()` function. This function looks for the best community over every possible way of grouping the vertices. The length of time to run the algorithm thus grows exponentially with the number of vertices, so the functions documentation recommends that you use caution for graphs with more than fifty vertices. We won't try it for our `courts` graph which is too large, but you can see the function's documentation for details on how to use it.
+
+```{r}
+courts_com <- fastgreedy.community(courts)
+membership(courts_com)[1:3]
+```
+
+## Integration with D3.js
+
+[D3.js](http://d3js.org/) is a very powerful library for data visualization in JavaScript. D3 is often used for network analysis. It is complex to learn and use, however. The [d3Network](http://cran.rstudio.org/web/packages/d3Network/) package for R will let you take R objects and conver them to d3 network plots. The use of this package is beyond the scope of this book, but I will demonstrate one way that you can use the package to create an embedded, interactive visualization.
+
+```{r d3-network, results='asis'}
+library(d3Network)
+courts_network_df <- courts %>%
+  get.edgelist() %>%
+  as.data.frame
+
+d3SimpleNetwork(courts_network_df, standAlone = FALSE,
+                parentElement = ".container",
+                width = 750, heigh = 900)
+```
+
+
 ## Next steps
 
 Further reading:
