@@ -408,36 +408,91 @@ There are many things that one can do to statistically analyze network graphs. B
 
 ### Measures of centrality
 
-### Community detection
-
-One major thing you might want to do with a network graph is to identify its subgraphs. For example, in a network of people, you might wish to identify the communities that those people have formed. There are many algorithms for identifying communities; which algorithm is most suitable for your purpose will depend on your data. You should try several different algorithms to see which gives the most historically sensible results. The basic workflow within [igraph](http://cran.rstudio.org/web/packages/igraph/) is more or less the same regardless of which algorithm you use. These algorithms are all named in the pattern `*.community()`. We will try several of these algorithms.
-
-```{r}
-comm <- fastgreedy.community(courts)
-membership(comm)[1:3]
-```
-
-One other option for community detection is the `optimal.community()` function. This function looks for the best community over every possible way of grouping the vertices. The length of time to run the algorithm thus grows exponentially with the number of vertices, so the functions documentation recommends that you use caution for graphs with more than fifty vertices. We won't try it for our `courts` graph which is too large, but you can see the function's documentation for details on how to use it.
-
+neighbors
+neighborhood
 degree
 betweenness
 closeness
 evcent
 page.rank
 
-modularity
-membership
-fc  <- fastgreedy.community(karate)
-memb <- membership(fc)
-plot(karate, vertex.color = memb)
-plot(fc, karate)
-edge.betweenness.community
-fastgreedy.community
-leading.eigenvector.community
-spinglass.community
-walktrap.community
-label.propogation.community
-clique.community(k=4)
+### Community detection
+
+One major thing you might want to do with a network graph is to identify its subgraphs. For example, in a network of people, you might wish to identify the communities that those people have formed. There are many algorithms for identifying communities; which algorithm is most suitable for your purpose will depend on your data. You should try several different algorithms to see which gives the most historically sensible results. The basic workflow within [igraph](http://cran.rstudio.org/web/packages/igraph/) is more or less the same regardless of which algorithm you use. These algorithms are all named in the pattern `*.community()`. We will try several of these algorithms.
+
+The basic pattern is to pass your graph object to one of the community detection algorithms. The function will return an object of class `communities`. (See `?communities` for documentation.)
+
+```{r}
+comm <- fastgreedy.community(courts)
+```
+
+There are many things you can derive from the community object. The `length()` will give you the number of communities that were detected.
+
+```{r}
+length(comm)
+```
+
+The `sizes()` are the number of members in each group. For each of the `r length(comm)` communities that were detected, R will tell you how many vertices are in that community. Note that some community detection algorithms will assign vertices to more than one community if appropriate.
+
+```{r}
+sizes(comm)
+```
+
+The `modularity()` function reports how well the detection algorithm worked. The number runs from 0 to 1: the higher the number, the more valid the separation into subgraphs is. Note that modularity (when called this way) takes into account edge weights.
+
+```{r}
+modularity(comm)
+```
+
+And `membership()` returns a named numeric vector with one element for each vertex in the graph. The number stands for the assigned community; the name of the element is the name of the vertex. Here we will look at the first elements assigned to group 1. Each of those courts is in the Ninth Circuit Court of Appeals, so it is not surprising that judges move around within that circuit.
+
+```{r}
+membership(comm) %>%
+  sort() %>%
+  head()
+```
+
+It is possible to find all of the members in any given group. Here we subset the membership vector to show just the members of group 4, which appears to be the courts in Virginia, Maryland, West Vrigina, and at least parts of North and South Carolina (interestingly, not Washington, DC).
+
+```{r}
+memb <- membership(comm)
+names(memb[memb == 4])
+```
+
+Once you have detected communities, it is easy to plot them. One method is to assign the vertex colors based on their membership. In the code below, the argument that controls the color is `vertex.color = memb` (`memb` was previous assigned).
+
+```{r assigned membership 1}
+plot(courts, vertex.color = memb, 
+     vertex.label = NA, layout = l, vertex.size = 3,
+     edge.width = E(courts)$weight)
+title("Communities detected by fastgreedy.community()")
+```
+
+Another option is to plot the communities object directly, which will both color the vertices and show their groupings.
+
+```{r assigned membership 2}
+plot(comm, courts,
+     vertex.label = NA, layout = l, vertex.size = 3,
+     edge.width = E(courts)$weight)
+title("Communities detected by fastgreedy.community()")
+```
+
+We can try several different community detection algorithms to see what results they produce. The work here is done by the `*.community()` functions.
+
+```{r trying several community detection algorithms}
+courts %>%
+  edge.betweenness.community() %>%
+  plot(., courts, vertex.label = NA, layout = l, vertex.size = 3)
+title("Communities detected by edge.betweenness.community()")
+
+courts %>%
+  walktrap.community() %>%
+  plot(., courts, vertex.label = NA, layout = l, vertex.size = 3)
+title("Communities detected by walktrap.community()")
+```
+
+
+There are many other community detection functions. One other option for community detection is the `optimal.community()` function. This function looks for the best community over every possible way of grouping the vertices. The length of time to run the algorithm thus grows exponentially with the number of vertices, so the functions documentation recommends that you use caution for graphs with more than fifty vertices. We won't try it for our `courts` graph which is too large, but you can see the function's documentation for details on how to use it. Whatever community detection algorithm you use, be sure to read its documentation to understand what it does, and then to interrogate its results to see if they make historical sense.
 
 ## Plotting Options
 
