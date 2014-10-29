@@ -1,7 +1,7 @@
 ---
 title: "Networks"
 layout: default
-output: bookdown::html_chapter
+output: bookdown::html_chapter 
 ---
 
 ```{r,echo=FALSE}
@@ -406,15 +406,36 @@ This new plot is a big improvement, though of course it could be improved fruthe
 
 There are many things that one can do to statistically analyze network graphs. But we will focus on two of them: measures of centrality, and community detection.
 
+First we have to learn some basic techniques of exploring network graphs. The `neighbors()` function takes a graph and a vertex, and returns the vertices that are attached to it.
+
+```{r}
+neighbors(courts, 1)
+```
+
+We can make this output more useful. Here we find the vertex that represent the Supreme Court, then find its neighbors, then find the names of the neighbors.
+
+```{r}
+scotus <- which(V(courts)$name == "Supreme Court of the United States")
+scotus_promotions <- neighbors(courts, scotus)
+V(courts)[scotus_promotions]
+```
+
+See also the `neighborhood()` function to find vertices that are several edges away from a vertex. You can use the function `graph.neighborhood()` to extract a vertex and its neighbors. Here we pull out the Supreme Court and its immediate neighbors. By change the order, we could control how distant we pull vertices from. 
+
+```{r}
+scotus_neighborhood <- graph.neighborhood(courts, scotus, order = 1)
+plot(scotus_neighborhood[[1]], vertex.label = NA)
+```
+
 ### Measures of centrality
 
-neighbors
-neighborhood
-degree
-betweenness
-closeness
-evcent
-page.rank
+There are many measures of centrality (e.g., how important a given vertex or edge is. These are the most important functions:
+
+- `degree()`
+- `betweenness()`
+- `closeness()`
+- `evcent()`
+- `page.rank()`
 
 ### Community detection
 
@@ -491,8 +512,15 @@ courts %>%
 title("Communities detected by walktrap.community()")
 ```
 
-
 There are many other community detection functions. One other option for community detection is the `optimal.community()` function. This function looks for the best community over every possible way of grouping the vertices. The length of time to run the algorithm thus grows exponentially with the number of vertices, so the functions documentation recommends that you use caution for graphs with more than fifty vertices. We won't try it for our `courts` graph which is too large, but you can see the function's documentation for details on how to use it. Whatever community detection algorithm you use, be sure to read its documentation to understand what it does, and then to interrogate its results to see if they make historical sense.
+
+Finally, we can extract one of these communities into its own subgraph. We'll use community 4 that we selected above. The key function is `induced.subgraph()`.
+
+```{r}
+induced.subgraph(courts, which(membership(comm) == 4)) %>%
+  plot()
+title("Community 4 among the federal courts")
+```
 
 ## Plotting Options
 
