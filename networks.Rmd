@@ -143,7 +143,7 @@ title("The Tudors, take one")
 
 We shouldn't expect that our first plot will be much good, though this plot is not awful. We can see some kind of relationship among the various people and our vertices don't overlap too badly. But we can do much better. We should indicate which people were monarchs of England. In particular, we should code the kinds of relationships: a marriage is different than a parent/child relationship. And we could improve the layout of the graph so it reads more or less chronologically.
 
-First we will indicate which people were monarchs of England. This is information about our vertices. If we had a very large data set, and so must be contained in a separate data frame from the information about edges that we loaded from the historydata package. If we had a large dataset, the information might we contained in a separate CSV file. But in this small dataset, we will have to construct it for ourself. The `V()` function will give us a list of all the people represented in our graph. It represents the data as integers, so we have to access the `name` value with the `$` operator. We can associate that vector with a vector of `TRUE` or `FALSE` values for whether or not the person was a monarch. We might just as easily associate a person with a gender, a birth date, a nationality, or whatever information we are interested in studyying.
+First we will indicate which people were monarchs of England. This is information about our vertices, and so must be contained in a separate data frame from the information about edges that we loaded from the historydata package. If we had a large dataset, the information might we contained in a separate CSV file. But in this small dataset, we will have to construct it for ourself. The `V()` function will give us a list of all the people represented in our graph. It represents the data as integers, so we have to access the `name` value with the `$` operator. We can associate that vector with a vector of `TRUE` or `FALSE` values for whether or not the person was a monarch. We might just as easily associate a person with a gender, a birth date, a nationality, or whatever information we are interested in studyying.
 
 ```{r}
 tudor_people <- data_frame(name = V(tudors_g)$name, 
@@ -164,7 +164,7 @@ plot(tudors_g)
 title("The Tudors, take two")
 ```
 
-This makes it much easier to pick out the key people of interest. But it will also be useful to make colorize the edges. Because we loaded our edge data from a data frame with a `relationship` column. 
+This makes it much easier to pick out the key people of interest. But it will also be useful to colorize the edges. Because we loaded our edge data from a data frame with a `relationship` column. 
 
 ```{r, tudors-take-three}
 E(tudors_g)$color <- ifelse(E(tudors_g)$relationship == "child",
