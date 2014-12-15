@@ -68,7 +68,7 @@ NHGIS code:  AFB
 
 ```
 
-The names of the columns in the dataset is itself a variable. The column name represents where someone was born. Actually, it represents two pieces of information: where someone was born, and whether that birth place was inside the United States or outside of it. This type of wide dataset is very difficult to work with for most purposes. For example, it would require a complex set of commands to find the proportion of native- and foreign-born people in each state. We have a similar table for other years, but it is impossible to easily join the two data frames together. It is also difficult to replace the codes with the names that they represent.
+The name of each column in the dataset is itself a variable. The column name represents where someone was born. Actually, it represents two pieces of information: where someone was born, and whether that birth place was inside the United States or outside of it. This type of wide dataset is very difficult to work with for most purposes. For example, it would require a complex set of commands to find the proportion of native- and foreign-born people in each state. We have a similar table for other years, but it is impossible to easily join the two data frames together. It is also difficult to replace the codes with the names that they represent.
 
 A much better solution is to use a *long* (or *narrow*) data format. Fortunately  R has a command to reshape the data frame from wide to long. Consider the same data frame in long format. Don't worry for now about the commands that do the transformation (but notice that we can do this transformation with a single function). Instead just look at the final product.
 
