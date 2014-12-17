@@ -190,6 +190,8 @@ This looks about right, though the labels could be better placed. But this is ha
 
 To plot our earlier `map_sp` of U.S. state boundaries in 1850, it is necessary to convert the shapefile object to a data frame. The [ggplot2](http://cran.rstudio.org/web/packages/ggplot2/) package contains a function `fortify()`, which will perform the conversion. We will need to pass it a `region =` argument with the name of the field that we might want to perform a merge with. With NHGIS data, the `GISJOIN` field is the best to use.
 
+We can also fortify using the `tidy()` function from the [broom](http://cran.rstudio.org/web/packages/broom/) package. TODO
+
 ```{r}
 map_df <- fortify(map_sp, region = "GISJOIN")
 

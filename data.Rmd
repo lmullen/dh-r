@@ -554,7 +554,9 @@ birthplace %>%
 
 Unsurprisingly, Irish and German immigrants comprised the biggest proportion of immigrants in any state, though it is somewhat surprising that they were less than one percent of the population of any given state except New York in 1850.
 
+## Broom package
 
+R functions often return data in non-tidy formats. The spatial objects from the [sp](http://cran.rstudio.org/web/packages/sp/) package are one example, as are the models returned from various statistical functions. It is often much easier to use the [broom](http://cran.rstudio.org/web/packages/broom/) package to tidy this data than to work with it in its raw form. TODO
 
 ## Manipulating lists and lists of lists
 
