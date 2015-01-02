@@ -263,7 +263,7 @@ sample_df %>%
   summarize(number_of_churches = n())
 ```
 
-Or we could summarize the churches in a more sophisticated way by summing up (using the function `sum()`) the number of attendees and members for each denomination, or by using `mean()` to find the average number of attendees and members.^[Keep in mind that the `sum()` function will return `NA` if the vector passed to it contains any `NA`s. This is because R is (rightly) conservative and won't pretend to assign a value to those missing values. You can avoid this by adding the `na.rm = TRUE` argument to sum. So if have a vector `x` with `NA` values, then `sum(x, na.rm = TRUE)` will remove the missing values and sum the rest. The same argument also applies to `mean()` and `median()` and quite a few other R functions.
+Or we could summarize the churches in a more sophisticated way by summing up (using the function `sum()`) the number of attendees and members for each denomination, or by using `mean()` to find the average number of attendees and members.^[Keep in mind that the `sum()` function will return `NA` if the vector passed to it contains any `NA`s. This is because R is (rightly) conservative and won't pretend to assign a value to those missing values. You can avoid this by adding the `na.rm = TRUE` argument to sum. So if you have a vector `x` with `NA` values, then `sum(x, na.rm = TRUE)` will remove the missing values and sum the rest. The same argument also applies to `mean()` and `median()` and quite a few other R functions.]
 
 ```{r}
 sample_df %>%
