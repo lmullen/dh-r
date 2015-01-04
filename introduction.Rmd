@@ -44,6 +44,8 @@ Now try to imagine telling someone how to perform a complicated scholarly analys
 
 With programming, however, you have to express all of the concepts that you are using in a language. For all the differences between computer langauges and human languages, they are much closer together than either kind of language is to moving a mouse.  Because when programming you write everything down in text, it becomes possible to precisely state each step along the way. Computer programmers have developed some very sophisticated tools to document these steps, which we will cover in the chapter on [reproducible research](reproducible.html). And because everything is written down, it is possible to subject each step to scholarly scrutiny. (And if you haven't come back to a scholarly project after six months or a year and felt like you were reading something written by someone else, just wait six months or a year.)
 
+One of the fundamental principles of DH is that you should let your research questions, not the tools, drive your work. This is very difficult to do with tools which embed assumptions. It is easier to do with a programming language, which is far more malleable.
+
 Computer languages really are languages, in the sense that they share a grammar. And computer langauges (at least, high-level languages like R) exist to communicate to humans more than to communicate with machines. To understand what I mean about grammar, take the example below, which contains code for reading a spreadsheet (called a CSV file) and saving it to a variable.
 
 ```{r dummy_read_data, eval=FALSE}
