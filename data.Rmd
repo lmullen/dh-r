@@ -263,7 +263,7 @@ sample_df %>%
   summarize(number_of_churches = n())
 ```
 
-Or we could summarize the churches in a more sophisticated way by summing up (using the function `sum()`) the number of attendees and members for each denomination, or by using `mean()` to find the average number of attendees and members.^[Keep in mind that the `sum()` function will return `NA` if the vector passed to it contains any `NA`s. This is because R is (rightly) conservative and won't pretend to assign a value to those missing values. You can avoid this by adding the `na.rm = TRUE` argument to sum. So if have a vector `x` with `NA` values, then `sum(x, na.rm = TRUE)` will remove the missing values and sum the rest. The same argument also applies to `mean()` and `median()` and quite a few other R functions.
+Or we could summarize the churches in a more sophisticated way by summing up (using the function `sum()`) the number of attendees and members for each denomination, or by using `mean()` to find the average number of attendees and members.^[Keep in mind that the `sum()` function will return `NA` if the vector passed to it contains any `NA`s. This is because R is (rightly) conservative and won't pretend to assign a value to those missing values. You can avoid this by adding the `na.rm = TRUE` argument to sum. So if you have a vector `x` with `NA` values, then `sum(x, na.rm = TRUE)` will remove the missing values and sum the rest. The same argument also applies to `mean()` and `median()` and quite a few other R functions.]
 
 ```{r}
 sample_df %>%
@@ -437,7 +437,7 @@ Instead of loading each file individually, we are going to to use R's `lapply()`
 csv_files <- Sys.glob("data/nhgis-nativity/*state.csv")
 ```
 
-Notice that in one lines of code we've loaded all of the filenames, using a Unix-like glob.
+Notice that in one lines of code we've loaded all of the filenames, using a Unix-like glob (or wildcard expansion) .
 
 ```{r}
 csv_files
@@ -491,7 +491,7 @@ codebooks
 
 ### Merging codes with their values
 
-Our `birthplace` data frame is now much more usable than it was before. But still those codes are a problem. We have the codebooks that [NHGIS](http://nhgis.org) provided to explain them, but we can hardly go looking at them every time we want to see what a code means. The [mullenMisc](https://github.com/lmullen/mullenMisc) contains a function, `parse_nhgis_codebook()` which can turn a codebook text file into a data frame.^[[mullenMisc](https://github.com/lmullen/mullenMisc) is my personal package which contains miscellaneous functions that I use repeatedly. You might eventually want to create your own personal package for such purposes.] We will do that for each of the files, then bind them together.
+Our `birthplace` data frame is now much more usable than it was before. But still those codes are a problem. We have the codebooks that [NHGIS](http://nhgis.org) provided to explain them, but we can hardly go looking at them every time we want to see what a code means. The [mullenMisc](https://github.com/lmullen/mullenMisc) package contains a function, `parse_nhgis_codebook()` which can turn a codebook text file into a data frame.^[[mullenMisc](https://github.com/lmullen/mullenMisc) is my personal package which contains miscellaneous functions that I use repeatedly. You might eventually want to create your own personal package for such purposes.] We will do that for each of the files, then bind them together.
 
 ```{r}
 library(mullenMisc)
