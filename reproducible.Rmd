@@ -205,3 +205,5 @@ Further reading:
 - Yihui Xie, *[Dynamic Documents with R and knitr](http://www.amazon.com/gp/product/1482203537/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1482203537&linkCode=as2&tag=thebacgla-20&linkId=DAKPCBZJ74FI5YNV)* (Chapman and Hall, 2013).
 - Manual for [GNU Make](http://www.gnu.org/software/make/)
 - Mike Bostock, "[Why Use Make](http://bost.ocks.org/mike/make/)"
+- Boettiger, Carl. “An Introduction to Docker for Reproducible Research, with Examples from the R Environment.” *arXiv:1410.0846 [cs]*, October 2, 2014. http://arxiv.org/abs/1410.0846.
+
