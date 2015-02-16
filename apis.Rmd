@@ -1,8 +1,6 @@
 ---
-title: "Web APIs"
+title: "Web APIs (Application Programming Interfaces)"
 ---
-
-# Web APIs (Application Programming Interfaces)
 
 ## Downloading Files with CURL
 

@@ -2,7 +2,7 @@
 title: "Setting up R"
 ---
 
-# Setting up R
+How to set up R.
 
 ## Installing R
 

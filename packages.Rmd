@@ -1,8 +1,6 @@
 ---
-title: "Packages"
+title: "R Packages"
 ---
-
-# R Packages
 
 See Hadley Wickham, *[R Packages](http://r-pkgs.had.co.nz/)* (O'Reilly, forthcoming) for a full treatment.  See also Hilary Parker, "[Writing an R Package from Scratch](http://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/)" for a shorter explanation.
 

@@ -2,8 +2,6 @@
 title: "Strings"
 ---
 
-# Strings
-
 ```{r load_string_libraries}
 library(stringr)
 ```

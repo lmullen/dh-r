@@ -2,8 +2,6 @@
 title: "Interactive Plotting"
 ---
 
-# Interactive Plotting
-
 ```{r load_plotting_libraries}
 library(ggvis)
 ```

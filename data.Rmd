@@ -2,8 +2,6 @@
 title: Data Manipulation
 ---
 
-# Data Manipulation
-
 One of the most crucial tasks in digital history is manipulating data. It is no exaggeration to say that in many projects, manipulating and cleaning the data is 80 percent or more of the work, while visualizing or analyzing it is only 20 percent of the work. It might seem like visualizing or analyzing is the real historical work, and it is certainly the part of the work that leads to historical interpretations. But data manipulation is the crucial task for the digital historian, because it is in manipulating the data that we explores its possibilities and its perils: that is, the possibilities that exist for finding interesting historical interpretations, but also the places where we could make errors by trusting the data too much.
 
 There are several things that you can learn by learning data manipulation. Most obviously, you will learn how to get data from whatever form you receive it to a form which is useable for any kind of task, as well as how to take large datasets and summarize them meaningfully. Less obviously, the methods for manipulating data are closely related to some of the basic principles of databases. For example, filtering data is like querying it; merging data is like joining it; tidying data is like normalizing a database. If you can learn the principles behind data manipulation, you will be well prepared for understanding databases.
