@@ -1,5 +1,2 @@
-name: Digital History Methods in R
-markdown: redcarpet
-highlighter: pygments
-
-exclude: ["CONTRIBUTING.md", "README.md", "book"]
+exclude: [packrat, Makefile, dh-methods-in-r.proj]
+destination: public

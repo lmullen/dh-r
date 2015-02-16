@@ -1,14 +1,6 @@
 ---
 title: "Reproducible Research"
-layout: default
-output: bookdown::html_chapter
 ---
-
-```{r load_options,echo=FALSE}
-source("general-options.r")
-```
-
-# Reproducible Research
 
 Reproducible research is a concept borrowed from the sciences, which are currently working on ways to make research reproducible. This borrowing might seem to imply that reproducible research implies a kind of scientific method, but it does not. We must distinguish between the terms *replicable*, *reproducible*, and *verifiable*.^[Some people reverse the terms *reproducible* and *replicable* as I have defined them here.] Replication is central to the scientific method. It is the idea that an experiment should be able to be repeated in different laboratories. This ability to repeat experiments and get the same results constitute verification in the sciences.
 

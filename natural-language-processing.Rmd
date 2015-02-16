@@ -1,14 +1,6 @@
 ---
 title: "Natural Language Processing"
-layout: default
-output: bookdown::html_chapter
 ---
-
-```{r,echo=FALSE}
-source("general-options.r")
-```
-
-# Natural Language Processing
 
 Natural language processing (NLP) is a set of techniques for using computers to detect in human language the kinds of things that humans detect automatically. For example, when you read a text, you parse a text out into paragraphs and sentences. You do not explicitly label the parts of speech, but you certainly understand them. You notice names of people and places as they come up. And you can tell whether a sentence or paragraph is happy or angry or sad. 
 

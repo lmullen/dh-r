@@ -1,7 +1,5 @@
 ---
 title: "R on a Server"
-layout: default
-output: bookdown::html_chapter
 ---
 
 # R on a Server

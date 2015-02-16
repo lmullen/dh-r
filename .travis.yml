@@ -8,7 +8,7 @@ before_install:
 - sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
 - sudo apt-get update -y
 - ./travis-tool.sh install_aptget gdal-bin libgdal-dev libproj-dev
-- "./travis-tool.sh bootstrap"
+- ./travis-tool.sh bootstrap
 install:
 - sudo apt-get install r-cran-rjava
 - export PATH="$HOME/pandoc:$PATH"
@@ -18,15 +18,15 @@ install:
 - chmod +x $HOME/pandoc/pandoc
 - pandoc --version
 - travis_retry gem install jekyll mime-types
-- "./travis-tool.sh r_binary_install rjsonio knitr png testthat"
-- "./travis-tool.sh r_install        lubridate pryr nycflights13 microbenchmark stringi babynames stringr ggplot2 ggvis httr tidyr rgdal sp rgeos maptools ggmap classInt RColorBrewer NLP openNLP dplyr qdap RWeka network sna igraph mallet d3Network broom"
-- "./travis-tool.sh github_package   rstudio/rmarkdown hadley/bookdown hadley/devtools lmullen/gender-data-pkg ropensci/historydata lmullen/mullenMisc"
+# - ./travis-tool.sh r_binary_install rjsonio knitr png testthat
+# - ./travis-tool.sh r_install        devtools lubridate pryr nycflights13 microbenchmark stringi babynames stringr ggplot2 ggvis httr tidyr rgdal sp rgeos maptools ggmap classInt RColorBrewer NLP openNLP dplyr qdap RWeka network sna igraph mallet d3Network broom 
+- ./travis-tool.sh github_package rstudio/rmarkdown lmullen/gender-data-pkg ropensci/historydata lmullen/mullenMisc
 - mkdir ~/.R
 - cp Makevars ~/.R
-script: jekyll build
-after_success:
-- cp -r figures/ _site/figures
-- cp NetworkGraph*.html _site/
+script: make all
+# after_success:
+# - cp -r figures/ _site/figures
+# - cp NetworkGraph*.html _site/
 deploy:
   provider: s3
   access_key_id: AKIAI3ZE4DKSC6ID3RMA
@@ -34,7 +34,7 @@ deploy:
     secure: Wk625mSLIvtidg9bv4/1rW2Yu6PYJg2I+1VZ11uAPYt4z/B7Vtr0bby8m8SITZtyd6S1UDSBnwoKIuoBET/Ox3NZSl+OeOa0eDXRhL4djkjv2HjwWSMDYV3rzYyIjlOAC58oY9RiAi50W8r1eyfmxPC1NDXAOYSp+7bTOCR8Na4=
   bucket: dh-r.lincolnmullen.com
   endpoint: dh-r.lincolnmullen.com.s3-website-us-east-1.amazonaws.com
-  local-dir: _site
+  local-dir: public
   skip_cleanup: true
 notifications:
   email:

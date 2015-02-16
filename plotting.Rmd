@@ -1,14 +1,6 @@
 ---
 title: "Plotting"
-layout: default
-output: bookdown::html_chapter
 ---
-
-```{r,echo=FALSE}
-source("general-options.r")
-```
-
-# Plotting
 
 One of the most powerful things that you can do with R is also one of the easiest: make plots. Let's begin with a distinction between plotting and other kinds of visualization, though the distinction is somewhat arbitrary. A map is of course a visualization, as is a network graph. But there are other kind of plots which are probably what come to mind first when you think of plots. It is these kinds of plots that we will address first: scatter plots, line charts, bar charts, histograms, and the like. In this chapter we will use several datasets from the [historydata](https://github.com/lmullen/historydata) package to create these kinds of plots.^[Assuming that you have installed devtools, you can install the historydata package with the following command: `devtools::install_github("lmullen/historydata")`.] 
 

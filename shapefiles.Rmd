@@ -1,14 +1,6 @@
 ---
 title: "Working with Shapefiles"
-layout: default
-output: bookdown::html_chapter
 ---
-
-```{r,echo=FALSE}
-source("general-options.r")
-```
-
-# Working with Shapefiles
 
 There are several formats in which geographic data (especially data for boundaries) might come, but the most common format in the [shapefile](http://en.wikipedia.org/wiki/Shapefile). The format of shapefiles is controlled by Esri, a corporation that makes ArcGIS. The format, however, is widely used. Shapefiles can contain coordinates in latitude and longitude, but they can also contain projected coordinates in some other coordinate reference system which translates the coordinates on a three-dimensional globe to coordinates on a two-dimensional representation. For example, the coordinates of New Haven, Connecticut, in latitude and longitude are `41.3100° N, 72.9236° W`. In the popular coordinate reference system used by Google Maps and most other web mapping services, called Google Mercator, those coordinates would be represented as `-8117860.8230976425 5058258.564581587` (notice that longitude comes first, then latitude, and that the unit of measurement is not degrees but meters). While R can handle converting between coordinate reference systems using the [rgdal](http://cran.rstudio.org/web/packages/rgdal/) package, it is often easier to handle the conversion outside of R. Furthermore, shapefiles can often be enormous---in the hundreds of megabytes---because they contain much more detail about borders or coastlines than will appear in a an actual map. Simplifying these shapefiles is often a task better done outside of R, though many of the tasks can be done inside R as well. This chapter will explain how to reproject and simplify shapefiles gathered from the NHGIS website for use with [ggplot2](http://cran.rstudio.org/web/packages/ggplot2/). This pattern should be generalizable for most shapefiles.
 

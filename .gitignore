@@ -8,3 +8,6 @@ out/
 data/nhgis-employment
 _cache/
 natural-language-processing_cache/
+*_files/
+public/
+libs/

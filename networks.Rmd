@@ -1,14 +1,6 @@
 ---
 title: "Networks"
-layout: default
-output: bookdown::html_chapter 
 ---
-
-```{r,echo=FALSE}
-source("general-options.r")
-```
-
-# Networks
 
 Network analysis, like spatial analysis or text analysis, is one of the major types of digital history work that you might want to perform. A network is simply a representation of the relationships between objects: people, places, events, etc. The objects we call vertices; the relationships between them we call edges. Take the following (randomly generated) example. The nine vertices are represented by blue dots. The ten relationships are represented by light gray lines.
 
