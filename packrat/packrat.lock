@@ -452,6 +452,12 @@ Version: 0.9-1
 Hash: 37c635fde819a572a153bb22535ab5f0
 Requires: sp
 
+Package: rgeos
+Source: CRAN
+Version: 0.3-8
+Hash: cc7e523257dc2cea5030ca250c2ffb25
+Requires: sp
+
 Package: rjson
 Source: CRAN
 Version: 0.2.15
