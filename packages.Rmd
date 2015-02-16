@@ -1,7 +1,5 @@
 ---
 title: "Packages"
-layout: default
-output: bookdown::html_chapter
 ---
 
 # R Packages

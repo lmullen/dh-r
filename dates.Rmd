@@ -1,14 +1,6 @@
 ---
 title: "Dates"
-layout: default
-output: bookdown::html_chapter
 ---
-
-```{r,echo=FALSE}
-source("general-options.r")
-```
-
-# Dates
 
 A standard historian's joke goes something like this: "On or about October 31, 1517, modernity began." Martin Luther did indeed nail his ninety-five theses to the door of the Wittenberg church on that date. Identifying the beginning of modernity or capitalism, or conceptions of the self, or any other historical abstraction worth studying cannot be so readily pinned down to a specific date, whether on or about. The problem is one of precision. Historical events and movements have fuzzy beginnings and endings and often even straightforward facts often have uncertain dates. Think of chronological terms like "the long nineteenth century," "the last third of the eighteenth century," "the American Revolution," or "antiquity" and "modernity," and you'll recognize how good historians are expressing the necessary chronological uncertainty in prose.
 

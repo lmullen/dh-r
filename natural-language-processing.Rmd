@@ -1,14 +1,6 @@
 ---
 title: "Natural Language Processing"
-layout: default
-output: bookdown::html_chapter
 ---
-
-```{r,echo=FALSE}
-source("general-options.r")
-```
-
-# Natural Language Processing
 
 Natural language processing (NLP) is a set of techniques for using computers to detect in human language the kinds of things that humans detect automatically. For example, when you read a text, you parse a text out into paragraphs and sentences. You do not explicitly label the parts of speech, but you certainly understand them. You notice names of people and places as they come up. And you can tell whether a sentence or paragraph is happy or angry or sad. 
 
@@ -46,9 +38,11 @@ install.packages(c("NLP", "openNLP", "RWeka", "qdap"))
 Note that these NLP packages and the underlying Java libraries depend on large models of human languages. For some uses in English you should not need to download other data or models. But if you want to use a language other than English, or if you want to use entity extraction as below, you can download the openNLP models from a repository (not CRAN but like it) called [Datacube](http://datacube.wu.ac.at/). You can look in the [NLP](http://cran.rstudio.org/web/packages/NLP/) documentation or use the following command to install models, substituting a language code for `en` as appropriate.
 
 ```{r eval=TRUE}
-install.packages("openNLPmodels.en",
-                 repos = "http://datacube.wu.ac.at/",
-                 type = "source")
+if(!require("openNLPmodels.en")) {
+  install.packages("openNLPmodels.en",
+                   repos = "http://datacube.wu.ac.at/",
+                   type = "source")
+}
 ```
 
 Assuming you have successfully installed everything you should be able to load the following libraries.

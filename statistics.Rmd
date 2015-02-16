@@ -1,15 +1,6 @@
 ---
 title: "Statistics"
-layout: default
-output: bookdown::html_chapter
 ---
-
-```{r,echo=FALSE}
-source("general-options.r")
-```
-
-
-# Statistics
 
 Basic statistical techniques of interest to historians.
 

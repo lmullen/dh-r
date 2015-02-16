@@ -1,9 +1,5 @@
 ---
 title: "Machine Learning"
-layout: default
-output: bookdown::html_chapter
 ---
-
-# Machine Learning
 
 An important package is [caret](http://topepo.github.io/caret/index.html), for Classification And REgression Training. 

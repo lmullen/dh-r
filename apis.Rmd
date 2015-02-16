@@ -1,7 +1,5 @@
 ---
 title: "Web APIs"
-layout: default
-output: bookdown::html_chapter
 ---
 
 # Web APIs (Application Programming Interfaces)

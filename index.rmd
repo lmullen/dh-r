@@ -1,14 +1,38 @@
 ---
-layout: default
-title: Welcome
-output: bookdown::html_chapter
+title: Digital History Methods in R
 ---
-
-# Digital History Methods in R
 
 This is the in-progress book site for *Digital History Methods in R*. For the course for which the book is being written, please see my syllabus for "[Programming in History/New Media](http://lincolnmullen.com/courses/clio3.2014/)."
 
 <ul class="toc">
-  {% include navigation.html %}
+<li class="dropdown-header">Getting started</li>
+<li><a href="introduction.html">Introduction</a></li>
+<li><a href="setup.html">Setup</a></li>
+<li><a href="basics.html">Basics of R</a></li>
+<li class="dropdown-header">Working with Data</li>
+<li><a href="data.html">Data Manipulation</a></li>
+<li><a href="strings.html">Strings</a></li>
+<li><a href="dates.html">Dates</a></li>
+<li><a href="apis.html">APIs</a></li>
+<li><a href="scraping.html">Scraping</a></li>
+<li><a href="reproducible.html">Reproducible Research</a></li>
+<li class="dropdown-header">Quantitative History</li>
+<li><a href="statistics.html">Statistics</a></li>
+<li><a href="plotting.html">Plotting</a></li>
+<li><a href="interactive.html">Interactive Plotting</a></li>
+<li class="dropdown-header">Spatial History</li>
+<li><a href="shapefiles.html">Working with Shapefiles</a></li>
+<li><a href="mapping.html">Mapping</a></li>
+<li class="dropdown-header">Text Mining in History</li>
+<li><a href="document-similarity.html">Document Similarity</a></li>
+<li><a href="natural-language-processing.html">Natural Language Processing</a></li>
+<li><a href="topic-modeling.html">Topic Modeling</a></li>
+<li class="dropdown-header">Network Analysis in History</li>
+<li><a href="networks.html">Networks</a></li>
+<li class="dropdown-header">Advanced Techniques</li>
+<li><a href="machine-learning.html">Machine Learning</a></li>
+<li><a href="server.html">R on a Server</a></li>
+<li><a href="packages.html">Packages</a></li>
+<li><a href="databases.html">Databases</a></li>
 </ul>
 

@@ -1,0 +1,8 @@
+auto.snapshot: TRUE
+use.cache: TRUE
+print.banner.on.startup: TRUE
+vcs.ignore.lib: TRUE
+vcs.ignore.src: TRUE
+external.packages: 
+local.repos: ~/R/local
+load.external.packages.on.startup: TRUE

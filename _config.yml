@@ -1,5 +1,0 @@
-name: Digital History Methods in R
-markdown: redcarpet
-highlighter: pygments
-
-exclude: ["CONTRIBUTING.md", "README.md", "book"]

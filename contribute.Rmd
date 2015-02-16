@@ -1,7 +1,5 @@
 ---
 title: "Contributing"
-layout: default
-output: bookdown::html_chapter
 ---
 
 I welcome your contributions to this project. Please feel free to [e-mail me](mailto:lincoln@lincolnmullen.com) with questions or with suggestions for additional content.

@@ -1,9 +1,5 @@
 ---
-title: "Mapping"
-layout: default
-output: bookdown::html_chapter
+title: "Web Scraping"
 ---
-
-# Scraping
 
 Often data does not come in a useful form, and we have to download and parse it from the web ourselves.
