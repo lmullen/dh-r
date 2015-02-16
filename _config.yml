@@ -1,2 +1,2 @@
-exclude: [packrat, Makefile, dh-methods-in-r.proj]
+exclude: [packrat, Makefile, Makevars, dh-methods-in-r.proj]
 destination: public
