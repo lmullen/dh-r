@@ -317,6 +317,12 @@ Source: CRAN
 Version: 2.3-9
 Hash: 236a24fa187bb1f3a1694f2915597c5e
 
+Package: maptools
+Source: CRAN
+Version: 0.8-34
+Hash: 360a08ad2a714a213b8a6c35038ba356
+Requires: lattice, sp
+
 Package: markdown
 Source: CRAN
 Version: 0.7.4
