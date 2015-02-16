@@ -20,19 +20,12 @@ install:
 - mkdir -p $HOME/R/local
 - curl -O http://datacube.wu.ac.at/src/contrib/openNLPmodels.en_1.5-1.tar.gz
 - tar -C $HOME/R/local -xvf openNLPmodels.en_1.5-1.tar.gz
-- travis_retry gem install jekyll mime-types
 - ./travis-tool.sh r_install packrat
-# - ./travis-tool.sh r_binary_install rjsonio knitr png testthat
-# - ./travis-tool.sh r_install        devtools lubridate pryr nycflights13 microbenchmark stringi babynames stringr ggplot2 ggvis httr tidyr rgdal sp rgeos maptools ggmap classInt RColorBrewer NLP openNLP dplyr qdap RWeka network sna igraph mallet d3Network broom
-# - ./travis-tool.sh github_package rstudio/rmarkdown lmullen/gender-data-pkg ropensci/historydata lmullen/mullenMisc
 - mkdir ~/.R
 - cp Makevars ~/.R
 script: 
 - make packrat
 - make all
-# after_success:
-# - cp -r figures/ _site/figures
-# - cp NetworkGraph*.html _site/
 deploy:
   provider: s3
   access_key_id: AKIAI3ZE4DKSC6ID3RMA
