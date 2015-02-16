@@ -19,7 +19,7 @@ install:
 - pandoc --version
 - mkdir -p $HOME/R/local
 - curl -O http://datacube.wu.ac.at/src/contrib/openNLPmodels.en_1.5-1.tar.gz
-- tar -C $HOME/R/local -xvf openNLPmodels.en.1.5-1.tar.gz
+- tar -C $HOME/R/local -xvf openNLPmodels.en_1.5-1.tar.gz
 - travis_retry gem install jekyll mime-types
 - ./travis-tool.sh r_install packrat
 # - ./travis-tool.sh r_binary_install rjsonio knitr png testthat
