@@ -27,7 +27,9 @@ install:
 # - ./travis-tool.sh github_package rstudio/rmarkdown lmullen/gender-data-pkg ropensci/historydata lmullen/mullenMisc
 - mkdir ~/.R
 - cp Makevars ~/.R
-script: make all
+script: 
+- make packrat
+- make all
 # after_success:
 # - cp -r figures/ _site/figures
 # - cp NetworkGraph*.html _site/
