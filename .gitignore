@@ -12,3 +12,4 @@ natural-language-processing_cache/
 public/
 libs/
 packrat/lib*/
+packrat/src/

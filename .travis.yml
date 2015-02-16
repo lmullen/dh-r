@@ -18,9 +18,10 @@ install:
 - chmod +x $HOME/pandoc/pandoc
 - pandoc --version
 - travis_retry gem install jekyll mime-types
+- ./travis-tool.sh r_install packrat
 # - ./travis-tool.sh r_binary_install rjsonio knitr png testthat
-# - ./travis-tool.sh r_install        devtools lubridate pryr nycflights13 microbenchmark stringi babynames stringr ggplot2 ggvis httr tidyr rgdal sp rgeos maptools ggmap classInt RColorBrewer NLP openNLP dplyr qdap RWeka network sna igraph mallet d3Network broom 
-- ./travis-tool.sh github_package rstudio/rmarkdown lmullen/gender-data-pkg ropensci/historydata lmullen/mullenMisc
+# - ./travis-tool.sh r_install        devtools lubridate pryr nycflights13 microbenchmark stringi babynames stringr ggplot2 ggvis httr tidyr rgdal sp rgeos maptools ggmap classInt RColorBrewer NLP openNLP dplyr qdap RWeka network sna igraph mallet d3Network broom
+# - ./travis-tool.sh github_package rstudio/rmarkdown lmullen/gender-data-pkg ropensci/historydata lmullen/mullenMisc
 - mkdir ~/.R
 - cp Makevars ~/.R
 script: make all

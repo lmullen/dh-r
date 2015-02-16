@@ -8,8 +8,9 @@ html : $(HTML_FILES)
 	R --slave -e "set.seed(100);rmarkdown::render('$<')"
 
 .PHONY: jekyll
-jekyll : 
+jekyll :
 	jekyll build
+	rm public/*.Rmd
 
 .PHONY: clean
 clean :
