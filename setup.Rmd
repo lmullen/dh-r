@@ -61,10 +61,10 @@ install.packages(c("httr", "jsonlite"), dependencies = TRUE)
 
 The second main place to install packages is from [GitHub](https://github.com/), a website for sharing open-source code. Many R packages are developed on GitHub, so you can install more recent versions of them than are available on CRAN. Other packages are distributed only informally via GitHub rather than formally via CRAN. Such packages can be installed using the `install_github()` function provided by the devtools package we installed earlier.
 
-Let's install the [historydata](https://github.com/lmullen/historydata) package which provides sample datasets of interest to historians. This package will give us something to work with later. You can [find this package](https://github.com/lmullen/historydata) at GitHub. Notice that the README provides instructions on how to install the package. But even if it didn't, we could find out how to install the package from its URL. Notice the URL: `https://github.com/lmullen/historydata`. After GitHub's domain name, there are two parts to the URL. The username of the person or organization who controls this package is first: `lmullen`. Next is the name of the repository (which probably should be the same as the name of the package, but which might not be): `historydata`. We can use that information to install the file with devtools.^[The double colon operator `::` lets us specify which package a function comes from. In this case we are using it as a shortcut so we don't have to load devtools into the global environment.]
+Let's install the [historydata](https://github.com/ropensci/historydata) package which provides sample datasets of interest to historians. This package will give us something to work with later. You can [find this package](https://github.com/ropensci/historydata) at GitHub. Notice that the README provides instructions on how to install the package. But even if it didn't, we could find out how to install the package from its URL. Notice the URL: `https://github.com/lmullen/historydata`. After GitHub's domain name, there are two parts to the URL. The username of the person or organization who controls this package is first: `lmullen`. Next is the name of the repository (which probably should be the same as the name of the package, but which might not be): `historydata`. We can use that information to install the file with devtools.^[The double colon operator `::` lets us specify which package a function comes from. In this case we are using it as a shortcut so we don't have to load devtools into the global environment.]
 
 ```{r eval=FALSE}
-devtools::install_github("lmullen/historydata")
+devtools::install_github("ropensci/historydata")
 ```
 
 Now using `install.packages()` and `devtools::install_github()` you'll be able to install the vast majority of the packages that are useful to you.
@@ -84,7 +84,7 @@ General R functionality:
 
 Data:
 
-- [historydata](https://github.com/lmullen/historydata)
+- [historydata](https://github.com/ropensci/historydata)
 
 Web:
 
