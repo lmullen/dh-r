@@ -1,5 +1,5 @@
 PackratFormat: 1.4
-PackratVersion: 0.4.3.2
+PackratVersion: 0.4.3
 RVersion: 3.1.2
 Repos: CRAN=http://cran.rstudio.com
 
@@ -15,8 +15,8 @@ Hash: 3a9e85b26ec3ab570266bccb3f9de055
 
 Package: MASS
 Source: CRAN
-Version: 7.3-37
-Hash: 05cd8a6b7ebab5d30f3d95c8b26cbdf1
+Version: 7.3-39
+Hash: 07a460fafc264e456aa1e7ae661a7194
 
 Package: Matrix
 Source: CRAN
@@ -64,19 +64,14 @@ Requires: rJava
 
 Package: Rcpp
 Source: CRAN
-Version: 0.11.4
-Hash: 1f684f6afd28079e4e609b49f353e49f
+Version: 0.11.5
+Hash: 3e452cb48f3ec8a7cf27fb9ab8624639
 
 Package: RgoogleMaps
 Source: CRAN
 Version: 1.2.0.7
 Hash: 7b89070606956de87fd505efec283740
 Requires: RJSONIO, png
-
-Package: XML
-Source: CRAN
-Version: 3.98-1.1
-Hash: 13746d37588e7083349177d6e8234864
 
 Package: assertthat
 Source: CRAN
@@ -93,26 +88,16 @@ Source: CRAN
 Version: 1.0-6
 Hash: cb26464a8321628636b547518994c931
 
-Package: brew
-Source: CRAN
-Version: 1.0-6
-Hash: 9d92cc5ac60123fdb7b0daa3ae83bf99
-
 Package: caTools
 Source: CRAN
 Version: 1.17.1
 Hash: bb5fdc266f716b8a289a4f92007d53e3
 Requires: bitops
 
-Package: chron
-Source: CRAN
-Version: 2.3-45
-Hash: 65cf73bf43c26a4578bb251499de38cd
-
 Package: class
 Source: CRAN
-Version: 7.3-11
-Hash: 42a1ffd587092f98b7c2d5e2a9fca18b
+Version: 7.3-12
+Hash: 561a5b919c670a3afabbd3430f78c39c
 Requires: MASS
 
 Package: classInt
@@ -123,27 +108,14 @@ Requires: class, e1071
 
 Package: colorspace
 Source: CRAN
-Version: 1.2-4
-Hash: b775bd08a10f968fef582304b7c3ab9c
+Version: 1.2-6
+Hash: a53ddc5a49706984d234ea5cc209c8f0
 
 Package: d3Network
 Source: CRAN
 Version: 0.5.2.1
 Hash: 40805bc3243ace919f6198fd093aa548
 Requires: plyr, rjson, whisker
-
-Package: data.table
-Source: CRAN
-Version: 1.9.4
-Hash: 905b6356d387a3a7e13ef62c4cf6f7e3
-Requires: chron, reshape2
-
-Package: devtools
-Source: CRAN
-Version: 1.7.0
-Hash: 56919e22e0d3f7131e93bda1a869730e
-Requires: RCurl, digest, evaluate, httr, jsonlite, memoise, roxygen2,
-    rstudioapi, whisker
 
 Package: dichromat
 Source: CRAN
@@ -158,7 +130,7 @@ Hash: 89dc4c8734dad5322bb3c5c2af09056f
 Package: dplyr
 Source: CRAN
 Version: 0.4.1
-Hash: 4ce03ad26fb9592dda1274f72c5d3257
+Hash: 3bcfd4ae622d206d1f0cd9f1c759846d
 Requires: BH, DBI, R6, Rcpp, assertthat, lazyeval, magrittr
 
 Package: e1071
@@ -178,24 +150,18 @@ Source: CRAN
 Version: 1.0
 Hash: a90c211d7df7e61a72b8ab6c99c2e848
 
-Package: gdata
+Package: geosphere
 Source: CRAN
-Version: 2.13.3
-Hash: fa67facdc23542b4056b3a50b5a0fb3c
-Requires: gtools
-
-Package: gender
-Source: CRAN
-Version: 0.4.3
-Hash: 095da4de1b2f3d21cc7fd6f06e7d0d69
-Requires: devtools, dplyr, httr, jsonlite
+Version: 1.3-11
+Hash: 13d55a922c33d6b4661bd095a306a450
+Requires: sp
 
 Package: ggmap
 Source: CRAN
-Version: 2.3
-Hash: de98e41d089a704b5c03da03a806f2fb
-Requires: RgoogleMaps, ggplot2, mapproj, plyr, png, proto, reshape2,
-    rjson, scales
+Version: 2.4
+Hash: 6e6d3591c5436f7eb68da14a1b6b868e
+Requires: RgoogleMaps, digest, geosphere, ggplot2, jpeg, mapproj, plyr,
+    png, proto, reshape2, rjson, scales
 
 Package: ggplot2
 Source: CRAN
@@ -205,8 +171,8 @@ Requires: MASS, digest, gtable, plyr, proto, reshape2, scales
 
 Package: ggvis
 Source: CRAN
-Version: 0.4
-Hash: 2ce2827306789fe66c344b423c2f1261
+Version: 0.4.1
+Hash: 409c438440952999f71b11bec44d66d7
 Requires: assertthat, dplyr, htmltools, jsonlite, lazyeval, magrittr,
     shiny
 
@@ -219,11 +185,6 @@ Package: gtable
 Source: CRAN
 Version: 0.1.2
 Hash: 0cf4a2b54c02b35dec7e74a8ebed12a0
-
-Package: gtools
-Source: CRAN
-Version: 3.4.1
-Hash: e4c2510a4ba86b5826f05d9f3639cb13
 
 Package: highr
 Source: CRAN
@@ -248,7 +209,7 @@ Requires: digest
 Package: httpuv
 Source: CRAN
 Version: 1.3.2
-Hash: ac540f0ff8ec50ae7c9ec69f1c81f1c7
+Hash: 1534fecf898455255e27d84e6ce94e2d
 Requires: Rcpp
 
 Package: httr
@@ -262,6 +223,11 @@ Source: CRAN
 Version: 0.7.1
 Hash: e82d8e897ee5f480edb6a68b3d949dba
 Requires: Matrix
+
+Package: jpeg
+Source: CRAN
+Version: 0.1-8
+Hash: 2a96df07e30724f8bb773e4f78c634c6
 
 Package: jsonlite
 Source: CRAN
@@ -281,8 +247,8 @@ Hash: 568a992912caf7eeddfb121924154047
 
 Package: lattice
 Source: CRAN
-Version: 0.20-29
-Hash: 17e9fe582d11197544a5ec817a80b21e
+Version: 0.20-30
+Hash: d635f3e4d93949f095ec8ff37e5aeb04
 
 Package: lazyeval
 Source: CRAN
@@ -316,12 +282,6 @@ Package: maps
 Source: CRAN
 Version: 2.3-9
 Hash: 236a24fa187bb1f3a1694f2915597c5e
-
-Package: maptools
-Source: CRAN
-Version: 0.8-34
-Hash: 360a08ad2a714a213b8a6c35038ba356
-Requires: lattice, sp
 
 Package: markdown
 Source: CRAN
@@ -358,8 +318,8 @@ Requires: colorspace
 
 Package: openNLP
 Source: CRAN
-Version: 0.2-3
-Hash: d2bb8c82567dc1672fd50b8c96da97ee
+Version: 0.2-4
+Hash: 026b23ed5e908423ef843b0a07fb3a37
 Requires: NLP, openNLPdata, rJava
 
 Package: openNLPdata
@@ -375,23 +335,14 @@ Hash: 457ef6ad6001118004cc270477ff6e22
 SourcePath: ~/R/local/openNLPmodels.en
 
 Package: packrat
-Source: github
-Version: 0.4.3-2
-Hash: 6a0669586f295f4b6336dd973e8b5f970732fc2e
-GithubRepo: packrat
-GithubUsername: rstudio
-GithubRef: master
-GithubSha1: 6a0669586f295f4b6336dd973e8b5f970732fc2e
-
-Package: plotrix
 Source: CRAN
-Version: 3.5-11
-Hash: 615f871b3ee3798e318330a5c2323623
+Version: 0.4.3
+Hash: 16c72d5c802629fae5a4abca901e0199
 
 Package: plyr
 Source: CRAN
 Version: 1.8.1
-Hash: 7dd935ee4050eaf2973108be2faf245e
+Hash: 6a4457c04af4cf5e4a8166ff59bcfd96
 Requires: Rcpp
 
 Package: png
@@ -404,58 +355,21 @@ Source: CRAN
 Version: 0.3-10
 Hash: 668a9e87cedbdc5f56c396edf1bd2648
 
-Package: qdap
-Source: CRAN
-Version: 2.2.0
-Hash: 88146b2f89570b94495f92a7e2497b50
-Requires: NLP, RColorBrewer, RCurl, XML, chron, dplyr, gdata, gender,
-    ggplot2, gridExtra, igraph, openNLP, plotrix, qdapDictionaries,
-    qdapRegex, qdapTools, reports, reshape2, scales, stringdist, tm,
-    venneuler, wordcloud, xlsx
-
-Package: qdapDictionaries
-Source: CRAN
-Version: 1.0.2
-Hash: c0a51bf87c79aca65764d77b27912342
-
-Package: qdapRegex
-Source: CRAN
-Version: 0.2.0
-Hash: b1036fa0773beddef449ae7f601c8dc2
-Requires: stringi
-
-Package: qdapTools
-Source: CRAN
-Version: 1.1.0
-Hash: ec44f7833dc0df2fbcaf248a88fb081b
-Requires: RCurl, XML, chron, data.table
-
 Package: rJava
 Source: CRAN
 Version: 0.9-6
 Hash: 5ea21341e7c1d6a40cdde6ef470fec92
 
-Package: reports
-Source: CRAN
-Version: 0.1.4
-Hash: e10ced6b0ba2ed72df82444ae0063fe5
-
 Package: reshape2
 Source: CRAN
 Version: 1.4.1
-Hash: c401ef665db07687e1e54fbc60c683bb
+Hash: d3d77b083fd5485f674487aa23011ea7
 Requires: Rcpp, plyr, stringr
 
 Package: rgdal
 Source: CRAN
 Version: 0.9-1
 Hash: 37c635fde819a572a153bb22535ab5f0
-Requires: sp
-
-Package: rgeos
-Source: CRAN
-Version: 0.3-8
-Hash: cc7e523257dc2cea5030ca250c2ffb25
 Requires: sp
 
 Package: rjson
@@ -468,17 +382,6 @@ Source: CRAN
 Version: 0.5.1
 Hash: 2d87f70c12c5558c50c4b3587fc6f499
 Requires: caTools, htmltools, knitr, yaml
-
-Package: roxygen2
-Source: CRAN
-Version: 4.1.0
-Hash: a11d0f31f8daf359c67e3e0c19d1e468
-Requires: Rcpp, brew, digest, stringr
-
-Package: rstudioapi
-Source: CRAN
-Version: 0.2
-Hash: aa27b6b62b335717db16cb1de6336860
 
 Package: scales
 Source: CRAN
@@ -503,25 +406,20 @@ Version: 1.0-17
 Hash: 29bd0f1fc6cba0edf00eafe2b5b8e9d0
 Requires: lattice
 
-Package: stringdist
-Source: CRAN
-Version: 0.9.0
-Hash: a2971b90dc211dabc743cf76812bba9b
-
 Package: stringi
-Source: CRAN
-Version: 0.4-1
-Hash: 955e96fc5961bf9f7b3ca916f9b1e606
+Source: github
+Version: 0.5-1
+Hash: d239d506916b95c36ccdb78e56049e078e32bca8
+GithubRepo: stringi
+GithubUsername: Rexamine
+GithubRef: master
+GithubSha1: d239d506916b95c36ccdb78e56049e078e32bca8
 
 Package: stringr
-Source: github
-Version: 0.9.0.9000
-Hash: a0f03f53ecb1f391a575cd645990e437faa724c0
+Source: CRAN
+Version: 0.6.2
+Hash: 7ce5d108d30a763139d12ca208401919
 Requires: magrittr, stringi
-GithubRepo: stringr
-GithubUsername: hadley
-GithubRef: master
-GithubSha1: a0f03f53ecb1f391a575cd645990e437faa724c0
 
 Package: tidyr
 Source: CRAN
@@ -535,34 +433,10 @@ Version: 0.6
 Hash: aa73d34f04feed428fc98fbb258d0239
 Requires: NLP, slam
 
-Package: venneuler
-Source: CRAN
-Version: 1.1-0
-Hash: 23f1ac07f15587c8b26aa2fc199e8ff8
-Requires: rJava
-
 Package: whisker
 Source: CRAN
 Version: 0.3-2
 Hash: 186ab2937fec1694c8a63009a2389c4e
-
-Package: wordcloud
-Source: CRAN
-Version: 2.5
-Hash: fa60e383fc461f55b028ec3ee3101b1f
-Requires: RColorBrewer, Rcpp, slam
-
-Package: xlsx
-Source: CRAN
-Version: 0.5.7
-Hash: 4083efd9872d1c233a6b6b1ccfc13e4a
-Requires: rJava, xlsxjars
-
-Package: xlsxjars
-Source: CRAN
-Version: 0.6.1
-Hash: 3601d069f9b45b0d9a39b6954f4fed48
-Requires: rJava
 
 Package: xtable
 Source: CRAN
