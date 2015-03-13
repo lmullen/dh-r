@@ -283,6 +283,12 @@ Source: CRAN
 Version: 2.3-9
 Hash: 236a24fa187bb1f3a1694f2915597c5e
 
+Package: maptools
+Source: CRAN
+Version: 0.8-34
+Hash: 360a08ad2a714a213b8a6c35038ba356
+Requires: lattice, sp
+
 Package: markdown
 Source: CRAN
 Version: 0.7.4
@@ -372,6 +378,12 @@ Version: 0.9-1
 Hash: 37c635fde819a572a153bb22535ab5f0
 Requires: sp
 
+Package: rgeos
+Source: CRAN
+Version: 0.3-8
+Hash: cc7e523257dc2cea5030ca250c2ffb25
+Requires: sp
+
 Package: rjson
 Source: CRAN
 Version: 0.2.15
@@ -418,8 +430,7 @@ GithubSha1: d239d506916b95c36ccdb78e56049e078e32bca8
 Package: stringr
 Source: CRAN
 Version: 0.6.2
-Hash: 7ce5d108d30a763139d12ca208401919
-Requires: magrittr, stringi
+Hash: cdde0cfa0f52cffeaca23a11a3899779
 
 Package: tidyr
 Source: CRAN
