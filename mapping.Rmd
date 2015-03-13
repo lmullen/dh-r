@@ -216,7 +216,7 @@ map_1850 +
             vjust = -1)
 ```
 
-We can use a more sophisticated dataset to plot points on the map. The [historydata](https://github.com/lmullen/historydata) package contains a geocoded set of Paulist missions. We might normally display just the missions from 1850, but for learning purposes we will display all the missions at once.
+We can use a more sophisticated dataset to plot points on the map. The [historydata](https://github.com/ropensci/historydata) package contains a geocoded set of Paulist missions. We might normally display just the missions from 1850, but for learning purposes we will display all the missions at once.
 
 ```{r}
 library(dplyr)
