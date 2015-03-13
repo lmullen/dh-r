@@ -1,17 +1,15 @@
-HTML_FILES := $(patsubst %.Rmd, %.html ,$(wildcard *.Rmd))
+HTML_FILES := $(patsubst %.Rmd, public/%.html ,$(wildcard *.Rmd))
 INCLUDE_FILES := $(wildcard include/*.html)
 
-all : html public/build
+all : public/build html
 
 html : $(HTML_FILES)
 
-%.html : %.Rmd $(INCLUDE_FILES)
-	R --slave -e "set.seed(100);rmarkdown::render('$<')"
+public/%.html : %.Rmd
+	R --slave -e "set.seed(100);rmarkdown::render('$(<F)', output_dir = 'public')"
 
-public/build : $(HTML_FILES) $(INCLUDE_FILES)
+public/build : $(INCLUDE_FILES)
 	mkdir -p public/
-	cp *.html public/
-	cp -r *_files public/
 	cp -r libs public/
 	cp -r screenshots public/
 	touch public/build
@@ -23,6 +21,5 @@ packrat :
 .PHONY : clean
 clean :
 	rm -f $(HTML_FILES)
-	rm -rf *_files/
-	rm -rf public
+	rm -rf public/*
 

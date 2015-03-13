@@ -4,7 +4,7 @@ html_document:
   highlight: pygments
   mathjax: null
   toc_depth: 2
-  lib_dir: libs
+  lib_dir: public/libs
   includes:
     in_header: include/in_header.html
     before_body: include/before_body.html
