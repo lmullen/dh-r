@@ -14,9 +14,11 @@ public/build : $(INCLUDE_FILES)
 	cp -r screenshots public/
 	touch public/build
 
-.PHONY : packrat
-packrat :
-	R --slave -e "packrat::restore()"
+.PHONY : deploy
+deploy :
+	rsync --progress --delete -avz \
+		--exclude='.git' \
+		public/* reclaim:~/public_html/lincolnmullen.com/projects/dh-r/
 
 .PHONY : clean
 clean :
