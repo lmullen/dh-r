@@ -2,37 +2,45 @@
 title: Digital History Methods in R
 ---
 
-This is the in-progress book site for *Digital History Methods in R*. For the course for which the book is being written, please see my syllabus for "[Programming in History/New Media](http://lincolnmullen.com/courses/clio3.2014/)."
+<div class="headnote">
 
-<ul class="toc">
-<li class="dropdown-header">Getting started</li>
-<li><a href="introduction.html">Introduction</a></li>
-<li><a href="setup.html">Setup</a></li>
-<li><a href="basics.html">Basics of R</a></li>
-<li class="dropdown-header">Working with Data</li>
-<li><a href="data.html">Data Manipulation</a></li>
-<li><a href="strings.html">Strings</a></li>
-<li><a href="dates.html">Dates</a></li>
-<li><a href="apis.html">APIs</a></li>
-<li><a href="scraping.html">Scraping</a></li>
-<li><a href="reproducible.html">Reproducible Research</a></li>
-<li class="dropdown-header">Quantitative History</li>
-<li><a href="statistics.html">Statistics</a></li>
-<li><a href="plotting.html">Plotting</a></li>
-<li><a href="interactive.html">Interactive Plotting</a></li>
-<li class="dropdown-header">Spatial History</li>
-<li><a href="shapefiles.html">Working with Shapefiles</a></li>
-<li><a href="mapping.html">Mapping</a></li>
-<li class="dropdown-header">Text Mining in History</li>
-<li><a href="document-similarity.html">Document Similarity</a></li>
-<li><a href="natural-language-processing.html">Natural Language Processing</a></li>
-<li><a href="topic-modeling.html">Topic Modeling</a></li>
-<li class="dropdown-header">Network Analysis in History</li>
-<li><a href="networks.html">Networks</a></li>
-<li class="dropdown-header">Advanced Techniques</li>
-<li><a href="machine-learning.html">Machine Learning</a></li>
-<li><a href="server.html">R on a Server</a></li>
-<li><a href="packages.html">Packages</a></li>
-<li><a href="databases.html">Databases</a></li>
-</ul>
+This site is the draft of a book on how to use the [R programming language](http://www.r-project.org/) to do work in digital history. This book began as course materials for my class "[Programming in History/New Media](http://lincolnmullen.com/courses/clio3.2014/)." This book is a work in progress. Please keep that in mind if you read any of the sections. If you find an error or have a suggestion, please feel free to [open an issue](https://github.com/lmullen/dh-methods-in-r/issues) at the book's [GitHub repository](https://github.com/lmullen/dh-methods-in-r/). You can also [e-mail me](mailto:lincoln@lincolnmullen.com). If you want to keep updated about the book's progress, you can <a href="https://github.com/lmullen/dh-methods-in-r/commits/master.atom">follow the feed</a> for commits to this project.
 
+</div>
+
+**About this book**. This book has several parts. A preliminary sections introduces you to [R](http://www.r-project.org/) and why you might want to use it for digital history. The first main section is on working with data: it teaches you how to manipulate the kinds of data that historians work with. It is also intended to get you comfortable in working with R, and to serve as a reference. The most important section help you work through several actual digital history projects. This section will show you how to go from importing data to generating historical insights. A final section introduces you to some advanced techniques that you may need as you develop your skills further.
+
+### Preliminaries
+
+- [Introduction](introduction.html)
+- [Setup](setup.html)
+- [Basics of R](basics.html)
+
+### Working with Data
+
+- [Data Manipulation](data.html)
+- [Strings](strings.html)
+- [Dates](dates.html)
+- [APIs](apis.html)
+- [Web Scraping](scraping.html)
+- [Databases](databases.html)
+- [Reproducible Research](reproducible.html)
+- [Geospatial Data](geospatial-data.html)
+
+### Digital History Applications
+
+- [Plotting](plotting.html)
+- [Interactive Plotting](interactive.html)
+- [Statistics](statistics.html)
+- [Mapping](mapping.html)
+- [Document Similarity](document-similarity.html)
+- [Natural Language Processing](nlp.html)
+- [Topic Modeling](topic-modeling.html)
+- [Networks](networks.html)
+
+### Advanced Techniques
+
+- [Machine Learning](machine-learning.html)
+- [Parallel Processing](parallel.html)
+- [R on a Server](server.html)
+- [Packages](packages.html)

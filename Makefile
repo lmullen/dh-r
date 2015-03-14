@@ -1,14 +1,15 @@
 HTML_FILES := $(patsubst %.Rmd, public/%.html ,$(wildcard *.Rmd))
 INCLUDE_FILES := $(wildcard include/*.html)
+LIBS_FILES := $(wildcard libs/*)
 
 all : public/build html
 
 html : $(HTML_FILES)
 
-public/%.html : %.Rmd
+public/%.html : %.Rmd $(INCLUDE_FILES)
 	R --slave -e "set.seed(100);rmarkdown::render('$(<F)', output_dir = 'public')"
 
-public/build : $(INCLUDE_FILES)
+public/build : $(INCLUDE_FILES) $(LIBS_FILES)
 	mkdir -p public/
 	cp -r libs public/
 	cp -r screenshots public/

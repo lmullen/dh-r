@@ -1,10 +1,17 @@
 html_document:
   self_contained: false
-  theme: cosmo
+  theme: null
   highlight: pygments
   mathjax: null
   toc_depth: 2
   lib_dir: public/libs
+  pandoc_args: [
+    "--smart"
+  ]
+  css: 
+    - libs/normalize.css
+    - libs/skeleton.css
+    - libs/custom.css
   includes:
     in_header: include/in_header.html
     before_body: include/before_body.html
