@@ -2,11 +2,7 @@
 title: Digital History Methods in R
 ---
 
-<div class="headnote">
-
-This site is the draft of a book on how to use the [R programming language](http://www.r-project.org/) to do work in digital history. This book began as course materials for my class "[Programming in History/New Media](http://lincolnmullen.com/courses/clio3.2014/)." This book is a work in progress. Please keep that in mind if you read any of the sections. If you find an error or have a suggestion, please feel free to [open an issue](https://github.com/lmullen/dh-methods-in-r/issues) at the book's [GitHub repository](https://github.com/lmullen/dh-methods-in-r/). You can also [e-mail me](mailto:lincoln@lincolnmullen.com). If you want to keep updated about the book's progress, you can <a href="https://github.com/lmullen/dh-methods-in-r/commits/master.atom">follow the feed</a> for commits to this project.
-
-</div>
+This site is the draft of a book on how to use the [R programming language](http://www.r-project.org/) to do work in digital history. This book began as course materials for my class "[Programming in History/New Media](http://lincolnmullen.com/courses/clio3.2014/)." This book is a work in progress; keep that in mind if you read any of the sections. If you find an error or have a suggestion, please [open an issue](https://github.com/lmullen/dh-methods-in-r/issues) at the book's [GitHub repository](https://github.com/lmullen/dh-methods-in-r/). You can also [e-mail me](mailto:lincoln@lincolnmullen.com). If you want to keep updated about the book's progress, you can <a href="https://github.com/lmullen/dh-methods-in-r/commits/master.atom">follow the feed</a> for commits to this project.  
 
 **About this book**. This book has several parts. A preliminary sections introduces you to [R](http://www.r-project.org/) and why you might want to use it for digital history. The first main section is on working with data: it teaches you how to manipulate the kinds of data that historians work with. It is also intended to get you comfortable in working with R, and to serve as a reference. The most important section help you work through several actual digital history projects. This section will show you how to go from importing data to generating historical insights. A final section introduces you to some advanced techniques that you may need as you develop your skills further.
 
