@@ -63,6 +63,7 @@ The first step in making a map is to load our geospatial data. I have prepared a
 
 ```{r}
 library(rgdal)
+library(maptools)
 map_sp <- readOGR("data/nhgis-shp/", "state_1850")
 ```
 
