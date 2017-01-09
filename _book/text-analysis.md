@@ -1,4 +1,0 @@
-
-# Text Analysis
-
-More text

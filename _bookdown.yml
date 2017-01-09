@@ -8,11 +8,8 @@ rmd_files: [
   "introduction.Rmd",
 
   "divider-part1.Rmd",
-  "wpa-narratives.Rmd",
 
   "divider-part2.Rmd",
-  "text-analysis.Rmd",
 
-  "divider-appendices.Rmd",
-  "appendix-installation.Rmd"
+  "divider-appendices.Rmd"
 ]
