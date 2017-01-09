@@ -1,0 +1,18 @@
+book_filename: "Mullen-ComputationalHistoricalThinking"
+chapter_name: "Chapter "
+before_chapter_script: "_before.R"
+new_session: yes
+
+rmd_files: [
+  "index.Rmd",
+  "introduction.Rmd",
+
+  "divider-part1.Rmd",
+  "wpa-narratives.Rmd",
+
+  "divider-part2.Rmd",
+  "text-analysis.Rmd",
+
+  "divider-appendices.Rmd",
+  "appendix-installation.Rmd"
+]

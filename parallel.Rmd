@@ -1,9 +1,0 @@
----
-title: "Parallel Processing"
----
-
-For most operations R is single threaded. How to use the [paralell](http://cran.rstudio.org/web/packages/paralell/) package.
-
-- `mclapply`
-- `mcmap`
-

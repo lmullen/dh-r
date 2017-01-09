@@ -1,5 +1,0 @@
----
-title: "Databases"
----
-
-If you are working with large enough data, it may make sense to create a database on your server or your computer.

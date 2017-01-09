@@ -1,0 +1,7 @@
+[
+["index.html", "Computational Historical Thinking About This Book", " Computational Historical Thinking Lincoln Mullen 2016 About This Book This is a sample book written in Markdown. You can use anything that Pandoc’s Markdown supports, e.g., a math equation \\(a^2 + b^2 = c^2\\). Remember each Rmd file contains one and only one chapter, and a chapter is defined by the first-level heading #. To compile this example to PDF, you need to install XeLaTeX. "],
+["introduction.html", "Chapter 1 Introduction", " Chapter 1 Introduction This is the introduction. "],
+["wpa-former-slave-narratives.html", "Chapter 2 WPA Former Slave Narratives", " Chapter 2 WPA Former Slave Narratives This is the text. "],
+["text-analysis.html", "Chapter 3 Text Analysis", " Chapter 3 Text Analysis More text "],
+["installing-r.html", "A Installing R", " A Installing R "]
+]

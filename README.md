@@ -1,4 +1,3 @@
-# Digital History Methods in R
+This is a minimal example of a book based on R Markdown and **bookdown** (https://github.com/rstudio/bookdown). Please see the page "Get Started" at https://bookdown.org/ for how to compile this example.
 
-This repository contains sketches towards a book about applying digital history methods in R, which I am working on in conjunction with a [class I'm teaching on programming for historians](http://lincolnmullen.com/courses/clio3.2014/). Here is the [version of the book manuscript that you can read](http://dh-r.lincolnmullen.com).
-
+You can find the preview of this example at https://bookdown.org/yihui/bookdown-demo/

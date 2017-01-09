@@ -1,3 +1,4 @@
+
 --- 
 title: "Computational Historical Thinking"
 author: "Lincoln Mullen"
@@ -19,9 +20,4 @@ Remember each Rmd file contains one and only one chapter, and a chapter is defin
 
 To compile this example to PDF, you need to install XeLaTeX.
 
-```{r include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
-```
+
