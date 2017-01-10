@@ -10,11 +10,18 @@ bibliography: [book.bib, packages.bib]
 link-citations: yes
 github-repo: lmullen/dh-r
 twitter-handle: lincolnmullen
-description: "Book Description Here"
+description: '"Computational Historical Thinking" is a textbook that teaches you how to identify sources and frame historical questions then answer them through computational methods. These historical methods include exploratory data analysis, mapping, text analysis, and network analysis. These methods are taught using the R programming language, commonly used by digital historians and digital humanists. Chapters on individual methods ground you in particular approaches, and chapters on case studies of historical research walk you through the process of asking and answering computational history questions.'
 url: 'http\://dh-r.lincolnmullen.com/'
 ---
 
 # About this book {-}
 
+*Computational Historical Thinking* is a textbook that teaches you how to identify sources and frame historical questions then answer them through computational methods. These historical methods include exploratory data analysis, mapping, text analysis, and network analysis. These methods are taught using the [R programming language](https://www.r-project.org/about.html), commonly used by digital historians and digital humanists. Chapters on individual methods ground you in particular approaches, and chapters on case studies of historical research walk you through the process of asking and answering computational history questions.
+
+![Detail of denominational statistics for the Protestant Episcopal Church in 1880 from Fletcher W. Hewes and Henry Gannet, *Scribner's Statistical Atlas of the United States Showing by Graphic Methods Their Present Condition and Their Political, Social and Industrial Development* (New York: Charles Scribner's Sons, 1883), [plate 59](http://www.davidrumsey.com/luna/servlet/s/ekkrjp). Courtesy of the David Rumsey Map Collection.](images/protestant-episcopal.jpg)
+
+------------------------------------------
+
+The code for this book is available on [GitHub](https://github.com/lmullen/dh-r)
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.

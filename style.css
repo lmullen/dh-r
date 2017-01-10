@@ -1,14 +1,20 @@
 p.caption {
   color: #777;
   margin-top: 10px;
+  margin-left: 20px;
+  font-size: 1.2rem !important;
+  line-spacing: 1.35rem !important;
 }
+
 p code {
   white-space: inherit;
 }
+
 pre {
   word-break: normal;
   word-wrap: normal;
 }
+
 pre code {
   white-space: inherit;
 }
