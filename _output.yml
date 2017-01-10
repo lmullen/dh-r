@@ -10,6 +10,8 @@ bookdown::gitbook:
       text: "Edit"
     sharing: no
     download: no
+  includes:
+    after_body: ga.html
 
 bookdown::pdf_book:
   includes:
