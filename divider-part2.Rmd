@@ -1,1 +1,1 @@
-# (PART) Computational Methods {-}
+# (PART) Computational methods {-}

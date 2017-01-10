@@ -1,8 +1,8 @@
 [![Travis-CI Build Status](https://travis-ci.org/lmullen/dh-r.svg?branch=master)](https://travis-ci.org/lmullen/dh-r)
 
-# Computational Historical Thinking, with Applications in R
+# Computational Historical Thinking: With Applications in R
 
-This is a textbook in progress on using computational methods for historical research. 
+This is a textbook in progress on using computational methods for historical research. The [book is available online](http://dh-r.lincolnmullen.com).
 
 ## License
 

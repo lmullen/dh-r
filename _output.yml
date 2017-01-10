@@ -9,9 +9,10 @@ bookdown::gitbook:
       link: https://github.com/lmullen/dh-r/edit/master/%s
       text: "Edit"
     sharing: no
+
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex
   latex_engine: xelatex
-  citation_package: natbib
+
 bookdown::epub_book: default

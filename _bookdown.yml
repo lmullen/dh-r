@@ -1,5 +1,4 @@
 book_filename: "Mullen-ComputationalHistoricalThinking"
-chapter_name: "Chapter "
 before_chapter_script: "_before.R"
 new_session: yes
 

@@ -1,1 +1,1 @@
-# (PART) Computational Thinking {-}
+# (PART) Computational thinking {-}
