@@ -1,3 +1,20 @@
+```{r include=FALSE, cache=FALSE}
+set.seed(4356)
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold"
+)
+
+options(dplyr.print_min = 6, dplyr.print_max = 6)
+```
 # Installing R and packages
 
 ## What is CRAN?
@@ -36,3 +53,33 @@ brew install R
 ```
 
 You can see the various options for installing R via Homebrew by running `brew show R` in the terminal. For instance, using certain flags you can change the linear algebra system that R is compiled against. If you install R with Homebrew, you may also need to install various system libraries, such as `libxml2` or `libcurl`.
+
+## Installing R on Ubuntu
+ Being able to install R on a Linux system is useful in several ways. Of course, if your primary computer runs a Linux distribution, then you can use R on it like you would on Mac or Windows. But you can also install R on a Linux server, or run R on a Linux virtual machine hosted on a different operating system. These instructions give you the commands for installing R on either the server or desktop version of Ubuntu 16.04.x, the latest long-term support (LTS) version of a popular Linux distribution.^[For a fuller explanation of how to install R on Ubuntu, see the [official instructions on CRAN](https://cran.r-project.org/bin/linux/ubuntu/README.html) or [Digital Ocean's guide](https://www.digitalocean.com/community/tutorials/how-to-install-r-on-ubuntu-16-04-2).]
+
+Software on Ubuntu is generally installed via the apt package manager. A version of R is available in the Ubuntu repositories, but it it almost certainly not the most recent versions, especially in LTS versions of Ubuntu. Therefore it is best to add a CRAN-maintained Ubuntu repository to the list of software sources that apt checks, then install R.
+
+First, run this command (and all following commands) in the Ubuntu terminal. This command gets the security key to verify the software.
+
+```
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+```
+
+Then add the CRAN maintained Ubuntu repository.
+
+```
+sudo add-apt-repository 'deb https://cran.rstudio.com/bin/linux/ubuntu xenial/'
+```
+
+Finally install R. In addition to installing R, these commands will install the Ubuntu packages that you need to be able to compile R extension packages for yourself.
+
+```
+sudo apt update
+sudo apt install r-base r-base-dev
+```
+
+If you can run the following command and get the correct version of R, then you have installed R correctly.
+
+```
+R --version
+```
