@@ -1,0 +1,13 @@
+# Installing R and packages
+
+## What is CRAN?
+
+R has very good support on the three main platforms: Linux, MacOS, and Windows. Both R and the language and the thousands of published packages which extend its functionality for the most part work across the three platforms. In addition, installing packages in R can be considerably simpler than in other languages. Much of the ease of installing R and add-on packages is thanks to the CRAN infrastructure.
+
+R and the published packages are available at [CRAN](https://cran.r-project.org/), the "Comprehensive R Archive Network." The CRAN maintainers rigorously screen new packages, then test all accepted packages continually. This does not mean that there are no bugs in published R packages, but it does mean that the quality of software published at CRAN is generally higher than in the software repositories of other programming languages.
+
+CRAN is a collection of mirrors, that is, servers that contain the exact same content.  The canonical URL for CRAN is `https://cran.r-project.org/`, but you can also access a CRAN mirror at Indiana University, for example, at `https://ftp.ussg.iu.edu/CRAN/`. The R Project maintains a [current list of mirrors](https://cran.r-project.org/mirrors.html). When installing packages at the start of an R session, R will ask you which mirror you want to use. Unless you have a compelling reason to pick a different one, you should select the first option, "Cloud": `https://cloud.r-project.org/`. That option will pick a server which is geographically close to you. If you add the following line to the `.Rprofile` file in your user's home directory (`~/.Rprofile` on Mac and Linux), then you can set that option permanently.
+
+```{r eval=FALSE}
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+```
