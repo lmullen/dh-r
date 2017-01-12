@@ -67,6 +67,12 @@ If you can run the following command and get the correct version of R, then you 
 R --version
 ```
 
+Many R packages will require common Ubuntu packages for development before they can be installed. Installing these will set up your system with the correct libraries for common R packages.
+
+```
+sudo apt install build-essential libcurl4-openssl-dev libssl-dev libxml2-dev
+```
+
 ## Installing R on Windows
 
 CRAN maintains a version of R for Windows, including a GUI, along with helpful documentation on how to install it. Follow the instructons on the [CRAN download page for Windows](https://cran.r-project.org/bin/windows/base/).
