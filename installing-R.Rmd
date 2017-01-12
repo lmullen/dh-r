@@ -1,20 +1,3 @@
-```{r include=FALSE, cache=FALSE}
-set.seed(4356)
-options(digits = 3)
-
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE,
-  cache = TRUE,
-  out.width = "70%",
-  fig.align = 'center',
-  fig.width = 6,
-  fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold"
-)
-
-options(dplyr.print_min = 6, dplyr.print_max = 6)
-```
 # Installing R and packages
 
 ## What is CRAN?
@@ -29,7 +12,7 @@ CRAN is a collection of mirrors, that is, servers that contain the exact same co
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 ```
 
-## Installing R on Mac
+## Installing R on MacOS
 
 CRAN compiles R for the Mac. To install R, go to [CRAN](https://cran.r-project.org/) and click on the link to [download R for Mac](https://cran.r-project.org/bin/macosx/). Download the installer for the current version of R, for example, `R-3.3.2.pkg`. Install this package like you would any other Mac software. The installer will install R, plus various other software such as a GUI application for R.
 
@@ -83,3 +66,9 @@ If you can run the following command and get the correct version of R, then you 
 ```
 R --version
 ```
+
+## Installing R on Windows
+
+CRAN maintains a version of R for Windows, including a GUI, along with helpful documentation on how to install it. Follow the instructons on the [CRAN download page for Windows](https://cran.r-project.org/bin/windows/base/).
+
+The version of R that you install from CRAN for Windows will be able to install binary (i.e., precompiled) versions of R extension packages. This is considerably easier than trying to compile those packages yourself. However, CRAN also maintains a set of [Rtools for Windows](https://cran.r-project.org/bin/windows/Rtools/) which provide the software that you will need to compile packages for yourself. If you wish to build packages from source, then install the version of Rtools that corresponds to the version of R you have installed.
