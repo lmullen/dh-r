@@ -11,3 +11,28 @@ CRAN is a collection of mirrors, that is, servers that contain the exact same co
 ```{r eval=FALSE}
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 ```
+
+## Installing R on Mac
+
+CRAN compiles R for the Mac. To install R, go to [CRAN](https://cran.r-project.org/) and click on the link to [download R for Mac](https://cran.r-project.org/bin/macosx/). Download the installer for the current version of R, for example, `R-3.3.2.pkg`. Install this package like you would any other Mac software. The installer will install R, plus various other software such as a GUI application for R.
+
+You can test that you have R installed properly by opening the Terminal program on your Mac.
+
+```
+R --version
+```
+
+If you get a message that prints the current version of R, then you have successfully installed R.
+
+In general, you should use the version of R that CRAN compiled for the Mac unless you have a specific reason not to do so. One of the chief advantages of this version is that you can install R extension packages which have been pre-compiled by CRAN for the Mac. This can make it significantly easier to install R packages.
+
+You can however install R via Homebrew. [Homebrew](http://brew.sh/) is a package manager for the Mac which lets you install and update software from the command line. You might want to install R this way if you plan on compiling your own R packages, or want to try to optimize the linear algebra library which lets R perform matrix operations quickly.
+
+First follow the instructions to install [Homebrew](http://brew.sh/) on its website. Then in your terminal, run the following commands. These add a list of science-related packages to the list of software that Homebrew knows how to install, and installs R. This will probably involve installing a lot of additional software, such as compilers.^[For a fuller explanation of installing R via Homebrew, see [Bob Rudis's post](http://rud.is/b/2015/10/22/installing-r-on-os-x-100-homebrew-edition/) on the topic.]
+
+```
+brew tap homebrew/science
+brew install R
+```
+
+You can see the various options for installing R via Homebrew by running `brew show R` in the terminal. For instance, using certain flags you can change the linear algebra system that R is compiled against. If you install R with Homebrew, you may also need to install various system libraries, such as `libxml2` or `libcurl`.
