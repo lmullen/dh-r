@@ -78,3 +78,41 @@ sudo apt install build-essential libcurl4-openssl-dev libssl-dev libxml2-dev
 CRAN maintains a version of R for Windows, including a GUI, along with helpful documentation on how to install it. Follow the instructons on the [CRAN download page for Windows](https://cran.r-project.org/bin/windows/base/).
 
 The version of R that you install from CRAN for Windows will be able to install binary (i.e., precompiled) versions of R extension packages. This is considerably easier than trying to compile those packages yourself. However, CRAN also maintains a set of [Rtools for Windows](https://cran.r-project.org/bin/windows/Rtools/) which provide the software that you will need to compile packages for yourself. If you wish to build packages from source, then install the version of Rtools that corresponds to the version of R you have installed.
+
+## About R packages and libraries
+
+CRAN hosts many packages for R. These packages extend R's functionality by providing additional functions. And R packages can also include data files, which is an easy way to distribute example data or data for learning that is not too large.^[For an explanation of how R packages are created, see @wickham_r_2015.]
+
+These extensions to R are called **packages**. In other programming languages they might be called libraries. But in R, the term **library** is used for the directories where R packages are installed. It is important to remember that R can load packages from multiple libraries at a time. You can see which libraries your R session knows about with the function `.libPaths()`.
+
+```{r}
+.libPaths()
+```
+
+The second library in that list of directories is the library that comes bundled with R. It includes packages like the stats and utils packages which provide basic functionality to R. This library is kept in a system directory and is available to all users of R on a system.
+
+The first library in that list is a personal package library. It is kept inside the user's home directory, in this case, the user `lmullen`. This library contains packages which the user has installed, and they are only accessible to that user. When you load a package with `library()` or `require()`, those functions look for a package in the first directory returned by `.libPaths()`, then the second and so on, stopping when it finds the first match. This ensures that versions of packages that you install are loaded in preference to system libraries. When installing packages for the first time, you will probably be prompted to create a personal package library.^[There are other places that R libaries can be kept. For example, the [packrat](https://cran.r-project.org/package=packrat) package can add a library to a project directory.]
+
+## Installing packages from CRAN
+
+Any package on CRAN can be installed using the `install.packages()` function.
+
+```{r install, eval=FALSE}
+install.packages("tokenizers")
+```
+
+You can install multiple packages by passing a vector of package names to the function, for example, `install.packages(c("dplyr", "stringr"))`.
+
+That function will install the requested packages, along with any of their non-optional dependencies. Unless you have configured your system differently, the packages will be installed in a personal package library somewhere in your home directory.
+
+If you have a version of R that supports it---namely Windows and the CRAN compiled R for some versions of MacOS---then `install.packages()` will install a binary version of packages if one is available.^[You can see whether your version of R supports binary packages by checking an option: `getOption("pkgType")`. If the result is `"both"`, then you can install both binary packages and packages from source. If the result is `"source"`, then you can only install packages from source.] When packages are installed from source, R creates a version which can be installed and used directly. Many R packages contain code written in a lower-level language, such as C++. When installed from source, those packages must be compiled into a binary. If possible, `install.packages()` will install a pre-compiled binary from R.
+
+If a binary version of a package is not available for your version of R, then `install.packages()` will compile the package for you. This will require you to have a compiler and possibly system libraries installed. The instructions on installing R above will show you how to get those dependencies for your operating system. Certain packages may require you to install system libraries. For instance the [rgdal](https://cran.r-project.org/package=rgdal) package, used for geospatial analysis, requires the [GDAL/OGR libraries](http://www.gdal.org/). These can be installed on a Mac via Homebrew with the command `brew install gdal` and on Ubuntu with the command `sudo apt install gdal-bin libgdal-dev`. Until these libraries are installed, the package will fail to compile.
+
+Each package that CRAN publishes has a page that lists information about the package. This information includes a README which usually explains how to get started with the package, a manual that has documentation for each function and dataset in a package, often vignettes which explain some aspect of using the package, along with the name of the package maintainer, where bug reports can be filed and so on. For example, here is the CRAN page for the [dplyr](https://cran.r-project.org/package=dplyr) package.
+
+![CRAN listing for the [dplyr](https://cran.r-project.org/package=dplyr) package.](images/dplyr-cran-listing.png)
+
+The CRAN page also lets us know how a package can be installed. In this case we can see that [dplyr](https://cran.r-project.org/package=dplyr) requires compilation.  But we can also see that pre-compiled binaries are available for Windows and Mac. If external system libraries were required, they would be listed under `SystemRequirements`, with some indication about how those requirements could be met on different platforms.
+
+## References {-}

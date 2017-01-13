@@ -10,4 +10,5 @@ Imports:
   rmarkdown,
   tidyverse
 Remotes:
-  ropensci/historydata
+  ropensci/historydata,
+  rstudio/bookdown
