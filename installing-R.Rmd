@@ -89,6 +89,24 @@ The first library in that list is a personal package library. It is kept inside 
 
 ## Installing packages from CRAN
 
-![Page for the [dplyr](https://cran.r-project.org/package=dplyr) package on CRAN.](images/dplyr-cran-listing.png)
+Any package on CRAN can be installed using the `install.packages()` function.
 
-## References
+```{r install, eval=FALSE}
+install.packages("tokenizers")
+```
+
+You can install multiple packages by passing a vector of package names to the function, for example, `install.packages(c("dplyr", "stringr"))`.
+
+That function will install the requested packages, along with any of their non-optional dependencies. Unless you have configured your system differently, the packages will be installed in a personal package library somewhere in your home directory.
+
+If you have a version of R that supports it---namely Windows and the CRAN compiled R for some versions of MacOS---then `install.packages()` will install a binary version of packages if one is available.^[You can see whether your version of R supports binary packages by checking an option: `getOption("pkgType")`. If the result is `"both"`, then you can install both binary packages and packages from source. If the result is `"source"`, then you can only install packages from source.] When packages are installed from source, R creates a version which can be installed and used directly. Many R packages contain code written in a lower-level language, such as C++. When installed from source, those packages must be compiled into a binary. If possible, `install.packages()` will install a pre-compiled binary from R.
+
+If a binary version of a package is not available for your version of R, then `install.packages()` will compile the package for you. This will require you to have a compiler and possibly system libraries installed. The instructions on installing R above will show you how to get those dependencies for your operating system. Certain packages may require you to install system libraries. For instance the [rgdal](https://cran.r-project.org/package=rgdal) package, used for geospatial analysis, requires the [GDAL/OGR libraries](http://www.gdal.org/). These can be installed on a Mac via Homebrew with the command `brew install gdal` and on Ubuntu with the command `sudo apt install gdal-bin libgdal-dev`. Until these libraries are installed, the package will fail to compile.
+
+Each package that CRAN publishes has a page that lists information about the package. This information includes a README which usually explains how to get started with the package, a manual that has documentation for each function and dataset in a package, often vignettes which explain some aspect of using the package, along with the name of the package maintainer, where bug reports can be filed and so on. For example, here is the CRAN page for the [dplyr](https://cran.r-project.org/package=dplyr) package.
+
+![CRAN listing for the [dplyr](https://cran.r-project.org/package=dplyr) package.](images/dplyr-cran-listing.png)
+
+The CRAN page also lets us know how a package can be installed. In this case we can see that [dplyr](https://cran.r-project.org/package=dplyr) requires compilation.  But we can also see that pre-compiled binaries are available for Windows and Mac. If external system libraries were required, they would be listed under `SystemRequirements`, with some indication about how those requirements could be met on different platforms.
+
+## References {-}
