@@ -72,3 +72,23 @@ R --version
 CRAN maintains a version of R for Windows, including a GUI, along with helpful documentation on how to install it. Follow the instructons on the [CRAN download page for Windows](https://cran.r-project.org/bin/windows/base/).
 
 The version of R that you install from CRAN for Windows will be able to install binary (i.e., precompiled) versions of R extension packages. This is considerably easier than trying to compile those packages yourself. However, CRAN also maintains a set of [Rtools for Windows](https://cran.r-project.org/bin/windows/Rtools/) which provide the software that you will need to compile packages for yourself. If you wish to build packages from source, then install the version of Rtools that corresponds to the version of R you have installed.
+
+## About R packages and libraries
+
+CRAN hosts many packages for R. These packages extend R's functionality by providing additional functions. And R packages can also include data files, which is an easy way to distribute example data or data for learning that is not too large.^[For an explanation of how R packages are created, see @wickham_r_2015.]
+
+These extensions to R are called **packages**. In other programming languages they might be called libraries. But in R, the term **library** is used for the directories where R packages are installed. It is important to remember that R can load packages from multiple libraries at a time. You can see which libraries your R session knows about with the function `.libPaths()`.
+
+```{r}
+.libPaths()
+```
+
+The second library in that list of directories is the library that comes bundled with R. It includes packages like the stats and utils packages which provide basic functionality to R. This library is kept in a system directory and is available to all users of R on a system.
+
+The first library in that list is a personal package library. It is kept inside the user's home directory, in this case, the user `lmullen`. This library contains packages which the user has installed, and they are only accessible to that user. When you load a package with `library()` or `require()`, those functions look for a package in the first directory returned by `.libPaths()`, then the second and so on, stopping when it finds the first match. This ensures that versions of packages that you install are loaded in preference to system libraries. When installing packages for the first time, you will probably be prompted to create a personal package library.^[There are other places that R libaries can be kept. For example, the [packrat](https://cran.r-project.org/package=packrat) package can add a library to a project directory.]
+
+## Installing packages from CRAN
+
+![Page for the [dplyr](https://cran.r-project.org/package=dplyr) package on CRAN.](images/dplyr-cran-listing.png)
+
+## References
