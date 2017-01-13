@@ -117,4 +117,20 @@ Each package that CRAN publishes has a page that lists information about the pac
 
 The CRAN page also lets us know how a package can be installed. In this case we can see that [dplyr](https://cran.r-project.org/package=dplyr) requires compilation.  But we can also see that pre-compiled binaries are available for Windows and Mac. If external system libraries were required, they would be listed under `SystemRequirements`, with some indication about how those requirements could be met on different platforms.
 
+## Installing packages from GitHub
+
+Not all R packages are published to CRAN. Sometimes they are not suitable for CRAN, or are unfinished. Other times you may wish to install the development version of a package, even if a stable version is available on CRAN.
+
+Many R developers keep a version control repository of their packages on GitHub. For example, the [historydata](https://cran.r-project.org/package=historydata) package has a [repository on GitHub](https://github.com/ropensci/historydata). (These repositories are generally listed on a published package's CRAN page.) We could install [historydata](https://cran.r-project.org/package=historydata) from CRAN if we wished, but the development version has additional datasets which have not yet been published.
+
+We can install [historydata](https://cran.r-project.org/package=historydata) from GitHub using the [devtools](https://cran.r-project.org/package=devtools) package. First install that package if necessary. Then using the name of the user and the GitHub repository, in this case `ropensci/historydata`, we can install the development version of [historydata](https://cran.r-project.org/package=historydata).
+
+```{r, eval=FALSE}
+# install.packages("devtools")
+library(devtools)
+install_github("ropensci/historydata")
+```
+
+Note that once you have installed a package from GitHub, R will not keep it updated with `update.packages()` unless the package is published to CRAN with a more recent version number than the package you installed from GitHub. You can, however, reinstall the package from GitHub if there are changes that you want to pick up.
+
 ## References {-}
