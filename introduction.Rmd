@@ -34,12 +34,14 @@ I think that there are four main area in which computer programming and R are su
 
 ## How this book is organized
 
-- How this book is organized.
-  - Part 1 is thinking. This takes you through several examples of using historical data to ask and answer historical questions. These chapters draw on techniques. But instead of explaining the techniques in depth, it demonstrates how to use them, and how they stand in relation to one another.
-  - Part 2 is techniques. This shows how to do the techniques. These are more at the level of tutorials. But in the case of certain techniques like network analysis, there are suggestions about how to go further.
-  - The appendices contain information that you might find useful, as well as advanced topics like increasing R’s performance.
-  - How to use this book. I’d suggest reading through the examples. Then go in depth with the techniques.
-  
+Part I of this book aims to teach you how to think as a historian with computational methods. Each chapter is a miniature research project. Beginning with some historical dataset, each chapter demonstrates how to frame a meaningful historical question which can be answered by computation. They then walk you through the process of analyzing the data, visualizing it, askinging further historical questions, and so on in an iterative process until you have come to a historical argument or interpretation. These chapters apply the methods explained in part II in order to show how those methods stand in relation to one another.
+
+Part II teaches the methods of computational history themselves. These chapters break down into roughly two categories. Some chapters explain how to work with different types of data. For example, you will need to know how to read in tabular data and geospatial data, but you will also need to know how to parse dates and names. Other chapters explain analytical techniques, such as mapping or network analysis. These chapters also point you to more in-depth explanations for further reading.
+
+The appendices contain technical information that you may find useful, such as an explanation of how to install R and its packages and a guide to the package ecosystem in R. In general, this information is included because I have found in teaching that having it available it clears the path for students to focus on more meaningful concerns.
+
+The worksheets are problem sets which give you a chance to practice what you are learning in this book.
+
 <!--
 
 ## Why computer programming?
