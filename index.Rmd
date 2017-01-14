@@ -6,8 +6,9 @@ author: "Lincoln Mullen"
 site: bookdown::bookdown_site
 # output: bookdown::gitbook
 documentclass: book
-# bibliography: [book.bib, packages.bib]
-bibliography: [book.bib]
+bibliography: [book.bib, packages.bib]
+biblio-style: authortitle
+citation-style: chicago-fullnote-bibliography-no-ibid.csl
 link-citations: yes
 github-repo: lmullen/dh-r
 twitter-handle: lincolnmullen

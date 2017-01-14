@@ -12,5 +12,7 @@ rmd_files: [
   "divider-part2.Rmd",
 
   "divider-appendices.Rmd",
-  "installing-R.Rmd"
+  "installing-R.Rmd",
+
+  "divider-references.Rmd"
 ]

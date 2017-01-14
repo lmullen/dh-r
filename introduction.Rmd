@@ -1,5 +1,11 @@
 # Introduction
 
+The best advice a historian ever gave me about historical methods was this: "Multiply your ways of knowing." That advice gets to the heart of how historians do their work. Historians are methodologically omniverous. In their pursuit of understanding about the past, they are willing to consider any body of sources, and they are willing to apply any way of reading them that they can devise, so long as those sources and methods produce a new way of understanding the past. The history of the historical profession can in broad outlines be understood as a series of developments in how historians chose their sources and studied them. Political history was succeeded by social history was succeeded by cultural history, and in each instance historians paid attention to new sources and devised new ways of studying them. While of course there is much creative destruction as the findings of new methods invalidate some of the conclusions of the older methods, on the whole the historical discipline is on a sounder footing the more it multiplies the ways in which it can learn about the past.
+
+In 
+
+Going back at least to the 1960s^[@thomas_ii_computing_2004]
+
 <!--
 
 Hook.
@@ -39,8 +45,6 @@ Part I of this book aims to teach you how to think as a historian with computati
 Part II teaches the methods of computational history themselves. These chapters break down into roughly two categories. Some chapters explain how to work with different types of data. For example, you will need to know how to read in tabular data and geospatial data, but you will also need to know how to parse dates and names. Other chapters explain analytical techniques, such as mapping or network analysis. These chapters also point you to more in-depth explanations for further reading.
 
 The appendices contain technical information that you may find useful, such as an explanation of how to install R and its packages and a guide to the package ecosystem in R. In general, this information is included because I have found in teaching that having it available it clears the path for students to focus on more meaningful concerns.
-
-The worksheets are problem sets which give you a chance to practice what you are learning in this book.
 
 <!--
 
