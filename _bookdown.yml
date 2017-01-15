@@ -1,7 +1,7 @@
 book_filename: "Mullen-ComputationalHistoricalThinking"
 before_chapter_script: "_before.R"
 new_session: yes
-clean: ["packages.bib"]
+# clean: ["packages.bib"]
 
 rmd_files: [
   "index.Rmd",
