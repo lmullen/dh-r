@@ -116,5 +116,3 @@ Each package that CRAN publishes has a page that lists information about the pac
 ![CRAN listing for the [dplyr](https://cran.r-project.org/package=dplyr) package.](images/dplyr-cran-listing.png)
 
 The CRAN page also lets us know how a package can be installed. In this case we can see that [dplyr](https://cran.r-project.org/package=dplyr) requires compilation.  But we can also see that pre-compiled binaries are available for Windows and Mac. If external system libraries were required, they would be listed under `SystemRequirements`, with some indication about how those requirements could be met on different platforms.
-
-## References {-}
