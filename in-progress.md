@@ -1,10 +1,5 @@
-## What is computational historical thinking?
+## Advantages of computational historical thinking
 
-  - Considered in relation to itself
-  - Considered in relation to digital history and digital humanities
-  - Considered in relation to history itself: sources and methods. Historical methods tend to have certain kinds of sources. A social historian might look at probate court records; cultural historians might privilege ____. Political history might rely on voting records. 
-  - Examples of the kinds of things that one can do
-- Advantages of computational historical thinking
   - A historian would be interested in computational historical thinking for precisely the same reasons that someone would be interested in any other historical method: because it lets you see things that you would otherwise miss. 
   - Ways of seeing: One way, which has had too much made of it but which is nevertheless true, is that it lets you see things at larger scale. It also can expose sources that you would otherwise never look at, to read in more traditional ways.
   - Kinds of sources: Computational history makes sources accessible to analysis that previous were not. Of course quantitative sources almost by definition require some kind of computation, and historicans have been doing that in a serious way since at least the 1960s. Sources like the US Census, and denominational records can be made useful with this method. Another kind of source that becomes available are geographic records. Humans are pretty poor at understanding spatial relationships. In computational history, using as an example Cameron Blevins article in JAH, one can extract places from texts, then map the frequency of those places. This points out that can also regard texts as sources to be computer on rather than read. Another example would be seeing lists of members and finding the network of relationships between them, or lists of dontations and finding flows between them.

@@ -24,11 +24,24 @@ knitr::include_graphics("images/paulist-map.png")
 
 In this instance a prior knowledge of computational history let us see our sources differently. Latent in the manuscript *Chronicle* was a table of data. What might have been just a useful collection of anecdotal details *also* became a quantitative and spatial dataset which let us examine the larger patterns of Paulist missions. By multiplying our ways of knowing, we learned more about the Paulists than we otherwise would have. 
 
-Once you are familiar with what you can do with these kinds of historical methods, you will start seeing many sources differently. What once might have been membership lists for different organizations you might come to see as a network graph of the social structure of a community, or a quantitative analysis the gender balance in those organizations. What might seems like a sprawling set of texts might be arranged into a manageable set of topics. The aim of this book is to teach you how to think historically with computational methods.
+Once you are familiar with what you can do with these kinds of historical methods, you will start seeing many sources differently. The aim of this book is to teach you how to think historically with computational methods.
 
 ## What is computational history?
 
+For the purposes of this book, **computational history** will mean analyzing and visualizing historical data via scripting in a computer programming language.^[This definition roughly aligns with the subject matter of other books on the topic, including @graham_exploring_2015; @arnold_humanities_2015; @afanador-llach_programming_2017; @jockers_text_2014.] For historians that kind of data analysis has most often meant spatial analysis, text analysis, and network analysis, though it could also include sound analysis and image analysis. Those broad domains share many analytical techniques in common. The patterns you learn for one will often apply to another.
 
+Historical sources are treated as **data** when we look for larger patterns by studying them in the aggregate without the preliminary step of examining or reading the sources one by one. And of course treating sources as data usually implies that at some intermediate point in the process of analysis we treat them as numbers. For example, places might be reduced latitudes and longitudes, and texts might be reduced to tokens.
+
+Though this work does not absolutely require computer programming, computer programming in a language with the libraries to support data analysis is the most effective and reliable means of doing such work. (This statement will be justified below.) While you could do some of the work described in this book with, say, Excel, this book will teach you the [R programming language](https://www.r-project.org/).
+
+Computational history is a particular kind of work one can do within the much larger domains of digital history or the digital humanities. For example, creating a content management system to manage historical sources is a kind of digital history but not computational history, but creating a visualization of the metadata in that content management system is computational history. What matters is not the specific action (computer programming) as the the kinds of sources and methods applied to them.
+
+Computational history is most easily defined by giving examples of the kinds of things that one can do with it. Consider these few examples of historical sources and methods:
+
+- Given lists of members of different organizations, you create a network graph of shared membership between organizations to reveal the social structure of a community.
+- Given the WPA former slave narratives, you extract all of the places mentioned using natural-language processing, in order to create a spatial index and map of the narratives.
+- Given all of the religious tracts published in the nineteenth century by the American Tract Society, you create a topic model of how the subjects of those tracts changed over time. You also create a word-embedded model to explore the relationship between words in the corpus.
+- Given a set of price data, you create a chart of changing prices over time. You also create a function which can adjust prices for inflation to compare them over time.
 
 ## How this book is organized
 
