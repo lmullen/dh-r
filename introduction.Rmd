@@ -8,15 +8,21 @@ Like other historical methods, once you have gained a familiarity with computati
 
 At the head of each entry, though, the Paulists recorded statistics of the missions, as in the image below. It would be easy to ignore these statistics, or to mention the numbers for a mission here or a mission there without ever doing anything systematic with them.
 
-![The statistics for a Paulist mission held in Washington, DC, in 1889. Note the dates, location, number of confessions, and number of conversions.](images/paulist-chronicle.jpg)
+```{r, echo=FALSE, fig.cap="The statistics for a Paulist mission held in Washington, DC, in 1889. Note the dates, location, number of confessions, and number of conversions."}
+knitr::include_graphics("images/paulist-chronicle.jpg")
+```
 
 Once transcribed these statistics, though scattered over a thousand pages, made a cohesive table of data, keeping track of the cities in which missions were held, their dates, the number of confessions the Paulists heard, and the number of converts they made. From there the locations mentioned in the Paulist chronicle could be geocoded, so that latitudes and longitudes were associated with place names. 
 
-![The first few rows of a data table transcribed from the Paulist missions. Note that each piece of significant information from the manuscript record has become its own column in the table.](images/paulist-table.png)
+```{r, echo=FALSE, fig.cap="The first few rows of a data table transcribed from the Paulist missions. Note that each piece of significant information from the manuscript record has become its own column in the table."}
+knitr::include_graphics("images/paulist-table.png")
+```
 
 With that table of data, it is possible to create many kinds of visualization. One might, for instance, check the relationship between the duration of the missions and the number of converts the Paulists made, or ask which states had the most converts. After also finding the data for the historic state boundaries and railroad locations, it is possible to create a map like the one below, in order to understand the spatial relationship of Paulist missions.
 
-![Redemptorist and Paulist missions from 1852 to 1865. Note that there are three kinds of spatial data in this map: the transcribed missions data with city locations, the historical state boundaries, and the railroad network.](images/paulist-map.png)
+```{r, echo=FALSE, fig.cap="Redemptorist and Paulist missions from 1852 to 1865. Note that there are three kinds of spatial data in this map: the transcribed missions data with city locations, the historical state boundaries, and the railroad network."}
+knitr::include_graphics("images/paulist-map.png")
+```
 
 In this instance a prior knowledge of computational history let us see our sources differently. Latent in the manuscript *Chronicle* was a table of data. What might have been just a useful collection of anecdotal details *also* became a quantitative and spatial dataset which let us examine the larger patterns of Paulist missions. By multiplying our ways of knowing, we learned more about the Paulists than we otherwise would have. 
 

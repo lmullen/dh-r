@@ -2,16 +2,14 @@ book_filename: "Mullen-ComputationalHistoricalThinking"
 before_chapter_script: "_before.R"
 new_session: yes
 clean: ["_bookdown_files/"]
+language:
+  label:
+    fig: "Figure "
 
 rmd_files: [
   "index.Rmd",
   "introduction.Rmd",
 
-  "divider-part1.Rmd",
-
-  "divider-part2.Rmd",
-
-  "divider-appendices.Rmd",
   "installing-R.Rmd",
 
   "divider-references.Rmd"
