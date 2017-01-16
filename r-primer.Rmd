@@ -1,0 +1,10 @@
+# An R primer
+
+This book is not intended to teach you how to program in R. If you want a general purpose introduction to the language, I recommend the following sequence of books.
+
+- Garret Grolemund's *Hands-On Programming with R* is a good introduction to the basics of R programming.^[@grolemund_hands-programming_2014.]
+- Hadley Wickham and Garret Grolemund's [*R for Data Science*](http://r4ds.had.co.nz/) teaches some of the basics of R programming in the process of teaching data analysis. If you have already programmed before, this is the place to start.^[@wickham_r_2017.]
+- Hadley Wickham's [*Advanced R*](http://adv-r.had.co.nz/) is the definitive guide to the language. Once you have a journeyman's proficiency in R, use this book to gain a deeper knowledge.^[@wickham_advanced_2014.]
+- Norman Matloff's *The Art of R Programming* is another excellent, in-depth guide to the language as a whole.^[@matloff_art_2011.]
+
+What follows is a highly condensed guide to the basic features of the R programming language and some of its most useful general purpose packages. Use this primer as a quick introduction to the language, or as a reference when reading the rest of the book. 

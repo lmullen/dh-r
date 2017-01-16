@@ -11,6 +11,7 @@ rmd_files: [
   "introduction.Rmd",
 
   "installing-R.Rmd",
+  "r-primer.Rmd",
 
   "divider-references.Rmd"
 ]
