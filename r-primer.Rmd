@@ -1,0 +1,67 @@
+# An R primer
+
+This book is not intended to teach you how to program in R. If you want a general purpose introduction to the language, I recommend the following sequence of books.
+
+- Garret Grolemund's *Hands-On Programming with R* is a good introduction to the basics of R programming.^[@grolemund_hands-programming_2014.]
+- Hadley Wickham and Garret Grolemund's [*R for Data Science*](http://r4ds.had.co.nz/) teaches some of the basics of R programming in the process of teaching data analysis. If you have already programmed before, this is the place to start.^[@wickham_r_2017.]
+- Hadley Wickham's [*Advanced R*](http://adv-r.had.co.nz/) is the definitive guide to the language. Once you have a journeyman's proficiency in R, use this book to gain a deeper knowledge.^[@wickham_advanced_2014.]
+- Norman Matloff's *The Art of R Programming* is another excellent, in-depth guide to the language as a whole.^[@matloff_art_2011.]
+
+What follows is a highly condensed guide to the basic features of the R programming language and some of its most useful general purpose packages. Use this primer as a quick introduction to the language, or as a reference when reading the rest of the book. 
+
+## Values
+
+A **value** is the most basic piece of data. There are several kinds of values.
+
+**Doubles** are positive or negative numbers that can have a decimal point. **Integers** are positive or negative whole numbers. Even if a value does not have a decimal point, it is a double unless it is suffixed with `L`. 
+
+```{r}
+10.42
+-8.67
+10L
+-8L
+```
+
+Text is stored in **character** vectors (usually called strings in other programming langauges). Characters are marked by surrounding single or double quotation marks.
+
+```{r}
+"Everything is awesome"
+"1" # not the same as 1
+identical(1, "1")
+```
+
+**Logical** values, or booleans, can be either true or false.
+
+```{r}
+TRUE
+FALSE
+```
+
+**Factors** are a special kind of text value, where the values must be part of a predefined set of options. Factors are usually used for categorical data. 
+
+```{r}
+factor(c("correct", "correct", "incorrect"), levels = c("correct", "incorrect"))
+```
+
+Each of these kinds of values has a corresponding missing value, `NA`. These are used for missing or unrecorded data.
+
+```{r}
+NA
+NA_character_
+NA_integer_
+NA_real_
+```
+
+## Variables and assignment
+
+Values can be stored in **variables**. A value is placed into a variable using the assignment operator, `<-`.
+
+```{r}
+x <- 1
+x
+y <- -3.14
+y
+result <- "The results are positive"
+result
+```
+

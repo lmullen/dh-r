@@ -1,4 +1,64 @@
 # Introduction
 
-This is the introduction.
+## Multiply your ways of knowing
 
+The best advice a historian ever gave me about historical methods was this: "Multiply your ways of knowing." That advice gets to the heart of how historians do their work. Historians are methodologically omnivorous. In their pursuit of understanding about the past, they are willing to consider any body of sources, and they are willing to apply any way of reading them that they can devise, so long as those sources and methods produce a new way of understanding the past. The history of the historical profession can in broad outlines be understood as a series of developments in how historians chose their sources and studied them. Political history was succeeded by social history was succeeded by cultural history, and in each instance historians paid attention to new sources and devised new ways of studying them. While of course there is much creative destruction as the findings of new methods invalidate some of the conclusions of the older methods, on the whole the historical discipline is on a sounder footing the more it multiplies the ways in which it can learn about the past.
+
+Going back at least to the 1960s, and gaining new life in recent years, historians have used computation as a means of multiplying their ways of knowing about the past.^[@thomas_ii_computing_2004.]  Like other historical methods, once you have gained a familiarity with computational history, you will see historical sources in a new way. Let me give an example using some data that I gathered. The Paulist Fathers, an order of Catholic missionary priests, kept a *Chronicle* of their missions across the United States during the nineteenth century.^[*Chronicle of the Missions Given by the Congregation of Missionary Priests of St. Paul the Apostle*, six manuscript volumes, Paulist Fathers Archives, New York, NY.] These six manuscript volumes contain over a thousand pages of narrative recollections and anecdotes about the missions the Paulists preached. Any historian would know what to do with those narrative portions, though some historians might pay attention to social relations, others to the gendered aspects of the missions, and so on. 
+
+At the head of each entry, though, the Paulists recorded statistics of the missions, as in the image below. It would be easy to ignore these statistics, or to mention the numbers for a mission here or a mission there without ever doing anything systematic with them.
+
+```{r, echo=FALSE, fig.cap="The statistics for a Paulist mission held in Washington, DC, in 1889. Note the dates, location, number of confessions, and number of conversions."}
+knitr::include_graphics("images/paulist-chronicle.jpg")
+```
+
+Once transcribed these statistics, though scattered over a thousand pages, made a cohesive table of data, keeping track of the cities in which missions were held, their dates, the number of confessions the Paulists heard, and the number of converts they made. From there the locations mentioned in the Paulist chronicle could be geocoded, so that latitudes and longitudes were associated with place names. 
+
+```{r, echo=FALSE, fig.cap="The first few rows of a data table transcribed from the Paulist missions. Note that each piece of significant information from the manuscript record has become its own column in the table."}
+knitr::include_graphics("images/paulist-table.png")
+```
+
+With that table of data, it is possible to create many kinds of visualization. One might, for instance, check the relationship between the duration of the missions and the number of converts the Paulists made, or ask which states had the most converts. After also finding the data for the historic state boundaries and railroad locations, it is possible to create a map like the one below, in order to understand the spatial relationship of Paulist missions.
+
+```{r, echo=FALSE, fig.cap="Redemptorist and Paulist missions from 1852 to 1865. Note that there are three kinds of spatial data in this map: the transcribed missions data with city locations, the historical state boundaries, and the railroad network."}
+knitr::include_graphics("images/paulist-map.png")
+```
+
+In this instance a prior knowledge of computational history let us see our sources differently. Latent in the manuscript *Chronicle* was a table of data. What might have been just a useful collection of anecdotal details *also* became a quantitative and spatial dataset which let us examine the larger patterns of Paulist missions. By multiplying our ways of knowing, we learned more about the Paulists than we otherwise would have. 
+
+Once you are familiar with what you can do with these kinds of historical methods, you will start seeing many sources differently. The aim of this book is to teach you how to think historically with computational methods.
+
+## What is computational history?
+
+For the purposes of this book, **computational history** will mean analyzing and visualizing historical data via scripting in a computer programming language.^[This definition roughly aligns with the subject matter of other books on the topic, including @graham_exploring_2015; @arnold_humanities_2015; @afanador-llach_programming_2017; @jockers_text_2014.] For historians that kind of data analysis has most often meant spatial analysis, text analysis, and network analysis, though it could also include sound analysis and image analysis. Those broad domains share many analytical techniques in common. The patterns you learn for one will often apply to another.
+
+Historical sources are treated as **data** when we look for larger patterns by studying them in the aggregate without the preliminary step of examining or reading the sources one by one. And of course treating sources as data usually implies that at some intermediate point in the process of analysis we treat them as numbers. For example, places might be reduced latitudes and longitudes, and texts might be reduced to tokens.
+
+Though this work does not absolutely require computer programming, computer programming in a language with the libraries to support data analysis is the most effective and reliable means of doing such work. (This statement will be justified below.) While you could do some of the work described in this book with, say, Excel, this book will teach you the [R programming language](https://www.r-project.org/).
+
+Computational history is a particular kind of work one can do within the much larger domains of digital history or the digital humanities. For example, creating a content management system to manage historical sources is a kind of digital history but not computational history, but creating a visualization of the metadata in that content management system is computational history. What matters is not the specific action (computer programming) as the the kinds of sources and methods applied to them.
+
+Computational history is most easily defined by giving examples of the kinds of things that one can do with it. Consider these few examples of historical sources and methods:
+
+- Given lists of members of different organizations, you create a network graph of shared membership between organizations to reveal the social structure of a community.
+- Given the WPA former slave narratives, you extract all of the places mentioned using natural-language processing, in order to create a spatial index and map of the narratives.
+- Given all of the religious tracts published in the nineteenth century by the American Tract Society, you create a topic model of how the subjects of those tracts changed over time. You also create a word-embedded model to explore the relationship between words in the corpus.
+- Given a set of price data, you create a chart of changing prices over time. You also create a function which can adjust prices for inflation to compare them over time.
+
+## Why computational history?
+
+Computational methods offers historians the same advantage of as any other historical method: a different way of seeing sources, and thus of interpreting the past. There a several specific ways in which computational history offers new angles of vision.
+
+The most important is **scale**. Historians do their work at many different scales, from the individual life in biography, to the single event or community in microhistory, to the structural history over *la longue durée* of the *Annales* School.^[For a recent call for a return to long-term history, see @guldi_history_2014.] Computational methods allow historians to examine many more sources than they could ever read, and so to uncover trends which they might not otherwise be able to see. In the *[Viral Texts](https://viraltexts.org/)* project, for example, scholars examined how nineteenth-century U.S. newspapers reprinted texts from one another in millions of newspapers. Any scholar with two newspapers could identify an example or two of reprinting, and a literary historian with a database some diligence in searching could probably recover the reprinting history of a single text. But it took computational methods for the *Viral Texts* team to uncover the large-scale patterns of reprinting.^[@cordell_reprinting_2015; @smith_computational_2015.]
+
+Computational methods help historians not only at the large scale, but also at smaller scales.^[Cf. @graham_exploring_2015, pp. 1--2.] Once you have charted the macroscopic trends, you are free to use computational methods as a discovery tool for smaller scale analysis. For instance, having uncovered the networks of text borrowing, you can then read individual texts systematically because you are better informed about their relationship to one another. Computational history is not so much a replacement for traditional historical methods as it is a way of directing your attention when using those methods. And a key advantage of computational history is the ability to move back and forth between different scales of historical analysis.
+
+Another advantage of computational methods is that they can let the **sources speak first**. {TODO} Historians are often quite brilliant at finding the perfect illustrative anecdote. Computational history is more prosaic, because it is better at uncovering the typical detail rather than the telling detail. Yet knowing what is typical and what is not is a crucial piece for keeping our interpretations of the past grounded in the sources and not driven to and fro by our own anachronistic assumptions.
+
+## How this book is organized
+
+Part I of this book aims to teach you how to think as a historian with computational methods. Each chapter is a miniature research project. Beginning with some historical dataset, each chapter demonstrates how to frame a meaningful historical question which can be answered by computation. They then walk you through the process of analyzing the data, visualizing it, asking further historical questions, and so on in an iterative process until you have come to a historical argument or interpretation. These chapters apply the methods explained in part II in order to show how those methods stand in relation to one another.
+
+Part II teaches the methods of computational history themselves. These chapters break down into roughly two categories. Some chapters explain how to work with different types of data. For example, you will need to know how to read in tabular data and spatial data, but you will also need to know how to parse dates and names. Other chapters explain analytical techniques, such as mapping or network analysis. These chapters also point you to more in-depth explanations for further reading.
+
+The appendices contain technical information that you may find useful, such as an explanation of how to install R and its packages and a guide to the package ecosystem in R. In general, this information is included because I have found in teaching that having it available it clears the path for students to focus on more meaningful concerns.

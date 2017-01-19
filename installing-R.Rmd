@@ -1,3 +1,9 @@
+# (PART) Computational thinking {-}
+
+# (PART) Computational methods {-}
+
+# (APPENDIX) Appendices {-}
+
 # Installing R and packages
 
 ## What is CRAN?
@@ -113,7 +119,9 @@ If a binary version of a package is not available for your version of R, then `i
 
 Each package that CRAN publishes has a page that lists information about the package. This information includes a README which usually explains how to get started with the package, a manual that has documentation for each function and dataset in a package, often vignettes which explain some aspect of using the package, along with the name of the package maintainer, where bug reports can be filed and so on. For example, here is the CRAN page for the [dplyr](https://cran.r-project.org/package=dplyr) package.
 
-![CRAN listing for the [dplyr](https://cran.r-project.org/package=dplyr) package.](images/dplyr-cran-listing.png)
+```{r, echo=FALSE, fig.cap="CRAN listing for the [dplyr](https://cran.r-project.org/package=dplyr) package."}
+knitr::include_graphics("images/dplyr-cran-listing.png")
+```
 
 The CRAN page also lets us know how a package can be installed. In this case we can see that [dplyr](https://cran.r-project.org/package=dplyr) requires compilation.  But we can also see that pre-compiled binaries are available for Windows and Mac. If external system libraries were required, they would be listed under `SystemRequirements`, with some indication about how those requirements could be met on different platforms.
 
@@ -133,4 +141,3 @@ install_github("ropensci/historydata")
 
 Note that once you have installed a package from GitHub, R will not keep it updated with `update.packages()` unless the package is published to CRAN with a more recent version number than the package you installed from GitHub. You can, however, reinstall the package from GitHub if there are changes that you want to pick up.
 
-## References {-}
