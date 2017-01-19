@@ -5,6 +5,7 @@ author: "Lincoln Mullen"
 # date: "2017"
 site: bookdown::bookdown_site
 # output: bookdown::gitbook
+lang: en
 documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: authortitle

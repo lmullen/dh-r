@@ -5,9 +5,9 @@ knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
   cache = TRUE,
-  out.width = "70%",
-  fig.align = 'center',
-  fig.width = 6,
+  out.width = "770",
+  fig.align = "left",
+  fig.width = 8,
   fig.asp = 0.618,  # 1 / phi
   fig.show = "hold"
 )
