@@ -1,3 +1,7 @@
+# (PART) Computational thinking {-}
+
+# (PART) Computational methods {-}
+
 # (APPENDIX) Appendices {-}
 
 # Installing R and packages
