@@ -6,3 +6,8 @@ deploy :
 
 clobber :
 	Rscript -e "options(bookdown.clean_book = TRUE); bookdown::clean_book()"
+
+wordcount : _book/index.html
+	mkdir -p wordcounts
+	wc -w _book/*.md > wordcounts/wc-$(shell date +%Y-%m-%dT%H:%M:%S%z).txt
+
