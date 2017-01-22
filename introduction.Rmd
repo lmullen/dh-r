@@ -36,7 +36,7 @@ Historical sources are treated as **data** when we look for larger patterns by s
 
 Though this work does not absolutely require computer programming, computer programming in a language with the libraries to support data analysis is the most effective and reliable means of doing such work. (This statement will be justified below.) While you could do some of the work described in this book with, say, Excel, this book will teach you the [R programming language](https://www.r-project.org/).
 
-Computational history is a particular kind of work one can do within the much larger domains of digital history or the digital humanities. For example, creating a content management system to manage historical sources is a kind of digital history but not computational history, but creating a visualization of the metadata in that content management system is computational history. What matters is not the specific action (computer programming) as the the kinds of sources and methods applied to them.
+Computational history is a particular kind of work one can do within the much larger domains of digital history or the digital humanities. For example, creating or using a content management system to manage historical sources is a kind of digital history but not computational history, but creating a visualization of the metadata in that content management system is computational history. What matters is not the specific action (computer programming) as the the kinds of sources and methods applied to them.
 
 Computational history is most easily defined by giving examples of the kinds of things that one can do with it. Consider these few examples of historical sources and methods:
 

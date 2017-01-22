@@ -1,13 +1,3 @@
-## Advantages of computational historical thinking
-
-
-  - Ways of seeing (methods): Once one understands how certain kinds of methods work, then one will see them everywhere. For example a network is, at its root, just a list of edges. A is connected to B, and B is connected to C and D. Once one understands what a network is, one can see them in many previous kinds of sources. And then one can begin to apply the methods to those sources as appropriate. To take another example, consider these manuscript records. They can be seen (once transcribed) as a tabular data set with a geographic component.
-  - Ways of presenting sources: visualization, numeric, iterative.
-
-## Relationship between computational history and digital history
-
-I think that there are four main area in which computer programming and R are suitable for a historian’s work. The first is quantitative history, meaning history that is interested in what numbers and calculations can tell us about the past. Though more than a little out of favor with the historical profession since the cultural and linguistic turns, I think that the time is ripe for a return to quantativate methods. But these quantitative methods will in most cases be the foundation for other methods rather than the edifice itself. Those other methods are spatial history, meaning the creation of maps and thinking about space in other ways; text mining, meaning any of a number of ways of programmatically reading large numbers of texts at a distance; and network analysis, meaning analyzing and visualizing the connections between people, events, and sources. These are the four main areas that this book will cover. (There is a fifth area of digital history: public history, especially public history which presents itself on the web. R is not at all suitable for developing websites or exhibits.) In addition, the book will offer a basic introduction to R, techniques for dealing with data, and a set of advanced techniques for applying programmatic techniques.
-
 ## How to learn computational historical thinking
 
 - How to learn computational historical thinking
