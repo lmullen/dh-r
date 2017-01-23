@@ -2,14 +2,11 @@ BOOKFILES := $(wildcard *.Rmd) DESCRIPTION _before.R _output.yml book.bib ga.htm
 
 _book/index.html : $(BOOKFILES)
 	./build.sh
+	wc -w _book/*.md > wordcounts/wc-$(shell date +%Y-%m-%dT%H:%M:%S%z).txt
 
 deploy :
 	./deploy.sh
 
 clobber :
 	Rscript -e "options(bookdown.clean_book = TRUE); bookdown::clean_book()"
-
-wordcount : _book/index.html
-	mkdir -p wordcounts
-	wc -w _book/*.md > wordcounts/wc-$(shell date +%Y-%m-%dT%H:%M:%S%z).txt
 
