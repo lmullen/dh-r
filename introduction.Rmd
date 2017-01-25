@@ -81,7 +81,7 @@ Yet far more important than these specific methods or skills at working with dat
 
 ## Why use a programming language for historical data analysis?
 
-This book teaches you computational history through writing computer scripts in the [R programming language](https://www.r-project.org/).^[@R-base.] It does not teach you computer programming as much as scripting. **Programming** is writing computer code to solve a generalized problem so that many people can run your code. **Scripting** is writing computer code to be able to solve the problem which is at hand, and your code will probably be run by only one person---you. For example, computer programming might look like writing an R extension package which can connect to the APIs of many different websites; scripting would look like using that R package to download data from a particular API which is useful for your project. This book is about how to write computer code to answer specific historical questions, not how to write general purpose R packages.
+This book teaches you computational history through writing computer scripts in the [R programming language](https://www.r-project.org/). It does not teach you computer programming as much as scripting. **Programming** is writing computer code to solve a generalized problem so that many people can run your code. **Scripting** is writing computer code to be able to solve the problem which is at hand, and your code will probably be run by only one person---you. For example, computer programming might look like writing an R extension package which can connect to the APIs of many different websites; scripting would look like using that R package to download data from a particular API which is useful for your project. This book is about how to write computer code to answer specific historical questions, not how to write general purpose R packages.
 
 Even with that distinction, why would you want to write scripts in a programming language to do historical work? There is a proliferation of tools to do data analysis which don't require any skill at scripting. If you wanted to make visualizations, you could use a website like [Plot.ly](https://plot.ly/); for maps, you could use [Carto](https://carto.com/). For networks you could download [Gephi](https://gephi.org/), and for topic modeling you can probably find a graphical user interface for MALLET. No one would deny that if all you have to do is create a single map, you will get it done much faster if you don't use a programming language.  But there are compelling reasons to prefer to use a programming langauge to do computational history.
 
@@ -102,6 +102,32 @@ A third reason is that computer programming (especially in an open-source langua
 A fourth reason is that computer programming languages provide the speed necessary to acheive the scale of computation which is one of the main reasons for doing computational history. While graphical tools can work on the scales of thousands of texts or tens of thousands of rows of quantitative data, a programming language like R or Python can handle millions of texts and tens of millions of rows of quantitative data without any special effort. Furthermore, if necessary these languages can be deployed on servers to scale up the computations you are doing. While historians rarely worry about writing performant code or even dealing with so-called "big data," most historical problems that are worth tackling happen at an order of magnitude or two greater than most graphical tools can comfortably handle.
 
 Finally, it is in the nature of the work that historians do that each of our problems is unique. I take it that one of the central values of working as a historian is figuring out the particulars of the past. While digital humanists have done quite a lot of work in creating general tools to solve general problems, the generality and abstraction that tools require will always run against the historian's need to look for and understand the particulars. Programming gives us a level of concreteness and degree of control that lets us put various tools together in ways that respects the fundamental nature of the historian's craft.
+
+## Why R
+
+If you are convinced that writing scripts in a programming language is the best approach to doing computational history, then that raises the question of which programming language you should learn.  Probably all digital humanists who write code are polyglots, taking advantage of several languages from time to time. But you have to start with one language to begin with, and even at more advanced levels of skill, there there is a major cognitive burden that comes from switching languages within a project or from project to project. If you are able to focus on one language, you can take your skills to a much higher level, and you can reuse code from one project to another. 
+
+For this book, the language we will use is [R](https://www.r-project.org/).^[@R-base.] Within the field of computational history as I have defined it, R can by the only language that can do almost everything you might want to do as a historian. There are a number of viable alternatives to R, to be sure. The other leading contended is [Python](https://www.python.org/), a widely used language which has excellent libraries for data analysis, plotting, and machine learning. In particular, Python has a deserved reputation for being a very accessible first language. So this explanation of why R is a good language for computational history is intended to praise it for its virtues on its own terms without denigrating other viable options.
+
+The most important reason to use R is that there are a number of communities of practice surrounding the language. Computational historians or digital humanists probably use R and Python at roughly the same rates. 
+
+Communities of practice. DH; Data analysts in general.
+
+Language designed for data analysis.
+
+Expressive language lends itself to domain specific tasks.
+
+Glue language. C++, Fortran, Java, and JavaScript
+
+Oddities of language.
+
+Packages.
+
+RMarkdown. Tools for writing code and documents.
+
+HTML widgets
+
+Shiny.
 
 ## How this book is organized
 
