@@ -105,29 +105,19 @@ Finally, it is in the nature of the work that historians do that each of our pro
 
 ## Why R
 
-If you are convinced that writing scripts in a programming language is the best approach to doing computational history, then that raises the question of which programming language you should learn.  Probably all digital humanists who write code are polyglots, taking advantage of several languages from time to time. But you have to start with one language to begin with, and even at more advanced levels of skill, there there is a major cognitive burden that comes from switching languages within a project or from project to project. If you are able to focus on one language, you can take your skills to a much higher level, and you can reuse code from one project to another. 
+If you are convinced that writing scripts in a programming language is the best approach to doing computational history, then that raises the question of which programming language you should learn.  Probably all digital humanists who write code are polyglots, taking advantage of several languages from time to time. But you have to start with one language, and even at more advanced levels of skill, there there is a major cognitive burden that comes from switching languages within a project or from project to project. If you are able to focus on one language, you can take your skills to a much higher level, and you can reuse code from one project to another. 
 
 For this book, the language we will use is [R](https://www.r-project.org/).^[@R-base.] Within the field of computational history as I have defined it, R can by the only language that can do almost everything you might want to do as a historian. There are a number of viable alternatives to R, to be sure. The other leading contended is [Python](https://www.python.org/), a widely used language which has excellent libraries for data analysis, plotting, and machine learning. In particular, Python has a deserved reputation for being a very accessible first language. So this explanation of why R is a good language for computational history is intended to praise it for its virtues on its own terms without denigrating other viable options.
 
-The most important reason to use R is that there are a number of communities of practice surrounding the language. Computational historians or digital humanists probably use R and Python at roughly the same rates. 
+The most important reason to use R is that there are a number of communities of practice surrounding the language. Digital historians and digital humanists more generally are increasingly using the language, as can be seen in the books published on R for humanists, in the blogs and code repositories of scholars writing about their projects, and in the syllabi for courses bearing the titles of data analysis for historians, humanists, or literary studies. The existence of this community of practice means that there are scholars who can help you with R, who can review your code, and for whom the results of your research will be legible.
 
-Communities of practice. DH; Data analysts in general.
+Besides disciplines in the humanities, scholars in many other fields use R as well. This includes scientists, especially in the fields of biology and genomics. The [rOpenSci](https://ropensci.org/) collective of academic developers using R has a well-curated, peer-reviewed collection of packages, many of which are of use to historians. Despite being over 20 years old, R is the fastest growing language for data analysis among businesses, which means that the language's development and infrastructure are increasingly well funded, and that there are many resources for learning the language. And the original community of practice surrounding R is statisticians, since R is a language developed mostly by statisticians rather than by computer scientists.
 
-Language designed for data analysis.
+Because R was created by statisticians, it is a language which is well suited for data analysis. For example, one of R's basic data structures is a data frame, which you can think of as a spreadsheet of data. It is the type of object that we are going to work with the most in this book. In most languages that kind of object would be added through a package or library, but in R support for it is fundamental. The flexibility and expressiveness of the language means that developers can create domain-specific languages for specific tasks which are also idiomatic R. For example, much of the data manipulation we do in this book will use the [dplyr](https://cran.r-project.org/package=dplyr) package, which implements a number of verbs for filtering, joining, and arranging data. Because the language is well suited for data analysis, there are many, many additional R packages published which you can use to do your work, as well as tools for writing R code like the [RStudio IDE](https://www.rstudio.com/products/rstudio/) that can help with data analysis. 
 
-Expressive language lends itself to domain specific tasks.
+R is a high-level language, which means that you can work at a level of abstraction that suits your historical problem, rather than worrying about lower-level details. But R is also a glue language, which can run code written in many other languages. Many R packages are actually written mostly in C++ or C, so that they can be very fast. R packages can also call out to languages like Java, JavaScript, and Fortran. The [sparklyr](http://spark.rstudio.com/) can let you use [Apache Spark](http://spark.apache.org/) for distributed computing on many machines. The result is that R can be both fast and high-level.
 
-Glue language. C++, Fortran, Java, and JavaScript
-
-Oddities of language.
-
-Packages.
-
-RMarkdown. Tools for writing code and documents.
-
-HTML widgets
-
-Shiny.
+Finally, R has a number of strengths which are especially valuable to digital historians. [R Markdown](http://rmarkdown.rstudio.com/) is a [package](https://cran.r-project.org/package=rmarkdown) and set of tools for combining the output of R code, such as tables and visualizations, with prose. These documents make it easy to write up results of computational research for a publication or the web. The [htmlwidgets](http://www.htmlwidgets.org/) package connects R to JavaScript, so that you can create interactive visualizations that run in a browser without writing any JavaScript. These interactive visualizations can be embedded in R Markdown documents as well. [Shiny](http://shiny.rstudio.com/) is a web application framework for R, which lets you create full-fledged interactive web apps using only R. While working with Shiny is outside the scope of this book, it is important to know that when your project moves from data analysis to web app creation, you can write the web app in the same language you used for analysis.
 
 ## How this book is organized
 
