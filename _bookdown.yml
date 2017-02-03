@@ -9,9 +9,12 @@ language:
 rmd_files: [
   "index.Rmd",
   "introduction.Rmd",
+  "getting-started.Rmd",
 
   "installing-R.Rmd",
+  "package-guide.Rmd",
   "r-primer.Rmd",
+  "worksheets.Rmd",
 
   "divider-references.Rmd"
 ]

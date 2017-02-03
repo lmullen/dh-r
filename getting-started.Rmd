@@ -1,0 +1,25 @@
+# Getting started
+
+## Packages you will need
+
+Most of this book uses the [tidyverse](http://tidyverse.org/) of R packages. These packages are designed to work together using a concept called tidy data. For an explanation of this concept, see Hadley Wickham's "[The Tidy Tools Manifesto](https://cran.rstudio.com/web/packages/tidyverse/vignettes/manifesto.html)," which is part of the tidyverse package.^[@R-tidyverse. For a more rigorous explanation, see @wickham_tidy_2014.] We can install most of the packages that we need by installing the [tidyverse](https://cran.r-project.org/package=tidyverse) package. For now, you can run the following code in your R session. See the section on installing packages from CRAN for a fuller explanation (section \@ref(install-cran)). 
+
+```{r, eval=FALSE}
+install.packages("tidyverse")
+```
+
+Most of the examples in this book are available in the [historydata](https://cran.r-project.org/package=historydata) package. While this book is being written, you will need the development version of the package, which is [available on GitHub](https://github.com/ropensci/historydata/#readme). You can install it directly from GitHub using the [devtools](https://cran.r-project.org/package=devtools) package by running the code below. See the section on installing packages from GitHub for a fuller explanation (section \@ref(install-github)).
+
+```{r, eval=FALSE}
+install.packages("devtools")
+devtools::install_github("ropensci/historydata")
+```
+
+You can test that you have these packages installed by loading them in your R session. Note that tidyverse prints a message about the other packages that it is loading, but this is not an error message. See the section on packages and libraries for more information about loading packages (section \@ref(packages-libraries)).
+
+```{r}
+library(historydata)
+library(tidyverse)
+```
+
+You will need other packages for different chapters in this book. You can install them from CRAN as you go. See the package guide for a description of other packages that may be helpful to you (appendix \@ref(package-guide)).

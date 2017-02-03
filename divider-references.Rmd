@@ -2,5 +2,6 @@
 
 ```{r include=FALSE}
 knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'htmlwidgets'), 'packages.bib')
+  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'htmlwidgets',
+  'tidyverse'), 'packages.bib')
 ```
