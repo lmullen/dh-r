@@ -3,6 +3,7 @@ BOOKFILES := $(wildcard *.Rmd) DESCRIPTION _before.R _output.yml book.bib ga.htm
 _book/index.html : $(BOOKFILES)
 	./build.sh
 	wc -w _book/*.md > wordcounts/wc-$(shell date +%Y-%m-%dT%H:%M:%S%z).txt
+	./wordcount-analysis.R
 
 deploy :
 	./deploy.sh
