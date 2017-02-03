@@ -1,1 +1,13 @@
 # Worksheets
+
+The best way to learn R or computational history is to practice. These worksheets contain a series of questions designed to teach you about R or different computational methods. The worksheets are [R Markdown documents](http://rmarkdown.rstudio.com/) that include text and code together. The places where you are expected to answer questions are marked like this. 
+
+```
+(@) There are other datasets in historydata. Can you make a plot from one or more of them?
+```
+
+Beneath each question is a space to either create a code block or write an answer.
+
+These are the worksheets that you can download:
+
+- <a href="worksheets/familiar-with-r.Rmd" download="worksheets/familiar-with-r.Rmd">Getting familiar with R</a>
