@@ -1,0 +1,407 @@
+---
+title: Getting familiar with R
+author: ""
+---
+
+## Aim of this worksheet
+  
+After completing this worksheet, you should feel comfortable typing commands into the R console and into an [R Markdown](http://rmarkdown.rstudio.com/) document. In particular, you should know how to use values, variables, and functions, how to install and load packages, and how to use the built-in help for R and its packages.
+
+## Values
+
+R lets you store several different kinds of *values*. These values are the information that we actually want to do something with. 
+
+One kind of value is a number. Notice that typing this number, either in an R Markdown document or at the console, produces an identical output
+
+```{r}
+42
+```
+
+(@) Create a numeric value that has a decimal point:
+
+```{r}
+
+```
+
+Of course numbers can be added together (with `+`), subtracted (with `-`), multiplied (with `*`), and divided (with `/`), along with other arithmetical operations. Let's add two numbers, which will produce a new number.
+
+```{r}
+2 + 2
+```
+
+(@) Add two lines, one that multiplies two numbers, and another that subtracts two numbers.
+
+```{r}
+
+```
+
+
+Another important kind of value is a character vector. (Most other programming languages would call these strings.) These contain text. To create a string, include some characters in between quotation marks `""`. (Single quotation marks work too, but in general use double-quotation marks as a matter of style.) For instance:
+
+```{r}
+"Hello, beginning R programmer"
+```
+
+(@) Create a string with your own message.
+
+```{r}
+
+```
+
+Character vectors can't be added together with `+`. But they can be joined together with the `paste()` function.
+
+```{r}
+paste("Hello", "everybody")
+```
+
+(@) Mimic the example above and paste three strings together.
+
+```{r}
+
+```
+
+(@) Now explain in a sentence what happened.
+
+> 
+
+Another very important kind of value are logical values. There are only two of them: `TRUE` and `FALSE`.
+
+```{r}
+# This is true
+TRUE
+
+# This is false
+FALSE
+```
+
+Notice that in the block above, the `#` character starts a *comment*. That means that from that point on, R will ignore whatever is on that line until a new line begins.
+
+Logical values aren't very exciting, but they are useful when we compare other values to one another. For instance, we can compare two numbers to one another.
+
+```{r}
+2 < 3
+2 > 3
+2 == 3
+```
+
+(@) What do each of those comparison operators do? (Note the double equal sign: `==`.)
+
+>
+
+(@) Create your own comparisons between numeric values. See if you can create a comparison between character vectors.
+
+```{r}
+
+```
+
+R has a special kind of value: the missing value. This is represented by `NA`.
+
+```{r}
+NA
+```
+
+Try adding `2 + NA`.
+
+```{r}
+
+```
+
+(@) Does that answer make sense? Why or why not?
+
+> 
+
+## Variables
+
+We wouldn't be able to get very far if we only used values. We also need a place to store them, a way of writing them to the computer's memory. We can do that by *assignment* to a variable. Assignment has three parts: it has the name of a variable (which cannot contain spaces), an assignment operator, and a value that will be assigned. Most programming languages use a rinky-dink `=` for assignment, which works in R too. But R is awesome because the assignment operator is `<-`, a lovely little arrow which tells you that the value goes into the variable. For example:
+
+```{r}
+number <- 42
+```
+
+Notice that nothing was printed as output when we did that. But now we can just type `number` and get the value which is stored in the variable.
+
+```{r}
+number
+```
+
+It works with character vectors too.
+
+```{r}
+computer_name <- "HAL 9000"
+```
+
+No output, but this prints the value stored in the variable.
+
+```{r}
+computer_name
+```
+
+(@) In the assignment above, what is the name of the variable? What is the assignment operator? What is the value assigned to the variable?
+
+>
+
+Notice that we can use variables any place that we used to use values. For example:
+
+```{r}
+x <- 2
+y <- 5
+x * y
+x + 9
+```
+
+(@) Explain in your own words what just happened.
+
+> 
+
+(@) Now create two assignments. Assign a number to a variable and a character vector to a different variable.
+
+```{r}
+
+```
+
+(@) Now create a third variable with a numeric value and, using the variable with a numeric value from earlier, add them together.
+
+```{r}
+
+```
+
+Can you predict what the result of running this code will be? (That is, what value is stored in `a`?)
+
+```{r, eval=FALSE}
+a <- 10
+b <- 20
+a <- b
+a
+```
+
+(@) Predict your answer, then run the code. What is the value stored in `a` by the end? Explain why you were right or wrong.
+
+>
+
+## Vectors
+
+Variables are better than just values, but we still need to be able to store multiple values. If we have to store each value in its own variable, then we are going to need a lot of variables. In R every value is actually a vector. That means it can store more more than one value.
+
+Notice the funny output after running this line:
+
+```{r}
+"Some words"
+```
+
+What does the `[1]` in the output mean? It means that the value has one item inside it. We can test that with the `length()` function
+
+```{r}
+length("Some words")
+```
+
+Sure enough, the length is `1`: R is counting the number of items, not the number of words or characters. 
+
+That would seem to imply that we can add multiple items (or values) inside a vector. R lets us do that with the `c()` (for "combine") function.
+
+```{r}
+many <- c(1, 5, 2, 3, 7)
+many
+```
+
+(@) What is the length of the vector stored in `many`?
+
+```{r}
+
+```
+
+Let's try multiplying `many` by `2`:
+
+```{r}
+many * 2
+```
+
+(@) What happened?
+
+> 
+
+(@) What happens when you add `2` to `many`?
+
+```{r}
+
+```
+
+> 
+
+(@) Can you create a variable containing several names as a character vectors?
+
+```{r}
+
+```
+
+(@) Hard question: what is happening here? Why does R give you a warning message?
+
+```{r}
+c(1, 2, 3, 4, 5) + c(10, 20)
+```
+
+> 
+
+## Built-in functions
+
+Wouldn't it be nice to be able to do something with data? Let's take some made up data: the price of books that you or I have bought recently.
+
+```{r}
+book_prices <- c(19.99, 25.78, 5.33, 45.00, 22.45, 21.23)
+```
+
+We can find the total amount that I spent using the sum function.
+
+```{r}
+sum(book_prices)
+```
+
+(@) Try finding the average price of the books (using `mean()`) and the median price of the books (using `median()`).
+
+```{r}
+
+```
+
+(@) Can you figure out how to find the most expensive book (hint: the book with the maximum price) and the least expensive book (hint: the book with the minimum price)?
+
+```{r}
+
+```
+
+(@) Hard question: what is happening here?
+
+```{r}
+book_prices >= mean(book_prices)
+```
+
+>
+
+## Using the documentation
+
+Let's try a different set of book prices. This time, we have a vector of book prices, but there are some books for which we don't know how much we paid. Those are the `NA` values.
+
+```{r}
+more_books <- c(19.99, NA, 25.78, 5.33, NA, 45.00, 22.45, NA, 21.23)
+```
+
+(@) How many books did we buy? (Hint: what is the length of the vector.)
+
+```{r}
+
+```
+
+Let's try finding the total using `sum()`.
+
+```{r}
+sum(more_books)
+```
+
+(@) That wasn't very helpful. Why did R give us an answer of `NA`?
+
+>
+
+We need to find a way to get the value of the books that we know about. This is an option to the `sum()` function. If you know the name of a function, you can search for it by typing a question mark followed without a space by the name of the function. For example, `?sum`. Look up the `sum()` function's documentation. Read at least the "Arguments" and the "Examples" section.
+
+(@) How can you get the sum for the values which aren't missing?
+
+```{r}
+
+```
+
+Look up the documentation for `?mean`, `?max`, `?min`. 
+
+(@) Use those functions on the vector with missing values.
+
+```{r}
+
+```
+
+## Data frames and loading packages
+
+We are historians, and we want to work with complex data. Another reason R is awesome is that it includes a kind of data structure called *data frames*. Think of a data frame as basically a spreadsheet. It is tabular data, and the columns can contain any kind of data available in R, such as character vectors, numeric vectors, or logical vectors. R has some sample data built in, but let's use some historical data from the [historydata](https://github.com/ropensci/historydata/) package.
+
+You can load a package like this:
+
+```{r}
+library(historydata)
+```
+
+(@) The [dplyr package](https://cran.r-project.org/package=dplyr) is very helpful. Try loading it as well.
+
+```{r}
+
+```
+
+You might get an error message if you don't have either package installed. If you need to install it, run `install.packages("historydata")` at the R console.
+
+We don't know what is in the historydata package, so let's look at its help. Run this command: `help(package = "historydata")`.
+
+(@) Let's use the data in the `paulist_missions` data frame. According to the package documentation, what is in this data frame?
+
+>
+
+We can print it by using the name of the variable.
+
+```{r}
+head(paulist_missions, 10)
+```
+
+The `head()` function just gives us the first number of items in a vector or data frame.
+
+(@) That showed us some of the data but not all. The `str()` function is helpful. Look up the documentation for it, and then run it on `paulist_missions`.
+
+```{r}
+
+```
+
+(@) Also try the `glimpse()` function.
+
+```{r}
+
+```
+
+(@) Bonus: which package does the `glimpse()` function come from?
+
+> 
+
+We will get into subsetting data in more detail later. But for now, notice that we can get just one of the colums using the `$` operator. For example:
+
+```{r}
+head(paulist_missions$city, 20)
+```
+
+(@) Can you print the first 20 numbers of converts? of confessions?
+
+```{r}
+
+```
+
+(@) What was the mean number of converts? the maximum? How about for confessions?
+
+```{r}
+
+```
+
+(@) Bonus: what was the ratio between confessions and conversions?
+
+```{r}
+
+```
+
+## Plots
+
+And for fun, let's make a scatter plot of the number of confessions versus the number of conversions.
+
+```{r}
+plot(paulist_missions$confessions, paulist_missions$converts)
+title("Confessions versus conversions")
+```
+
+(@) What might you be able to learn from this plot?
+
+>
+
+(@) There are other datasets in historydata. Can you make a plot from one or more of them?
+
+```{r}
+
+```
