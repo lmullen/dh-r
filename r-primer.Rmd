@@ -58,3 +58,35 @@ result <- "The results are positive"
 result
 ```
 
+## Comparison
+
+Values can be compared to one another. The result is always a vector of `TRUE` and `FALSE` values indicating whether the condition was met or not. 
+
+```{r}
+x <- 1:6 # a vector of numbers 1 to 6
+x > 3
+x >= 3
+x < 3
+x == 3
+x != 3
+```
+
+Comparison also works with character vectors.
+
+```{r}
+"Is this the same?" == "as this?"
+"Is this the same?" == "Is this the same?"
+```
+
+Notice that equality is tested with the `==` operater, not with `=`.
+
+Often it is helpful to test whether elements of one vector are contained in another vector with the `%in%` function. Notice that the resulting vector is the same length as the vector on the left-hand side.
+
+```{r}
+c(1, 4, 2, 8, 0, 10) %in% c(1, 2, 3)
+
+# Are these states a part of New England?
+c("VA", "CT", "MA", "SD", "GA", "AL") %in% c("MA", "ME", "CT", "RI", "NH", "VT")
+```
+
+
