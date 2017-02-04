@@ -1,6 +1,6 @@
 # An R primer {#primer}
 
-What follows is a highly condensed guide to the basic features of the R programming language and some of its most useful general purpose packages. Use this primer as a quick introduction to the language, or as a reference when reading the rest of the book. 
+What follows is a highly condensed guide to the basic features of the R programming language and some of its most useful general purpose packages. Use this primer as a quick introduction to the language, or as a reference when reading the rest of the book. You should also read at a minimum the chapters on "[Data Structures](http://adv-r.had.co.nz/Data-structures.html)" and "[Subsetting](http://adv-r.had.co.nz/Subsetting.html)" from *[Advanced R](http://adv-r.had.co.nz/)*, since understanding those concepts are crucial to working effectively in R.^[@wickham_advanced_2014, chs. 2--3.]
 
 ## Values
 
@@ -86,7 +86,51 @@ Often it is helpful to test whether elements of one vector are contained in anot
 c(1, 4, 2, 8, 0, 10) %in% c(1, 2, 3)
 
 # Are these states a part of New England?
-c("VA", "CT", "MA", "SD", "GA", "AL") %in% c("MA", "ME", "CT", "RI", "NH", "VT")
+states <- c("VA", "CT", "MA", "SD", "GA", "AL", "ND", "SD", "VT") 
+new_england <-  c("MA", "ME", "CT", "RI", "NH", "VT")
+states %in% new_england
 ```
 
+## Functions
+
+R is a functional programming language, so knowing how to apply functions to problems, and to write them yourself, is essential to doing your work.
+
+### Using functions
+
+**Functions** can be called on many different kinds of R vectors and objects. A function takes an input and produces an output. In this case we will use `sum()` to add up a vector of numbers.
+
+```{r}
+x <- c(1, 5, 2, 4, 2, 5)
+sum(x)
+```
+
+Notice that calls to functions are always followed by parentheses, containing the function **arguments**. In the example above, `x` was the only argument to the function; it was the means by which we passed data into the function. Functions can often take many arguments that specify options to function. For instance, if we have a vector of numbers that contains an missing value (`NA`), then the function `sum()` will return `NA`, because `NA` has no value. But by using the `na.rm` argument to `sum()`, we can instruct it to ignore `NA` values.
+
+```{r}
+y <- c(1, NA, 2, 4, 2, 5)
+sum(y)
+sum(y, na.rm = TRUE)
+```
+
+R has many built-in functions. For instance, the `sort()` function can sort many different kinds of values.
+
+```{r}
+x
+sort(x)
+sort(x, decreasing = TRUE)
+
+states
+sort(states)
+sort(states, decreasing = TRUE)
+```
+
+It is important to note that most functions you use to work with data are **pure functions**. The results of pure functions depend only on their inputs: the same input will always produce the same output. And in general, R functions do not modify their inputs directly, but instead return a copy they modify their inputs. Notice that in this example the original `states` vector remains unsorted, even after it has been passed through the `sort()` function, and a new copy of the data, now sorted, is stored in the variable `states_sorted`. This makes it easier to reason about what a function will do.
+
+```{r}
+states
+states_sorted <- sort(states)
+
+states
+states_sorted
+```
 
