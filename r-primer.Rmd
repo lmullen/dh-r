@@ -1,3 +1,20 @@
+```{r include=FALSE, cache=FALSE}
+set.seed(4356)
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  out.width = "100%",
+  fig.align = "left",
+  fig.width = 8,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold"
+)
+
+options(dplyr.print_min = 6, dplyr.print_max = 6)
+```
 # An R primer {#primer}
 
 What follows is a highly condensed guide to the basic features of the R programming language and some of its most useful general purpose packages. Use this primer as a quick introduction to the language, or as a reference when reading the rest of the book. You should also read at a minimum the chapters on "[Data Structures](http://adv-r.had.co.nz/Data-structures.html)" and "[Subsetting](http://adv-r.had.co.nz/Subsetting.html)" from *[Advanced R](http://adv-r.had.co.nz/)*, since understanding those concepts are crucial to working effectively in R.^[@wickham_advanced_2014, chs. 2--3.]
@@ -91,11 +108,9 @@ new_england <-  c("MA", "ME", "CT", "RI", "NH", "VT")
 states %in% new_england
 ```
 
-## Functions
+## Using functions
 
 R is a functional programming language, so knowing how to apply functions to problems, and to write them yourself, is essential to doing your work.
-
-### Using functions
 
 **Functions** can be called on many different kinds of R vectors and objects. A function takes an input and produces an output. In this case we will use `sum()` to add up a vector of numbers.
 
@@ -133,4 +148,3 @@ states_sorted <- sort(states)
 states
 states_sorted
 ```
-
