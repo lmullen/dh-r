@@ -68,6 +68,14 @@ Notice that we made the `greeting =` argument have a default value. Now we can c
 
 ```
 
+(@) Between 1582 and 1752, England and its colonies were on the Julian calendar while most of the rest of Europe was on the Gregorian calendar. Simplifying a [complex historical problem](https://en.wikipedia.org/wiki/Old_Style_and_New_Style_dates) with representing dates quite a bit, we can say that dates before 1752 were "Old Style" and in 1752 and after were "New Style." Write a function called `check_date_style()` which takes an arbitrary vector of years and returns either "Old Style" or "New Style" as appropriate. Run the function on the vector below. Hint: You will need to use the `ifelse()` function in the body of your function. Look it up with `?ifelse`.
+
+```{r}
+years <- c(1758, 1752, 1756, 1740, 1746, 1755, 1749, 1749, 1753, 1759,
+           1758, 1752, 1759, 1749, 1756, 1757, 1750, 1744, 1750, 1748)
+```
+
+
 (@) One common operation to perform on data is to take data with an arbitrary range (i.e., minimum and maximum value) and scale (or normalize) it so that it has a range of 0 to 1. For instance, if I have a vector `c(1, 6, 2)` that might be normalized to `c(0.0, 1.0, 0.2)`. The formula to do that transformation is 
 
 $$z_i = {x_i - \min(x) \over \max(x) - \min(x)}$$
@@ -85,7 +93,7 @@ output <- c(0, 0.5625, 0.4375, 0.5000, 1.0, 0.5625)
 all(output == rescale(input))
 ```
 
-(@) Can you rewrite that function as `rescale2` so that it maps the domain (the input) to an arbitrary range (the output)? In other words, can you scale the values to a range other than `0` and `1`?
+(@) Hard question: Can you rewrite that function as `rescale2` so that it maps the domain (the input) to an arbitrary range (the output)? In other words, can you scale the values to a range other than `0` and `1`?
 
 ```{r}
 

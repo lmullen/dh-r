@@ -11,7 +11,7 @@ You may find the chapters on [data structures](http://adv-r.had.co.nz/Data-struc
 
 ## Subsetting vectors
 
-In the [previous worksheet](familiar-with-r.html) you learned about vectors. Vectors hold a one-dimensional set of homogenous values. By homogenous we mean that that the values all have to be the same type (integer, numeric, logical, and so on) and you can't have both, say, numeric and logical values in the same vector. By one-dimensional we mean that there can be more than one element accessed by a single index. For example, R includes a character vector of the letters in the English alphabet, helpfully called, `letters`.
+In the worksheet on getting familiar with R you learned about vectors. Vectors hold a one-dimensional set of homogenous values. By homogenous we mean that that the values all have to be the same type (integer, numeric, logical, and so on) and you can't have both, say, numeric and logical values in the same vector. By one-dimensional we mean that there can be more than one element accessed by a single index. For example, R includes a character vector of the letters in the English alphabet, helpfully called, `letters`.
 
 ```{r}
 letters

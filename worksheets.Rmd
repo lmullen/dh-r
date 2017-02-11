@@ -11,3 +11,5 @@ Beneath each question is a space to either create a code block or write an answe
 These are the worksheets that you can download:
 
 - <a href="worksheets/familiar-with-r.Rmd" download="worksheets/familiar-with-r.Rmd">Getting familiar with R</a>
+- <a href="worksheets/data-structures.Rmd" download="worksheets/data-structures.Rmd">Data structures</a>
+- <a href="worksheets/functions.Rmd" download="worksheets/functions.Rmd">Functions</a>
