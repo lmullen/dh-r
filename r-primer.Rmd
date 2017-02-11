@@ -93,7 +93,7 @@ states %in% new_england
 
 ## Using functions
 
-R is a functional programming language, so knowing how to apply functions to problems, and to write them yourself, is essential to doing your work.
+R is a functional programming language, so knowing how to apply functions to problems, and to write them yourself, is essential to doing your work. Functions are the verbs of R programming.
 
 **Functions** can be called on many different kinds of R vectors and objects. A function takes an input and produces an output. In this case we will use `sum()` to add up a vector of numbers.
 
@@ -130,4 +130,66 @@ states_sorted <- sort(states)
 
 states
 states_sorted
+```
+
+## Data structures and subsetting
+
+If functions are the verbs of R programming, data are the nouns. And data can be stored in many different kinds of **data structures**, including vectors, lists, data frames, and matrices. These kinds of data structures share a set of operators for subsetting them, that is, for pulling out pieces of the data.
+
+### Vectors
+
+The most basic data structure is a vector. Consider this vector of 10 names.
+
+```{r}
+people <- c("Adam", "Betsy", "Charles", "Dana", "Edward", "Felicity", "George",
+            "Hannah", "Ian", "Julia")
+```
+
+In R, elements of a vector are numbered, starting from `1` to the length of the vector. (Most programming languages have a 0-based indexing.) We can get individual elements of the vector using a numeric vector and the `[` subsetting operator. For example, we can get the fifth element, or the first, eighth, tenth, and sixth elements together.
+
+```{r}
+people[5]
+people[c(1, 8, 10, 6)]
+```
+
+We can also subset a vector by using a logical vector. When we use a logical vector, we get back the elements that correspond to the `TRUE` values. It is usually a good idea to use a logical vector which has same length as the original vector. In this example, we use a function to test whether the names in our `people` vector have a lowercase `e` in them. Then we use that logical vector and the `[` subset operator to return only the names that have that letter in them.
+
+```{r}
+library(stringr)
+# The result of this function call is a logical vector
+str_detect(people, "e") 
+
+people[str_detect(people, "e")]
+```
+
+It is possible for a vector to have names, which we can also use for subsetting. Suppose we have a set of numbers from `1` to `10` that correspond to a rank for each person. At first our vector does not have any names.
+
+```{r}
+rank <- c(9, 8, 4, 10, 7, 3, 2, 5, 1, 6)
+names(rank)
+```
+
+But we can use our `people` vector to give it names.
+
+```{r}
+names(rank) <- people
+```
+
+Now we can get the fifth rank and see the corresponding name.
+
+```{r}
+rank[5]
+```
+
+We can use a character vector to subset `rank` to using those names.
+
+```{r}
+rank[c("Adam", "Hannah")]
+```
+
+And we can sort `rank` and see that the names are also sorted, or get only the elements of rank which are above a certain value (another example of logical subsetting).
+
+```{r}
+sort(rank)
+rank[rank <= 3]
 ```
