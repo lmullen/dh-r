@@ -1,0 +1,113 @@
+---
+title: "Creating a network"
+author: "Lincoln Mullen"
+date: "April 20, 2016"
+output: html_document
+---
+
+```{r}
+library(igraph)
+library(dplyr)
+library(stringr)
+library(ggplot2)
+library(ggforce)
+library(ggraph)
+library(gender)
+library(humaniformat)
+library(broom)
+```
+
+Downlaod the data:
+
+```{r}
+if (!file.exists("bplnetwork.txt")) {
+  download.file("https://raw.githubusercontent.com/wcaleb/mining-bpl/master/bplnetwork.txt",
+                "bplnetwork.txt")
+}
+```
+
+Read the file:
+
+```{r}
+bpl <- read.csv("bplnetwork.txt", sep = ";")
+bpl <- bpl %>% 
+  mutate(source = str_replace_all(source, ",$", ""),
+         target = str_replace_all(target, ",$", "")) %>% 
+  filter(source != "None",
+         target != "None",
+         source != "Child",
+         target != "Child") %>% 
+  count(source, target) %>% 
+  rename(weight = n)
+```
+
+Create some information about the people.
+
+```{r}
+people <- data_frame(names = c(bpl$source, bpl$target)) %>% 
+  distinct() %>% 
+  mutate(first_name = first_name(format_reverse(names)),
+         first_name = str_replace_all(first_name, "[[:punct:]]", ""))
+
+genders <- gender(unique(people$first_name), years = c(1800, 1860), method = "ipums") %>% 
+  select(first_name = name, gender)
+
+people <- people %>% 
+  left_join(genders, by = "first_name")
+
+to_label <- c("Garrison, William Lloyd",
+              "Webb, Richard Davis",
+              "Weston, Anne Warren", 
+              "Phillips, Wendell",
+              "Higginson, Thomas Wentworth",
+              "Douglass, Frederick")
+people <- people %>% 
+  mutate(label = ifelse(names %in% to_label, names, NA))
+```
+
+
+Create the graph
+
+```{r}
+g <- graph_from_data_frame(bpl, directed = TRUE, vertices = people)
+g
+```
+
+As an adjacency matrix.
+
+```{r}
+m <- as_adjacency_matrix(g, attr = "weight")
+m[to_label, to_label] 
+# m[to_label, to_label] %>% as.matrix %>% View
+```
+
+There are isolates which we want to remove.
+
+```{r}
+g2 <- decompose.graph(g, min.vertices = 10) 
+g2 <- g2[[1]]
+g2
+```
+
+A basic layout.
+
+```{r}
+ggraph(g2, layout = "igraph", algorithm = "fr") +
+  geom_edge_fan(aes(edge_width = weight, edge_alpha = weight)) +
+  geom_node_point(size = 1, alpha = 0.5, aes(color = gender)) +
+  geom_node_text(aes(label = label)) +
+  scale_edge_width("Sections borrowed", range = c(0.25, 2), guide = "none") + 
+  scale_edge_alpha(range = c(0.1, 0.5), guide = "none") +
+  theme_no_axes() +
+  ggtitle("Abolitionist correspondence network") 
+```
+
+Calculating measures of centrality.
+
+```{r}
+betweenness(g2) %>% tidy() %>% arrange(desc(x))
+eigen_centrality(g2, directed = FALSE)$vector %>% tidy() %>% arrange(desc(x))
+closeness(g2) %>% tidy() %>% arrange(desc(x))
+```
+
+Create a network graph colored by different measures of centrality rather than by gender. Can you also label only the most important points programmatically, rather than listing them out?

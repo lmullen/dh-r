@@ -1,0 +1,106 @@
+---
+title: "htmlwidgets Worksheet"
+author: "Jason Heppler"
+date: "June 9, 2016"
+---
+
+## Aim of this worksheet
+
+After completing the worksheet you should have a grasp of the various features of the [htmlwidgets](http://htmlwidgets.org) library for making interactive visualizations. You will find the [ggplot2](http://htmlwidgets.org) documentation helpful.
+
+You are free to attempt working through this worksheet with your own data, but we encourage you for now to use the sample datasets contained in `historydata` until the final section of this worksheet.
+
+We'll load a few necessary packages.
+
+```{r}
+library(networkd3)
+library(plotly)
+library(ggplot2)
+library(historydata)
+library(dplyr)
+library(tidyr)
+```
+
+First, be sure to consult the documentation: `?htmlwidgets` and `help(package="htmlwidgets")`.
+
+## Interactive Plots with `Plotly`
+
+Let's look at the Methodists dataset. You may need to draw on your knowledge of `dyplyr` and `tidyr` in the next few examples.
+
+```{r}
+data(methodists)
+methodists
+```
+
+(@) Create a chart of total members over time. Select which `geom` would work best for visualizing the data.
+
+```{r}
+
+```
+
+(@) Yesterday, you created a `methodists_cities` dataframe using `left_join()`. Create an interactive chart for that data.
+
+```{r}
+
+```
+
+(@) Using the same data above, how would you calculate the percentage of Methodists in each city? Then, how would you graph it?
+
+```{r}
+
+```
+
+## Interactive Networks with `networkD3`
+
+```{r, eval=FALSE}
+data(MisNodes, MisLinks)
+```
+
+(@) Generate a network of the *Les Miserable* character interactions using `networkD3`.
+
+```{r}
+
+```
+
+(@) Bonus: We can pass JavaScript-specific arguments to `networkD3` to change how interactions happen. Take for example:
+
+```{r, eval=FALSE}
+MyClickScript <- 
+  ' d3.select(this).select("circle")
+      .transition().duration(750).attr("r", 40)
+'
+```
+
+Try changing the values for `duration` and `radius` and see how these change the network graph.
+
+```{r}
+
+```
+
+## Create your own plots
+
+Create three plots below, using any of the `historydata` datasets or your own. Your three plots should try to make some kind of humanistic observation. For each plot, include no more than three sentences explaining what you think the plot means. You should try to make each plot as informative as possible by using different geoms and including as many variables as is reasonable in each plot. Be sure to add good titles and labels.
+
+(@) Plot 1
+
+```{r}
+
+```
+
+> Explanation of plot 1.
+
+(@) Plot 2
+
+```{r}
+
+```
+
+> Explanation of plot 2.
+
+(@) Plot 3
+
+```{r}
+
+```
+
+> Explanation of plot 3.

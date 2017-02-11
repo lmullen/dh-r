@@ -1,0 +1,253 @@
+---
+title: "Introduction to ggplot2"
+author: "Jason A. Heppler & Lincoln Mullen"
+---
+
+## Aim of this worksheet
+
+After completing the worksheet you should have a grasp of [ggplot2](http://ggplot2.org/) library for making plots using the grammar of graphics. You will find the [ggplot2](http://ggplot2.org/) documentation and [R Graph Catalog](http://shiny.stat.ubc.ca/r-graph-catalog/) helpful.
+
+You are free to attempt working through this worksheet with your own data, but we encourage you for now to use the sample datasets contained in the three packages below.[^1] 
+
+## Sample datasets
+
+Let's load the packages and sample data now.
+
+```{r, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr) # for tidy data
+
+# install.packages(gapminder)
+library(gapminder) # global data on life expectancy, GDP per capita, and population by country
+data("gapminder")
+
+# devtools::install_github("lmullen/historydata")
+library(historydata) # datasets for historians
+data("paulist_missions")
+data("naval_promotions")
+data("judges_appointments")
+data("us_national_population")
+data("us_state_populations")
+data("early_colleges")
+
+## some subsets of data we'll try working with
+california_population <- subset(us_state_populations,
+                                state %in% "California")
+
+western_state_populations <- subset(us_state_populations, 
+                        state %in% c("Arizona", "California", "Colorado", "Idaho",
+                                     "Montana", "Nevada", "New Mexico", "Oregon",
+                                     "Utah", "Washington",  "Wyoming"))
+
+# devtools::install_github('mdlincoln/europop')
+library(europop) # https://github.com/mdlincoln/europop
+data("europop")
+
+# superfund sites CSV
+superfund_sites <- read.csv("data/superfund_sites.csv")
+# We'll clean up the Superfund data a bit.
+keeps <- c("St", "Site.Name","Address","City","Zip","County","Latitude","Longitude","Final.Date")
+superfund_sites <- superfund_sites[keeps]
+superfund_sites$date <- as.Date(superfund_sites$Final.Date, "%m/%d/%y")
+superfund_sites <- setNames(superfund_sites, tolower(names(superfund_sites)))
+# install.packages(lubridate)
+library(lubridate)
+superfund_sites$year <- year(superfund_sites$date)
+```
+
+## Basics of ggplot2
+
+The grammar of graphics says that variables in our data can be mapped to aesthetics in a visualization. Variables, in the case of R, refer to a column in a data frame. The aesthetic in `ggplot2` takes many forms including `x` and `y` position, `size`, `color`, `fill`, `shape`, and so on. `ggplot2` lets us set which variables are mapped onto which glyphs using the `aes()` function.
+
+`ggplot2` expects three main parts:
+
+1. Mapping a dataset to a `ggplot` object by passing the dataset to `ggplot()` as the first argument.
+2. The variables mapped to aesthetics, using the `aes()` function. Often, `aes()` is passed as the second argument but can also be applied to specific geoms. More on that shortly.
+3. At least one glyph specified by one of the geoms.
+
+Let's make a basic plot. We should first look at our data and understand what it is we're working with and what we'd like to create. 
+
+```{r}
+paulist_missions
+```
+
+Now, let's create a scatterplot.
+
+```{r, fig.height = 6, fig.align = 'center', message = F, warning = F}
+ggplot(paulist_missions, aes(x = confessions, y = converts)) +
+  geom_point()
+```
+
+(@) What are the three parts of the plot above?
+
+> 
+
+(@) What is the relationship between each row in the dataset and each glyph in the plot?
+
+> 
+
+(@) Modify the plot so that converts appear on the x-axis and confessions on the y-axis.
+
+```{r}
+ggplot(paulist_missions, aes(y = confessions, x = converts)) +
+  geom_point()
+```
+
+We can specify more than two variables and aesthetics if we wish. Here we map the duration (notice: a categorical variable) to color.
+
+```{r}
+ggplot(paulist_missions, aes(x = confessions, y = converts,
+                             color = city)) +
+  geom_point() +
+  # you should always have a legend, but for readability purposes
+  # we will hide it for now
+  theme(legend.position = "none")
+```
+
+Aesthetic properties can go in the `ggplot()` call if they affect the entire plot (for example, applying color applies color to points, text, and so on), or called for a specific layer (e.g., one of the geom functions) if it affects only that layer.
+
+We can improve the readability of our chart by changing the [shape of the points](http://www.cookbook-r.com/Graphs/Shapes_and_line_types/) and adjusting their transparency.
+
+```{r}
+ggplot(paulist_missions, aes(x = confessions, y = converts, 
+                             color = city)) +
+  geom_point(alpha = 0.5, shape = 1) +
+  theme(legend.position = "none")
+```
+
+(@) Make a different plot from any of the above using `city`, `converts`, and `confessions` variables. Try using the `x`, `y`, and `size` properties.
+
+```{r}
+ggplot(paulist_missions, aes(x = confessions, y = converts, color = duration_weeks)) +
+  geom_point(shape = 1)
+```
+
+## geoms in ggplot2
+
+We have looked at the `geom_point()` geom right now for creating glyphs in the plot. Let's look at a few other options for creating our visualizations. Be aware that not every variable in your data is suited well to a particular glyph. You will occassionally have to aggregate your data to create more meaning from your variables (we'll cover more on this on Day 2).
+
+### geom_histogram()
+
+A [histogram](https://en.wikipedia.org/wiki/Histogram) illustrates the distribution of values in a dataset by binning the data. A single bar is drawn for each bin in the data. For example, we can count the converts that appear in the Paulist data. 
+
+```{r, fig.height = 6, fig.align = 'center', message = F, warning = F}
+ggplot(paulist_missions, aes(x = converts)) +
+  geom_histogram()
+```
+
+(@) Create a histogram of the number of confessions.
+
+```{r}
+
+```
+
+(@) Can you change the number of bins? (Hint: try `bins =` or `binwidth =`. See `?geom_histogram`.) 
+
+```{r}
+
+```
+
+(@) What happens if you change `x = converts` to `x = city`? What does the console tell you, and why do you think this is?
+
+### geom_line()
+
+Line graphs are great for illustrating trends in data. Let's look at population growth in the United States using the `us_national_population` dataset.
+
+```{r}
+us_national_population
+```
+
+```{r}
+ggplot(us_national_population, aes(x = year, y = population)) +
+  geom_line()
+```
+
+(@) Going back to the Paulist mission data, can you create a line chart with a line for the number of converts and a line for the number of confessions? (Hint: you will need two calls to `geom_line()`. And instead of specifying the `y` value in the call to `ggplot()` you will do it in the functons for each layer. For instance: `geom_line(aes(y = converts))`.)
+
+```{r}
+
+```
+
+(@) Can you create a plot with a single line for the ratio of converts to confessions? (Hint: the ratio of converts to confessions is given by `converts / confessions`.)
+
+```{r}
+
+```
+
+### geom_bar()
+
+Bar plots are similarly created as line plots if specifying `stat = "identity"`, which tells `ggplot` to use the `y` value present in the data rather than count the data rows. (By default, `geom_bar` applies `stat="count"`.)
+
+```{r}
+ggplot(us_national_population, aes(x = year, y = population)) +
+  geom_bar(stat = "identity")
+```
+
+(@) How would you create a bar chart to visualize all state populations over time with the `us_state_populations` dataset?
+
+```{r}
+
+```
+
+In addition to setting the y-axis to a variable count in the data, we can also call on `geom_bar()` to count the data for us by passing `stat="count"`. Let's look at the number of Superfund sites for each state.
+
+```{r}
+ggplot(superfund_sites, aes(x = st)) +
+  geom_bar()
+```
+
+(@) Create a chart for looking at the number of Superfund sites by year.
+
+```{r}
+
+```
+
+### Faceting
+
+Faceting in the context of `ggplot` means creating what Edward Tufte calls "[small multiples](https://en.wikipedia.org/wiki/Small_multiple)." Faceting means we create a panel for a plot associated with different categories in the data. Turning to the `paulist_missions` data, we can create separate panels for Paulists and Redemptorists:
+
+```{r}
+ggplot(paulist_missions, aes(x = converts, y = confessions)) +
+  geom_count(shape = 1, alpha = 0.6) +
+  facet_wrap(~ order)
+```
+
+(@) Create a plot with facets for each state.
+
+```{r}
+
+```
+
+(@) Notice that we are using `geom_count()`. What does it do? (Hint: `?geom_count`.)
+
+## Create your own plots
+
+There are several dataset available for you to use. Take a look at `early_colleges`, `naval_promotions`, `quasi_war`, `sarna`, `us_national_population`, or `us_state_populations` (from the historydata package), `gapminder` (from the gapminder package), or `europop` (from the europop package).
+
+Create three plots below using one or more of the datasets above. The three plots should try and make some kind of observation. For each plot, include no more than three sentences explaining what you think the plot means. You should make the plot as informative as possible: remember Edward Tufte's argument about good graphics. Each plot should be as informative as possible using different geoms and variables as reasonable. 
+
+Take a look at the [R Graph Catalog](http://shiny.stat.ubc.ca/r-graph-catalog/) to find examples of what you can do with ggplot.
+
+(@) Plot 1
+
+```{r}
+
+```
+
+> Explanation of plot 1.
+
+(@) Plot 2
+
+```{r}
+
+```
+
+> Explanation of plot 2.
+
+(@) Plot 3
+
+```{r}
+
+```
+
+> Explanation of plot 3.

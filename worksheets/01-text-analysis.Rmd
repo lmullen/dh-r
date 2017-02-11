@@ -1,0 +1,152 @@
+---
+title: "Creating a Text Analysis Corpus"
+author: "Lincoln Mullen"
+date: "4/6/2016"
+output: html_document
+---
+
+First we are going to load the packages that we want.
+
+```{r}
+library(WPAnarratives)
+library(tractarian)
+library(text2vec)
+library(tokenizers)
+library(dplyr)
+library(Matrix)
+library(tidyr)
+library(stringr)
+```
+
+Now we look at the data.
+
+```{r}
+data("tracts_for_the_times")
+tracts_for_the_times
+```
+
+We can use the functions from the tokenizer package to turn our texts into tokens.
+
+```{r}
+tracts_for_the_times$text[1] %>% tokenize_words(simplify = TRUE) %>% head(20)
+tracts_for_the_times$text[1] %>% tokenize_ngrams(n = 4, simplify = TRUE) %>% head(20)
+ngrammer <- function(x) tokenize_ngrams(x, n = 3, n_min = 1)
+```
+
+We can create a corpus using text2vec. First we have to iterate over the documents to get the vocabulary, then do it again to get the corpus.
+
+```{r}
+it <- itoken(tracts_for_the_times$text, tokenizer = tokenize_words,
+             id = tracts_for_the_times$id)
+vocab <- create_vocabulary(it)
+str(vocab)
+vocab <- prune_vocabulary(vocab,
+                          doc_proportion_min = 0.01,
+                          doc_proportion_max = 0.90)
+vectorizer <- vocab_vectorizer(vocab)
+```
+
+```{r}
+it <- itoken(tracts_for_the_times$text, tokenizer = tokenize_words,
+             id = tracts_for_the_times$id)
+corpus <- create_corpus(it, vectorizer)
+str(corpus)
+```
+
+Now we can get a document term matrix, which is what we really want.
+
+```{r}
+dtm <- get_dtm(corpus)
+dtm[1:10, 1:10]
+sparsity <- function(m) { nnzero(m) / length(m) }
+sparsity(dtm)
+```
+
+Now we can try to topic model the documents.
+
+First we need the DTM in a different form.
+
+```{r}
+dtm2 <- get_dtm(corpus, type = "lda_c")
+str(dtm2, list.len = 5)
+```
+
+Set some parameters.
+
+```{r}
+library(lda)
+# prior for topics
+alpha <-  0.1
+# prior for words
+eta <-  0.001
+# number of topics
+K <- 20
+```
+
+Fit the model.
+
+```{r}
+lda_fit <- lda.collapsed.gibbs.sampler(documents = dtm2, K = K, 
+                                       vocab = vocab$vocab$terms, 
+                                       alpha = alpha, 
+                                       eta = eta,
+                                       num.iterations = 30, 
+                                       trace = 2L)
+```
+
+Now we can investigate the model.
+
+```{r}
+str(lda_fit, max.level = 1)
+```
+
+Get the top words in the topics
+
+```{r}
+top.words <- top.topic.words(lda_fit$topics, 20, by.score = TRUE)
+top.words 
+```
+
+Get the top documents in each topic.
+
+```{r}
+top_documents <- top.topic.documents(lda_fit$document_sums, num.documents = 20) 
+top_documents
+```
+
+The list of top documents is not very helpful, so we can tidy it up.
+
+```{r}
+tract_ids <- tracts_for_the_times %>% 
+  add_rownames() %>% 
+  select(-text, -number)
+
+docs_in_topics <- top_documents %>% 
+  as.data.frame() %>% 
+  gather(key = "topic", value = "doc_num") %>% 
+  mutate(doc_num = as.character(doc_num)) %>% 
+  left_join(tract_ids, by = c("doc_num" = "rowname")) %>% 
+  group_by(topic) %>% 
+  mutate(rank = 1:n())
+```
+
+We can try another method of clustering the documents, called hierarchical clustering.
+
+```{r}
+hc <- dtm %>% 
+  dist() %>% 
+  hclust()
+
+# For nice dendrogram plots, see 
+# http://www.sthda.com/english/wiki/beautiful-dendrogram-visualizations-in-r-5-must-known-methods-unsupervised-machine-learning
+plot(hc, hang = -1, cex = 0.6)
+
+cuts <- cutree(hc, k = 20)
+
+clusters <- data_frame(document = names(cuts), cluster_id = unname(cuts))
+
+clusters %>% count(cluster_id)
+
+clusters %>% filter(cluster_id == 2)
+```
+

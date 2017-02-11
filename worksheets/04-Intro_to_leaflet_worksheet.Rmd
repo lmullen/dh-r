@@ -1,0 +1,255 @@
+---
+title: "Introduction to Leaflet"
+author: "Jason Heppler"
+date: "June 10, 2016"
+output: html_document
+---
+
+## Aim of this worksheet
+
+This worksheet will walk you through the basics of using the Leaflet package in R. Once you've finished the worksheet, you should have a familiarity with making interactive maps using the R Leaflet package. Be sure to consult the [Leaflet documentation](https://cran.r-project.org/web/packages/leaflet/leaflet.pdf).
+
+Let's start with our data setup. You should already have the dependencies necessary to run Leaflet and some of the other functions in this worksheet, so we'll load up the packages we need. (If not, use `install.packages()` to get them.)
+
+```{r, eval=F}
+library(leaflet)
+library(RColorBrewer)
+library(rgdal)
+library(raster)
+library(ggplot2)
+library(ggmap)
+library(magrittr)
+library(dplyr)
+```
+
+Let's also load up some datasets for us to work with.
+
+```{r, message=FALSE, warning=FALSE}
+###--------------------------------------------------
+# Data prep
+###--------------------------------------------------
+
+# install.packages(gapminder)
+# global data on life expectancy, GDP per capita, and population by country
+library(gapminder) 
+data("gapminder")
+
+# devtools::install_github("lmullen/historydata")
+# datasets for historians
+library(historydata)
+data("paulist_missions")
+data("naval_promotions")
+data("judges_appointments")
+data("us_national_population")
+data("us_state_populations")
+data("early_colleges")
+
+# Some subsets of population data we'll work with
+california_population <- subset(us_state_populations,
+                                state %in% "California")
+
+western_state_populations <- subset(us_state_populations, 
+                        state %in% c("Arizona", "California", "Colorado", "Idaho",
+                                     "Montana", "Nevada", "New Mexico", "Oregon",
+                                     "Utah", "Washington",  "Wyoming"))
+
+# European population
+# devtools::install_github('mdlincoln/europop')
+library(europop)
+data("europop")
+
+# Superfund sites CSV
+calif_superfund_sites <- read.csv("./data/calif_superfund_sites.csv")
+# We'll clean up the Superfund data a bit, selecting only
+# the columns we want to keep.
+keeps <- c("NAME", "CITY","STATE","ZIP","LONGITUDE","LATITUDE","STATUSDATE","HRS_SCORE")
+calif_superfund_sites <- calif_superfund_sites[keeps]
+# Let's filter out California sites.
+calif_superfund_sites <- subset(calif_superfund_sites,
+                                  STATE %in% "CA")
+# Convert the date into an R friendly version.
+calif_superfund_sites$date <- as.Date(calif_superfund_sites$STATUSDATE, "%m/%d/%Y")
+# Lowercase the variable names.
+calif_superfund_sites <- setNames(calif_superfund_sites, tolower(names(calif_superfund_sites)))
+# install.packages(lubridate)
+# Extract the year to a new column
+library(lubridate)
+calif_superfund_sites$year <- year(calif_superfund_sites$date)
+```
+
+## Plotting Points with Leaflet
+
+Let's look at some Superfund data similar to Day 1, except this one includes the Environmental Protection Agency's Hazard Risk Score (HRS) used for evaluating waste sites for possible inclusion on the National Priorities List (NPL). In short, the HRS is used to assess the potential threat to human health or the environment.
+
+We'll use the `calif_superfund_site` data to examine hazardous site scores in California. Let's map our points first.
+
+```{r}
+leaflet(calif_superfund_sites) %>%
+  addTiles() %>%
+  addCircleMarkers(radius = 5, stroke=TRUE, weight = 0.5, color = "black",
+                   fillColor = "red", fillOpacity = 0.7)
+```
+
+To assess the locations of hazardous sites, we can apply a [ColorBrewer](http://colorbrewer2.org) scale to the points to generate a spectrum for the data indicating severity.
+
+```{r}
+# First we generate our color palette based on the variable
+# hrs_score in our data. The `colorBin` function maps numeric
+# input data to a fixed number of output colors by slicing
+# the input doman up by value.
+spectral <- brewer.pal(11, "Spectral")  %>% rev()
+hrsScore <- colorBin(spectral, calif_superfund_sites$hrs_score)
+
+###--------------------------------------------------
+# Map
+###--------------------------------------------------
+leaflet(calif_superfund_sites) %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  addCircleMarkers(radius = 5, stroke=TRUE, weight = 0.5, color = "black",
+                   fillColor = ~hrsScore(hrs_score), fillOpacity = 0.7) %>%
+  addLegend(title = "HRS Score", pal = hrsScore,
+            values = ~hrs_score, opacity = 1, position="bottomleft")
+```
+
+(@) We could add some additional visual cues to indicate the severity a Superfund site by using the Hazard Ranking System score. Adapt the above code and resize the radius of the points based on the HRS score. Hint: You may have to adjust the value of the HRS score to get more reasonable circles.
+
+```{r}
+
+```
+
+(@) We could enhance the view into this map further by clustering the points together as you zoom out. How would you achieve that? (Hint: consult the Leaflet documentation for `clusterOptions`.)
+
+```{r}
+
+```
+
+## Plotting Shapefiles with Leaflet
+
+Like `ggplot`, we can display shapefiles with Leaflet. The initial process is similar to using shapefiles in `ggplot`. As a reminder, we'll use the [rgdal](https://cran.r-project.org/web/packages/rgdal/index.html) package to load the shapefile. We will also apply the WGS84 projection, the World Geodetic System standard used in cartography, geodesy, and navigation (WGS84 is also known as WGS 1984 and EPSG:4326).
+
+```{r}
+library(rgdal)
+openspace <- readOGR(dsn = "./data/openspace", layer = "openspace-ownership")
+
+# Get the map into the correct projection
+openspace_wgs84 <- spTransform(openspace, CRS("+proj=longlat +datum=WGS84"))
+```
+
+Now that our shapefile is available and transformed into WGS84, we can easily add this to a Leaflet map.
+
+```{r}
+leaflet() %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  addPolygons(data = openspace_wgs84, stroke = FALSE, fillOpacity =  0.5,
+              smoothFactor = 0.5, color = "#800026")
+```
+
+(@) Part of this dataset includes a variable called `AGNCY_NAME`. Using the above code, modify the fill of the shapefile so that the polygons are colored based on which agency administers the land. Hint: [consult the documentation on adding colors](https://rstudio.github.io/leaflet/colors.html).
+
+```{r}
+
+```
+
+(@) Add a legend to the above map to indicate open space administrative agencies.
+
+```{r}
+
+```
+
+(@) Add a popup event to display the administrative agency (`AGNCY_NAME`), name of the open space unit (`UNIT_NAME`), agency level (`AGNCY_LEV`), and county (`COUNTY`).
+
+```{r}
+
+```
+
+## Custom Map Tiles
+
+We can also do some more advanced work with Leaflet by serving historical maps in place of our basemap. To get a GeoTIFF map you will either need to georectify your own maps, turn them into [map tiles](https://www.e-education.psu.edu/geog585/node/706), and serve them yourself (through [GeoServer](http://geoserver.org) or GitHub). We'll start by getting our necessary packages.
+
+```{r}
+library(rgdal)
+library(leaflet)
+```
+
+Let's take a look at one of the most influential nineteenth century visualizations, created by English physician John Snow in 1854 to trace the occurances of a cholera outbreak in London back to its source. Snow's map had widespread influence in shaping public health and wastewater systems, but also represented a significant moment in the history of data visualization by using a statistical graphic to generate a theory of cause-and-effect between deaths from cholera and the location of a community's water pumps.
+
+```{r}
+dir <- getwd()
+# Read in the shapefile of deaths
+deaths <- readOGR(dsn = "./data/snow", layer = "Cholera_Deaths", verbose = FALSE)
+deathsxy <- spTransform(deaths, CRS("+proj=longlat +datum=WGS84"))
+
+# Create our popup
+circle_popup <- paste0("<strong>Number of deaths: </strong>", 
+                      deathsxy$Count)
+
+leaflet() %>%
+  setView(-0.1354223, 51.5135085, zoom = 17) %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  addTiles(urlTemplate = "http://walkerke.github.io/tiles/snow/{z}/{x}/{y}.png", # Snow's map
+           attribution = 'Data source: <a href="https://rpubs.com/walkerke/custom_tiles">Kyle Walker</a>', 
+           options = tileOptions(minZoom = 15, maxZoom = 18, tms = TRUE)) %>%
+  addCircles(data = deathsxy, 
+             radius = deathsxy$Count, 
+             popup = circle_popup, 
+             color = "red", 
+             stroke = FALSE,
+             fillColor = "red",
+             fillOpacity = 0.5)
+```
+
+So, we've used Snow's map as our basemap, adding circles sized proportionate to the number of cholera deaths at a given location, and a pop-up showing us the number of deaths at that location. Note the curly braces around the `x`, `y`, and `z`, which allows values to vary as the user pans and zooms the tiles. You can include external tiles similarly in your maps. For example:
+
+```{r}
+## Stamen watercolor
+leaflet() %>%
+  setView(-97.3606922, 32.7084083, zoom = 16) %>%
+  addTiles(urlTemplate = 'http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png', 
+attribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>')
+
+## Esri National Geographic
+leaflet() %>%
+  setView(-97.3606922, 32.7084083, zoom = 16) %>%
+  addTiles(urlTemplate = 'http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', 
+attribution = 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC')
+
+## Custom MapBox tiles
+leaflet() %>%
+  setView(-97.3606922, 32.7084083, zoom = 16) %>%
+  addTiles(urlTemplate = "http://a.tiles.mapbox.com/v3/{{{Your map id here}}}/{z}/{x}/{y}.png", 
+attribution = 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>')
+```
+
+You can also create your own tilesets by, roughly:
+
+1. Georectifying a historic map and exporting it as a GeoTIFF
+2. Use [gdal2tiles](http://www.gdal.org/gdal2tiles.html) to turn the GeoTIFF into tiles
+3. Host the tiles somewhere (GitHub is a possible option)
+
+## Create your own plots
+
+Create three plots below, using any of the `historydata` datasets or your own. Your three plots should try to make some kind of humanistic observation. For each plot, include no more than three sentences explaining what you think the plot means. You should try to make each plot as informative as possible by using different geoms and including as many variables as is reasonable in each plot. Be sure to add good titles and labels.
+
+(@) Plot 1
+
+```{r}
+
+```
+
+> Explanation of plot 1.
+
+(@) Plot 2
+
+```{r}
+
+```
+
+> Explanation of plot 2.
+
+(@) Plot 3
+
+```{r}
+
+```
+
+> Explanation of plot 3.

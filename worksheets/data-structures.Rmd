@@ -1,0 +1,354 @@
+---
+title: "Data Structures and Subsetting"
+author: ""
+---
+
+## Aim of this worksheet
+
+After completing this worksheet, you should have a basic familiarity with the most useful types of data structures in R (lists, data frames, and matrices). You should also be able to subset any of these data structures using the common subsetting operators (`[`, `[[`, and `$`). 
+
+You may find the chapters on [data structures](http://adv-r.had.co.nz/Data-structures.html) and [subsetting](http://adv-r.had.co.nz/Subsetting.html) from Hadley Wickham's *[Advanced R](http://adv-r.had.co.nz/)* book to be helpful.
+
+## Subsetting vectors
+
+In the [previous worksheet](familiar-with-r.html) you learned about vectors. Vectors hold a one-dimensional set of homogenous values. By homogenous we mean that that the values all have to be the same type (integer, numeric, logical, and so on) and you can't have both, say, numeric and logical values in the same vector. By one-dimensional we mean that there can be more than one element accessed by a single index. For example, R includes a character vector of the letters in the English alphabet, helpfully called, `letters`.
+
+```{r}
+letters
+```
+
+The `letters` object is a character vector because everything inside of it is a character vector.
+
+```{r}
+class(letters)
+```
+
+And it has twenty-six elements:
+
+```{r}
+length(letters)
+```
+
+We can **subset** a vector using the `[` operator (actually, it's a function). For instance, we can get the first element like this:
+
+```{r}
+letters[1]
+```
+
+(@) How would you get the twenty-fifth element?
+
+```{r}
+
+```
+
+We can get a range of values like so. Notice that we can get all the numbers one to five like this:
+
+```{r}
+1:5
+```
+
+So, we can get the first five letters like this:
+
+```{r}
+letters[1:5]
+```
+
+(@) Can you get the tenth through twelfth letters?
+
+```{r}
+
+```
+
+You can get an arbitrary subset by creating a numeric (or integer) vector. Here we get the first, tenth, and twelfth letters.
+
+```{r}
+letters[c(1, 10, 12)]
+```
+
+We can also do this by creating a variable and using it to do the subsetting.
+
+```{r}
+what_i_want <- c(1, 3, 5, 7)
+letters[what_i_want]
+```
+
+(@) Create a variable with the even numbers and then subset the `letters` variable to get the even letters (e.g., the second, fourth, etc.)
+
+```{r}
+
+```
+
+(@) Bonus: can you use the `seq()` function (look it up with `?seq`) to get the even letters in a more clever way?
+
+```{r}
+
+```
+
+In addition to values, vectors can also have names. For example, let's create a variable with the numbers 1 to 5, then give those values some names.
+
+```{r}
+myvar <- 1:5
+names(myvar) <- letters[1:5]
+myvar
+```
+
+Now we can also subset the vector based on the names:
+
+```{r}
+myvar["c"]
+```
+
+(@) Below is a vector of rankings for songs. Give the numeric vector names, which should be the titles of songs. Finally, subset the vector by the title of one of the songs to retrieve its ranking.
+
+```{r}
+song_rankings <- c(10, 8.4, 6, 8.2, 4)
+```
+
+## Matrices
+
+Vectors are one-dimensional and homogeneous. Matrices are two-dimensional and homogenous, so they have the same kind of value, but have rows and columns as well. A matrix can be used for all kinds of problems in digital history. For now, let's imagine we have four cites, A, B, C, and D, and have measured the distances between them. For instance, the distance from A to B is 2. We can represent those distances as a matrix with 4 columns and 4 rows, where the names of the rows and columns are the cities.
+
+```{r}
+city_distances <- matrix(c(0, 2, 8, 3, 2, 0, 6, 1, 8, 6, 0, 4, 3, 1, 4, 0),
+                         nrow = 4, ncol = 4)
+rownames(city_distances) <- LETTERS[1:4]
+colnames(city_distances) <- LETTERS[1:4]
+city_distances
+```
+
+A matrix can be subsetted in the same way that a vector can be subsetted. (Because it *is* a vector---just a vector with two dimensions.) For instance, we can get the third element of the matrix.
+
+```{r}
+city_distances[3]
+```
+
+(@) Now get the fifth element of the matrix.
+
+```{r}
+
+```
+
+But matrices are more useful when we subset them by row and column. For instance, here is the value contained in the cell for the first row and third column. 
+
+```{r}
+city_distances[1, 3]
+```
+
+(@) Now get the value for the third row and the first column.
+
+```{r}
+
+```
+
+(@) What cities are we getting the distances for when we look for the third row and first column?
+
+>
+
+If a matrix has row and column names, we can subset the vector by that. For instance, here is the distance between cities B and D.
+
+```{r}
+city_distances["B", "D"]
+```
+
+(@) What is the distance between cities D and C?
+
+```{r}
+
+```
+
+(@) What is the distance between city A and cities B, C, and D? (Hint: think back to the kinds of subsetting that we did with vectors.)
+
+```{r}
+
+```
+
+## Data frames
+
+The most useful data structure in R is the data frame. Think of a data frame like a spreadsheet that holds any kind of tabular data. It is two dimensional, like a matrix; unlike a matrix, it is homogenous in that the columns can hold different kinds of data.  While other langauges have add on libraries that allow for data structures like this, in R data frames are a first class citizen.
+
+Let's get a data frame from the historydata package. (If we also load dplyr, we will get nicer printing.)
+
+```{r}
+library(historydata)
+library(dplyr)
+naval_promotions
+```
+
+We can use `str()` to get a different look at the data.
+
+```{r}
+str(naval_promotions)
+```
+
+(@) How many rows and columns does the data frame have? What are the different types of vectors contained in it?
+
+> 
+
+We can use the `[` subset function to get access to rows and columns, just like we did with matrices. For instance, here we ask for just the first row and the columned named `"name"`:
+
+```{r}
+naval_promotions[1, "name"]
+```
+
+We can also ask for the entire first row (note the comma):
+
+```{r}
+naval_promotions[1, ]
+```
+
+(@) What is the name of the person in the tenth row? What was the date he became that rank?
+
+```{r}
+
+```
+
+Because data frames are organized by column, it is possible to extract an entire column using the `$` function. Here, let's get just the names of the people. (We'll limit it using `head()` so we don't print out all of them.)
+
+```{r}
+head(naval_promotions$name, 10)
+```
+
+The function `unique()` gives you, well, all the unique values in a vector. For instance:
+
+```{r}
+unique(c(1, 1, 1, 2, 3))
+```
+
+(@) What are all the different ranks contained in the `naval_promotions` dataset? (Hint: use `unique()`.)
+
+```{r}
+
+```
+
+(@) How many different people are contained in the `naval_promotions` dataset?
+
+```{r}
+
+```
+
+(@) Why is that number different than the number of rows?
+
+> 
+
+(@) What is the earliest and latest date in the dataset? (Hint: you may find some combination of `sort()`, `head()`, `tail()`, `range()`, and `as.Date()` to be useful. Don't forget about `na.rm = TRUE` as appropriate.)
+
+```{r}
+
+```
+
+We will work much, much more with data frames.
+
+## Lists
+
+Another very useful kind of data structure is the list. A list can hold values of any type, including vectors, data frames, and even other lists. For instance, we can create a list that holds several different kinds of information:
+
+```{r}
+our_class <- list(
+  title = "Intro to R",
+  year = 2016,
+  books = c("Basics of R", "Get Awesome at R"),
+  students = c("Adam", "Betsy", "Cynthia", "David")
+)
+str(our_class)
+```
+
+We can get just part of the list using the `[` function that we've become used to. For instance, to get just the title:
+
+```{r}
+our_class["title"]
+```
+
+But notice that the returned value is a list, not a character vector
+
+```{r}
+is.list(our_class["title"])
+is.character(our_class["title"])
+```
+
+R has another subset operator, `[[`. The single bracket (`[`) gives us what we asked for inside a list; the double bracket (`[[`) simplifies the list to give us the vector (or whatever) we asked for.
+
+```{r}
+our_class[["title"]]
+is.list(our_class[["title"]])
+is.character(our_class[["title"]])
+```
+
+(@) Using the `our_class` list, get just the year (as a list). Get it as a numeric vector.
+
+```{r}
+
+```
+
+(@) Using the `our_class` list, get the class title, the book list, and the year (as a list). (Hint: remember the different kinds of subsetting we did with `[`.)
+
+```{r}
+
+```
+
+R also lets us use the `$` operator we used to get columns of a data frame.
+
+```{r}
+our_class$title
+```
+
+(@) Get the students vector from `our_class`:
+
+```{r}
+
+```
+
+(@) Is the `$` equivalent to `[` or `[[`?
+
+> 
+
+(@) Create a list that models a historic event. What parts of the event are worth keeping track of? Also extract certain parts of that list.
+
+```{r}
+
+```
+
+(@) You can use `$`, `[`, and `[[` on both data frames and lists. What is the relationship between a data frame and a list? (Hint: use `is.list()` and `is.data.frame()` on a list and a data frame.)
+
+## Subsetting with logical vectors
+
+We have done subsetting above using numeric and character vectors. We can also do subsetting using logical vectors. Let's create a sample dataset of the heights of soldiers. 
+
+```{r}
+set.seed(3929)
+heights <- rnorm(20, mean = 69)
+names(heights) <- letters[1:20]
+heights
+```
+
+We can find all the soldiers who are taller than average like this. First let's compare all the heights to the mean height.
+
+```{r}
+heights > mean(heights)
+```
+
+Notice that we get a logical vector as a result. We can use that within the `[` operator to get just the soldiers who are taller than average.
+
+```{r}
+heights[heights > mean(heights)]
+```
+
+(@) Which soldiers are taller than 70 inches?
+
+```{r}
+
+```
+
+This kind of subsetting also works for data frames. Here we get all the officers from the first generation. (Notice the comma.)
+
+```{r}
+first_gen <- naval_promotions[naval_promotions$generation == 1, ]
+head(first_gen, 10)
+```
+
+(@) Can you get just the promotions to captain?
+
+```{r}
+
+```
+
+(@) Can you get the promotions from 1800? (Hint: you will first have to make the date column a date object.)

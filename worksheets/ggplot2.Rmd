@@ -1,0 +1,259 @@
+---
+title: "Basics of ggplot2"
+author: ""
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aim of this worksheet
+
+After completing this worksheet, you should be able to use the powerful [ggplot2](http://ggplot2.org/) to make basic plots using the grammar of graphics. You may find the [ggplot2](http://ggplot2.org/) documentation or the [R Graph Catalog](http://shiny.stat.ubc.ca/r-graph-catalog/) to be helpful.
+
+In addition to the ggplot2 package, we will use three packages with sample data, and we will load dplyr to get nice printing of data frames. Let's load them now, and also bring some of the data frames into the global environment.
+
+```{r, message=FALSE}
+library(ggplot2)
+library(dplyr)
+
+library(gapminder)
+data("gapminder")
+
+library(historydata)
+data("paulist_missions")
+data("naval_promotions")
+
+library(europop) # https://github.com/mdlincoln/europop
+data("europop")
+
+# Make the Paulist missions data a little more mangeable
+library(lubridate)
+weeks <- function(x) {
+  w <- ifelse(x < 7, "< 1 weeks",
+              ifelse(x <= 14, "1-2 weeks",
+                     ifelse(x <= 21, "2-3 weeks",
+                            "> 3 weeks")))
+  factor(w, levels = c("< 1 weeks", "1-2 weeks", "2-3 weeks", "> 3 weeks"),
+         ordered = TRUE)
+}
+paulist_missions <- paulist_missions %>% 
+  mutate(start_date = mdy(start_date),
+         end_date = mdy(end_date),
+         year = year(start_date),
+         days = as.numeric(end_date - start_date) / 24 / 60 / 60,
+         duration = weeks(days)) 
+
+paulists_by_year <- paulist_missions %>% 
+  group_by(year) %>% 
+  summarize(converts = sum(converts, na.rm = TRUE),
+            confessions = sum(confessions, na.rm = TRUE))
+```
+
+
+## Basics of using ggplot2
+
+The fundamental insight of the grammar of graphics is the variables in the data can be mapped to aesthetics in the visualization. A variable in a data frame will be found in a column. An aesthetic in ggplot2 can take many forms, depending on the kinds of marks (glyphs) that you are going to make in the plot. But the most common aesthetics are `x` and `y` position, `size`, `color`, `fill`, `shape` and `weight`. Some less common but still useful are `label` and `linetype`. The ggplot2 package lets us explicitly set which variables are mapped to which marks using the `aes()` function.
+
+The three basic parts of a call to ggplot2 are these:
+
+1. The specification of which dataset you are using by passing a variable to the `ggplot()` function as its first argument.
+2. The specification of which variables map to which aesthetics, using arguments to the `aes()` function. The `aes()` function is normally passed as the second argument to `ggplot()` (though it can also be specified in the various geoms).
+3. At least one layer in the plot that makes a mark (or glyph). This is specified by one of the geoms, such as `geom_point()`.
+
+Consider this basic plot. First, let's look at the date.
+
+```{r}
+paulist_missions
+```
+
+Now let's make a scatter plot.
+
+```{r}
+ggplot(paulist_missions, aes(x = confessions, y = converts)) +
+  geom_point()
+```
+
+(@) What are the three parts of the plot, as listed above?
+
+>
+
+(@) What is the relationship between each row in the dataset and each glyph in the plot?
+
+>
+
+(@) Modify that plot so that converts are on the x-axis and confessions are y-axis.
+
+```{r}
+
+```
+
+
+We can specify more than two variables and aesthetics if we wish. Here we map the duration (notice: a categorical variable) to color.
+
+```{r}
+ggplot(paulist_missions, aes(x = confessions, y = converts, 
+                             color = duration)) +
+  geom_point()
+```
+
+We can also specify static properties, These can go either in the call to `ggplot()` if they affect the entire plot, or in a specific layer (one of the `geom_*()` functions) if they affect just that layer.
+
+We might notice that our chart suffers from overplotting: the points are on top of each other and we can't distinguish between them. Let try changing the shape of each point, and try making each point slightly transparent to see if this helps. Notice that in the code below, those properties are specified with static values *outside of* the `aes()` function. 
+
+```{r}
+ggplot(paulist_missions, aes(x = confessions, y = converts, 
+                             color = duration)) +
+  geom_point(alpha = 0.5, shape = 1)
+```
+
+(@) Make a different plot from any of the above using `days`, `converts`, and `confessions` variables. Try using the `x`, `y`, and `size` properties.
+
+```{r}
+
+```
+
+We can change the labels of the plot using the `labs()` function as below. (Alternatively, you can use the `xlab()`, `ylab()`, and `ggtitle()` functions.)
+
+```{r}
+ggplot(paulist_missions, aes(x = confessions, y = converts, 
+                             color = duration)) +
+  geom_point(alpha = 0.5, shape = 1) +
+  labs(title = "Paulist missions",
+       x = "Confessions (= attendance)",
+       y = "Converts (to Roman Catholicism)",
+       color = "Duration of mission")
+```
+
+(@) Copy your plot above and add informative labels.
+
+```{r}
+
+```
+
+
+## Basic geoms in ggplot2
+
+So far we have only used points (with `geom_point()`) as the meaningful glyphs in our plot. Now we will take a tour of different kinds of glyphs that are available to us in ggplot2. Not every variable is suited to every kind of glyph, and sometimes we have to aggregate our data to make certain kinds of plots. (The data aggregation will be covered in a later worksheet.)
+
+### Histogram
+
+A [histogram](https://en.wikipedia.org/wiki/Histogram) shows the distribution of values in a dataset by "binning" the data: in other words, it takes the domain of the data, splits it into different bins, then counts how many values faall into each bin. One bar is drawn for each bin. Here we count the kinds o
+
+```{r}
+ggplot(paulist_missions, aes(x = converts)) +
+  geom_histogram()
+```
+
+(@) Create a histogram of the number of confessions.
+
+```{r}
+
+```
+
+(@) Can you change the number of bins? (Hint: try `bins =` or `binwidth =`. See `?geom_histogram`.) 
+
+### Lines
+
+Lines are good for showing trends.
+
+```{r}
+ggplot(paulists_by_year, aes(x = year, y = converts)) +
+  geom_line()
+```
+
+(@) Create a line chart of the number of confessions. Can you also add a layer of points in addition to the line?
+
+```{r}
+
+```
+
+(@) Can you create a line chart with a line for the number of converts and a line for the number of confessions? (Hint: you will need two calls to `geom_line()`. And instead of specifying the `y` value in the call to `ggplot()` you will do it in the functons for each layer. For instance: `geom_line(aes(y = converts))`.)
+
+```{r}
+
+```
+
+(@) Can you create a plot with a single line for the ratio of converts to confessions? (Hint: the ratio of converts to confessions is given by `converts / confessions`.)
+
+```{r}
+
+```
+
+If you map `color = ` to a categorical value, you will get a different colored line for each category.
+
+### Bar plots
+
+Bar plots can be used in much the same way as a line plot if you specify `stat = "identity"`. That call tells ggplot to use a `y` value that is present in the data.
+
+```{r}
+ggplot(paulists_by_year, aes(x = year, y = converts)) +
+  geom_bar(stat = "identity")
+```
+
+But bar plots are better used for counts of categorical variables. Here we count the number of missions done by the Paulists and the Redemptorists. 
+
+```{r}
+ggplot(paulist_missions, aes(x = order)) +
+  geom_bar(stat = "count")
+```
+
+(@) Create a plot with a count of the number of missions in each state.
+
+```{r}
+
+```
+
+### Faceting
+
+Faceting is not a geom like the examples above, but it can create a separate panel in a plot for different categories in the data. For instance, in the plot below, we have created a separate panel for each 
+
+
+```{r}
+ggplot(paulist_missions, aes(x = converts, y = confessions)) +
+  geom_count(shape = 1, alpha = 0.6) +
+  facet_wrap(~ order)
+```
+
+(@) Create a plot with facets for each state.
+
+```{r}
+
+```
+
+
+(@) Notice that we are using `geom_count()`. What does it do? (Hint: `?geom_count`.)
+
+>
+
+## Create your own plots
+
+There are a number of data sets available to you. You may try using `early_colleges`, `catholic_dioceses`, `naval_promotions`, `quasi_war`, `sarna`, `us_national_population`, or `us_state_populations` (all from the historydata package), `gapminder` (from the gapminder package), or `europop` (from the europop package).
+
+Create three plots below, using any one or more than one of those datasets. Your three plots should try to make some kind of historical observation. For each plot, include no more than three sentences explaining what you think the plot means. You should try to make each plot as informative as possible by using different geoms and including as many variables as is reasonable in each plot. Be sure to add good titles and labels.
+
+You may wish to look at the [R Graph Catalog](http://shiny.stat.ubc.ca/r-graph-catalog/) to find examples of what you can do with ggplot along with sample code.
+
+(@) Plot 1
+
+```{r}
+
+```
+
+> Explanation of plot 1.
+
+(@) Plot 2
+
+```{r}
+
+```
+
+> Explanation of plot 2.
+
+(@) Plot 3
+
+```{r}
+
+```
+
+> Explanation of plot 3.

@@ -1,0 +1,296 @@
+---
+title: "Data manipulation with dplyr"
+author: ""
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aims of this worksheet
+
+One of the key reasons to use R is to be able to manipulate data with ease. After completing this worksheet you will be able to work with the most commonly used data manipulation verbs provided by the [dplyr](https://cran.rstudio.com/web/packages/dplyr/) package. In addition, you will learn how to read a CSV file into R, and learn how to use the pipe operator. 
+
+Since these packages were written by Hadley Wickham, you may find his articles on "[Tidy Data](http://www.jstatsoft.org/v59/i10/)" and "[The Split-Apply-Combine Strategy for Data Analysis](http://www.jstatsoft.org/article/view/v040i01)" to be useful. In addition, you should read the package documentation and vignettes for the [dplyr](https://cran.rstudio.com/web/packages/dplyr/) package.
+
+## Loading CSV files
+
+We will begin by loading the necessary packages:
+
+```{r, message=FALSE}
+library(dplyr)
+library(historydata)
+```
+
+So far we have worked almost exclusively with data which is contained in R packages, which we can install and then load. However, most data will come to you outside of an R package, so you must learn how to load that data. 
+
+Often tabular data will come to you in the form of a CSV (comma separated values) file. This is a text file where, as the name indicates, the columns in the data are separated with columns. This is a much better way of receiving data than say, an Excel spreadsheet.
+
+R has a number of functions that can read in data in various formats. We will use one, `read_csv()`, from the [readr](https://cran.rstudio.com/web/packages/readr/) package, which works nicely with dplyr and tidyr. But there is an equivalent function in base R called `read.csv()`. See `?readr::read_csv` or `?read.csv` for details.
+
+Because R is awesome, we can pass it the URL to a file (in addition to the local path to a file) and it will be loaded. (You could also download the file with `download.file()`.)
+
+```{r}
+library(readr)
+methodists <- read_csv("http://lincolnmullen.com/projects/worksheets/data/methodists.csv")
+```
+
+## The pipe (`%>%`)
+
+The packages that we will be working with all take advantage of an operator provided by the [magrittr](https://cran.rstudio.com/web/packages/magrittr/) package. Called the pipe, this operator `%>%` passes the output of one function to the first argument of a second function.
+
+Consider this example from an earlier exercise, where we find the earliest and latest dates from a column in a data frame. 
+
+```{r}
+range(as.Date(naval_promotions$date), na.rm = TRUE)
+```
+
+Here we have to read the expression from the inside out, from the `naval_promotions$date`, to the `as.Date()` function, to the `range()` function. The pipe operator lets us write an equivalent expression which is more legible.
+
+```{r}
+naval_promotions$date %>% 
+  as.Date() %>% 
+  range(na.rm = TRUE)
+```
+
+## Selecting columns (`select()`)
+
+Now we can begin to use the Methodists data. This data contains membership statistics for different churches, circuits, and class meetings. (This data is transcribed from the Methodist annual minutes meeting, and so it uses the racial terminology from those primary sources.) First can get a sense of what the data looks like.
+
+```{r}
+methodists
+```
+
+The first data manipulation verb that we are going to use is `select()`. This function lets us pass the names of the columns that we want to keep. 
+
+```{r}
+methodists %>% 
+  select(minutes_year, meeting, members_general)
+```
+
+Notice that we have not actually changed the data stored in `methodists` until we assign the changed data back to the variable.
+
+Read the documentation for this function, `?select`.
+
+(@) Select the `minutes_year`, `meeting`, and all the columns that begin with the word `members_`.
+
+```{r}
+
+```
+
+(@) Remove the column `url`.
+
+```{r}
+
+```
+
+## Filtering rows (`filter()`)
+
+The `select()` function lets us pick certain columns. The `filter()` function lets select certain rows based on logical conditions. For example, here we get the only the churches where the total number of members is at greater than 1,000.
+
+```{r}
+methodists %>% 
+  filter(members_general > 1000)
+```
+
+(@) Get just the rows from New York in 1800.
+
+```{r}
+
+```
+
+(@) Which Methodist meetings had only black members?
+
+```{r}
+
+```
+
+
+The Methodists gradually kept more detailed records. They began by keeping track of the total number of members, then the number of white and black members, and eventually the number of white, black, and Indian members. But when they kept track of those racial divisions, they did not report the total number of members.
+
+(@) In which year did the Methodists start keeping track of white and black members? (Hint: use `is.na()` to find when the missing values begin.)
+
+```{r}
+
+```
+
+(@) Bonus: some of these Methodist meetings were "missions." Load the `stringr` package and look at the documentation for `?str_detect`. Can you find which rows represent missions?
+
+```{r}
+
+```
+
+## Creating new columns (`mutate()`)
+
+Very often one will want to create a new column based on other columns in the data. For instance, in our Methodist data, there is a column called `minutes_year` for the year that the minutes were kept. But the actual data was for the *previous* year. Here we create a new column called `year`, where each value is one less than in `minutes_year`.
+
+```{r}
+methodists %>% 
+  mutate(year = minutes_year - 1) %>% 
+  select(minutes_year, year, meeting)
+```
+
+Notice that we chained the data manipulation functions using the pipe (`%>%`). This lets us create a pipeline were we can do many different manipulations in a row.
+
+(@) Filter the Methodists data to 1786 and later. All of the `members_total` values for those years are `NA`. Assign the the value of `members_white` plus `members_colored` to the `members_total` column.
+
+```{r}
+
+```
+
+(@) Create two new columns, one with the percentage of white members, and one with the percentage of black members.
+
+```{r}
+
+```
+
+(@) Bonus: We neglected the column `members_indian` above, which should be counted in the `members_total` column. However, for some years the values of that column are `NA`, and in other years they have a numeric value. The difference is that the years where the value is `NA`, that column does not appear in the data because it was not tracked. How can you add that column to the total without running into problems with the missing values? (Hints: One way to do this is to use the `ifelse()` function to conditionally assign a value to `members_total`. Another way to do this is to group the data frame using `rowwise()` and use `sum()` with the `na.rm = TRUE` argument. A third, less elegant way, would be to split the data frame manually based on whether the value is `NA` or not, then recombine them.)
+
+## Sorting columns (`arrange()`)
+
+Often we want to sort a data frame by one of its columns. This can be done with the verb `arrange()`. By default `arrange()` will sort from least to greatest; we can use the function `desc()` to sort from greatest to least. In this example, we sort the data frame to get the circuits with the highest number of white members.
+
+```{r}
+methodists %>% 
+  arrange(desc(members_white))
+```
+
+(@) Which circuits had the highest number of black members? Be sure to select only the necessary columns so that the results print in a meaningful way.
+
+```{r}
+
+```
+
+(@) Which circuits had the most members overall? Keep in mind that you will have to use your code from above to calculate the total members for years where that value is `NA` because only the number of white and black members is supplied?
+
+```{r}
+
+```
+
+(@) Which circuits had the high percentage of black members without being entirely black?
+
+```{r}
+
+```
+
+## Split-apply-combine (`group_by()`)
+
+Notice that in the example above the `arrange()` function sorted the entire data frame. So when we looked for the circuits with the largest number of members, we got rows from 1825, then 1830, then 1829, then 1830, and so on. What if we wanted to get the biggest circuit from each year?
+
+We can solve this kind of problem with what Hadley Wickham calls the "split-apply-combine" pattern of data analysis. Think of it this way. First we can *split* the big data frame into separate data frames, one for each year. Then we can *apply* our logic to get the results we want; in this case, that means sorting the data frame. We might also want to get just the top one row with the biggest number of members. Then we can *combine* those split apart data frames into a new data frame.
+
+Observe how this works. If we want to get circuit with the most black members in each year, we can use the following code:
+
+```{r}
+methodists %>% 
+  filter(minutes_year >= 1786) %>% 
+  select(minutes_year, meeting, starts_with("members")) %>% 
+  group_by(minutes_year) %>% 
+  arrange(desc(members_colored)) %>% 
+  slice(5) 
+```
+
+Let's walk through that logic step by step. 
+
+1. First we get only the years since 1786 with `filter()`, since the data does not keep track of the number of white and black members until that year.
+2. Then we select only the columns that we are interested in, namely, the column for the year, the name of the meeting, and the various values for membership. We do this just so that the results print out in a useful way: in a real analysis we might decide not to throw away the other columns.
+3. The crucial step is when we `group_by()` the `minutes_year`. This creates a new data-frame (the *split* step) for each unique combination of values in the variables. Notice that the printed our result says that there are 45 groups, i.e., one for each year from 1786 to 1830. (Note that you can group by combinations of columns, so, one group for each combination of city and state, for instance.)
+4. Next we *apply* our logic, in this case, sorting by the column `members_colored` in descending order. This puts the rows with the biggest value at the top.
+5. Next we continue to *apply* our logic with `slice()`. This function simply gives us the rows in each of the split-up data frames with that index. So `slice(1)` gives us the first row, `slice(5)` gives us this fifth row, and `slice(1:5)` gives us the first through fifth rows. 
+6. The last step, *combine*, where the split-up data frames are brought back together, is done for us automatically. Note that the data frame is still grouped, however, so any subsequent data manipulation verbs will be applied to the groups rather than the whole data frame. If we wished, we could use `ungroup()`.
+
+This particular operation, getting the top value in a split up data frame is so common that dplyr provides us with a `top_n()` function as a short cut. That function also handles ties better. (What if, for instance, two circuits both have the same biggest value?)
+
+```{r}
+methodists %>% 
+  filter(minutes_year >= 1786) %>% 
+  select(minutes_year, meeting, starts_with("members")) %>% 
+  group_by(minutes_year) %>% 
+  top_n(1, members_colored)
+```
+
+We get the same results more concisely and reliably, though the steps of "split-apply-combine" are perhaps somewhat less easy to see.
+
+(@) For each year, which was the biggest circuit?
+
+```{r}
+
+```
+
+(@) For each year since 1786, which church had the biggest percentage of black members without being entirely black?
+
+```{r}
+
+```
+
+(@) For the year 1825, what was the biggest meeting in each conference? In each district?
+
+```{r}
+
+```
+
+(@) For each year, what were the three biggest churches in the Baltimore conference?
+
+```{r}
+
+```
+
+## Summarizing or aggregating data (`summarize()`)
+
+In the examples using `top_n()` or `slice()` we performed a very simple kind of data summary, where we took the single row with the biggest value in a given column. This essentially boiled many rows of a data frame down into a single row. We would like to be able to summarize or aggregate a data frame in other ways as well. For instance, we often want to take the sum or the mean of a given column. We can do this using the `summarize()` function in conjunction with the `group_by()` function.
+
+In this example, we group by the year the minutes were taken. Then we find the total number of white members for each year.
+
+```{r}
+methodists %>% 
+  filter(minutes_year >= 1786) %>% 
+  group_by(minutes_year) %>% 
+  summarize(total_members_white = sum(members_white, na.rm = TRUE))
+```
+
+Notice that we get one row in the recombined data frame for each group in the original data frame. The value in the new column is the result of a function (in this case, `sum()`) applied to the columns in each of the split apart data frames.
+
+There is also a special case where we might want to know how many rows were in each of the split apart (or grouped) data frames. We can use the special `n()` function to get that count. (Just like the case of `slice()` and `top_n()`, this is such a common thing to do that dplyr provides the special functions `count()` and `tally()`. You can look up their documentation to see how they work.)
+
+```{r}
+methodists %>% 
+  group_by(minutes_year) %>% 
+  summarize(total_meetings = n())
+```
+
+(@) How many meetings (i.e., churches or circuits) were there in each conference in each year since 1802?
+
+```{r}
+
+```
+
+(@) What is the average number of white, black, and average number of total members for each year since 1786?
+
+```{r}
+
+```
+
+(@) Make a plot of the average percentage of black members over time.
+
+```{r}
+
+```
+
+(@) Make a plot of the average and median number of members over time.
+
+```{r}
+
+```
+
+(@) What was the average number of members in each conference for each year? Can you also make a plot of this?
+
+```{r}
+
+```
+
+(@) What was the average percentage of black members in each conference for each year? Can you also make a plot of this?
+
+```{r}
+
+```
+
