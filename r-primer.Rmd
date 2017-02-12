@@ -91,9 +91,11 @@ new_england <-  c("MA", "ME", "CT", "RI", "NH", "VT")
 states %in% new_england
 ```
 
-## Using functions
+## Functions
 
 R is a functional programming language, so knowing how to apply functions to problems, and to write them yourself, is essential to doing your work. Functions are the verbs of R programming.
+
+### Using functions
 
 **Functions** can be called on many different kinds of R vectors and objects. A function takes an input and produces an output. In this case we will use `sum()` to add up a vector of numbers.
 
@@ -130,6 +132,33 @@ states_sorted <- sort(states)
 
 states
 states_sorted
+```
+
+### Writing your own functions
+
+You will often have to write your own functions. You can think of a function as encapsulating some action that you take on your data. Consider the following few sentences, each of which includes a year. How can we turn the year in each of these sentences into a number?
+
+```{r}
+dates <- c("The Louisiana Purchase happened in 1803.",
+           "The Mexican-American war began in 1846.",
+           "The Compromise of 1850 was drafted by Henry Clay.")
+```
+
+We can write a function that does this work for us. The function will be named `extract_year`. It will have a single argument, `sent`, which will be a sentence containing a year. The body of the function, between `{` and `}`, does the work of finding the 4-character string of digits then turning that into an integer. The last value in the function will be returned as its output.
+
+```{r}
+extract_year <- function(sent) {
+  require(stringr) # Make sure that the stringr package is loaded
+  year_char <- str_extract(sent, "\\d{4}") # Pull out the 4 digit year
+  year_int <- as.integer(year_char) # Turn the year (a character) into an integer
+  year_int # This is the value that will be returned
+}
+```
+
+Now we can call the function on our data and get the desired result:
+
+```{r}
+extract_year(dates)
 ```
 
 ## Data structures and subsetting
