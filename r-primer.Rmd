@@ -47,7 +47,7 @@ NA_real_
 
 ## Variables and assignment
 
-Values can be stored in **variables**. A value is placed into a variable using the assignment operator, `<-`.
+Values can be stored in **variables**. A value is placed into a variable using the assignment operator, `<-`.^[I'm calling certain parts of R syntax operators, but technically they are special functions with syntactic sugar.]
 
 ```{r}
 x <- 1
@@ -192,4 +192,113 @@ And we can sort `rank` and see that the names are also sorted, or get only the e
 ```{r}
 sort(rank)
 rank[rank <= 3]
+```
+
+### Lists
+
+Lists are conceptually an extension of vectors. They are a vector which can contain other vectors, each of which can contain a different kind of information. Lists can thus have an arbitrary structure. Let's create a list that models a historical event, recording certain key pieces of information. Notice that some of the information is numeric and some is text; some of the fields have a single entry, and some are a vector of values.
+
+```{r}
+event <- list(
+  name = "Louisiana Purchase",
+  date = 1803,
+  price = 15000000,
+  nations = c("France", "United States"),
+  negotiators = c("Napoleon", "Thomas Jefferson")
+)
+```
+
+Because lists can have an arbitrary structure, you can use the `str()` function to see what a list contains. (This function works on any R object.) Notice that this is a list that has five elements, and that each of those elements has a name (`date`, `price`, and so on).
+
+```{r}
+str(event)
+```
+
+Just like a regular vector, you can subset a list with a numerical index.
+
+```{r}
+event[2]
+```
+
+But notice that the resulting value is a list containing the date. We have selected an element of the list, but that element still comes wrapped in the list. We can get what is contained inside each element by using the double bracket subset operator, `[[`. Notice that the value returned is now the number that corresponds to the date.
+
+```{r}
+event[[2]]
+```
+
+Just like with regular vectors, you can also subset a list by its names if it has them. 
+
+```{r}
+event["date"]
+```
+
+The single bracket subset operator `[` gives us a list, but we can get a named element itself with the double bracked subset operator `[[`.
+
+```{r}
+event[["date"]]
+```
+
+There is a special syntax for accessing a named element of a list using the `$` operator. This is the equivalent of `event[["date"]]`.
+
+```{r}
+event$date
+```
+
+### Data frames
+
+A data frame is like a spreadsheet, since it is a table with columns and rows. It is the data structure that we will use most in this book, though we will mostly use the [dplyr](https://cran.r-project.org/package=dplyr) package instead of base R to manipulate tabular data. Technically a data frame is a list where the constituent vectors are all the same length, and so you can use the same subset operators on data frames. Even if you mostly use [dplyr](https://cran.r-project.org/package=dplyr), it is still important to understand how data frames work in base R.^[The [tibble](https://cran.r-project.org/package=tibble) package, part of the [tidyverse](https://cran.r-project.org/package=tidyverse), changes a few things about how data frames function in R. It makes them print in a more friendly way, but it also changes the `[` and `[[` operators so that they do not use the argument `drop = TRUE` by default. See that package's documentation for more detail.]
+
+We can load a data frame of historical state populations from the [historydata](https://cran.r-project.org/package=historydata) package. In an interactive session, you can get a nice view of the data frame by running `View(us_state_populations)`.
+
+```{r, warning=FALSE, message=FALSE}
+library(historydata)
+library(tidyverse)
+us_state_populations
+``` 
+
+You can get the vector for any column by using the column name with `$`. 
+
+```{r}
+head(us_state_populations$state)
+```
+
+You can also subset a data frame using `[`. But because data frames are two dimensional, you should specify a subset index for both rows and columns. Leave either one blank to specify all columns or all rows. In the examples below there are extra spaces to make it clear where we are subsetting by rows and where by columns.
+
+```{r}
+us_state_populations[5:8,    ]    # rows 5-8, all columns
+us_state_populations[   , 2:3]    # all rows, columns 2-3
+us_state_populations[5:8, 2:3] # rows 5-8, colums 2-3
+```
+
+You can subset a data frame using a logical operator. Here we use a common idiom to find create a logical vector where we check whether each row in the `state` column is equal to `"Massachusetts"`, and then use that vector to subset the data frame's rows. (Notice the space after the `,`.) The result is that we have filtered the data frame to just the Massachusetts population. This is much less verbose in [dplyr](https://cran.r-project.org/package=dplyr), but there are times when you will need to manipulate a data frame in base R.
+
+```{r}
+us_state_populations[us_state_populations$state == "Massachusetts", ]
+```
+
+### Matrices
+
+A matrix is a very common data structure in computational history, useful for holding counts of words in documents, similarities between texts, distances between points, and the like. A matrix is a vector where all of the elements are of the same type, but it is arranged in two dimensions. Consider this matrix, which could represent how similar documents are to one another.
+
+```{r}
+m <- matrix(c(NA, NA, NA, NA, NA, 0.31, NA, NA, NA, NA, 0.29, 0.95, NA,
+              NA, NA, 0.66, 0.7, 0.18, NA, NA, 0.41, 0.3, 0.49, 0.7, NA),
+            nrow = 5, ncol = 5)
+rownames(m) <- letters[1:5]
+colnames(m) <- letters[1:5]
+m
+```
+
+Notice that we only need the upper triangle of the matrix because presumably the similarities of two documents are the same in either direction, and the similarity of a document to itself is not a very meaningful question. You can subset a matrix with `[` by rows and columns. Here we get the similarity of `a` to `c`, and then the similarity of `a` to every text.
+
+```{r}
+m["a", "c"] 
+m["a", ]
+```
+
+Notice that the `[` operator simplifies the results to a one-dimensional vector or single number if possible, rather than giving us a matrix back. This is sometimes undesirable, and we can avoid it by using the `drop = FALSE` argument to `[`.
+
+```{r}
+m["a", "c", drop = FALSE]
+m["a", , drop = FALSE]
 ```
