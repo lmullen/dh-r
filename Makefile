@@ -2,8 +2,9 @@ BOOKFILES := $(wildcard *.Rmd) DESCRIPTION _before.R _output.yml book.bib ga.htm
 
 _book/index.html : $(BOOKFILES)
 	./build.sh
+	mkdir -p wordcounts
 	wc -w _book/*.md > wordcounts/wc-$(shell date +%Y-%m-%dT%H:%M:%S%z).txt
-	./wordcount-analysis.R
+	Rscript --vanilla wordcount-analysis.R
 
 _book/Mullen-ComputationalHistoricalThinking.pdf : $(BOOKFILES)
 	./build-pdf.sh

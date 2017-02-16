@@ -8,6 +8,8 @@ suppressPackageStartupMessages(library(readr))
 suppressPackageStartupMessages(library(purrr))
 suppressPackageStartupMessages(library(ggplot2))
 
+dir.create("temp", showWarnings = FALSE)
+
 wc_files <- list.files("wordcounts", full.names = TRUE)
 
 parse_filename_date <- function(x) {
