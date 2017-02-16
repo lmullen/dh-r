@@ -65,7 +65,34 @@ extract_year(sentences)
 
 Because this function is vectorized, we could use it in a [dplyr](https://cran.r-project.org/package=dplyr) expression in order to create a new column of years from an existing column.
 
-## R's date class
+## R's date objects
+
+R includes a `Date` class for representing dates and doing calculations with them. You can turn a text representation of a date into a `Date` object using the `as.Date()` function. This function takes a `format =` argument that lets you specify the order of the elements of the date, but the default is to accept dates in the form `YYYY-MM-DD`. Let's create two date objects
+
+```{r}
+fort_sumter <- as.Date("1861-04-12")
+appomattox <- as.Date("1865-04-09")
+```
+
+Now that we have created our date objects we can use comparison functions to figure out if dates come before or after one another.
+
+```{r}
+fort_sumter <= appomattox
+fort_sumter >= appomattox
+fort_sumter == appomattox
+```
+
+We can also calculate the difference in time using the `-` function. Note that the returned object prints out the length in days, but it is actually an object of class `difftime`. You can get a measurement of a time difference in different intervals by using the `difftime()` function.
+
+```{r}
+appomattox - fort_sumter
+```
+
+Another useful operation with dates from base R is creating a sequence between two dates at some regular interval.
+
+```{r}
+seq(from = as.Date("1860-01-01"), to = as.Date("1861-01-01"), by = "month")
+```
 
 ## Parsing dates with lubridate
 
