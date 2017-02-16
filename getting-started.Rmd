@@ -16,7 +16,7 @@ Most of this book uses the [tidyverse](http://tidyverse.org/) of R packages. The
 install.packages("tidyverse")
 ```
 
-Most of the examples in this book are available in the [historydata](https://cran.r-project.org/package=historydata) package. While this book is being written, you will need the development version of the package, which is [available on GitHub](https://github.com/ropensci/historydata/#readme). You can install it directly from GitHub using the [devtools](https://cran.r-project.org/package=devtools) package by running the code below. See the section on installing packages from GitHub for a fuller explanation (section \@ref(install-github)).
+Most of the examples in this book are available in the [historydata](https://cran.r-project.org/package=historydata) package.^[@R-historydata.] While this book is being written, you will need the development version of the package, which is [available on GitHub](https://github.com/ropensci/historydata/#readme). You can install it directly from GitHub using the [devtools](https://cran.r-project.org/package=devtools) package by running the code below. See the section on installing packages from GitHub for a fuller explanation (section \@ref(install-github)).
 
 ```{r, eval=FALSE}
 install.packages("devtools")

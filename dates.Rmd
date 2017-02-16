@@ -1,0 +1,21 @@
+# (PART) Computational thinking {-}
+
+# (PART) Computational methods {-}
+
+# Dates
+
+Computational historians unsurprisingly often have to deal with dates. It is difficult to do even basic operations with dates, however. For example, since months and years have unequal numbers of days, even figuring out the duration of time between two dates can be tricky. But R includes a special type of object, `Date`, which makes the task much easier. As long as you are dealing with [Gregorian dates](https://en.wikipedia.org/wiki/Gregorian_calendar), you can do almost anything that you might need to do with dates using R's built-in functions and the [lubridate](https://cran.r-project.org/package=lubridate) package.^[@R-lubridate.]
+
+We should be precise in our definition of what a date is. A date must be specified to an exact year, month, and day. If you are dealing only with years, then a simple numeric or integer vector is sufficient. If you are dealing with dates and times, then you will need to specify the time and possibly the time zone as well. This chapter will not get into dates and times, but if you understand how to work with date objects, those principles are easily extended to date and time object.^[See R's documentation at `?POSIXt` or look at the [lubridate](https://cran.r-project.org/package=lubridate) documentation for time classes.]
+
+## Years
+
+## Parsing years 
+
+## R's date class
+
+## Parsing dates with lubridate
+
+## Extracting components of dates
+
+## Creating data with dates

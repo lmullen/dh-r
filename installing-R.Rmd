@@ -1,6 +1,3 @@
-# (PART) Computational thinking {-}
-
-# (PART) Computational methods {-}
 
 # (APPENDIX) Appendices {-}
 
