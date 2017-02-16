@@ -108,7 +108,36 @@ mdy("9/17/1862", "07/21/1861", "07/01/1863")
 ymd("1862-09-17", "1861-07-21", "1863-07-01")
 ```
 
-## Extracting components of dates
+You often don't have a choice about the formats of dates in data that you receive, so 
+
+## Other operations on dates
+
+Once you have a vector of dates, you might need to extract some component of the date, such as the year or the day of the week. The [lubridate](https://cran.r-project.org/package=lubridate) package provides functions to pull out those pieces.
+
+```{r}
+gettysburg <- mdy("July 1, 1863", "July 2, 1863", "July 3 1863")
+year(gettysburg)
+month(gettysburg)
+day(gettysburg)
+weekdays(gettysburg)
+```
+
+Sometimes you have dates that are specific down to the day, but you are interested in aggregating them by year, month, or week. For example, you might have the dates of newspaper issues, but want to know how many papers were published in a year or a month. For that you can use lubridate's `round_date()`, `floor_date()`, and `ceiling_date()` functions.
+
+```{r}
+floor_date(gettysburg, unit = "year")
+floor_date(gettysburg, unit = "month")
+floor_date(gettysburg, unit = "week")
+```
+
+Note that `floor_date()` will give you the date at the start of the week or month or year, while `round_date()` will give you the nearest start of the week or month or year.
+
+```{r}
+floor_date(gettysburg, unit = "week")
+round_date(gettysburg, unit = "week")
+```
+
+The [lubridate](https://cran.r-project.org/package=lubridate) package also contains classes and functions for intervals and periods, which you can read about in [its vignette](https://cran.rstudio.com/web/packages/lubridate/vignettes/lubridate.html).
 
 ## Creating data with dates
  
