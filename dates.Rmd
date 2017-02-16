@@ -96,6 +96,18 @@ seq(from = as.Date("1860-01-01"), to = as.Date("1861-01-01"), by = "month")
 
 ## Parsing dates with lubridate
 
+While there are other things that you can do with dates in base R, you almost always better off using the [lubridate](https://cran.r-project.org/package=lubridate) package. That package provides many additional functions and some additional classes for dealing with dates in a sensible way.
+
+The [lubridate](https://cran.r-project.org/package=lubridate) package provides a series of functions in the form `mdy()`, `ymd()`, and `dmy()`, where those letters correspond to the position of the month, day, and year in a date. As long as your dates are in a reasonably consistent format, [lubridate](https://cran.r-project.org/package=lubridate)
+should be able to parse them. For example, lubridate can parse these different ways of writing the same dates.
+
+```{r}
+mdy(c("September 17, 1862", "July 21, 1861", "July 1, 1863"))
+dmy(c("17 September 1862", "21 July 1861", "1 July 1863"))
+mdy("9/17/1862", "07/21/1861", "07/01/1863")
+ymd("1862-09-17", "1861-07-21", "1863-07-01")
+```
+
 ## Extracting components of dates
 
 ## Creating data with dates
