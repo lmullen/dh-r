@@ -8,9 +8,62 @@ Computational historians unsurprisingly often have to deal with dates. It is dif
 
 We should be precise in our definition of what a date is. A date must be specified to an exact year, month, and day. If you are dealing only with years, then a simple numeric or integer vector is sufficient. If you are dealing with dates and times, then you will need to specify the time and possibly the time zone as well. This chapter will not get into dates and times, but if you understand how to work with date objects, those principles are easily extended to date and time object.^[See R's documentation at `?POSIXt` or look at the [lubridate](https://cran.r-project.org/package=lubridate) documentation for time classes.]
 
+In this chapter we will use the [lubridate](https://cran.r-project.org/package=lubridate) package alongside our customary [tidyverse](https://cran.r-project.org/package=tidyverse) and [historydata](https://cran.r-project.org/package=historydata) packages.
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(historydata)
+library(lubridate)
+```
+
 ## Years
 
-## Parsing years 
+If you are dealing only with dates in the form of years, then a numeric column in your data with the year information is sufficient. For example, the `dijon_prices` dataset in [historydata](https://cran.r-project.org/package=historydata) contains price series for various commodities in Dijon, France, from 1568 to 1630. 
+
+```{r}
+dijon_prices
+```
+
+Using the year column, we can filter the data frame to a particular year as we are accustomed to doing in [dplyr](https://cran.r-project.org/package=dplyr), or we can use the `year` column as a variable in a [ggplot2](https://cran.r-project.org/package=ggplot2) plot.
+
+```{r}
+dijon_prices %>% 
+  filter(year == 1600)
+```
+
+Often, though, we have a year embedded in some other kind of variable, and we would like to extract that year so that we can manipulate it directly. For example, we might have document IDs or filenames that contain a year, or a set of sentences that include dates.
+
+```{r}
+doc_ids <- c("NY1850", "CA1851", "CA1850", "WA1855", "NV1861")
+files <- c("sotu-1968.txt", "sotu-1969.txt", "sotu-1970.txt", "sotu-1971.txt")
+sentences <- c("George Washington became president in 1789.",
+               "John Adams became president in 1798.",
+               "In 1801, Thomas Jefferson became president.",
+               "James Madison was inaugurated in 1809.")
+```
+
+In each of these cases, we can describe what we need to do. We need to extract a four-character sequence of digits, which will be our year, and we need to convert that sequence of characters into an integer which we can treat as a number. You will often find yourself writing a function that looks like this.
+
+```{r}
+extract_year <- function(x) {
+  stopifnot(is.character(x)) 
+  year_char <- stringr::str_extract(x, "\\d{4}") 
+  year_int <- as.integer(year_char)
+  year_int
+}
+```
+
+This function first checks that the input vector `x` is a character vector; if it's not, then the input is probably a mistake. Then it uses the `str_extract()` function from the [stringr](https://cran.r-project.org/package=stringr) package to find the first sequence of four digits. (That is the meaning of the regular expression `"\\d{4}"`.) Then it turns the resulting character vector into an integer and returns it.
+
+We can test this function on our sample data.
+
+```{r}
+extract_year(doc_ids)
+extract_year(files)
+extract_year(sentences)
+```
+
+Because this function is vectorized, we could use it in a [dplyr](https://cran.r-project.org/package=dplyr) expression in order to create a new column of years from an existing column.
 
 ## R's date class
 
@@ -19,3 +72,4 @@ We should be precise in our definition of what a date is. A date must be specifi
 ## Extracting components of dates
 
 ## Creating data with dates
+ 
