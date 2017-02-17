@@ -141,3 +141,10 @@ The [lubridate](https://cran.r-project.org/package=lubridate) package also conta
 
 ## Creating data with dates
  
+When you are creating your own data, such as when you transcribe a source, you should write dates in a standardized way. The standard way of writing a date (called [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)) is to include a four-digit year, a two-digit month, and two-digit day, each separated by hyphens: `YYYY-MM-DD`. This way of writing dates has several virtues. One of them is that even when the dates are treated as text, they sort correctly in chronological order. The other is that by default many R functions expect dates to be in that format. 
+
+For example, in the toy data file `webster-speeches.csv` ([download here](data/webster-speeches.csv)), the dates are written as `1800-07-04`. When we load the file with the `read_csv()` function from [readr](https://cran.r-project.org/package=readr), that `date` column is automatically parsed into a date format.
+
+```{r, message=FALSE}
+read_csv("data/webster-speeches.csv")
+```
