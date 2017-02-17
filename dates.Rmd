@@ -31,7 +31,7 @@ dijon_prices %>%
   filter(year == 1600)
 ```
 
-Often, though, we have a year embedded in some other kind of variable, and we would like to extract that year so that we can manipulate it directly. For example, we might have document IDs or filenames that contain a year, or a set of sentences that include dates.
+Often, though, we have a year embedded in some other kind of variable, and we would like to extract that year so that we can manipulate it directly. For example, we might have document IDs or file names that contain a year, or a set of sentences that include dates.
 
 ```{r}
 doc_ids <- c("NY1850", "CA1851", "CA1850", "WA1855", "NV1861")

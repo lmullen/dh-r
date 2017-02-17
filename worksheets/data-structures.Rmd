@@ -5,13 +5,13 @@ author: ""
 
 ## Aim of this worksheet
 
-After completing this worksheet, you should have a basic familiarity with the most useful types of data structures in R (lists, data frames, and matrices). You should also be able to subset any of these data structures using the common subsetting operators (`[`, `[[`, and `$`). 
+After completing this worksheet, you should have a basic familiarity with the most useful types of data structures in R (lists, data frames, and matrices). You should also be able to subset any of these data structures using the common subletting operators (`[`, `[[`, and `$`). 
 
 You may find the chapters on [data structures](http://adv-r.had.co.nz/Data-structures.html) and [subsetting](http://adv-r.had.co.nz/Subsetting.html) from Hadley Wickham's *[Advanced R](http://adv-r.had.co.nz/)* book to be helpful.
 
 ## Subsetting vectors
 
-In the worksheet on getting familiar with R you learned about vectors. Vectors hold a one-dimensional set of homogenous values. By homogenous we mean that that the values all have to be the same type (integer, numeric, logical, and so on) and you can't have both, say, numeric and logical values in the same vector. By one-dimensional we mean that there can be more than one element accessed by a single index. For example, R includes a character vector of the letters in the English alphabet, helpfully called, `letters`.
+In the worksheet on getting familiar with R you learned about vectors. Vectors hold a one-dimensional set of homogeneous values. By homogeneous we mean that that the values all have to be the same type (integer, numeric, logical, and so on) and you can't have both, say, numeric and logical values in the same vector. By one-dimensional we mean that there can be more than one element accessed by a single index. For example, R includes a character vector of the letters in the English alphabet, helpfully called, `letters`.
 
 ```{r}
 letters
@@ -106,7 +106,7 @@ song_rankings <- c(10, 8.4, 6, 8.2, 4)
 
 ## Matrices
 
-Vectors are one-dimensional and homogeneous. Matrices are two-dimensional and homogenous, so they have the same kind of value, but have rows and columns as well. A matrix can be used for all kinds of problems in digital history. For now, let's imagine we have four cites, A, B, C, and D, and have measured the distances between them. For instance, the distance from A to B is 2. We can represent those distances as a matrix with 4 columns and 4 rows, where the names of the rows and columns are the cities.
+Vectors are one-dimensional and homogeneous. Matrices are two-dimensional and homogeneous, so they have the same kind of value, but have rows and columns as well. A matrix can be used for all kinds of problems in digital history. For now, let's imagine we have four cites, A, B, C, and D, and have measured the distances between them. For instance, the distance from A to B is 2. We can represent those distances as a matrix with 4 columns and 4 rows, where the names of the rows and columns are the cities.
 
 ```{r}
 city_distances <- matrix(c(0, 2, 8, 3, 2, 0, 6, 1, 8, 6, 0, 4, 3, 1, 4, 0),
@@ -116,7 +116,7 @@ colnames(city_distances) <- LETTERS[1:4]
 city_distances
 ```
 
-A matrix can be subsetted in the same way that a vector can be subsetted. (Because it *is* a vector---just a vector with two dimensions.) For instance, we can get the third element of the matrix.
+You can subset a matrix in the same way that you subset a vector. (Matrices *are* vectors---just vectors with two dimensions.) For instance, we can get the third element of the matrix.
 
 ```{r}
 city_distances[3]
@@ -164,7 +164,7 @@ city_distances["B", "D"]
 
 ## Data frames
 
-The most useful data structure in R is the data frame. Think of a data frame like a spreadsheet that holds any kind of tabular data. It is two dimensional, like a matrix; unlike a matrix, it is homogenous in that the columns can hold different kinds of data.  While other langauges have add on libraries that allow for data structures like this, in R data frames are a first class citizen.
+The most useful data structure in R is the data frame. Think of a data frame like a spreadsheet that holds any kind of tabular data. It is two dimensional, like a matrix; unlike a matrix, it is homogeneous in that the columns can hold different kinds of data.  While other languages have add on libraries that allow for data structures like this, in R data frames are a first class citizen.
 
 Let's get a data frame from the historydata package. (If we also load dplyr, we will get nicer printing.)
 
