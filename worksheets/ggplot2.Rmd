@@ -206,7 +206,7 @@ ggplot(paulist_missions, aes(x = order)) +
 
 ### Faceting
 
-Faceting is not a geom like the examples above, but it can create a separate panel in a plot for different categories in the data. For instance, in the plot below, we have created a separate panel for each 
+Faceting is not a geom like the examples above, but it can create a separate panel in a plot for different categories in the data. For instance, in the plot below, we have created a separate panel for each "order" (i.e., missionary group ).
 
 
 ```{r}
