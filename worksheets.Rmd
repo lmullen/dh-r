@@ -14,3 +14,4 @@ These are the worksheets that you can download:
 - <a href="worksheets/data-structures.Rmd" download="worksheets/data-structures.Rmd">Data structures</a>
 - <a href="worksheets/functions.Rmd" download="worksheets/functions.Rmd">Functions</a>
 - <a href="worksheets/ggplot2.Rmd" download="worksheets/ggplot2.Rmd">Introduction to ggplot2</a>
+- <a href="worksheets/data-manipulation.Rmd" download="worksheets/data-manipulation.Rmd">Data manipulation with dplyr</a>
