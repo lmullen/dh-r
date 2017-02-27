@@ -3,10 +3,6 @@ title: "Data manipulation with dplyr"
 author: ""
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## Aims of this worksheet
 
 One of the key reasons to use R is to be able to manipulate data with ease. After completing this worksheet you will be able to work with the most commonly used data manipulation verbs provided by the [dplyr](https://cran.r-project.org/package=dplyr) and [tidyr](https://cran.r-project.org/package=tidyr) packages. 

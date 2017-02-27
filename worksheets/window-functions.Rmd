@@ -1,0 +1,83 @@
+---
+title: "Window functions"
+author: ""
+---
+
+There are a number of different kinds of window functions in R. We are going to look at two window functions, `lead()` and `lag()` which help us look for change over time. (For a fuller explanation of window functions, see the [related dplyr vignette](https://cran.rstudio.com/web/packages/dplyr/vignettes/window-functions.html).)
+
+To understand what a window function does, it is helpful to compare it to a transformation function and an aggregation function. Suppose we have a vector with five numeric values. 
+
+```{r}
+original <- c(1.1, 2.2, 3.3, 4.4, 5.5)
+```
+
+A transformation function changes each element in the vector and returns a new value for each. In the example below, we round each element in the vector. We have a different result, but it still has five elements.
+
+```{r}
+round(original, 0)
+```
+
+In an aggregation function, we pass in a vector of numbers and get back a single value. In this case, we get the sum of the numbers.
+
+```{r}
+sum(original)
+```
+
+Aggregation functions work well with `summarize()`; transformation functions works well with `mutate()`. 
+
+A window function gives back a vector of numbers, but a vector which has fewer useable elements than the original. It is like sliding a window over the vector. Consider the case below.
+
+```{r}
+lead(original)
+lag(original)
+```
+
+The function `lead()` returns the next element of a vector in place of the original value. At the end of the vector we get an `NA` because there are no more elements left. The function `lag()` does the opposite, giving us the previous element in the vector. In that case, the first element of the returned vector is `NA`.
+
+The `lead()` and `lag()` functions are useful for comparing one value to its previous or successor value. Suppose, for instance, that we have a vector of membership figures for each year. We can calculate the number of new members each year by subtracting the current value from its previous value.
+
+```{r}
+membership <- c(100, 150, 250, 400, 600)
+membership - lag(membership)
+```
+
+Now that we understand those basics, we can apply that to the Methodist annual minutes data that we worked with in a previous lesson. Let's start by getting just the membership data from Fairfax, Virginia. We will also calculate the `members_general` value for the years it is missing, and select only the columns we absolutely need.
+
+```{r}
+fairfax <- methodists %>% 
+  filter(meeting == "Fairfax") %>%
+  mutate(members_general = ifelse(is.na(members_general),
+                                  members_white + members_colored,
+                                  members_general)) %>% 
+  select(minutes_year, meeting, starts_with("members"), -members_indian)
+fairfax
+```
+
+Now that we have the data, we can add a column for the number of new members added each year.
+
+```{r}
+fairfax %>% 
+  mutate(growth = members_general - lag(members_general)) 
+```
+
+(@) In what years did the Methodists grow in Fairfax? In what years did they shrink? Can you plot the growth?
+
+```{r}
+
+```
+
+(@) How might you use the growth figures to detect errors in the data? Keep in mind that they might have shunk or grown because of the way that they were counted.
+
+> 
+
+(@) Find the growth in the number of white and black members in Fairfax, and plot them on the same chart. What is the pattern?
+
+```{r}
+
+```
+
+(@) Return back to the original `methodists` data. Beginning in 1802, the Methodists organized the data by conference, district, and meeting. For 1802 and following, calculate the growth for each conference. Which conferences were growing the most in absolute terms? Which were growing the most in relative terms (i.e., growth percentage)? Do you get a clearer picture by looking at the growth in districts? Feel free to plot the data if you wish and to add explanatory text.
+
+```{r}
+
+```

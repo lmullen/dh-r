@@ -1,3 +1,4 @@
 #!/bin/sh
 
 Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::gitbook')"
+cp -r data _book/
