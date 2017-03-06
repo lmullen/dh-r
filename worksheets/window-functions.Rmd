@@ -3,7 +3,20 @@ title: "Window functions"
 author: ""
 ---
 
-There are a number of different kinds of window functions in R. We are going to look at two window functions, `lead()` and `lag()` which help us look for change over time. (For a fuller explanation of window functions, see the [related dplyr vignette](https://cran.rstudio.com/web/packages/dplyr/vignettes/window-functions.html).)
+## Aims of this worksheet
+
+This worksheet teaches you how to use window functions, a special kind of function that is useful for understanding change over time. (For a fuller explanation of window functions, see the [related dplyr vignette](https://cran.rstudio.com/web/packages/dplyr/vignettes/window-functions.html).) We can begin by loading the data and packages that we need.
+
+```{r, message=FALSE}
+library(tidyverse)
+library(historydata)
+data("methodists")
+methodists
+```
+
+## Lag and lead
+
+There are a number of different kinds of window functions in R. We are going to look at two window functions, `lead()` and `lag()` which help us look for change over time. 
 
 To understand what a window function does, it is helpful to compare it to a transformation function and an aggregation function. Suppose we have a vector with five numeric values. 
 
@@ -46,10 +59,7 @@ Now that we understand those basics, we can apply that to the Methodist annual m
 ```{r}
 fairfax <- methodists %>% 
   filter(meeting == "Fairfax") %>%
-  mutate(members_general = ifelse(is.na(members_general),
-                                  members_white + members_colored,
-                                  members_general)) %>% 
-  select(minutes_year, meeting, starts_with("members"), -members_indian)
+  select(year, meeting, members_total, members_white, members_black)
 fairfax
 ```
 
@@ -57,7 +67,7 @@ Now that we have the data, we can add a column for the number of new members add
 
 ```{r}
 fairfax %>% 
-  mutate(growth = members_general - lag(members_general)) 
+  mutate(growth = members_total - lag(members_total)) 
 ```
 
 (@) In what years did the Methodists grow in Fairfax? In what years did they shrink? Can you plot the growth?
@@ -81,3 +91,31 @@ fairfax %>%
 ```{r}
 
 ```
+
+## Rolling window functions
+
+A rolling window function is a function which computes some summary statistic such as a mean or a median over a rolling window of time. For example, given a vector of data with one point for each year, a rolling mean for each year might be calculated for the window that includes the previous five years and the following five years. This is often useful for smoothing a trend line.
+
+We can see how this works by loading the RcppRoll package, which includes a number of these functions. Then we can use our practice vector of membership numbers. We can calculate a rolling mean with a window of three, meaning that the value for each year will be the mean of that year, the previous year, and the following year.
+
+```{r}
+library(RcppRoll)
+
+membership
+roll_mean(membership, n = 3, fill = NA)
+```
+Notice that we cannot compute the rolling mean for the first or last year, since they don't have a previous year or a following year so their value is undefined. When you are using a rolling window function in a call to `mutate()`, it is important to use the `fill = NA` argument to keep the vectors properly aligned.
+
+(@) Calculate the rolling mean of the membership figures for each conference in each year.
+
+```{r}
+
+```
+
+(@) Try varying the window period (`n =`) and plotting the different trends. What effect does varying the window period have?
+
+```{r}
+
+```
+
+(@) Look at the package documentation for the RcppRoll package (`package?RcppRoll`). Try at least one other rolling window function besides `roll_mean()`.
