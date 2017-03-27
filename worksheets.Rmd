@@ -16,3 +16,4 @@ These are the worksheets that you can download:
 - <a href="worksheets/ggplot2.Rmd" download="worksheets/ggplot2.Rmd">Introduction to ggplot2</a>
 - <a href="worksheets/data-manipulation.Rmd" download="worksheets/data-manipulation.Rmd">Data manipulation with dplyr</a>
 - <a href="worksheets/more-data-manipulation.Rmd" download="worksheets/more-data-manipulation.Rmd">More data manipulation with dplyr and tidyr</a>
+- <a href="worksheets/mapping.Rmd" download="worksheets/mapping.Rmd">Mapping</a>
