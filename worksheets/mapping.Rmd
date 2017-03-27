@@ -1,254 +1,304 @@
 ---
-title: "Basic Mapping"
-author: ""
+title: "R Notebook"
+output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+Load the necessary spatial libraries.
 
-## Aims of this worksheet
-
-After completing this worksheet, you should be able to use [ggplot2](https://cran.rstudio.com/web/packages/ggplot2/) to create basic maps of points, lines, and colored polygons (called choropleth maps).
-
-For this worksheet we will work with the Catholic dioceses data and the Paulist missions data in the [historydata](https://cran.rstudio.com/web/packages/historydata/) package, as well as U.S. county and state boundaries in the [USAboundaries](https://cran.rstudio.com/web/packages/USAboundaries/) package. But we will also work with TODO
-
-```{r, message=FALSE}
-library(ggplot2)
+```{r}
+library(sp)                  # the older, more stable way
+library(sf)                  # the newer, easier way
+library(leaflet)             # for mapping
+library(scales)              # for scales
+library(tidyverse)
 library(historydata)
 library(USAboundaries)
-library(dplyr)
-```
-
-## Maps with points
-
-A map of points is essentially just a scatterplot where the x-axis and y-axis are longitude and latitude.
-
-Suppose we want to make a map of Catholic dioceses in North America in 1850. We can get a data frame of them from the historydata package.
-
-```{r}
-data("catholic_dioceses")
-dioceses_1850 <- catholic_dioceses %>% 
-  filter(as.Date(date) <= as.Date("1850-12-31"))
-dioceses_1850
-```
-
-The longitude and latitude are x and y coordinates, and we can plot them in ggplot the same as any other scatterplot.
-
-```{r}
-ggplot(dioceses_1850, aes(x = long, y = lat)) +
-  geom_point()
-```
-
-If you squint hard, you can make out the shape of North America in that map. But what we really want is to draw some geographic boundaries. The USAboundaries package lets us get the boundaries of U.S. states (as well as counties and other kinds of boundaries) on any arbitrary date in U.S. history. Let's get the boundaries for the same date we used earlier.
-
-```{r}
-states_1850 <- us_states("1850-12-31")
-class(states_1850)
-str(states_1850, max.level = 2)
-states_1850@data %>% View
-
-states_1850[states_1850$terr_type == "Territory",  ] 
-```
-
-This kind of data is a `SpatialPolygonsDataFrame`. As the name implies, it contains both the polygons which define geographic boundaries and a data frame with one row for each boundary. By loading the [sp](https://cran.rstudio.com/web/packages/sp/) package we can get a quick look at what the boundaries look like. (To see the data frame associated with it, try `states_1850@data`.)
-
-```{r}
-library(sp)
-plot(states_1850)
-```
-
-That looks pretty good. (The overlapping lines come from the [State of Deseret](https://en.wikipedia.org/wiki/State_of_Deseret).) But in order to plot this in ggplot2, we need the spatial data in a data frame as well. The [broom](https://cran.rstudio.com/web/packages/broom/) and [maptools](https://cran.rstudio.com/web/packages/maptools/) packages let us get the data frame we need. We figure out the `region = ` parameter by looking for the ID variable in the `SpatialPolygonsDataFrame`.
-
-```{r}
-library(broom)
-library(maptools)
-states_df <- tidy(states_1850, region = "id")
-head(states_df)
-```
-
-Now we can use `geom_map()` to add the polygons to our map, and `coord_map()` to make it look something like a map in an Albers conical projection suitable for the United States. (The Albers conical projection preserves the areas (but not distances or angles) shown on the map. It is a generally good choice for mapping the continental United States. In a later worksheet, we will cover more advanced ways to project the map.)
-
-```{r}
-ggplot() +
-  geom_map(data = states_df, map = states_df, 
-           aes(x = long, y = lat, map_id = id, group = group),
-           fill = "white", color = "gray", size = 0.25) +
-  coord_map(projection = "albers", lat0 = 29.5, lat1 = 45.5)
-
-```
-
-This is not a beautiful map, at least not yet. But the beauty of ggplot is that now that we understand the rather long aesthetic mapping that goes into the map, we can re-use that same pattern to make almost any kind of map.
-
-Let's put all the pieces together to make a map of Catholic dioceses in 1850.
-
-```{r}
-ggplot() +
-  geom_map(data = states_df, map = states_df, 
-           aes(x = long, y = lat, map_id = id, group = group),
-           fill = "white", color = "gray", size = 0.25) +
-  geom_point(data = dioceses_1850, aes(x = long, y = lat),
-             color = "red") +
-  coord_map(projection = "albers", lat0 = 29.5, lat1 = 45.5)
-```
-
-Again this is not a beautiful map. At a very minimum, we would want to remove the axis labels and get boundary information for the rest of North America or filter out the non-US dioceses. But we have made a map in only a few lines of code, and we can re-use the basic pattern for virtually any map that involves points.
-
-One other ggplot2 trick. It is possible to save plots or parts of plots, then add on to them. Here we save our plot with the polygons to a `base_map` variable.
-
-```{r}
-base_map <- ggplot() +
-  geom_map(data = states_df, map = states_df, 
-           aes(x = long, y = lat, map_id = id, group = group),
-           fill = "white", color = "gray", size = 0.25) +
-  coord_map(projection = "albers", lat0 = 29.5, lat1 = 45.5)
-base_map
-```
-
-Now instead of copying and pasting the code each time, we can use the same `base_map` over and over.
-
-```{r}
-base_map +
-  geom_point(data = dioceses_1850, aes(x = long, y = lat, size = lat),
-             color = "red") +
-  scale_radius(range = c(1, 10), breaks = seq(0, 60, 20))
-```
-
-
-### Exercises
-
-
-(@) Create a map of the missions that the Paulists visited. Try `geom_point()` and `geom_count()` to see which gives you a more useful map. You can decide what boundaries you want to show beneath the points. (You can also try loading the ggmaps package and adding `+ theme_nothing(legend = TRUE))` to remove the grid lines and axis labels.)
-
-```{r}
 data("paulist_missions")
+data("catholic_dioceses")
 ```
 
-(@) Because a map of points is essentially a scatterplot, we can also change the size of the points on the map. Try creating a map of Paulist missions where the points are sized by either `confessions` or `converts`.
+## Point data
+
+Our Paulist missions data has latitude and longitude coordinates.
+
+```{r}
+paulist_missions %>% 
+  select(year, lat, long, church)
+```
+
+So does our list of Catholic dioceses.
+
+```{r}
+catholic_dioceses 
+```
+
+Let's get Paulist missions for just 1855.
+
+```{r}
+paulists_1855 <- paulist_missions %>% 
+  filter(year == 1855)
+
+dioceses_1855 <- catholic_dioceses %>% 
+  filter(date <= "1855-12-31",
+         event != "metropolitan")
+```
+
+## A basic leaflet map
+
+We can create a basic leaflet map with code that is similar to a call to ggplot2. Notice that we specify a data frame, layers (cf. geoms), and in this case the aesthetics are latitude and longitude, which leaflet is smart enough to guess for us.
+
+```{r}
+leaflet(paulists_1855) %>% 
+  addTiles() %>% 
+  addCircleMarkers()
+```
+
+We can specify aesthetics using R's formula feature (the `~`). Aesthetics are mapped to variables in the data using a formula; properties that are not mapped to data do not use the formula. Notice also that we have moved the data frame to be specific to a single layer.
+
+```{r}
+leaflet() %>% 
+  addTiles() %>% 
+  addCircleMarkers(data = paulists_1855,
+                   lng = ~long, lat = ~lat,
+                   label = ~paste(church, city, state, sep = ", "),
+                   color = "red")
+```
+
+## Exercise 1
+
+Can you improve the display of the map above? Can you add a popup? Can you size the circles based on the number of confessions or converts? Can you add a layer of Catholic dioceses in 1855? Look at the documentation for these functions: `?addProviderTiles`, `?addCircleMarkers`. You may also need to use the `rescale()` function from the scales package.
 
 ```{r}
 
 ```
 
-(@) A fundamental task in scholarship is comparing one thing to another. Our map of Paulist missions might be more useful if we compare where the Paulists traveled at different times. Try filtering the `paulist_missions` data frame by date. (I've given you a head start by creating a `year` column.) From 1866 to 1870 the Paulists did not hold any missions. Can you create maps which show the difference in the Paulist missions before and after that gap? What was the difference?
+## Polygon data in sp
+
+We can get the state boundaries of the US in 1855 using a function from the USAboundaries package.
 
 ```{r}
-library(lubridate)
-paulist_missions <- paulist_missions %>% 
-  mutate(year = year(mdy(start_date)))
+us_1855 <- us_states("1855-07-04")
+
 ```
 
-## Choropleths
 
-Another common kind of a map is a choropleth, which is a map where an area (such as a state or a county) is shaded according to some value. We are going to use religion data from the federal Census as compiled by [NHGIS](https://nhgis.org/). This will require us to load in the spatial data directly from a shapefile instead of loading it from a package. 
+We can get a quick look at what is in that spatial object using `plot()`. (Be careful doing this later. Spatial objects can get big quick, and calling plot is a good way to freeze your R session.)
 
-You can use this code to download the data.
+```{r}
+plot(us_1855)
+```
+
+This kind of data is a `SpatialPolygonsDataFrame`. We can see what is inside it by using the `str()` function. 
+
+```{r}
+str(us_1855, max.level = 2)
+```
+
+You can think of this as a set of polygons that has a data frame associated with it. We can see the associated data frame by using the `@` accessor.
+
+```{r}
+us_1855@data %>% 
+  as_tibble() # so it prints nicely
+```
+
+We can notice that there are terrories, unorganized territories, and states in this data. We can't simply use dplyr functions on the data frame, since that would not change the polygons. We have to use base R functions, like this:
+
+```{r}
+us_1855_states <- us_1855[us_1855$terr_type == "State", ]
+```
+
+Note the difference.
+
+```{r}
+plot(us_1855_states)
+```
+
+
+## Polygon data in sf
+
+An object that comes from the sp package is like a polygon with a data frame attached. The much newer sf package turns this relationship inside out, and gives us a data frame with polygons attached.
+
+We can convert most objects that derived from the sp package to their equivalent sf package objects like so.
+
+```{r}
+us_1855_sf <- st_as_sf(us_1855)
+```
+
+Now we can use dplyr functions on our spatial data. This will make it vastly simpler to deal with spatial data.
+
+```{r}
+us_1855_sf %>% 
+  filter(terr_type == "State") %>% 
+  str(max.level = 1)
+```
+
+## Polygon data in leaflet
+
+Plotting polygons in leaflet is similar to plotting points.
+
+```{r}
+leaflet() %>% 
+  addPolygons(data = us_1855)
+```
+
+Note that leaflet can take either objects from the sp package or from the sf package.
+
+```{r}
+leaflet() %>% 
+  addPolygons(data = us_1855_sf)
+```
+
+## Exercise 2
+
+Can you take your map of Paulist missions above and include the state boundaries of the US in 1855 in an attractive way?
+
+```{r}
+
+```
+
+## Reading in shapfiles
+
+We are going to download some shapefiles of railroads in American history. These are polylines, not polygons, but the process is the same for either type.
+
+```{r, eval = FALSE}
+url <- "http://railroads.unl.edu/shared/resources/USrailshps.zip"
+download.file(url = url, destfile = basename(url))
+unzip(basename(url), overwrite = TRUE)
+```
+
+Shapefiles are a common format for holding spatial data. Notice that they are comprised of multiple files, all with the same name but different extensions.
+
+```{r}
+list.files(path = "USrailshps/RR1855/")
+```
+
+The most common way to load a shapefile in R is to use the rgdal package. But we are going to use the functions in sf. Note that the sf package and rgdal all call out to the same gdal/ogr library. The easiest thing to do is to point the `st_read()` function to the `.shp` file.
+
+```{r}
+rr_1855 <- st_read("USrailshps/RR1855/RR1855WGS84.shp")
+```
+
+You can plot polylines just like polygons by changing the function.
+
+```{r}
+leaflet() %>% 
+  addTiles() %>% 
+  addPolylines(data = rr_1855)
+```
+
+
+## Exercise 3
+
+Can you add the railroads to your map of Paulist missions? What does it tell you?
+
+```{r}
+
+```
+
+## Choropleth maps
+
+So far we have only plotted data as points. But often we might want to plot data inside polygons. Let's color the status of the various states and territories in 1855. Let's count the types of territorial status that there were in 1855.
+
+```{r}
+us_1855_sf %>% 
+  count(terr_type, sort = TRUE)
+```
+
+There were 31 states, 7 territories, and so on. (Note that sf is smart enough to create a new aggregated polygon for those types of territories.) It's enough that we know there are four different kinds of status that a state or territory could have.
+
+We need to create a function. This function is going to take in the type of territory (e.g., `"State"`) and return a color. In other words the domain is a set of categories, and the range is a set of colors.
+
+```{r}
+pal_terrtype <- colorFactor(palette = topo.colors(4), domain = us_1855_sf$terr_type)
+```
+
+We can test this function. We put in types of territories, and get back colors.
+
+```{r}
+pal_terrtype(c("State", "Territory", "State"))
+```
+
+Now we can make a map that colors by territorial or state status.
+
+```{r}
+leaflet(us_1855_sf) %>% 
+  addPolygons(fillColor = ~pal_terrtype(terr_type), fillOpacity = 1,
+              color = "black", opacity = 1,
+              label = ~full_name,
+              smoothFactor = 0.2) %>% 
+  addLegend("bottomright", pal = pal_terrtype, values = ~terr_type, title = "Territory type", opacity = 1)
+```
+
+
+## Joining spatial data
+
+Whenever you want to plot data inside polygons in a choropleth, you need to have the data inside the same data frame that is associated with the polygons. For example, suppose we want to plot the number of converts or number of confessions per state. 
+
+```{r}
+paulists_by_state <- paulist_missions %>% 
+  group_by(state) %>% 
+  summarize(converts = sum(converts, na.rm = TRUE),
+            confessions = sum(confessions, na.rm = TRUE),
+            n = n()) %>% 
+  filter(state != "Canada")
+paulists_by_state
+```
+
+Since this data is no longer related to a single year, let's get a contemporary map of the United States from the USAboundaries package. We can do this by calling the same function as before, but without a data. We are also going to convert it to an sf object. As we might not always know this in advance, but Hawaii and Alaksa can be a pain, and here we can safely eliminate them. And finally our data is not in the right projection, so we are going to reproject it to [EPSG 4326](http://spatialreference.org/ref/epsg/wgs-84/), or simple latitudes and longitudes.
+
+```{r}
+us <- us_states() %>% 
+  st_as_sf() %>% 
+  filter(!stusps %in% c("AK", "HI")) %>% 
+  st_transform(4326)
+```
+
+Now we have our geometry in one table and our data of interest in another table. How do we get them together? We do a left join. Note that the left join should always from the spatial data (left-hand side) to the data of interest (right-hand side.)
+
+```{r}
+us_with_paulists <- us %>% 
+  left_join(paulists_by_state, by = c("stusps" = "state"))
+```
+
+You can View the table to see that we now have polygons and our data of interest.
 
 ```{r, eval=FALSE}
-dir.create("data/", showWarnings = FALSE)
-get_nhgis_data <- function(x) {
-  download.file(paste0("http://lincolnmullen.com/projects/worksheets/data/", x),
-  paste0("data/", x))
-  unzip(paste0("data/", x), exdir = "data/")
-}
-
-get_nhgis_data("nhgis-religion.zip")
-get_nhgis_data("county-1850.zip")
+View(us_with_paulists)
 ```
 
-
-We are going to use the [rgdal](https://cran.r-project.org/web/packages/rgdal/index.html) package to load the shapefile. Then we are also going to load in a CSV of data about religion in the 1850 Census. Both the shapefile and the census CSV have a column `GISJOIN` which lets us join the two together. The Census CSV lists the data variables as codes rather than meaningful names. So we are also going to load the codebook. The codebook is a human-readable text file, but we can parse it to get a data frame.
-
-```{r, warning=FALSE}
-library(rgdal)
-library(readr)
-library(mullenMisc)
-library(ggmap)
-religion_1850 <- read_csv("data/nhgis0044_ds10_1850_county.csv")
-codebook_1850 <- parse_nhgis_codebook("data/nhgis0044_ds10_1850_county_codebook.txt")
-counties_1850 <- readOGR("data", layer = "US_county_1850")
-```
-
-Now we can proceed as ususual and tidy our shapefile into a data frame. This data frame has an `id` column with the GISJOIN codes. So we can do a left join to our religion data and make it a part of the shapefile.
+Now we can make a map of the number of converts.
 
 ```{r}
-counties_df <- tidy(counties_1850, region = "GISJOIN")
-View(counties_df)
-
-counties_df <- counties_df %>% 
-  left_join(religion_1850, by = c("id" = "GISJOIN"))
-```
-
-Now we are ready to make our map. We will fill the county boundaries based on the number of churches in each county by denomination. Looking at our code book, we find that the first entry is `AET001` for Baptists. We will will start with that. 
-
-```{r}
-ggplot() +
-  geom_map(data = counties_df, map = counties_df, 
-           aes(x = long, y = lat, map_id = id, group = group,
-               fill = AET001),
-           color = "gray", size = 0.25) +
-  coord_map(projection = "albers", lat0 = 29.5, lat1 = 45.5) +
-  theme_nothing(legend = TRUE) 
-```
-
-That map worked, but it is terrible. Colors almost never make sense as a continuous variable. It is almost always better to put them into bins. We can do that with the function `cut()` that R provides. We have to decide what breaks we want. The [classInt](https://cran.r-project.org/web/packages/classInt/index.html) package has a number of useful ways of determining breaks from data. But for now we are going to pick breaks that make sense for our data. Notice that we start with `0`, so that counties without any Baptists are not colored. Then we add a column to our data frame, taking this opportunity to name it something sensible. And we will use the [ColorBrewer](http://colorbrewer2.org/) scales, provided in R by the [RColorBrewer](https://cran.r-project.org/web/packages/RColorBrewer/index.html) package.
-
-```{r}
-breaks <- c(0, 1, 5, 10, 15, 25, 100)
-counties_df2 <- counties_df %>% 
-  mutate(baptists = cut(AET001, breaks, na.rm = TRUE))
-
-library(RColorBrewer)
-baptist_map <- ggplot() +
-  geom_map(data = counties_df2, map = counties_df2, 
-           aes(x = long, y = lat, map_id = id, group = group,
-               fill = baptists),
-           color = "gray", size = 0.25) +
-  coord_map(projection = "albers", lat0 = 29.5, lat1 = 45.5) +
-  theme_nothing(legend = TRUE) +
-  scale_fill_brewer(palette = "BuGn", name = "Baptists in 1850")
+converts_palette <- colorBin("OrRd", domain = us_with_paulists$converts,
+                                bins = 7, na.color = "#808080")
+leaflet(us_with_paulists) %>% 
+  addTiles() %>% 
+  addPolygons(fillColor = ~converts_palette(converts),
+              fillOpacity = 1,
+              color = "black",
+              opacity = 1,
+              weight = 1,
+              label = ~paste(stusps, ": ", converts, sep = "")) %>% 
+  addLegend("bottomright", pal = converts_palette, values = ~converts, opacity = 1, title = "Converts")
 ```
 
 
-```{r}
-breaks <- c(0, 1, 5, 10, 15, 25, 100)
-# breaks <- c(0, 1, 3, 5, 8, 10, 100)
-counties_df2 <- counties_df %>% 
-  mutate(methodists = cut(AET013, breaks, na.rm = TRUE))
+## Exercise 4
 
-methodist_map <- ggplot() +
-  geom_map(data = counties_df2, map = counties_df2, 
-           aes(x = long, y = lat, map_id = id, group = group,
-               fill = methodists),
-           color = "gray", size = 0.25) +
-  coord_map(projection = "albers", lat0 = 29.5, lat1 = 45.5) +
-  theme_nothing(legend = TRUE) +
-  scale_fill_brewer(palette = "BuPu", name = "Methodists in 1850")
-```
-
-```{r}
-library(gridExtra)
-grid.arrange(methodist_map, baptist_map, ncol = 1,
-             top = "Baptists vs Methodists")
-```
-
-
-### Exercises
-
-(@) Using the code above, create plots of several different denominations. What can you learn about the spread of denominations across space?
+Can you make a map of the number of confessions? Of missions?
 
 ```{r}
 
 ```
 
-(@) In the same directories that you loaded the shapefiles and religion data from, there are shapefiles and data for other years. For some other year, follow the pipeline above and create a map of a denomination.
+## Exercise 5
 
-```{r}
+The following code will download a shapefile from 1890 (`US_county_1890.shp` and related files) and some 1890 census materials. All of this comes from NHGIS. Look at the code book to identify some data of interest. Create a choropleth map of that data. You will need to join the spatial data to the Census data. After you've done that join, you may wish to plot only a single state to start, since that will make the functions quicker to run.
 
+```{r, eval=FALSE}
+url2 <- "http://lincolnmullen.com/projects/spatial-workshop/data/day2-afternoon.zip"
+download.file(url2, destfile = basename(url2))
+unzip(basename(url2), overwrite = TRUE)
+unzip("day2-afternoon/US_county_1890.zip")
 ```
 
-(@) Advanced: the NHGIS has data on population as well which you will have to download. Can you create a map where the number of churches is normalized by population? The intuition here is that it stands to reason that there would be more churches where there are more people. So it will be more useful to divide the number of churches by the number of people in order to get a sense of where there was an unusual number of churches for a given denomination.
-
-```{r}
-
-```

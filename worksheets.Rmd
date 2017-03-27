@@ -18,3 +18,4 @@ These are the worksheets that you can download:
 - <a href="worksheets/more-data-manipulation.Rmd" download="worksheets/more-data-manipulation.Rmd">More data manipulation with dplyr and tidyr</a>
 - <a href="worksheets/window-functions.Rmd" download="worksheets/window-functions.Rmd">Window functions</a>
 - <a href="worksheets/exploratory-data-analysis.Rmd" download="worksheets/exploratory-data-analysis.Rmd">Exploratory data analysis</a>
+- <a href="worksheets/mapping.Rmd" download="worksheets/mapping.Rmd">Mapping</a>
