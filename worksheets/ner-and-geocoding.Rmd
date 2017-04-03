@@ -1,0 +1,93 @@
+---
+title: "Named entity extraction and geocoding"
+author: ""
+---
+
+In this worksheet we are going to do two things. First we are going to automatically extract place names from text. Second, given a vector of place names, we are going to find their latitude and longitudes.
+
+You can install and load the necessary packages.
+
+```{r}
+library(historydata)
+# devtools::install_github("lmullen/WPAnarratives")
+library(WPAnarratives)
+data("wpa_narratives")
+data("judges_people")
+library(tidyverse)
+# devtools::install_github("statsmaths/cleanNLP")
+library(cleanNLP)
+library(ggmap)
+```
+
+## Named entity recognition
+
+Named entity recognition (NER), a part of natural language processing (NLP_), is the action of finding entities such as place names or personal names in text. There are a number of packages in R that do this, but the cleanNLP package does using a tidy data format, so it might be the easiest to work with.
+
+We have to set up Stanford CoreNLP, which is a set of Java tools.
+
+```{r}
+# download_core_nlp()
+setup_coreNLP_backend()
+init_backend(type = "coreNLP")
+```
+
+We are going to get some sample texts from the WPA former slave narratives. The process of identifying the named entities is called annotation. Notice that this operation is taking place on multiple texts.
+
+```{r}
+doc <- wpa_narratives$text[50:52]
+doc_a <- cleanNLP::annotate(doc, as_strings = TRUE)
+```
+
+Now we have an object which has the entities, and we can extract the entities with the `get_entity()` function. This produces a data frame.
+
+```{r}
+entities <- get_entity(doc_a)
+
+entities %>%
+  filter(entity_type == "LOCATION")
+```
+
+Notice that terms like "Boston, Massachusetts" are separated. This function tries to put them back together.
+
+```{r}
+join_entities <- function(entity, lead_entity, id, lead_id, sid, lead_sid,
+                          tid_end, lead_tid, tolerance = 3) {
+  if_else(id == lead_id & sid == lead_sid & lead_tid - tid_end < tolerance,
+          paste(entity, lead_entity, sep = ", "), NA_character_)
+}
+
+entities %>% 
+  select(-entity_normalized) %>% 
+  filter(entity_type == "LOCATION") %>% 
+  mutate(entity_full = join_entities(entity, lead(entity), id, lead(id),
+                                     sid, lead(sid), tid_end, lead(tid))) 
+```
+
+## Geocoding
+
+The process of taking place names and associating them with latitudes and longitudes is called geocoding. The ggmaps package has a function to do geocoding. We will use the birthplaces of federal judges as an example. We are only going to do this for a few places, since Google Maps only allows us 2,500 API calls per day. Notice that although place names are listed more than once, we only have to geocode them once, so we call `distinct()`.
+
+```{r}
+birthplaces <- judges_people %>% 
+  select(birthplace_city, birthplace_state) %>% 
+  mutate(birthplace = paste(birthplace_city, birthplace_state, sep = ", ")) %>% 
+  distinct()
+
+to_geocode <- birthplaces %>% 
+  sample_n(10)
+```
+
+Once we have the places to geocode, we can call the `geocode()` function. Note that it takes a vector, not a data frame, as input. It gives us back a data frame, but that data does not have our original information in a column, which we will need to do a join. So we can use `bind_cols()` to stick the two data frames back together.
+
+```{r}
+coords <- geocode(to_geocode$birthplace, output = "latlona")
+birthplaces_coords <- bind_cols(to_geocode, coords) 
+```
+
+Now we can join our geocoded information back to our original data frame.
+
+```{r}
+judges_people %>% 
+  left_join(birthplaces_coords, by = c("birthplace_city", "birthplace_state")) %>% 
+  filter(!is.na(lat) & !is.na(lon)) %>% View
+```
