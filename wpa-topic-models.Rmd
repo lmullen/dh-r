@@ -1,0 +1,333 @@
+---
+title: "Topic modeling the WPA former slave narratives"
+---
+
+## Basic setup
+
+Make sure that we have all the necessary packages.
+
+```{r}
+library(tidyverse)
+library(stringr)
+
+# devtools::install_github("lmullen/WPAnarratives")
+library(WPAnarratives)
+
+# devtools::install_github("ropensci/tokenizers")
+library(tokenizers)
+
+# install.packages("tidytext")
+library(tidytext)
+
+# install.packages("topicmodels")
+library(topicmodels)
+```
+
+How many words are in the WPA former slave narratives?
+
+```{r}
+wpa_narratives <- wpa_narratives %>% 
+  mutate(words = count_words(text)) 
+
+wpa_narratives
+
+sum(wpa_narratives$words)
+ggplot(wpa_narratives, aes(x = words)) + geom_histogram(binwidth = 100) +
+  labs(title = "Lengths of narratives")
+```
+
+A function to examine a particular document.
+
+```{r}
+read_doc <- function(id) {
+  out <- wpa_narratives %>% 
+    filter(filename == id)
+  cat(out[["text"]])
+}
+read_doc("nealy-sally2.txt")
+```
+
+
+## Basic word counts
+
+```{r}
+# Don't keep metadata except for document ID
+wpa_tokenized <- wpa_narratives %>% 
+  select(filename, text) %>% 
+  unnest_tokens(word, text, token = "words")
+```
+
+Which words are most used?
+
+```{r}
+word_counts <- wpa_tokenized %>% 
+  count(word, sort = TRUE)
+```
+
+Remove very common and very uncommon words.
+
+```{r}
+before <- nrow(wpa_tokenized)
+
+# Words to drop by frequency
+words_to_drop <- word_counts %>% 
+  filter(n <= 2 | n >= 8000)
+
+nrow(words_to_drop) / nrow(word_counts)
+
+# Drop words by frequency and also stopwords
+wpa_tokenized <- wpa_tokenized %>% 
+  anti_join(words_to_drop, by = "word") %>% 
+  anti_join(stop_words, by = "word")
+
+after <- nrow(wpa_tokenized)
+
+before - after
+after / before
+```
+
+Let's use Silge and Robinson's code to write a function to plot words.
+
+```{r}
+plot_words <- function(tidy_df, n = 10) {
+  require(ggplot2)
+  require(dplyr)
+  tidy_df %>%
+    count(word, sort = TRUE) %>%
+    top_n(n = n, n) %>% 
+    mutate(word = reorder(word, n)) %>%
+    ggplot(aes(word, n)) +
+    geom_col() +
+    xlab(NULL) +
+    coord_flip()
+}
+plot_words(wpa_tokenized, n = 60)
+```
+
+## TF-IDF
+
+Calculate TF-IDF scores for document.
+
+```{r}
+# Get word counts by document
+wpa_counts <- wpa_tokenized %>% 
+  count(filename, word) %>% 
+  group_by(filename) %>% 
+  mutate(total_words = n()) %>% 
+  ungroup()
+
+wpa_tfidf <- wpa_counts %>% 
+  bind_tf_idf(word, filename, n)
+```
+
+TF is the frequency with which a word appears in a document. The higher the number, the more it is used.
+
+IDF is the proportion of documents in which a word appears. The lower the number, the more often it appears in the documents in the corpus. Or in other words, the higher the number, the rarer and more significant it is.
+
+TFIDF is the TF multiplied by the IDF, to show which words are most significant.
+
+Plot high TFIDF words.
+
+```{r}
+wpa_tfidf %>% 
+  arrange(desc(tf_idf)) %>% 
+  mutate(word = factor(word, levels = rev(unique(word)))) %>%
+  top_n(20) %>% 
+  ggplot(aes(word, tf_idf, fill = filename)) +
+  geom_col() +
+  labs(x = NULL, y = "tf-idf") +
+  coord_flip()
+```
+
+Find key words in a text.
+
+```{r}
+wpa_tfidf %>% 
+  arrange(filename, desc(tf_idf)) %>% 
+  group_by(filename) %>% 
+  top_n(10, tf_idf) %>% 
+  summarize(keywords = str_c(word, collapse = ", ")) 
+```
+
+Or look for key texts by word.
+
+```{r}
+wpa_tfidf %>% 
+  filter(word %in% c("god", "religion", "faith", "church", "resurrection",
+                     "ressurection", "jesus", "heaven", "conjure", "pray")) %>% 
+  arrange(desc(tf_idf)) 
+
+read_doc("woods-ruben.txt")
+read_doc("perkins-maggie.txt")
+```
+
+## Topic models
+
+For the sake of speed, we are going to keep only about 100 documents.
+
+```{r}
+set.seed(3452)
+keepers <- sample(wpa_narratives$filename, 100)
+```
+
+
+We have to cast our data frame to a sparse matrix.
+
+```{r}
+wpa_dtm <- wpa_counts %>% 
+  filter(filename %in% keepers) %>% 
+  cast_dtm(filename, word, n)
+
+wpa_dtm
+
+wpa_dtm[1:6, 1:6] %>% as.matrix()
+```
+
+We can train the model. The most important parameter is `k`, the number of topics that we want.
+
+Hyperparameters:
+
+> A low alpha value places more weight on having each document composed of only a few dominant topics (whereas a high value will return many more relatively dominant topics). Similarly, a low beta value places more weight on having each topic composed of only a few dominant words.
+
+```{r}
+if (!file.exists("wpa_lda.rds")) {
+  system.time({wpa_lda <- LDA(wpa_dtm, k = 20, control = list(seed = 6432))})
+  saveRDS(wpa_lda, "wpa_lda.rds")
+} else {
+  wpa_lda <- readRDS("wpa_lda.rds")
+}
+```
+
+We can get the association of topics to words.
+
+```{r}
+wpa_topics <- tidy(wpa_lda, matrix = "beta")
+wpa_topics_display <- wpa_topics %>% 
+  mutate(beta = round(beta, 4)) %>% 
+  group_by(topic) %>% 
+  top_n(15, beta) %>% 
+  arrange(topic, desc(beta)) 
+
+wpa_topics_display
+wpa_topics_display %>% 
+  group_by(topic) %>% 
+  summarize(words = str_c(term, collapse = ", "))
+
+wpa_topics %>%
+  group_by(topic) %>%
+  top_n(15, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta) %>% 
+  mutate(term = reorder(term, beta)) %>%
+  ggplot(aes(term, beta, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ topic, scales = "free") +
+  coord_flip()
+```
+
+We can also get the association between documents and topics.
+
+```{r}
+wpa_docs <- tidy(wpa_lda, matrix = "gamma")
+
+wpa_docs %>% 
+  mutate(gamma = round(gamma, 2)) %>% 
+  group_by(topic) %>% 
+  filter(gamma > 0.2) %>% 
+  top_n(10, gamma) %>% 
+  arrange(topic, desc(gamma))
+```
+
+## LDA on paragraphs.
+
+Split the corpus into paragraphs, treating each paragraph as a separate document.
+
+```{r}
+wpa <- wpa_narratives$text
+names(wpa) <- wpa_narratives$filename
+
+wpa_para_l <- tokenize_paragraphs(wpa)
+
+wpa_paragraphs <- data_frame(filename = names(wpa_para_l),
+                             paragraphs = wpa_para_l) %>% 
+  unnest(paragraphs) %>% 
+  group_by(filename) %>% 
+  mutate(para_num = str_pad(1:n(), width = 4, pad = "0"),
+         doc_id = str_c(filename, "-", para_num)) %>% 
+  select(doc_id, filename, para_num, everything()) %>% 
+  ungroup()
+```
+
+For speed sake, let's pick only 2000 paragraphs.
+
+```{r}
+wpa_paragraphs_sample <- wpa_paragraphs %>% 
+  sample_n(2000)
+```
+
+Now we can create the DTM:
+
+```{r}
+wpa_p_tokens <- wpa_paragraphs_sample %>% 
+  unnest_tokens(word, paragraphs, token = "words") %>% 
+  anti_join(stop_words, by = "word") %>% 
+  anti_join(words_to_drop, by = "word")
+
+wpa_p_counts <- wpa_p_tokens %>% 
+  count(doc_id, word) %>% 
+  group_by(doc_id) %>% 
+  mutate(total_words = n())
+  
+wpa_p_tfidf <- wpa_p_counts %>% 
+  bind_tf_idf(word, doc_id, n) %>% 
+  arrange(desc(tf_idf))
+
+wpa_p_dtm <- wpa_p_counts %>% 
+  cast_dtm(doc_id, word, n)
+```
+
+And train the model:
+
+```{r}
+if (!file.exists("wpa_p_lda.rds")) {
+  system.time({wpa_p_lda <- LDA(wpa_p_dtm, k = 20, control = list(seed = 6432))})
+  saveRDS(wpa_p_lda, "wpa_p_lda.rds")
+} else {
+  wpa_p_lda <- readRDS("wpa_p_lda.rds")
+}
+```
+
+And extract the tables.
+
+```{r}
+wpa_p_topics <- tidy(wpa_p_lda, matrix = "beta")
+wpa_p_docs <- tidy(wpa_p_lda, matrix = "gamma")
+```
+
+Let's get the paragraphs most associated with topic.
+
+```{r}
+get_topic <- function(docs_df, topic_id, n_docs = 10, data) {
+  doc_list <- docs_df %>% 
+    filter(topic == topic_id) %>% 
+    top_n(n_docs, gamma) %>% 
+    arrange(desc(gamma))
+  doc_ids <- doc_list$document
+  paras <- data %>% 
+    filter(doc_id %in% doc_ids)
+  
+  purrr::map2(doc_ids, paras$paragraphs, function(id, para) {
+    cat("\n--------------\n")
+    cat(id, "\n\n")
+    cat(para, "\n\n")
+  }) 
+  return(invisible(NULL))
+}
+```
+
+Pick topic four, which seems to be about food.
+
+```{r}
+wpa_p_docs %>% 
+  get_topic(topic_id = 4, n_docs = 10, data = wpa_paragraphs)
+```
