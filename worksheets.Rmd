@@ -19,3 +19,4 @@ These are the worksheets that you can download:
 - <a href="worksheets/window-functions.Rmd" download="worksheets/window-functions.Rmd">Window functions</a>
 - <a href="worksheets/exploratory-data-analysis.Rmd" download="worksheets/exploratory-data-analysis.Rmd">Exploratory data analysis</a>
 - <a href="worksheets/mapping.Rmd" download="worksheets/mapping.Rmd">Mapping</a>
+- <a href="worksheets/ner-and-geocoding.Rmd" download="worksheets/ner-and-geocoding.Rmd">Named entity recognition and geocoding</a>
