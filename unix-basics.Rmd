@@ -1,0 +1,12 @@
+# Unix Basics
+
+## mv, cp
+
+## zip and unzip
+
+Also companions like bzip
+
+## rsync
+
+## ssh
+
