@@ -1,7 +1,7 @@
 --- 
 title: "Computational Historical Thinking"
 subtitle: "With Applications in R"
-author: "Lincoln Mullen"
+author: "Lincoln A. Mullen"
 # date: "2017"
 site: bookdown::bookdown_site
 # output: bookdown::gitbook
@@ -13,19 +13,19 @@ citation-style: chicago-fullnote-bibliography-no-ibid.csl
 link-citations: yes
 github-repo: lmullen/dh-r
 twitter-handle: lincolnmullen
-description: '"Computational Historical Thinking" is a textbook that teaches you how to identify sources and frame historical questions then answer them through computational methods. These historical methods include exploratory data analysis, mapping, text analysis, and network analysis. These methods are taught using the R programming language, commonly used by digital historians and digital humanists. Chapters on individual methods ground you in particular approaches, and chapters on case studies of historical research walk you through the process of asking and answering computational history questions.'
+description: '"Computational Historical Thinking" is a textbook that teaches you how to identify sources and frame historical questions, then answer them through computational methods. These historical methods include exploratory data analysis, mapping, text analysis, and network analysis. These methods are taught using the R programming language, commonly used by digital historians and digital humanists. Chapters on individual methods ground you in particular approaches, and chapters on case studies of historical research walk you through the process of asking and answering computational history questions.'
 url: 'http\://dh-r.lincolnmullen.com/'
 ---
 
 # About this book {-}
 
-*Computational Historical Thinking* is a textbook that teaches you how to identify sources and frame historical questions then answer them through computational methods. These historical methods include exploratory data analysis, mapping, text analysis, and network analysis. These methods are taught using the [R programming language](https://www.r-project.org/about.html), commonly used by digital historians and digital humanists. Chapters on individual methods ground you in particular approaches, and chapters on case studies of historical research walk you through the process of asking and answering computational history questions.
+*Computational Historical Thinking* is a textbook that teaches you how to identify sources and frame historical questions, then answer them through computational methods. These historical methods include exploratory data analysis, mapping, text analysis, and network analysis. These methods are taught using the [R programming language](https://www.r-project.org/about.html), commonly used by digital historians and digital humanists. Chapters on individual methods ground you in particular approaches, and chapters on case studies of historical research walk you through the process of asking and answering computational history questions.
 
 ![Detail of denominational statistics for the Protestant Episcopal Church in 1880 from Fletcher W. Hewes and Henry Gannet, *Scribner's Statistical Atlas of the United States Showing by Graphic Methods Their Present Condition and Their Political, Social and Industrial Development* (New York: Charles Scribner's Sons, 1883), [plate 59](http://www.davidrumsey.com/luna/servlet/s/ekkrjp). Courtesy of the David Rumsey Map Collection.](images/protestant-episcopal.jpg)
 
-**Work in progress.** This book is available while it is being written, and is very incomplete. In particular, chapter numbers are likely to change. Feel free to leave feedback as [issues on the GitHub repository](https://github.com/lmullen/dh-r/issues), or to [e-mail me](mailto:lincoln@lincolnmullen.com).
+**Work in progress.** This book is available while it is being written, and is very incomplete. In particular, chapter numbers are likely to change. Feel free to leave feedback as [issues on the GitHub repository](https://github.com/lmullen/dh-r/issues) or to [e-mail me](mailto:lincoln@lincolnmullen.com).
 
-**Suggested citation format.** If you find this book useful, I would appreciate a citation: Lincoln Mullen, *Computational Historical Thinking: With Applications in R* (2017): http://dh-r.lincolnmullen.com.
+**Suggested citation format.** If you find this book useful, I would appreciate a citation: Lincoln A. Mullen, *Computational Historical Thinking: With Applications in R* (2018--): http://dh-r.lincolnmullen.com.
 
 ------------------------------------------
 
