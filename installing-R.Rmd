@@ -137,3 +137,25 @@ devtools::install_github("ropensci/historydata")
 ```
 
 Note that once you have installed a package from GitHub, R will not keep it updated with `update.packages()` unless the package is published to CRAN with a more recent version number than the package you installed from GitHub. You can, however, reinstall the package from GitHub if there are changes that you want to pick up.
+
+## Configuring R {#configure-r}
+
+R is both a programming langauge and an interactive environment for data analysis. R users spend more of their time using the interactive environment than users of most other languages. R thus tries to save your variables, plots, and the like (called an environment) when you close your session. Then it tries to reload that environment when you create a new session. This seems desirable for new users, but it breeds very bad habits. It teaches you to just use the variables in your environment, rather than ensuring that you write scripts which can reproduce your results from raw data to finished project. I strongly recommend that you disable this default behavior.
+
+If you are using RStudio, you can go to `Tools > Global Options > General` and make sure that you set your options as in the figure below.
+
+```{r, echo=FALSE, fig.cap="To make sure that R does not save your environment between sessions, change these options in RStudio."}
+knitr::include_graphics("images/disable-saving-session.png")
+```
+
+If you are using R at the command line (which you will probably want to do at some point), you can start your session with these flags:
+
+```
+R --no-save --no-restore-data
+```
+
+You may choose to set a alias in Bash or your preferred shell to ensure that yo always start R this way.
+
+```
+alias R="R --no-save --no-restore-data --quiet"
+```
