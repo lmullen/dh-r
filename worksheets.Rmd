@@ -3,9 +3,8 @@
 The best way to learn R or computational history is to practice. These worksheets contain a series of questions designed to teach you about R or different computational methods. The worksheets are [R Markdown documents](http://rmarkdown.rstudio.com/) that include text and code together. The places where you are expected to answer questions are marked like this. 
 
 ```
-(@) There are other datasets in historydata. Can you make a plot from one or more of them?
+(@) Can you make a plot from this dataset?
 ```
-
 Beneath each question is a space to either create a code block or write an answer.
 
 These are the worksheets that you can download:
@@ -13,10 +12,7 @@ These are the worksheets that you can download:
 - <a href="worksheets/familiar-with-r.Rmd" download="worksheets/familiar-with-r.Rmd">Getting familiar with R</a>
 - <a href="worksheets/data-structures.Rmd" download="worksheets/data-structures.Rmd">Data structures</a>
 - <a href="worksheets/functions.Rmd" download="worksheets/functions.Rmd">Functions</a>
-- <a href="worksheets/ggplot2.Rmd" download="worksheets/ggplot2.Rmd">Introduction to ggplot2</a>
-- <a href="worksheets/data-manipulation.Rmd" download="worksheets/data-manipulation.Rmd">Data manipulation with dplyr</a>
-- <a href="worksheets/more-data-manipulation.Rmd" download="worksheets/more-data-manipulation.Rmd">More data manipulation with dplyr and tidyr</a>
 - <a href="worksheets/window-functions.Rmd" download="worksheets/window-functions.Rmd">Window functions</a>
-- <a href="worksheets/exploratory-data-analysis.Rmd" download="worksheets/exploratory-data-analysis.Rmd">Exploratory data analysis</a>
-- <a href="worksheets/mapping.Rmd" download="worksheets/mapping.Rmd">Mapping</a>
-- <a href="worksheets/ner-and-geocoding.Rmd" download="worksheets/ner-and-geocoding.Rmd">Named entity recognition and geocoding</a>
+- <a href="worksheets/ggplot2.Rmd" download="worksheets/ggplot2.Rmd">ggplot2 introduction</a>
+- <a href="worksheets/data-manipulation.Rmd" download="worksheets/data-manipulation.Rmd">Data manipulation introduction</a>
+- <a href="worksheets/more-data-manipulation.Rmd" download="worksheets/data-manipulation-continued.Rmd">Data manipulation continued</a>
