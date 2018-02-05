@@ -62,12 +62,6 @@ methodists %>%
 
 ```
 
-(@) Bonus: some of these Methodist meetings were "missions." Load the `stringr` package and look at the documentation for `?str_detect`. Can you find which rows represent missions?
-
-```{r}
-
-```
-
 ## Creating new columns (`mutate()`)
 
 Very often one will want to create a new column based on other columns in the data. For instance, in our Methodist data, there is a column called `year`, but that column represents the year that the minutes were reported. The membership figures are actually for the previous year. Here we create a new column called `year_recorded`, where each value is one less than in `year`.
@@ -190,26 +184,5 @@ methodists %>%
 
 ```
 
-(@) Make a plot of the average percentage of black members over time.
+Being able to create summaries like these is essential for visualizing the data.
 
-```{r}
-
-```
-
-(@) Make a plot of the average and median number of members over time.
-
-```{r}
-
-```
-
-(@) What was the average number of members in each conference for each year? Can you also make a plot of this?
-
-```{r}
-
-```
-
-(@) What was the average percentage of black members in each conference for each year? Can you also make a plot of this?
-
-```{r}
-
-```
