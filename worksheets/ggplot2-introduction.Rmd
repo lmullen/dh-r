@@ -16,6 +16,7 @@ In addition to the ggplot2 package, we will use three packages with sample data,
 ```{r, message=FALSE}
 library(ggplot2)
 library(dplyr)
+library(ggrepel)
 
 library(gapminder)
 data("gapminder")
@@ -30,10 +31,10 @@ data("europop")
 # Make a summarized dataset of Paulist missions by year 
 paulists_by_year <- paulist_missions %>% 
   group_by(year) %>% 
-  summarize(converts = sum(converts, na.rm = TRUE),
+  summarize(missions = n(),
+            converts = sum(converts, na.rm = TRUE),
             confessions = sum(confessions, na.rm = TRUE))
 ```
-
 
 ## Basics of using ggplot2
 
@@ -209,6 +210,33 @@ ggplot(paulist_missions, aes(x = converts, y = confessions)) +
 (@) Notice that we are using `geom_count()`. What does it do? (Hint: `?geom_count`.)
 
 >
+
+## Labels
+
+You can add labels to a plot using `geom_text()`, but it is likely that the labels will overlap with one another. The `ggrepel` package adds a function `geom_text_repel()` which will try to make the labels not overlap, as in this example below. Use this function to label your plots when it makes sense to do so.
+
+```{r}
+mn_missions <- paulist_missions %>% 
+  filter(state == "MN", converts > 0)
+
+ggplot(mn_missions, aes(x = converts, y = confessions)) +
+ geom_point() +
+  geom_text_repel(aes(label = city))
+```
+
+Sometimes it makes sense to add a label only for some points. In this example we create a new column, `label`, and only put the city name in it if there were five or more converts.
+
+```{r}
+mn_missions_with_labels <- paulist_missions %>% 
+  filter(state == "MN", converts > 0) %>% 
+  mutate(label = ifelse(converts > 5, city, NA))
+```
+
+(@) Make a plot like the one immediately above but using the `mn_missions_with_labels` data frame and the labels in `label` column.
+
+```{r}
+
+```
 
 ## Create your own plots
 
