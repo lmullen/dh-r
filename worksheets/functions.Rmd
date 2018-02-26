@@ -80,7 +80,7 @@ years <- c(1758, 1752, 1756, 1740, 1746, 1755, 1749, 1749, 1753, 1759,
 
 $$z_i = {x_i - \min(x) \over \max(x) - \min(x)}$$
 
-Below is the boilerplate for a function that does that kind of rescaling. Flesh out the function's body so that the last line of this chunk returns `TRUE` (i.e., so that the rescaled input matches the expected output). You will need to use some base R functions that we have already explored such as `max()`.
+Below is the boilerplate for a function that does that kind of rescaling. Flesh out the function's body so that the last line of this chunk returns `TRUE` (i.e., so that the rescaled input matches the expected output). You will need to use some base R functions that we have already explored such as `max()`. Hint: This function will be vectorized, so `x` in the body below is equivalent to `x` with the subscript `i` in the formula above.
 
 ```{r}
 rescale <- function(x) {
