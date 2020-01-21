@@ -2,7 +2,7 @@
 
 # Computational Historical Thinking: With Applications in R
 
-This is a textbook in progress on using computational methods for historical research. The [book is available online](http://dh-r.lincolnmullen.com).
+This is a textbook in progress on using computational methods for historical research. The [book is available online](https://dh-r.lincolnmullen.com).
 
 ## License
 
