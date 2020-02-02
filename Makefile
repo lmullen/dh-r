@@ -3,11 +3,6 @@ BOOKFILES := $(wildcard *.Rmd) DESCRIPTION _before.R _output.yml book.bib analyt
 _book/index.html : $(BOOKFILES)
 	./scripts/build.sh
 
-_book/Mullen-ComputationalHistoricalThinking.pdf : $(BOOKFILES)
-	./scripts/build-pdf.sh
-
-pdf : _book/Mullen-ComputationalHistoricalThinking.pdf
-
 deploy :
 	./scripts/deploy.sh
 
