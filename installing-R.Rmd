@@ -5,21 +5,17 @@
 
 ## What is CRAN?
 
-R has very good support on the three main platforms: Linux, MacOS, and Windows. Both R and the language and the thousands of published packages which extend its functionality for the most part work across the three platforms. In addition, installing packages in R can be considerably simpler than in other languages. Much of the ease of installing R and add-on packages is thanks to the CRAN infrastructure.
+R has very good support on the three main platforms: Linux, MacOS, and Windows. Both R the language and the thousands of published packages which extend its functionality for the most part work across the three platforms. In addition, installing packages in R can be considerably simpler than in other languages. Much of the ease of installing R its add-on packages is thanks to the CRAN infrastructure.
 
-R and the published packages are available at [CRAN](https://cran.r-project.org/), the "Comprehensive R Archive Network." The CRAN maintainers rigorously screen new packages, then test all accepted packages continually. This does not mean that there are no bugs in published R packages, but it does mean that the quality of software published at CRAN is generally higher than in the software repositories of other programming languages.
+R and the published packages are available at [CRAN](https://cran.r-project.org/), the "Comprehensive R Archive Network." The CRAN maintainers rigorously screen new packages, then test all accepted packages continually. This does not mean that there are no bugs in published R packages, but it does mean that the quality of software published at CRAN is generally pretty high.
 
-CRAN is a collection of mirrors, that is, servers that contain the exact same content.  The canonical URL for CRAN is `https://cran.r-project.org/`, but you can also access a CRAN mirror at Indiana University, for example, at `https://ftp.ussg.iu.edu/CRAN/`. The R Project maintains a [current list of mirrors](https://cran.r-project.org/mirrors.html). When installing packages at the start of an R session, R will ask you which mirror you want to use. Unless you have a compelling reason to pick a different one, you should select the first option, "Cloud": `https://cloud.r-project.org/`. That option will pick a server which is geographically close to you. If you add the following line to the `.Rprofile` file in your user's home directory (`~/.Rprofile` on Mac and Linux), then you can set that option permanently.
-
-```{r eval=FALSE}
-options(repos = c(CRAN = "https://cloud.r-project.org"))
-```
+CRAN is a collection of mirrors, that is, servers that contain the exact same content.  The canonical URL for CRAN is `https://cran.r-project.org/`, but you can also access a CRAN mirror at Indiana University, for example, at `https://ftp.ussg.iu.edu/CRAN/`. The R Project maintains a [current list of mirrors](https://cran.r-project.org/mirrors.html). When installing packages at the start of an R session, R will ask you which mirror you want to use. Unless you have a compelling reason to pick a different one, you should select the first option, "Cloud": `https://cloud.r-project.org/`. That option will pick a server which is geographically close to you. 
 
 ## Installing R on MacOS {#install-mac}
 
-CRAN compiles R for the Mac. To install R, go to [CRAN](https://cran.r-project.org/) and click on the link to [download R for Mac](https://cran.r-project.org/bin/macosx/). Download the installer for the current version of R, for example, `R-3.3.2.pkg`. Install this package like you would any other Mac software. The installer will install R, plus various other software such as a GUI application for R.
+CRAN compiles R for the Mac. To install R, go to [CRAN](https://cran.r-project.org/) and click on the link to [download R for Mac](https://cran.r-project.org/bin/macosx/). Download the installer for the current version of R, for example, `R-3.6.2.pkg`. Install this package like you would any other Mac software. The installer will install R, plus various other software such as a GUI application for R.
 
-You can test that you have R installed properly by opening the Terminal program on your Mac.
+You can test that you have R installed properly by opening the Terminal program on your Mac and running the following command.
 
 ```
 R --version
@@ -29,20 +25,28 @@ If you get a message that prints the current version of R, then you have success
 
 In general, you should use the version of R that CRAN compiled for the Mac unless you have a specific reason not to do so. One of the chief advantages of this version is that you can install R extension packages which have been pre-compiled by CRAN for the Mac. This can make it significantly easier to install R packages.
 
-You can however install R via Homebrew. [Homebrew](http://brew.sh/) is a package manager for the Mac which lets you install and update software from the command line. You might want to install R this way if you plan on compiling your own R packages, or want to try to optimize the linear algebra library which lets R perform matrix operations quickly.
+### Installing R on a Mac via Homebrew
 
-First follow the instructions to install [Homebrew](http://brew.sh/) on its website. Then in your terminal, run the following commands. These add a list of science-related packages to the list of software that Homebrew knows how to install, and installs R. This will probably involve installing a lot of additional software, such as compilers.^[For a fuller explanation of installing R via Homebrew, see [Bob Rudis's post](http://rud.is/b/2015/10/22/installing-r-on-os-x-100-homebrew-edition/) on the topic.]
+You can however install R via Homebrew. [Homebrew](http://brew.sh/) is a package manager for the Mac which lets you install and update software from the command line. You might want to install R this way if you plan on compiling your own R packages, or if you are using Homebrew for installing all the other software in your development environment.
+
+First follow the instructions to install [Homebrew](http://brew.sh/) on its website. Then in your terminal, run the following command. This will probably involve installing a lot of additional software, such as compilers.
 
 ```
-brew tap homebrew/science
 brew install R
 ```
 
-You can see the various options for installing R via Homebrew by running `brew show R` in the terminal. For instance, using certain flags you can change the linear algebra system that R is compiled against. If you install R with Homebrew, you may also need to install various system libraries, such as `libxml2` or `libcurl`.
+Once you've gone down the road of compiling your own software, you will also need to install various system libraries to compile certain R packages. For instance, if you need the R package [xml2](https://cran.r-project.org/package=xml2), you will also need
+the `libxml2` library. Generally speaking, the documentation for the individual packages will explain what system libraries they might need and how to install then.
+
+## Installing R on Windows {#install-windows}
+
+CRAN maintains a version of R for Windows,, along with helpful documentation on how to install it. Follow the instructons on the [CRAN download page for Windows](https://cran.r-project.org/bin/windows/base/).
+
+The version of R that you install from CRAN for Windows will be able to install binary (i.e., precompiled) versions of R extension packages. This is considerably easier than trying to compile those packages yourself. However, CRAN also maintains a set of [Rtools for Windows](https://cran.r-project.org/bin/windows/Rtools/) which provide the software that you will need to compile packages for yourself. If you wish to build packages from source, then install the version of Rtools that corresponds to the version of R you have installed.
 
 ## Installing R on Ubuntu {#install-ubuntu}
 
-Being able to install R on a Linux system is useful in several ways. Of course, if your primary computer runs a Linux distribution, then you can use R on it like you would on Mac or Windows. But you can also install R on a Linux server, or run R on a Linux virtual machine hosted on a different operating system. These instructions give you the commands for installing R on either the server or desktop version of Ubuntu 16.04.x, the latest long-term support (LTS) version of a popular Linux distribution.^[For a fuller explanation of how to install R on Ubuntu, see the [official instructions on CRAN](https://cran.r-project.org/bin/linux/ubuntu/README.html) or [Digital Ocean's guide](https://www.digitalocean.com/community/tutorials/how-to-install-r-on-ubuntu-16-04-2).]
+Being able to install R on a Linux system is useful in several ways. Of course, if your primary computer runs a Linux distribution, then you can use R on it like you would on Mac or Windows. But you can also install R on a Linux server, or run R on a Linux virtual machine hosted on a different operating system. These instructions give you the commands for installing R on either the server or desktop version of Ubuntu 18.04.x, the latest long-term support (LTS) version of a popular Linux distribution.^[For a fuller explanation of how to install R on Ubuntu, see the [official instructions on CRAN](https://cran.r-project.org/bin/linux/ubuntu/README.html) or [Digital Ocean's guide](https://www.digitalocean.com/community/tutorials/how-to-install-r-on-ubuntu-18-04).]
 
 Software on Ubuntu is generally installed via the apt package manager. A version of R is available in the Ubuntu repositories, but it it almost certainly not the most recent versions, especially in LTS versions of Ubuntu. Therefore it is best to add a CRAN-maintained Ubuntu repository to the list of software sources that apt checks, then install R.
 
@@ -77,25 +81,24 @@ Many R packages will require common Ubuntu packages for development before they 
 sudo apt install build-essential libcurl4-openssl-dev libssl-dev libxml2-dev
 ```
 
-## Installing R on Windows {#install-windows}
-
-CRAN maintains a version of R for Windows, including a GUI, along with helpful documentation on how to install it. Follow the instructons on the [CRAN download page for Windows](https://cran.r-project.org/bin/windows/base/).
-
-The version of R that you install from CRAN for Windows will be able to install binary (i.e., precompiled) versions of R extension packages. This is considerably easier than trying to compile those packages yourself. However, CRAN also maintains a set of [Rtools for Windows](https://cran.r-project.org/bin/windows/Rtools/) which provide the software that you will need to compile packages for yourself. If you wish to build packages from source, then install the version of Rtools that corresponds to the version of R you have installed.
-
 ## About R packages and libraries {#packages-libraries}
 
 CRAN hosts many packages for R. These packages extend R's functionality by providing additional functions. And R packages can also include data files, which is an easy way to distribute example data or data for learning that is not too large.^[For an explanation of how R packages are created, see @wickham_r_2015.]
 
 These extensions to R are called **packages**. In other programming languages they might be called libraries. But in R, the term **library** is used for the directories where R packages are installed. It is important to remember that R can load packages from multiple libraries at a time. You can see which libraries your R session knows about with the function `.libPaths()`.
 
-```{r}
+```{r, eval=FALSE}
 .libPaths()
+```
+
+```
+#> [1] "/Users/lmullen/R/library"
+#> [2] "/usr/local/Cellar/r/3.6.2/lib/R/library"
 ```
 
 The second library in that list of directories is the library that comes bundled with R. It includes packages like the stats and utils packages which provide basic functionality to R. This library is kept in a system directory and is available to all users of R on a system.
 
-The first library in that list is a personal package library. It is kept inside the user's home directory, in this case, the user `lmullen`. This library contains packages which the user has installed, and they are only accessible to that user. When you load a package with `library()` or `require()`, those functions look for a package in the first directory returned by `.libPaths()`, then the second and so on, stopping when it finds the first match. This ensures that versions of packages that you install are loaded in preference to system libraries. When installing packages for the first time, you will probably be prompted to create a personal package library.^[There are other places that R libaries can be kept. For example, the [packrat](https://cran.r-project.org/package=packrat) package can add a library to a project directory.]
+The first library in that list is a personal package library. It is kept inside the user's home directory, in this case, the user `lmullen`. This library contains packages which the user has installed, and they are only accessible to that user. When you load a package with `library()` or `require()`, those functions look for a package in the first directory returned by `.libPaths()`, then the second and so on, stopping when it finds the first match. This ensures that versions of packages that you install are loaded in preference to system libraries. When installing packages for the first time, you will probably be prompted to create a personal package library.^[There are other places that R libaries can be kept. For example, the [renv](https://rstudio.github.io/renv/) package can add a library to a project directory so that your packages for a particular project are isolated from all the other packages on your system.]
 
 ## Installing packages from CRAN {#install-cran}
 
@@ -113,7 +116,7 @@ Once you have installed packages, you can check for updates by running the `upda
 
 If you have a version of R that supports it---namely Windows and the CRAN compiled R for some versions of MacOS---then `install.packages()` will install a binary version of packages if one is available.^[You can see whether your version of R supports binary packages by checking an option: `getOption("pkgType")`. If the result is `"both"`, then you can install both binary packages and packages from source. If the result is `"source"`, then you can only install packages from source.] When packages are installed from source, R creates a version which can be installed and used directly. Many R packages contain code written in a lower-level language, such as C++. When installed from source, those packages must be compiled into a binary. If possible, `install.packages()` will install a pre-compiled binary from R.
 
-If a binary version of a package is not available for your version of R, then `install.packages()` will compile the package for you. This will require you to have a compiler and possibly system libraries installed. The instructions on installing R above will show you how to get those dependencies for your operating system. Certain packages may require you to install system libraries. For instance the [rgdal](https://cran.r-project.org/package=rgdal) package, used for geospatial analysis, requires the [GDAL/OGR libraries](http://www.gdal.org/). These can be installed on a Mac via Homebrew with the command `brew install gdal` and on Ubuntu with the command `sudo apt install gdal-bin libgdal-dev`. Until these libraries are installed, the package will fail to compile.
+If a binary version of a package is not available for your version of R, then `install.packages()` will compile the package for you. This will require you to have a compiler and possibly system libraries installed. The instructions on installing R above will show you how to get those dependencies for your operating system. Certain packages may require you to install system libraries. For instance the [sf](https://cran.r-project.org/package=sf) package, used for geospatial analysis, requires the [GDAL/OGR libraries](http://www.gdal.org/). These can be installed on a Mac via Homebrew and on Ubuntu with the apt package manager. Until these libraries are installed, the package will fail to compile.
 
 Each package that CRAN publishes has a page that lists information about the package. This information includes a README which usually explains how to get started with the package, a manual that has documentation for each function and dataset in a package, often vignettes which explain some aspect of using the package, along with the name of the package maintainer, where bug reports can be filed and so on. For example, here is the CRAN page for the [dplyr](https://cran.r-project.org/package=dplyr) package.
 
@@ -129,11 +132,11 @@ Not all R packages are published to CRAN. Sometimes they are not suitable for CR
 
 Many R developers keep a version control repository of their packages on GitHub. For example, the [historydata](https://cran.r-project.org/package=historydata) package has a [repository on GitHub](https://github.com/ropensci/historydata). (These repositories are generally listed on a published package's CRAN page.) We could install [historydata](https://cran.r-project.org/package=historydata) from CRAN if we wished, but the development version has additional datasets which have not yet been published.
 
-We can install [historydata](https://cran.r-project.org/package=historydata) from GitHub using the [devtools](https://cran.r-project.org/package=devtools) package. First install that package if necessary. Then using the name of the user and the GitHub repository, in this case `ropensci/historydata`, we can install the development version of [historydata](https://cran.r-project.org/package=historydata).
+We can install [historydata](https://cran.r-project.org/package=historydata) from GitHub using the [remotes](https://cran.r-project.org/package=remotes) package. First install that package if necessary. Then using the name of the user and the GitHub repository, in this case `ropensci/historydata`, we can install the development version of [historydata](https://cran.r-project.org/package=historydata).
 
 ```{r, eval=FALSE}
-# install.packages("devtools")
-devtools::install_github("ropensci/historydata")
+install.packages("remotes")
+remotes::install_github("ropensci/historydata")
 ```
 
 Note that once you have installed a package from GitHub, R will not keep it updated with `update.packages()` unless the package is published to CRAN with a more recent version number than the package you installed from GitHub. You can, however, reinstall the package from GitHub if there are changes that you want to pick up.
@@ -154,7 +157,7 @@ If you are using R at the command line (which you will probably want to do at so
 R --no-save --no-restore-data
 ```
 
-You may choose to set a alias in Bash or your preferred shell to ensure that yo always start R this way.
+You may choose to set a alias in Bash or your preferred shell to ensure that you always start R this way.
 
 ```
 alias R="R --no-save --no-restore-data --quiet"
