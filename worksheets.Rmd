@@ -1,6 +1,6 @@
 # Worksheets
 
-The best way to learn R or computational history is to practice. These worksheets contain a series of questions designed to teach you about R or different computational methods. The worksheets are [R Markdown documents](http://rmarkdown.rstudio.com/) that include text and code together. The places where you are expected to answer questions are marked like this. 
+The best way to learn enough R to be able to use it for computational history is to practice. These worksheets contain a series of questions designed to teach you about R or about different computational methods. The worksheets are [R Markdown documents](http://rmarkdown.rstudio.com/) that include text and code together. The places where you are expected to answer questions are marked like this. 
 
 ```
 (@) Can you make a plot from this dataset?

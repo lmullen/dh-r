@@ -11,7 +11,7 @@ After completing this worksheet, you should feel comfortable typing commands int
 
 R lets you store several different kinds of *values*. These values are the information that we actually want to do something with. 
 
-One kind of value is a number. Notice that typing this number, either in an R Markdown document or at the console, produces an identical output
+One kind of value is a number. Notice that typing this number, either in an R Markdown document or at the console, causes the same number to be printed as output.
 
 ```{r}
 42
@@ -35,11 +35,10 @@ Of course numbers can be added together (with `+`), subtracted (with `-`), multi
 
 ```
 
-
-Another important kind of value is a character vector. (Most other programming languages would call these strings.) These contain text. To create a string, include some characters in between quotation marks `""`. (Single quotation marks work too, but in general use double-quotation marks as a matter of style.) For instance:
+Another important kind of value contains text. In most most programming languages these are called strings, but in R you might also hear them called character vectors. To create a string, include some characters in between quotation marks `""`. (Single quotation marks work too, but in general use double-quotation marks as a matter of style.) For instance:
 
 ```{r}
-"Hello, beginning R programmer"
+"Hello, beginning R programmer. Greetings!"
 ```
 
 (@) Create a string with your own message.
@@ -76,7 +75,7 @@ FALSE
 
 Notice that in the block above, the `#` character starts a *comment*. That means that from that point on, R will ignore whatever is on that line until a new line begins.
 
-Logical values aren't very exciting, but they are useful when we compare other values to one another. For instance, we can compare two numbers to one another.
+Logical values are useful when we want to compare values to one another. For instance, we can compare two numbers to one another.
 
 ```{r}
 2 < 3
@@ -118,7 +117,7 @@ We wouldn't be able to get very far if we only used values. We also need a place
 number <- 42
 ```
 
-Notice that nothing was printed as output when we did that. But now we can just type `number` and get the value which is stored in the variable.
+Notice that nothing was printed as output when we did that. But now we can just type `number` and get the value which is stored in the variable. (For the curious: when we just type something at the R console, without doing something particular with it, R prints the result of that expression.)
 
 ```{r}
 number
@@ -130,7 +129,7 @@ It works with character vectors too.
 computer_name <- "HAL 9000"
 ```
 
-No output, but this prints the value stored in the variable.
+Again no output when we save a value to a variable, but this prints the value stored in the variable.
 
 ```{r}
 computer_name
@@ -153,28 +152,22 @@ x + 9
 
 > 
 
-(@) Now create two assignments. Assign a number to a variable and a character vector to a different variable.
+(@) Now create three assignments. Assign two different numbers to two different variables. Then do some arithmetic with those two variables, and assign the results to a variable. Try printing out that variable.
 
 ```{r}
 
 ```
 
-(@) Now create a third variable with a numeric value and, using the variable with a numeric value from earlier, add them together.
+Here is some code that might be tricky to predict, if you don't have the right mental model of what is happening.
 
 ```{r}
-
-```
-
-Can you predict what the result of running this code will be? (That is, what value is stored in `a`?)
-
-```{r, eval=FALSE}
 a <- 10
 b <- 20
 a <- b
-a
+# print(a)
 ```
 
-(@) Predict your answer, then run the code. What is the value stored in `a` by the end? Explain why you were right or wrong.
+(@) What value will the variable `a` hold? Predict your answer, then uncomment the line that prints `a` and run the code. What is the value stored in `a` by the end? Explain why you were right or wrong.
 
 >
 
@@ -194,7 +187,7 @@ What does the `[1]` in the output mean? It means that the value has one item ins
 length("Some words")
 ```
 
-Sure enough, the length is `1`: R is counting the number of items, not the number of words or characters. 
+Sure enough, the length is `1`: R is counting the number of items, not the number of words or characters. (For the bold: compare the output of `nchar("Some words")`.)
 
 That would seem to imply that we can add multiple items (or values) inside a vector. R lets us do that with the `c()` (for "combine") function.
 
@@ -227,7 +220,7 @@ many * 2
 
 > 
 
-(@) Can you create a variable containing several names as a character vectors?
+(@) Can you create a variable containing several historical names as a character vector?
 
 ```{r}
 
@@ -243,13 +236,13 @@ c(1, 2, 3, 4, 5) + c(10, 20)
 
 ## Built-in functions
 
-Wouldn't it be nice to be able to do something with data? Let's take some made up data: the price of books that you or I have bought recently.
+Wouldn't it be nice to be able to do something with those vectors of data? Let's take some made up data: the price of books that you or I have bought recently.
 
 ```{r}
 book_prices <- c(19.99, 25.78, 5.33, 45.00, 22.45, 21.23)
 ```
 
-We can find the total amount that I spent using the sum function.
+We can find the total amount that I spent using the `sum()` function. Notice that the `sum()` function, like the `c()` function earlier, is called by using the name of the function followed by parentheses. Things can go inside the parentheses to make the function do something useful. Those things are called arguments.
 
 ```{r}
 sum(book_prices)
@@ -283,7 +276,7 @@ Let's try a different set of book prices. This time, we have a vector of book pr
 more_books <- c(19.99, NA, 25.78, 5.33, NA, 45.00, 22.45, NA, 21.23)
 ```
 
-(@) How many books did we buy? (Hint: what is the length of the vector.)
+(@) How many books did we buy? (Hint: what is the length of the vector?)
 
 ```{r}
 
@@ -299,7 +292,7 @@ sum(more_books)
 
 >
 
-We need to find a way to get the value of the books that we know about. This is an option to the `sum()` function. If you know the name of a function, you can search for it by typing a question mark followed without a space by the name of the function. For example, `?sum`. Look up the `sum()` function's documentation. Read at least the "Arguments" and the "Examples" section.
+We need to find a way to get the value of the books that we know about. This is an option to the `sum()` function. If you know the name of a function, you can search for it by typing a question mark followed without a space by the name of the function. For example, `?sum`. Look up the `sum()` function's documentation by typing that command in the R console. Don't keep it in your RMarkdown file. Read at least the "Arguments" and the "Examples" section.
 
 (@) How can you get the sum for the values which aren't missing?
 
@@ -307,7 +300,7 @@ We need to find a way to get the value of the books that we know about. This is 
 
 ```
 
-Look up the documentation for `?mean`, `?max`, `?min`. 
+Look up the documentation these functions: `?mean`, `?max`, `?min`. 
 
 (@) Use those functions on the vector with missing values.
 
@@ -317,23 +310,23 @@ Look up the documentation for `?mean`, `?max`, `?min`.
 
 ## Data frames and loading packages
 
-We are historians, and we want to work with complex data. Another reason R is awesome is that it includes a kind of data structure called *data frames*. Think of a data frame as basically a spreadsheet. It is tabular data, and the columns can contain any kind of data available in R, such as character vectors, numeric vectors, or logical vectors. R has some sample data built in, but let's use some historical data from the [historydata](https://github.com/ropensci/historydata/) package.
+R has a lot of functionality built in for working with data, especially compared to other languages. For instance, the functions `mean()`, `median()` and so forth are not built in to other languages. But most of the time in R, we won't be working just with the language. We will also be using R packages, which contain functions and data that users have contributed to the R ecosystem. 
 
-You can load a package like this:
+Let's start by loading the tibble package. This is a package that helps us work with data frames. It is quite possible that you do not yet have this package installed. If so, run `install.packages("tibble")` at the R console, and it will be installed for you. This package will come from CRAN, the central repository where R packages are published.
+
+```{r}
+library(tibble)
+```
+
+Sometimes we want to get packages that haven't been published, but which are nevertheless available on GitHub. To do that we need to install the remotes package, and then install whatever package we want from GitHub. At the R console, run  `install.packages("remotes")`. Then run `remotes::install_github("ropensci/historydata")`. If everything works successfull you should be able to run the following code to load the historydata package.
 
 ```{r}
 library(historydata)
 ```
 
-(@) The [dplyr package](https://cran.r-project.org/package=dplyr) is very helpful. Try loading it as well.
+We are historians, and we want to work with complex data. Another reason R is awesome is that it includes a kind of data structure called *data frames*. Think of a data frame as basically a spreadsheet. It is tabular data, and the columns can contain any kind of data available in R, such as character vectors, numeric vectors, or logical vectors. R has some sample data built in, but let's use some historical data from the [historydata](https://github.com/ropensci/historydata/) package.
 
-```{r}
-
-```
-
-You might get an error message if you don't have either package installed. If you need to install it, run `install.packages("historydata")` at the R console.
-
-We don't know what is in the historydata package, so let's look at its help. Run this command: `help(package = "historydata")`.
+We don't know what is in the historydata package, so let's look at its help. Run this command: `help(package = "historydata")`. (In general, you don't want to include commands like `help()` or `install.packages()` in these worksheets. Just run them at the R console.)
 
 (@) Let's use the data in the `paulist_missions` data frame. According to the package documentation, what is in this data frame?
 
@@ -342,18 +335,24 @@ We don't know what is in the historydata package, so let's look at its help. Run
 We can print it by using the name of the variable.
 
 ```{r}
-head(paulist_missions, 10)
+paulist_missions
 ```
 
-The `head()` function just gives us the first number of items in a vector or data frame.
+The `head()` function just gives us the first few items in a vector or data frame. It's useful if you don't want to print out a big long dataset.
 
-(@) That showed us some of the data but not all. The `str()` function is helpful. Look up the documentation for it, and then run it on `paulist_missions`.
+```{r}
+head(paulist_missions)
+```
+
+The `str()` function is helpful for all R objects. It shows us the structure of data. Look up the documentation for it, and then run it on `paulist_missions`.
+
+(@) 
 
 ```{r}
 
 ```
 
-(@) Also try the `glimpse()` function.
+(@) Also try the `glimpse()` function. Unlike `str()`, which is built in to R, `glimpse()` is a part of an add-on package.
 
 ```{r}
 
@@ -375,7 +374,7 @@ head(paulist_missions$city, 20)
 
 ```
 
-(@) What was the mean number of converts? the maximum? How about for confessions?
+(@) What was the mean number of converts? the maximum? 
 
 ```{r}
 
