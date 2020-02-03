@@ -6,16 +6,17 @@ What follows is a highly condensed guide to the basic features of the R programm
 
 A **value** is the most basic piece of data. There are several kinds of values.
 
-**Doubles** are positive or negative numbers that can have a decimal point. **Integers** are positive or negative whole numbers. Even if a value does not have a decimal point, it is a double unless it is suffixed with `L`. 
+In R, you can generally work with numbers without thinking about the distinction between floating point numbers and integers. **Doubles** (for double-precision floating point numbers) are positive or negative numbers that can have a decimal point. **Integers** are positive or negative whole numbers. Even if a value does not have a decimal point, any number that you write is a double unless it is suffixed with `L` to mark it as an integer. 
 
 ```{r}
 10.42
 -8.67
 10L
--8L
+typeof(-8)
+typeof(-8L)
 ```
 
-Text is stored in **character** vectors (usually called strings in other programming langauges). Characters are marked by surrounding single or double quotation marks.
+Text is stored in **character** vectors (usually called strings in other programming langauges). Character vectors are marked by surrounding single or double quotation marks.
 
 ```{r}
 "Everything is awesome"
@@ -30,7 +31,7 @@ TRUE
 FALSE
 ```
 
-**Factors** are a special kind of text value, where the values must be part of a predefined set of options. Factors are usually used for categorical data. 
+**Factors** are a special kind of value, where the values must be part of a predefined set of options. Factors are usually used for categorical data.
 
 ```{r}
 factor(c("correct", "correct", "incorrect"), levels = c("correct", "incorrect"))
@@ -54,7 +55,7 @@ x <- 1
 x
 y <- -3.14
 y
-result <- "The results are positive"
+result <- "The results are compelling"
 result
 ```
 
@@ -93,7 +94,7 @@ states %in% new_england
 
 ## Functions
 
-R is a functional programming language, so knowing how to apply functions to problems, and to write them yourself, is essential to doing your work. Functions are the verbs of R programming.
+R is a functional programming language, so knowing how to apply functions to problems, and to write them yourself, is essential to doing your work. If variables and values are the nouns in R, functions are the verbs.
 
 ### Using functions
 
@@ -124,7 +125,7 @@ sort(states)
 sort(states, decreasing = TRUE)
 ```
 
-It is important to note that most functions you use to work with data are **pure functions**. The results of pure functions depend only on their inputs: the same input will always produce the same output. And in general, R functions do not modify their inputs directly, but instead return a copy they modify their inputs. Notice that in this example the original `states` vector remains unsorted, even after it has been passed through the `sort()` function, and a new copy of the data, now sorted, is stored in the variable `states_sorted`. This makes it easier to reason about what a function will do.
+It is important to note that most functions you use to work with data are **pure functions**. The results of pure functions depend only on their inputs: the same input will always produce the same output. In general, R functions do not modify their inputs directly, but instead return a copy of the data if they modify the input. Notice that in this example the original `states` vector remains unsorted, even after it has been passed through the `sort()` function, and a new copy of the data, now sorted, is stored in the variable `states_sorted`. This makes it easier to reason about what a function will do and what has changed, but it is a different choice than other langauges make.
 
 ```{r}
 states
@@ -163,7 +164,7 @@ extract_year(dates)
 
 ## Data structures and subsetting
 
-If functions are the verbs of R programming, data are the nouns. And data can be stored in many different kinds of **data structures**, including vectors, lists, data frames, and matrices. These kinds of data structures share a set of operators for subsetting them, that is, for pulling out pieces of the data.
+Values in R can be stored in many different kinds of **data structures**, including vectors, lists, data frames, and matrices. These kinds of data structures share a set of operators for subsetting them, that is, for pulling out pieces of the data.
 
 ### Vectors
 
@@ -225,7 +226,7 @@ rank[rank <= 3]
 
 ### Lists
 
-Lists are conceptually an extension of vectors. They are a vector which can contain other vectors, each of which can contain a different kind of information. Lists can thus have an arbitrary structure. Let's create a list that models a historical event, recording certain key pieces of information. Notice that some of the information is numeric and some is text; some of the fields have a single entry, and some are a vector of values.
+Lists are conceptually an extension of vectors. They are a vector which can contain other vectors, each of which can contain a different kind of information. Lists can thus have an arbitrary structure. Let's create a list that describes a historical event, recording certain key pieces of information. Notice that some of the information is numeric and some is textual; some of the fields have a single entry, and some are a vector of values.
 
 ```{r}
 event <- list(
