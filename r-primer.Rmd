@@ -356,7 +356,7 @@ Again, we didn't need to explicitly loop through each row and check its commodit
 
 In general, R saves us a lot of time and lets us write very clean and readable code because we don't have to handle obvious cases of iteration. That said, there are times when you need to handle iteration yourself. This can be done by using functional programming, or by using `for` loops.
 
-## Iteration with functional programming
+### Iteration with functional programming
 
 In functional programming, the idea is that you take write a function that does some work on each individual item of a vector or list, and then apply that function to each item in the vector using another function. R has a number of built-in functions for doing so, including `lapply()`, `vapply()`, `sapply()`, `Map()`, `Reduce()` and so on. These functions aren't entirely consistent, and for the most part you are better off using the functions in the [purrr](https://cran.r-project.org/package=purrr) package, which is part of the tidyverse.
 
@@ -413,4 +413,3 @@ discard(results, is_ok)
 ```
 
 The full scope of functional programming is well beyond the scope of this primer. For more details, see the chapters in Hadley Wickham's [*Advanced R*](http://adv-r.had.co.nz) and the [purrr package documentation](https://purrr.tidyverse.org).
-
