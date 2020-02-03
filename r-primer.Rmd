@@ -332,3 +332,85 @@ Notice that the `[` operator simplifies the results to a one-dimensional vector 
 m["a", "c", drop = FALSE]
 m["a", , drop = FALSE]
 ```
+
+## Iteration
+
+One of  the reasons to use a computer is that computers don't mind doing the same thing over and over again. We call that iteration. 
+
+Note that because in R everything is a vector and most functions are vectorized, you won't need to think about iteration explicity nearly as often as you might in other language. Take a simple example:
+
+```{r}
+letters[1:10] %in% c("a", "e", "i", "o", "u")
+```
+
+To check whether an individual letter is in a vector of vowels, we didn't have to loop through each letter and each vowel. R handles the iteration for us.
+
+Or take a slightly more complicated example, in which we filter the rows of a data frame.
+
+```{r}
+dijon_prices %>% 
+  filter(commodity == "best wheat")
+```
+
+Again, we didn't need to explicitly loop through each row and check its commodity. 
+
+In general, R saves us a lot of time and lets us write very clean and readable code because we don't have to handle obvious cases of iteration. That said, there are times when you need to handle iteration yourself. This can be done by using functional programming, or by using `for` loops.
+
+## Iteration with functional programming
+
+In functional programming, the idea is that you take write a function that does some work on each individual item of a vector or list, and then apply that function to each item in the vector using another function. R has a number of built-in functions for doing so, including `lapply()`, `vapply()`, `sapply()`, `Map()`, `Reduce()` and so on. These functions aren't entirely consistent, and for the most part you are better off using the functions in the [purrr](https://cran.r-project.org/package=purrr) package, which is part of the tidyverse.
+
+Let's write a fairly-straightforward function which checks whether a website is working correctly or not. If you ask a web server for a web page, it will return a number, called a [status code](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status), indicating whether that URL is available or not. This function takes a URL as its input and returns the status code as its output. So that we can see what is happening, each time it checks a website, it will print a message with the URL.
+
+```{r}
+check_status <- function(url) {
+  message("Checking ", url)
+  result <- httr::HEAD(url)
+  result$status_code
+}
+```
+
+We can run that function to check a single URL.
+
+```{r}
+check_status("https://dh-r.lincolnmullen.com")
+```
+
+The result that we get back, status code `200`, means that the website is working correctly and that page is available.
+
+This works fine for a single website, but what if we have a list of website we want to check?
+
+```{r}
+websites <- c("https://dh-r.lincolnmullen.com/",
+              "https://lincolnmullen.com/projects/slavery/",
+              "https://lincolnmullen.com/this-does-not-exist/")
+names(websites) <- c("DH-R", "Map of slavery", "Does not exist")
+```
+
+We don't want to call the function over and over again. Instead we can use the function `map_int()` from the purrr package. That function will take two inputs. The first is a vector of inputs. The second is a function which will be called one time for each of the inputs. The output will be a vector of integers.
+
+```{r}
+library(purrr)
+results <- map_int(websites, check_status)
+```
+
+We can see that the function was called three times, once for each of the websites in our vector. We can also see what the results were:
+
+```{r}
+results
+```
+
+Two of the websites are working fine (status code `200`). One of the websites was not found, because it does not exist (status code `404`.)
+
+As you might guess, we used the `map_int()` function because we were expecting a vector of integers. The purrr package contains other type-safe functions, such as `map_chr()` for characters, `map_dbl()` for numbers, and `map()` for lists. 
+
+Once we have bought into the functional programming approach, we can use other functions to further manipulate our data. For instance, once we have our vector of results, we can write a function to check whether a website is okay or not. Then we can keep or reject the results based on that test.
+
+```{r}
+is_ok <- function(code) { code == 200}
+keep(results, is_ok)
+discard(results, is_ok)
+```
+
+The full scope of functional programming is well beyond the scope of this primer. For more details, see the chapters in Hadley Wickham's [*Advanced R*](http://adv-r.had.co.nz) and the [purrr package documentation](https://purrr.tidyverse.org).
+
