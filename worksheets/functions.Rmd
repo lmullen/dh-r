@@ -25,7 +25,7 @@ x <- sum(c(1, 2, 3))
 x < 10
 ```
 
-The second reason that this is powerful is that functions are thoughts. The function `sum()` instantiates the idea of summing up values. Functions are like legos. They are small and insignificant in themselves, but because of the way that they connect to each other, you can use a lot of small ideas to build up a big idea in a rigorous, stable way.
+The second reason that this is powerful is that functions are thoughts. The function `sum()` instantiates the idea of summing up values. Functions are like Legos. They are small and insignificant in themselves, but because of the way that they connect to each other, you can use a lot of small ideas to build up a big idea in a rigorous, stable way.
 
 ## Function calls
 
@@ -34,6 +34,8 @@ A function call has two basic parts: the name of the function, and the arguments
 ```{r}
 paste(c("First", "Second", "Third"), collapse = " -> ")
 ```
+
+Read the documentation for the `paste()` function by running `?paste` in your console. Note that the "Usage" section of the documentation shows the default arguments, and the "Arguments" section of the documentation explains how they can be used.
 
 (@) What function is being called above? What are the two arguments to the function? What do those arguments do?
 
@@ -68,7 +70,21 @@ Notice that we made the `greeting =` argument have a default value. Now we can c
 
 ```
 
-(@) Between 1582 and 1752, England and its colonies were on the Julian calendar while most of the rest of Europe was on the Gregorian calendar. Simplifying a [complex historical problem](https://en.wikipedia.org/wiki/Old_Style_and_New_Style_dates) with representing dates quite a bit, we can say that dates before 1752 were "Old Style" and in 1752 and after were "New Style." Write a function called `check_date_style()` which takes an arbitrary vector of years and returns either "Old Style" or "New Style" as appropriate. Run the function on the vector below. Hint: You will need to use the `ifelse()` function in the body of your function. Look it up with `?ifelse`.
+(@) Suppose someone gives you a year. Can you return what century that year is a part of? Think through the process for a single year. For instance, if the year is 1880, then I could divide by 100 to get `18.8` (hint: division in R uses the `/` operator). I could then get the part of the number before the decimal point so the result is `18` (hint: try the `trunc()` function). But the century is actually the nineteenth, so I would need to add `1`.
+
+```{r}
+century <- function(year) {
+  year
+}
+```
+
+(@) Between 1582 and 1752, England and its colonies were on the Julian calendar while most of the rest of Europe was on the Gregorian calendar. Simplifying a [complex historical problem](https://en.wikipedia.org/wiki/Old_Style_and_New_Style_dates) quite a bit, we can say that dates before 1752 were "Old Style" and dates in 1752 and after were "New Style." Write a function called `check_date_style()` which takes a year and returns either "Old Style" or "New Style" as appropriate. 
+
+```{r}
+
+```
+
+(@) Harder problem: can you create a different function that does the same thing, but which works on a many inputs at the same time? Run the function on the vector below. Hint: You will need to use the `ifelse()` function in the body of your function. Look it up with `?ifelse`.
 
 ```{r}
 years <- c(1758, 1752, 1756, 1740, 1746, 1755, 1749, 1749, 1753, 1759,
@@ -76,7 +92,7 @@ years <- c(1758, 1752, 1756, 1740, 1746, 1755, 1749, 1749, 1753, 1759,
 ```
 
 
-(@) One common operation to perform on data is to take data with an arbitrary range (i.e., minimum and maximum value) and scale (or normalize) it so that it has a range of 0 to 1. For instance, if I have a vector `c(1, 6, 2)` that might be normalized to `c(0.0, 1.0, 0.2)`. The formula to do that transformation is 
+(@) Harder problem: One common operation to perform on data is to take data with an arbitrary range (i.e., minimum and maximum value) and scale (or normalize) it so that it has a range of 0 to 1. For instance, if I have a vector `c(1, 6, 2)` that might be normalized to `c(0.0, 1.0, 0.2)`. The formula to do that transformation is 
 
 $$z_i = {x_i - \min(x) \over \max(x) - \min(x)}$$
 
@@ -93,8 +109,3 @@ output <- c(0, 0.5625, 0.4375, 0.5000, 1.0, 0.5625)
 all(output == rescale(input))
 ```
 
-(@) Hard question: Can you rewrite that function as `rescale2` so that it maps the domain (the input) to an arbitrary range (the output)? In other words, can you scale the values to a range other than `0` and `1`?
-
-```{r}
-
-```

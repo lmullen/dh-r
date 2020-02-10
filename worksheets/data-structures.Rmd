@@ -11,7 +11,7 @@ You may find the chapters on [data structures](http://adv-r.had.co.nz/Data-struc
 
 ## Subsetting vectors
 
-In the worksheet on getting familiar with R you learned about vectors. Vectors hold a one-dimensional set of homogeneous values. By homogeneous we mean that that the values all have to be the same type (integer, numeric, logical, and so on) and you can't have both, say, numeric and logical values in the same vector. By one-dimensional we mean that the elements exist in order, and that they can be subset with a single value. For example, R includes a character vector of the letters in the English alphabet, helpfully called, `letters`.
+In the worksheet on getting familiar with R you learned about vectors. Vectors hold a one-dimensional set of homogeneous values. By homogeneous we mean that that the values all have to be the same type (integer, numeric, logical, and so on) and you can't have both, say, numeric and logical values in the same vector. By one-dimensional we mean that the elements exist in order, and that they can be subset with a single value. For example, R includes a character vector of the letters in the English alphabet, helpfully called `letters`.
 
 ```{r}
 letters
@@ -166,12 +166,11 @@ city_distances["B", "D"]
 
 The most useful data structure in R is the data frame. Think of a data frame like a spreadsheet that holds any kind of tabular data. It is two dimensional, like a matrix; unlike a matrix, it is homogeneous in that the columns can hold different kinds of data.  While other languages have add on libraries that allow for data structures like this, in R data frames are a first class citizen.
 
-Let's get a data frame from the historydata package. (If we also load dplyr, we will get nicer printing.)
+Let's get a data frame from the historydata package. (If we also load the tibble package, we will get nicer printing.)
 
 ```{r}
 library(historydata)
-library(dplyr)
-naval_promotions
+library(tibble)
 ```
 
 We can use `str()` to get a different look at the data.
@@ -214,7 +213,7 @@ The function `unique()` gives you, well, all the unique values in a vector. For 
 unique(c(1, 1, 1, 2, 3))
 ```
 
-(@) What are all the different ranks contained in the `naval_promotions` dataset? (Hint: use `unique()`.)
+(@) What are all the different ranks contained in the `naval_promotions` dataset? (Hint: use `unique()` on the correct column.)
 
 ```{r}
 
@@ -236,7 +235,7 @@ unique(c(1, 1, 1, 2, 3))
 
 ```
 
-We will work much, much more with data frames.
+We will work much, much more with data frames. And at some point you may curse me for teaching you this approach to data frames, because some of our other ways of dealing with them will be simpler. Nevertheless, this is fundamental and you need to understand what a data frame is.
 
 ## Lists
 
@@ -245,7 +244,7 @@ Another very useful kind of data structure is the list. A list can hold values o
 ```{r}
 our_class <- list(
   title = "Intro to R",
-  year = 2016,
+  year = 2020,
   books = c("Basics of R", "Get Awesome at R"),
   students = c("Adam", "Betsy", "Cynthia", "David")
 )
