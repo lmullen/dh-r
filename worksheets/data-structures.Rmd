@@ -350,7 +350,7 @@ head(first_gen, 10)
 
 ```
 
-(@) Can you get the promotions from 1800? (Hint: you will first have to make the date column a date object. Try looking up the documentation for `?lubridate::ymd` and `?lubridate::year`.)
+(@) Harder question: Can you get the promotions from 1800? (Hint: you will first have to make the date column a date object. Try looking up the documentation for `?lubridate::ymd` and `?lubridate::year`.)
 
 ```{r}
 
