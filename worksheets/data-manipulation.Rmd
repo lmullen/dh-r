@@ -1,0 +1,321 @@
+---
+title: "Data manipulation with dplyr"
+author: ""
+---
+
+## Aims of this worksheet
+
+One of the key reasons to use R is to be able to manipulate data with ease. After completing this worksheet you will be able to work with the most commonly used data manipulation verbs provided by the [dplyr](https://cran.r-project.org/package=dplyr) and [tidyr](https://cran.r-project.org/package=tidyr) packages. 
+
+We will begin by loading the necessary packages and data. We will mostly use the `methodists` dataset from the [historydata](https://cran.r-project.org/package=historydata) package. This dataset contains membership figures for Methodist meetings or circuits (which were organized into districts, which were in turn organized into conferences) for the early nineteenth century.
+
+```{r, message=FALSE}
+library(tidyverse)
+library(historydata)
+data(methodists)
+methodists
+```
+
+## Selecting columns (`select()`)
+
+The first data manipulation verb that we are going to use is `select()`. This function lets us pass the names of the columns that we want to keep. 
+
+```{r}
+methodists %>% 
+  select(year, meeting, members_total)
+```
+
+Notice that we have not actually changed the data stored in `methodists` until we assign the changed data to a variable.
+
+Read the documentation for this function, `?select`.
+
+(@) Select the columns for `year`, `meeting`, as well as all columns that begin with the word `members_`.
+
+```{r}
+
+```
+
+(@) Remove the column `url`.
+
+```{r}
+
+```
+
+## Filtering rows (`filter()`)
+
+The `select()` function lets us pick certain columns. The `filter()` function lets select certain rows based on logical conditions. For example, here we get the only the meetings where the total number of members is at greater than 1,000.
+
+```{r}
+methodists %>% 
+  filter(members_total > 1000)
+```
+
+(@) Get just the rows from New York in 1800.
+
+```{r}
+
+```
+
+(@) Which Methodist meetings had only black members?
+
+```{r}
+
+```
+
+## Creating new columns (`mutate()`)
+
+Very often one will want to create a new column based on other columns in the data. For instance, in our Methodist data, there is a column called `year`, but that column represents the year that the minutes were reported. The membership figures are actually for the previous year. Here we create a new column called `year_recorded`, where each value is one less than in `year`.
+
+```{r}
+methodists %>% 
+  mutate(year_recorded = year - 1) %>% 
+  select(year, year_recorded, meeting)
+```
+
+Notice that we chained the data manipulation functions using the pipe (`%>%`). This lets us create a pipeline were we can do many different manipulations in a row.
+
+(@) Create two new columns, one with the percentage of white members, and one with the percentage of black members.
+
+```{r}
+
+```
+
+## Sorting columns (`arrange()`)
+
+Often we want to sort a data frame by one of its columns. This can be done with the verb `arrange()`. By default `arrange()` will sort from least to greatest; we can use the function `desc()` to sort from greatest to least. In this example, we sort the data frame to get the meetings with the highest number of white members.
+
+```{r}
+methodists %>% 
+  arrange(desc(members_white))
+```
+
+(@) Which meetings had the highest number of black members? Select only the necessary columns so that the results print in a meaningful way.
+
+```{r}
+
+```
+
+(@) Harder question: Which meetings had the high percentage of black members without being entirely black?
+
+```{r}
+
+```
+
+## Split-apply-combine (`group_by()`)
+
+Notice that in the example above the `arrange()` function sorted the entire data frame. So when we looked for the circuits with the largest number of members, we got rows from 1825, then 1830, then 1829, then 1830, and so on. What if we wanted to get the biggest circuit from each year?
+
+We can solve this kind of problem with what Hadley Wickham calls the "split-apply-combine" pattern of data analysis. Think of it this way. First we can *split* the big data frame into separate data frames, one for each year. Then we can *apply* our logic to get the results we want; in this case, that means sorting the data frame. We might also want to get just the top one row with the biggest number of members. Then we can *combine* those split apart data frames into a new data frame.
+
+Take a simple example using the `top_n()` function, which returns the top `n` (in this case, top 1) results for a particular column. After selecting a few columns, we get the row in the data frame which has the highest value for `members_black`.
+
+```{r}
+methodists %>% 
+  select(year, meeting, members_total, members_black) %>% 
+  top_n(1, members_black)
+```
+
+We can change how that code works by using the `group_by()` function. Now we get the one row for each unique year in the dataset.
+
+```{r}
+methodists %>% 
+  select(year, meeting, members_total, members_black) %>% 
+  group_by(year) %>% 
+  top_n(1, members_black)
+```
+
+(@) For each year, which was the biggest circuit?
+
+```{r}
+
+```
+
+(@) For the year 1825, what was the biggest meeting in each conference? 
+
+```{r}
+
+```
+
+(@) For each year, what was the biggest church in the Baltimore conference?
+
+```{r}
+
+```
+
+## Summarizing or aggregating data (`summarize()`)
+
+In the examples using `top_n()` we performed a very simple kind of data summary, where we took the single row with the biggest value in a given column. This essentially boiled many rows of a data frame down into a single row. We would like to be able to summarize or aggregate a data frame in other ways as well. For instance, we often want to take the sum or the mean of a given column. We can do this using the `summarize()` function in conjunction with the `group_by()` function.
+
+In this example, we group by the year the minutes were taken. Then we find the total number of white members for each year.
+
+```{r}
+methodists %>% 
+  group_by(year) %>% 
+  summarize(total_members_white = sum(members_white, na.rm = TRUE))
+```
+
+Notice that we get one row in the recombined data frame for each group in the original data frame. The value in the new column is the result of a function (in this case, `sum()`) applied to the columns in each of the split apart data frames.
+
+There is also a special case where we might want to know how many rows were in each of the split apart (or grouped) data frames. We can use the special `n()` function to get that count. (This is such a common thing to do that dplyr provides the special function `count()` to do this in an abbreviated way. You can look up that function's documentation to see how it works.)
+
+```{r}
+methodists %>% 
+  group_by(year) %>% 
+  summarize(total_meetings = n())
+```
+
+(@) How many meetings were there in each conference in each year since 1802?
+
+```{r}
+
+```
+
+(@) What is the average number of white, black, Indian and total members for each year since 1786?
+
+```{r}
+
+```
+
+Being able to create summaries like these is essential for visualizing the data.
+
+## Data joining with two table verbs (`left_join()` et al.)
+
+It is often the case that we want to use some variable in our data to create a new variable. Consider the Methodist data for the year 1800. Perhaps we are interested in the racial composition of the churches. Do they tend to be all white and all black, or do some churches have both white and black members in varying proportions? The simplest way to get a look at that question is to create a scatter plot of the figures for white and black membership.
+
+```{r, warning=FALSE}
+methodists_1800 <- methodists %>% 
+  filter(year == 1800) %>% 
+  select(meeting, state, members_white, members_black)
+
+ggplot(methodists_1800, aes(x = members_white, y = members_black)) +
+  geom_point(shape = 1) 
+```
+
+That scatterplot is interesting as far as it goes, but we might reasonably suspect that the racial composition of methodist meetings varies by region. We could use the `state` variable to create a different plot for each state. However, this has two problems. There are 20 states represented in that year. Our faceted plot would have 20 panels, which is too many. But more important, by looking at individual states we might be getting too fine grained a look at the data. We have good reason to think that it is regions that matter more than states. 
+
+It is easy enough to describe what we would do to translate states into a new column with regions. We would look at each state name and assign it to a region. Connecticut would be in the Northeast, New York would be in the Mid-Atlantic, and so on. We can think of this problem as looking up a value in one table (our Methodist data) in another table. That other table will have a row for each state, where each state name is associated with a region. (In many cases, though, it would make more sense to create a CSV file with the data and read it in as a data frame.)
+
+```{r}
+regions <- tibble(
+  state = c("Connecticut", "Delaware", "Georgia", "Kentucky", "Maine", 
+             "Maryland", "Massachusetts", "Mississippi", "New Hampshire", 
+             "New Jersey", "New York", "North Carolina",
+             "Northwestern Territory", "Pennsylvania", "Rhode Island",
+             "South Carolina", "Tennessee", "Upper Canada", "Vermont",
+             "Virginia"),
+  region = c("Northeast", "Atlantic South", "Atlantic South", "West",
+             "Northeast", "Atlantic South", "Northeast", "Deep South", 
+             "Northeast", "Mid-Atlantic", "Mid-Atlantic", "Atlantic South",
+             "West", "Mid-Atlantic", "Northeast", "Atlantic South", "West",
+             "Canada", "Northeast", "Atlantic South")
+)
+```
+
+And now we can inspect the table.
+
+```{r}
+regions
+```
+
+We can do a look up where we take the `state` column in the `methodists_1800` data frame and associate it with the `states` column in our `regions` data frame. The result will be a new column `region`. Notice how we use the `by =` argument to specify which column in the left hand table matches which column in the right hand table.
+
+```{r}
+methodists_region <- methodists_1800 %>% 
+  left_join(regions, by = "state")
+
+methodists_region
+```
+
+Then we can plot the results. As we suspected, there is a huge regional variation.
+
+```{r, warning=FALSE}
+ggplot(methodists_region, aes(x = members_white, y = members_black)) +
+  geom_point(shape = 1) +
+  facet_wrap(~ region)
+```
+
+(@) In the europop package there are two data frames, `europop` with the historical populations of European cities, and `city_coords` which has the latitudes and longitudes of those cities. Load that package and join the two tables together. Can you get the populations of cities north of 48° of latitude?
+
+```{r}
+
+```
+
+(@) In the historydata package there are two tables, `judges_people` and `judges_appointments`. Join them together. What are the names of black judges who were appointed to the Supreme Court?
+
+```{r}
+
+```
+
+## Data reshaping (`spread()` and `gather()`)
+
+It can be helpful to think of tabular data as coming in two forms: wide data, and long data. Let's load in a table of data. This data contains total membership figures for the Virginia conference of the Methodist Episcopal Church for the years 1812 to 1830.
+
+```{r, message=FALSE}
+va_wide <- read_csv("http://dh-r.lincolnmullen.com/data/va-methodists-wide.csv")
+va_wide
+```
+
+The first thing we can notice about this data frame is that it is very wide because it has a column for each of the years. The data is also suitable for reading because it like a table in a publication. We can read from left to right and see when certain districts begin and end and get the values for each year. The difficulties of computing on or plotting the data will also become quickly apparent. How would you make a plot of the change over time in the number of members in each district? Or how would you filter by year, or summarize by year? For that matter, what do the numbers in the table represent, since they are not given an explicit variable name?
+
+The problem with the table is that it is not *tidy data*, because the variables are not in columns and observations in rows. One of the variables is the year, but its values are in the column headers. And another of the variables is total membership, but its values are spread across rows and columns and it is not explicitly named. 
+
+The `pivot_longer()` function from the tidyr package lets us turn wide data into long data. We need to tell the function two kinds of information. First we need to tell it the name of the column to create from the column headers and the name of the implicit variable in the rows. In the example below, we create to new columns `year` and `members`. We also have to tell the function if there are any columns which should remain unchanged. In this case, the `conference` and `district` variables should remain the same, so we remove them from the gathering using the same syntax as the `select()` function.
+
+```{r}
+va_wide %>% 
+  pivot_longer(c(-conference, -district),
+               names_to = "year", values_to = "members")
+```
+
+We can see the results above. There are two ways that this result is not quite what we want. Because the years were column headers they are treated as character vectors rather than integers. We can manually convert them in a later step, but we can also let `pivot_longer()` do the right thing with the `names_ptypes = ` argument. Then we have a lot of `NA` values which were explicit in the wide table but which can be removed from the long table with `values_drop_na =`.
+
+```{r}
+va_long <- va_wide %>% 
+  pivot_longer(c(-conference, -district),
+               names_to = "year", values_to = "members",
+               names_ptypes = list(year = integer()),
+               values_drop_na = TRUE)
+va_long
+```
+
+The inverse operation of `pivot_longer()` is `pivot_wider()`. With `pivot_wider()` we specify the name of the column which should become the new column headers (in this case `minutes_year`), and then the name of the column to fill in underneath those new column headers (in this case, `total_membership`). We can see the results below.
+
+```{r}
+va_wide2 <- va_long %>% 
+  pivot_wider(names_from = year, values_from = members)
+
+va_wide2
+```
+
+By looking at the data we can see that we got back to where we started.
+
+Turning long data into wide is often useful when you want to create a tabular representation of data. And some algorithms, such as clustering algorithms, expect wide data rather than tidy data.
+
+For the exercise, we will use summary statistics of the number of white and black members in the Methodists by year.
+
+```{r}
+methodists_by_year_race <- methodists %>% 
+  group_by(year) %>% 
+  summarize(white = sum(members_white, na.rm = TRUE),
+            black = sum(members_black, na.rm = TRUE),
+            indian = sum(members_indian, na.rm = TRUE))
+methodists_by_year_race
+```
+
+(@) The data in `methodists_by_year_race` could be tidier still. While `white`, `black`, and `indian` are variables, it is perhaps better to think of them as two different variables. One variable would be `race`, containing the racial descriptions that the Methodists used, and another would be `members`, containing the number of members. Using the `pivot_longer()` function, create that data frame.
+
+```{r}
+
+```
+
+(@) Now use the same tidied data and the `pivot_wider()` function to create a wide data frame where the racial descriptions are column headers and the years are rows. This will get us back to the original form.
+
+```{r}
+
+```
+
+(@) Now use that tidied data frame and the `pivot_wider()` function create a wide data frame, where the years are the column headers and the racial descriptions are the rows.
+
+```{r}
+
+```
