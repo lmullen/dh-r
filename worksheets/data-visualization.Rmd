@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Aim of this worksheet
 
-After completing this worksheet, you should be able to use the powerful [ggplot2](http://ggplot2.org/) to make basic plots using the grammar of graphics. You may find the [ggplot2](http://ggplot2.org/) documentation or the [R Graph Catalog](http://shiny.stat.ubc.ca/r-graph-catalog/) to be helpful.
+After completing this worksheet, you should be able to use the powerful [ggplot2](http://ggplot2.org/) package to make basic plots using the grammar of graphics. You may find the [ggplot2](http://ggplot2.org/) documentation or the [R Graph Catalog](http://shiny.stat.ubc.ca/r-graph-catalog/) to be helpful.
 
 In addition to the ggplot2 package, we will use three packages with sample data, and we will load dplyr to get nice printing of data frames. Let's load them now, and also bring some of the data frames into the global environment.
 
@@ -153,19 +153,11 @@ ggplot(paulists_by_year, aes(x = year, y = converts)) +
 
 ```
 
-(@) Can you create a line chart with a line for the number of converts and a line for the number of confessions? (Hint: you will need two calls to `geom_line()`. And instead of specifying the `y` value in the call to `ggplot()` you will do it in the functons for each layer. For instance: `geom_line(aes(y = converts))`.)
-
-```{r}
-
-```
-
 (@) Can you create a plot with a single line for the ratio of converts to confessions? (Hint: the ratio of converts to confessions is given by `converts / confessions`.)
 
 ```{r}
 
 ```
-
-If you map `color = ` to a categorical value, you will get a different colored line for each category.
 
 ### Bar plots
 
