@@ -12,7 +12,6 @@ These are the worksheets that you can download:
 - <a href="worksheets/familiar-with-r.Rmd" download="worksheets/familiar-with-r.Rmd">Getting familiar with R</a>
 - <a href="worksheets/data-structures.Rmd" download="worksheets/data-structures.Rmd">Data structures</a>
 - <a href="worksheets/functions.Rmd" download="worksheets/functions.Rmd">Functions</a>
-- <a href="worksheets/data-manipulation-introduction.Rmd" download="worksheets/data-manipulation-introduction.Rmd">Data manipulation introduction</a>
-- <a href="worksheets/data-manipulation-continued.Rmd" download="worksheets/data-manipulation-continued.Rmd">Data manipulation continued</a>
+- <a href="worksheets/data-manipulation.Rmd" download="worksheets/data-manipulation.Rmd">Data manipulation</a>
 - <a href="worksheets/ggplot2-introduction.Rmd" download="worksheets/ggplot2-introduction.Rmd">ggplot2 introduction</a>
 - <a href="worksheets/window-functions.Rmd" download="worksheets/window-functions.Rmd">Window functions</a>
