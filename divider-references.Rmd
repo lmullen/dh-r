@@ -3,5 +3,5 @@
 ```{r include=FALSE}
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown', 'htmlwidgets',
-  'tidyverse', 'lubridate', 'historydata'), 'packages.bib')
+  'tidyverse', 'lubridate', 'historydata', 'opencage'), 'packages.bib')
 ```

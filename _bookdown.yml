@@ -12,6 +12,7 @@ rmd_files: [
   "getting-started.Rmd",
 
   "dates.Rmd",
+  "geocoding.Rmd",
 
   "installing-R.Rmd",
   "package-guide.Rmd",

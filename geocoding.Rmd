@@ -1,0 +1,125 @@
+# Geocoding 
+
+## Introduction and setup
+
+Geocoding is the process of moving back and forth from place names to geographic coordinates. Suppose, for example, that we had the name of a city: `"Fairfax, VA"`. "Forward" geocoding takes the place name as input and returns a guess for  the latitude and longitude for that city. "Reverse geocoding" would take a latitude and longitude as input and return a guess for the city's name.
+
+Because geocoding requires a vast number of place names, it is usually done by sending queries a web service and getting back results. There are a number of such services that have corresponding packages in R, but unfortunately most of the services require payment. 
+
+For this chapter, we will use the [OpenCage Geocoder](https://opencagedata.com), and the [opencage](https://docs.ropensci.org/opencage) R package. OpenCage offer 2,500 queries free per day, in addition to their paid service. To use this service, [register for their free plan](https://opencagedata.com/pricing). Once you have done so, you will get an API key, which looks like a long string of random characters. This is like a password which uniquely identifies you to the service so it can count your requests. You will want to keep this API key private like you would a password.
+
+Once you have the API key, you can install the opencage package by running `install.packages("opencage")` in your console. Once you have done that, we are going put the API key into an environment variable so that the package knows about it. Then, we will check that the package can find it. If your API key is returned, then you are all set to begin.
+
+
+```{r eval=FALSE}
+library(tidyverse)
+library(opencage)
+Sys.setenv(OPENCAGE_KEY = "PUT-YOUR-API-KEY-HERE")
+opencage_key()
+```
+
+```{r include=FALSE}
+# Need to load the packages for real
+library(tidyverse)
+library(opencage)
+```
+
+
+## Geocoding a single place name at a time
+
+To understand how geocoding works, we are going to try it on a single place name for a city. This would also work for other kinds of place names, including addresses.
+
+```{r}
+city <- "Fairfax, VA"
+```
+
+We can use the `opencage_forward()` to go from a place name to a location. We want to do a few things to help the geocoder get good results. First, we will be as specific in the place name as possible. One other thing that we can do is use the `countrycode = "US"` argument to say that place name is in the United States, thus excluding the rest of the world from consideration. You can submit the two letter code for any country instead. Or, if you know that your place names are in a specific region, you can provide a bounding box. For example, if you were geocoding addresses in Washington, DC, you might figure out the bounding box around the city to make sure that only addresses from that city are included. Finally, the API will give us results in a variety of formats, depending on what we need. So here we are using `no_annotations = TRUE` to simplify the results a big.
+
+```{r}
+city_geocoded <-  opencage_forward(city, countrycode = "US", no_annotations = TRUE)
+```
+
+The output from the API that we have saved into the `city_geocoded` variable are a list, and it includes information about how many queries we have left in addition to the results. The results themselves are a data frame. Here we are looking just at some key columns from the results.
+
+```{r}
+city_geocoded$results %>% 
+  select(query, formatted, confidence, components._type, components._category, geometry.lat, geometry.lng)
+```
+
+Somewhat surprisingly, we get four results back when we thought we were going to get one. But this is less surprising when we think about the fact that the place name "Fairfax" is ambiguous. We get back coordinates for Fairfax City, Fairfax County, a road called "Fairfax" as well as a nursing home called "The Fairfax." We could filter these results using the category or some other criteria to pick the one that we want. Or we could also instruct the API to give us just its best guess back. 
+
+The key results that we get back are the two columns that contain latitude and longitude, which we can use for mapping.
+
+## Geocoding place names in a batch
+
+Most of the time, we will have a set of place names that we want to geocode all at once. 
+
+Let's create a sample data set. Even though the Paulist missions data in the historydata package are already geocoded, let's try to do the geocoding ourselves. We are going to create a new dataset, `missions`, with just the name of the church and the city and state. We are only going to use the first ten rows of data. And we are going to add a column with the place name by combining the city and state. The structure of this data would be similar for many kinds of historical data. In this case we are going to try to geocode at the level of the city rather than the building.
+
+```{r}
+library(historydata)
+missions <- paulist_missions %>% 
+  slice(1:10) %>% 
+  select(church, city, state) %>% 
+  mutate(place = str_c(city, ", ", state))
+missions
+```
+
+Right away we should notice that there three instances of missions to New York city. So we don't need to geocode that city multiple times. It will be faster, as well as easier to save and correct by hand if necessary, if we create a new data frame with just the distinct places.
+
+```{r}
+places <- missions %>% 
+  distinct(city, state, place)
+places
+```
+
+Now we are going to geocode all of the place names at once. The code below might seem somewhat convoluted. It runs the geocoding function on each of the place names, then joins the results back into a data frame. Note that we have used the `limit = 1` argument to make sure we only get back a single set of coordinates for each place name, rather than multiple.^]We could also get a number of results back from each place, and then settle on some criterion for evaluating them to get down to a single one per place name, but that would be more complicated than necessary in this case.]
+
+```{r, warning=FALSE}
+geocoded <- map_dfr(places$place, function(x) {
+  out <- opencage_forward(x, countrycode = "US", no_annotations = TRUE, limit = 1)
+  out$results
+  })
+```
+
+We can take a look at the results to see whether they make sense. From these results, we might have some concern about whether "New York, NY" got the city rather than some other kind of geographic unit.
+
+```{r}
+geocoded %>% 
+  select(query, formatted, confidence, components._type, geometry.lat, geometry.lng)
+```
+
+But the real proof is when we try to map these geocoded points. Here we can map a quick map in leaflet, hover over the markers to see what place name is associated with them, and then zoom into the map to check whether the locations are correct. It appears from this map that all of our locations are spot on.
+
+```{r}
+library(leaflet)
+leaflet(geocoded) %>% 
+  addTiles() %>% 
+  addMarkers(lng = ~geometry.lng, lat = ~geometry.lat, label = ~query)
+```
+
+If the geocoded coordinates were not accurate, there are a few steps we could try. We could try to update our place names to make them more precise. Or, we could write out a CSV file containing the geocoded coordinates, edit the ones that were mistaken by hand, and then read the CSV file back into R.
+
+There is one more step that we need to take. We have the place names geocoded, but we want to associate those back to the dataset we started with. We can do that by doing a join from the `missions` data frame to a new data frame (called `coordinates` here) which has just the place name and the latitude and longitude. 
+
+```{r}
+coordinates <- geocoded %>% 
+  select(place = query, 
+         lat = geometry.lat,
+         lng = geometry.lng)
+
+missions_geocoded <- missions %>% 
+  left_join(coordinates, by = "place")
+```
+
+The resulting table gives us our original dataset, plus the latitudes and longitudes.
+
+```{r}
+missions_geocoded
+```
+
+## More details
+
+For more details about how to use the opencage package, you can see its documentation or [read this tutorial](https://ropensci.org/tutorials/opencage_tutorial/) from rOpenSci.^[Maëlle Salmon (2017). opencage: Interface to the OpenCage API. R package version 0.1.2. <https://CRAN.R-project.org/package=opencage>.]
+
+If opencage does not suit your needs, you can try the Google Maps geocoder, which can be accessed through the [ggmap](https://cran.r-project.org/package=ggmap) package. The Google API will require a credit card in order to get an API key, but Google also gives away free initial funds which may be sufficient for your purposes.
